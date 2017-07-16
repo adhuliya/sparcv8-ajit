@@ -1,0 +1,9 @@
+linker related stuff.
+	LinkerScript.lnk
+		linker script starts program at PC=0x0
+                and data at 0x00100000
+
+	LinkerScript.lnk.old
+		old linker script starts program at PC=0xf0004000
+                and data at 0xf0104000
+

@@ -1,0 +1,40 @@
+Integer unit instruction latencies
+
+   add/sub/logical
+ 	- 1 cycle.
+
+   mul
+	- 2 cycles
+
+   divide
+	- 30 cycles
+
+   save/restore
+        - 3 cycles (introduces a 3-cycle bubble)
+
+
+   Read-after-write stall (I+1 <- I) = latency.
+   Read-after-write stall (I+2 <- I) = max (0, latency - 1).
+
+
+
+Floating point unit instruction latencies
+
+   all operations except divide and sqrt take 3 cycles.
+
+    divide latency = 30 (single precision), 50 (double precision)
+    sqrt latency   = 30
+
+    
+   Read-after-write stall (I+1 <- I) = latency.
+   Read-after-write stall (I+2 <- I) = max (0, latency - 1).
+
+
+Load/Store
+
+	load/store latency for cache hit = 2 cycles
+		(L1 Dcache 32kB, 64-byte line size, direct-mapped,
+			write-though-allocate)
+		(L1 Icache 64-byte line size, direct mapped)
+		(MMU!)
+

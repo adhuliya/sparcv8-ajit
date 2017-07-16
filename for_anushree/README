@@ -1,0 +1,20 @@
+simple_add.s
+	assembly code of simple test case
+simple_add.results
+	expected results
+compile.sh
+	compile script to produce object code
+	for AJIT
+README
+	this file.
+
+Go through the following sequence: first to generate object code:
+	./compile.sh simple_add
+To run the C model
+	AJIT_testbench_logger_icache_dcache_aa2c_mmu_aa2c simple_add.mmap simple_add.results simple_add.c.log simple_add.c.wtrace
+To run the Aa model
+	ajit_core_sw_uarch_test -m simple_add.mmap -d -r simple_add.results -l simple_add.aa.log -w simple_add.aa.wtrace
+
+Anshuman:
+
+Added the compile.sh file in this directory to the ajit_tools/bin folder.

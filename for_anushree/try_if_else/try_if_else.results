@@ -1,0 +1,7 @@
+/* if initially a=1, b=2, c=0 then finally a=3, c=11*/
+/*g2=3
+g4=11*/
+
+/* if initially a=1, b=2, c=4 then finally a=0xfffffffe, c=13*/
+g2=0xffffffff
+g4=13

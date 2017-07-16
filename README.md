@@ -15,10 +15,10 @@ Instructions to setup:
         export PATH=$AJIT_PROJECT_HOME/bin:$PATH
         export LD_LIBRARY_PATH=$AJIT_PROJECT_HOME/lib:$LD_LIBRARY_PATH
 
-This last one is still not tested by me. (haven't tried compiling C programs)
+   This last one is still not tested by me. (haven't tried compiling C programs)
 
-    export LD_LIBRARY_PATH=/vlsi/cad/foss/glibc/glibc_214/lib:$LD_LIBRARY_PATH
+        export LD_LIBRARY_PATH=/vlsi/cad/foss/glibc/glibc_214/lib:$LD_LIBRARY_PATH
 
-4. Use the structure of `test-progs/hello-world` test program. It has a useful `Makefile`. The `compile`, and `run` in it are nice shortcut scripts to compile and run assembly programs.
+4. Use the structure of `test-progs/hello-world` test program. It has a useful `Makefile`. The `compile`, and `run` scripts in it are nice shortcuts to compile, run and test assembly programs quickly.
 
 

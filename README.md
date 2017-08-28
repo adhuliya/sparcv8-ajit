@@ -1,7 +1,7 @@
-Sparcv8 Ajit
+SparcV8 Ajit
 ==================
 
-Assembly insruction reordering optimization.
+SparcV8 assembly insruction reordering optimization.
 -- Anshuman Dhuliya
 
 
@@ -20,5 +20,28 @@ Instructions to setup:
         export LD_LIBRARY_PATH=/vlsi/cad/foss/glibc/glibc_214/lib:$LD_LIBRARY_PATH
 
 4. Use the structure of `test-progs/hello-world` test program. It has a useful `Makefile`. The `compile`, and `run` scripts in it are nice shortcuts to compile, run and test assembly programs quickly.
+
+5. For convenience put the following lines in the `.bashrc` file. (Adjusting the paths appropriately)
+
+
+        # START For Project sparcv8-ajit
+
+        export OLD_PATH=$PATH
+        export OLD_LD_LIBRARY_PATH=$LD_LIBRARY_PATH
+
+        function setajit {
+            export AJIT_PROJECT_HOME="${MYDATA}/git/ws/sparcv8-ajit-git/ajit_tools"
+            export PATH="${AJIT_PROJECT_HOME}/bin:$PATH"
+            export LD_LIBRARY_PATH=${AJIT_PROJECT_HOME}/lib:$LD_LIBRARY_PATH
+            #export LD_LIBRARY_PATH=/vlsi/cad/foss/glibc/glibc_214/lib:$LD_LIBRARY_PATH 
+        }
+
+        function unsetajit {
+            export AJIT_PROJECT_HOME=""
+            export PATH=$OLD_PATH
+            export LD_LIBRARY_PATH=$OLD_LD_LIBRARY_PATH
+        }
+
+        # END   For Project sparcv8-ajit
 
 

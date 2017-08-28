@@ -25,7 +25,7 @@ Floating point unit instruction latencies
     divide latency = 30 (single precision), 50 (double precision)
     sqrt latency   = 30
 
-    
+
    Read-after-write stall (I+1 <- I) = latency.
    Read-after-write stall (I+2 <- I) = max (0, latency - 1).
 

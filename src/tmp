@@ -1,0 +1,9 @@
+{
+  "mnemonic"  : "mov",
+  "latency"   : latencyA,
+  "format"    : ["format1", "format2"],
+  "readonly"  : [],
+  "modified"  : [],
+}
+
+

@@ -24,1829 +24,3421 @@ stLatency       = round(memLatency)
 
 #END   : Convenient Constants
 
+# Pefix '@' when using any key below in the instruction format specification.
+regexMapping = {
+  # Registers
+  "R"   : r"(%\w+)",
+  # Immediate
+  "I"   : r"(\d+|0[xX][0-9a-fA-F]+)",
+}
+
 # START : Instructions with Details
 instructions = {
-  "LDSB"        : # Load Signed Byte
-  {
-      "mnemonic"    : "ldsb",
-      "latency"     : ldLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "LDSBA"       : # Load Signed Byte from Alt Space
-  {
-      "mnemonic"    : "ldsba",
-      "latency"     : ldLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "LDSH"        : # Load Signed Halfword
-  {
-      "mnemonic"    : "ldsh",
-      "latency"     : ldLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "LDSHA"       : # Load Signed Halfword from Alt Space
-  {
-      "mnemonic"    : "ldsha",
-      "latency"     : ldLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "LDUB"        : # Load Unsigned Byte
-  {
-      "mnemonic"    : "ldub",
-      "latency"     : ldLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "LDUBA"       : # Load Unsigned Byte from Alt Space
-  {
-      "mnemonic"    : "lduba",
-      "latency"     : ldLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "LDUH"        : # Load Unsigned Halfword
-  {
-      "mnemonic"    : "lduh",
-      "latency"     : ldLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "LDUHA"       : # Load Unsigned Halfword from Alt Space
-  {
-      "mnemonic"    : "lduha",
-      "latency"     : ldLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "LD"          : # Load Word
-  {
-      "mnemonic"    : "ld",
-      "latency"     : ldLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "LDA"         : # Load Word from Alt Space
-  {
-      "mnemonic"    : "lda",
-      "latency"     : ldLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "LDD"         : # Load Doubleword
-  {
-      "mnemonic"    : "ldd",
-      "latency"     : ldLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "LDDA"        : # Load Doubleword from Alt Space
-  {
-      "mnemonic"    : "ldda",
-      "latency"     : ldLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-
-  "LDF"         : # Load Floating-point
-  {
-      "mnemonic"    : "ldf",
-      "latency"     : ldLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "LDDF"        : # Load Double Floating-point
-  {
-      "mnemonic"    : "lddf",
-      "latency"     : ldLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "LDFSR"       : # Load Floating-point State Register
-  {
-      "mnemonic"    : "ldfsr",
-      "latency"     : ldLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-
-  "LDC"         : # Load Coprocessor
-  {
-      "mnemonic"    : "ldc",
-      "latency"     : ldLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "LDDC"        : # Load Double Coprocessor
-  {
-      "mnemonic"    : "lddc",
-      "latency"     : ldLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "LDCSR"       : # Load Coprocessor State Register
-  {
-      "mnemonic"    : "ldcsr",
-      "latency"     : ldLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-
-  "STB"         : # Store Byte
-  {
-      "mnemonic"    : "stb",
-      "latency"     : stLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "STBA"        : # Store Byte into Alt Space
-  {
-      "mnemonic"    : "stba",
-      "latency"     : stLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "STH"         : # Store Halfword
-  {
-      "mnemonic"    : "sth",
-      "latency"     : stLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "STHA"        : # Store Halfword into Alt Space
-  {
-      "mnemonic"    : "stha",
-      "latency"     : stLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "ST"          : # Store Word
-  {
-      "mnemonic"    : "st",
-      "latency"     : stLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "STA"         : # Store Word into Alt Space
-  {
-      "mnemonic"    : "sta",
-      "latency"     : stLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "STD"         : # Store Doubleword
-  {
-      "mnemonic"    : "std",
-      "latency"     : stLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "STDA"        : # Store Doubleword into Alt Space
-  {
-      "mnemonic"    : "stda",
-      "latency"     : stLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-
-  "STF"         : # Store Floating-point
-  {
-      "mnemonic"    : "stf",
-      "latency"     : stLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "STDF"        : # Store Double Floating-point
-  {
-      "mnemonic"    : "stdf",
-      "latency"     : stLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "STFSR"       : # Store Floating-point State Register
-  {
-      "mnemonic"    : "stfsr",
-      "latency"     : stLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "STDFQ"       : # Store Double Floating-point deferred-trap Queue
-  {
-      "mnemonic"    : "stdfq",
-      "latency"     : stLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-
-  "STC"         : # Store Coprocessor
-  {
-      "mnemonic"    : "stc",
-      "latency"     : stLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "STDC"        : # Store Double Coprocessor
-  {
-      "mnemonic"    : "stdc",
-      "latency"     : stLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "STCSR"       : # Store Coprocessor State Register
-  {
-      "mnemonic"    : "stcsr",
-      "latency"     : stLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "STDCQ"       : # Store Double Coprocessor Queue
-  {
-      "mnemonic"    : "stdcq",
-      "latency"     : stLatency,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-
-  "LDSTUB"      : # Atomic Load-Store Unsigned Byte
-  {
-      "mnemonic"    : "ldstub",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "LDSTUBA"     : # Atomic Load-Store Unsigned Byte in Alt Space
-  {
-      "mnemonic"    : "ldstuba",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "SWAP"        : # Swap r Register with Memory
-  {
-      "mnemonic"    : "swap",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "SWAPA"       : # Swap r Register with Memory in Alt Space
-  {
-      "mnemonic"    : "swapa",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-
-  "SETHI"       : # Set High 22 bits of r Register
-  {
-      "mnemonic"    : "sethi",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
+  "ldsb"        : # Load Signed Byte
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "ldsb",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "ldsba"       : # Load Signed Byte from Alt Space
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "ldsba",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "ldsh"        : # Load Signed Halfword
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "ldsh",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "ldsha"       : # Load Signed Halfword from Alt Space
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "ldsha",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "ldub"        : # Load Unsigned Byte
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "ldub",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "lduba"       : # Load Unsigned Byte from Alt Space
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "lduba",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
 
-  "NOP"         : # No Operation
-  {
-      "mnemonic"    : "nop",
-      "latency"     : 1,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-
-  "AND"         : # And
-  {
-      "mnemonic"    : "and",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "ANDCC"       : # And and modify icc
-  {
-      "mnemonic"    : "andcc",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "ANDN"        : # And Not
-  {
-      "mnemonic"    : "andn",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "ANDNCC"      : # And Not and modify icc
-  {
-      "mnemonic"    : "andncc",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "OR"          : # Inclusive-Or
-  {
-      "mnemonic"    : "or",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "ORCC"        : # Inclusive-Or and modify icc
-  {
-      "mnemonic"    : "orcc",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "ORN"         : # Inclusive-Or Not
-  {
-      "mnemonic"    : "orn",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "ORNCC"       : # Inclusive-Or Not and modify icc
-  {
-      "mnemonic"    : "orncc",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "XOR"         : # Exclusive-Or
-  {
-      "mnemonic"    : "xor",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "XORCC"       : # Exclusive-Or and modify icc
-  {
-      "mnemonic"    : "xorcc",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "XNOR"        : # Exclusive-Nor
-  {
-      "mnemonic"    : "xnor",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "XNORCC"      : # Exclusive-Nor and modify icc
-  {
-      "mnemonic"    : "xnorcc",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-
-  "SLL"         : # Shift Left Logical
-  {
-      "mnemonic"    : "sll",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "SRL"         : # Shift Right Logical
-  {
-      "mnemonic"    : "srl",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "SRA"         : # Shift Right Arithmetic
-  {
-      "mnemonic"    : "sra",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-
-  "ADD"         : # Add
-  {
-      "mnemonic"    : "add",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "ADDCC"       : # Add and modify icc
-  {
-      "mnemonic"    : "addcc",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "ADDX"        : # Add with Carry
-  {
-      "mnemonic"    : "addx",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "ADDXCC"      : # Add with Carry and modify icc
-  {
-      "mnemonic"    : "addxcc",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "TADDCC"      : # Tagged Add and modify icc
-  {
-      "mnemonic"    : "taddcc",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "TADDCCTV"    : # Tagged Add and modify icc and Trap on overflow
-  {
-      "mnemonic"    : "taddcctv",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-
-  "SUB"         : # Subtract
-  {
-      "mnemonic"    : "sub",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "SUBCC"       : # Subtract and modify icc
-  {
-      "mnemonic"    : "subcc",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "SUBX"        : # Subtract with Carry
-  {
-      "mnemonic"    : "subx",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "SUBXCC"      : # Subtract with Carry and modify icc
-  {
-      "mnemonic"    : "subxcc",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "TSUBCC"      : # Tagged Subtract and modify icc
-  {
-      "mnemonic"    : "tsubcc",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "TSUBCCTV"    : # Tagged Subtract and modify icc and Trap on overflow
-  {
-      "mnemonic"    : "tsubcctv",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-
-  "MULSCC"      : # Multiply Step and modify icc
-  {
-      "mnemonic"    : "mulscc",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-
-  "UMUL"        : # Unsigned Integer Multiply
-  {
-      "mnemonic"    : "umul",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "UMULCC"      : # Unsigned Integer Multiply and modify icc
-  {
-      "mnemonic"    : "umulcc",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "SMUL"        : # Signed Integer Multiply
-  {
-      "mnemonic"    : "smul",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "SMULCC"      : # Signed Integer Multiply and modify icc
-  {
-      "mnemonic"    : "smulcc",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-
-  "UDIV"        : # Unsigned Integer Divide
-  {
-      "mnemonic"    : "udiv",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "UDIVCC"      : # Unsigned Integer Divide and modify icc
-  {
-      "mnemonic"    : "udivcc",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "SDIV"        : # Signed Integer Divide
-  {
-      "mnemonic"    : "sdiv",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "SDIVCC"      : # Signed Integer Divide and modify icc
-  {
-      "mnemonic"    : "sdivcc",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-
-  "SAVE"        : # Save caller's window
-  {
-      "mnemonic"    : "save",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "RESTORE"     : # Restore caller's window
-  {
-      "mnemonic"    : "restore",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+  "lduh"        : # Load Unsigned Halfword
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "lduh",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "lduha"       : # Load Unsigned Halfword from Alt Space
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "lduha",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "ld"          : # Load Word
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "ld",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "lda"         : # Load Word from Alt Space
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "lda",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "ldd"         : # Load Doubleword
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "ldd",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "ldda"        : # Load Doubleword from Alt Space
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "ldda",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+
+  "ldf"         : # Load Floating-point
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "ldf",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "lddf"        : # Load Double Floating-point
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "lddf",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "ldfsr"       : # Load Floating-point State Register
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "ldfsr",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+
+  "ldc"         : # Load Coprocessor
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "ldc",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "lddc"        : # Load Double Coprocessor
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "lddc",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "ldcsr"       : # Load Coprocessor State Register
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "ldcsr",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+
+  "stb"         : # Store Byte
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "stb",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "stba"        : # Store Byte into Alt Space
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "stba",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "sth"         : # Store Halfword
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "sth",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "stha"        : # Store Halfword into Alt Space
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "stha",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "st"          : # Store Word
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "st",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "sta"         : # Store Word into Alt Space
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "sta",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "std"         : # Store Doubleword
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "std",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "stda"        : # Store Doubleword into Alt Space
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "stda",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+
+  "stf"         : # Store Floating-point
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "stf",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "stdf"        : # Store Double Floating-point
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "stdf",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "stfsr"       : # Store Floating-point State Register
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "stfsr",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "stdfq"       : # Store Double Floating-point deferred-trap Queue
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "stdfq",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+
+  "stc"         : # Store Coprocessor
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "stc",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "stdc"        : # Store Double Coprocessor
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "stdc",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "stcsr"       : # Store Coprocessor State Register
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "stcsr",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "stdcq"       : # Store Double Coprocessor Queue
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "stdcq",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+
+  "ldstub"      : # Atomic Load-Store Unsigned Byte
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "ldstub",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "ldstuba"     : # Atomic Load-Store Unsigned Byte in Alt Space
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "ldstuba",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "swap"        : # Swap r Register with Memory
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "swap",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "swapa"       : # Swap r Register with Memory in Alt Space
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "swapa",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+
+  "sethi"       : # Set High 22 bits of r Register
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "sethi",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "nop"         : # No Operation
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "nop",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+
+  "and"         : # And
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "and",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "andcc"       : # And and modify icc
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "andcc",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "andn"        : # And Not
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "andn",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "andncc"      : # And Not and modify icc
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "andncc",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "or"          : # Inclusive-Or
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "or",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "orcc"        : # Inclusive-Or and modify icc
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "orcc",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "orn"         : # Inclusive-Or Not
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "orn",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "orncc"       : # Inclusive-Or Not and modify icc
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "orncc",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "xor"         : # Exclusive-Or
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "xor",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "xorcc"       : # Exclusive-Or and modify icc
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "xorcc",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "xnor"        : # Exclusive-Nor
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "xnor",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "xnorcc"      : # Exclusive-Nor and modify icc
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "xnorcc",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+
+  "sll"         : # Shift Left Logical
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "sll",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "srl"         : # Shift Right Logical
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "srl",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "sra"         : # Shift Right Arithmetic
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "sra",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+
+  "add"         : # Add
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "add",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "addcc"       : # Add and modify icc
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "addcc",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "addx"        : # Add with Carry
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "addx",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "addxcc"      : # Add with Carry and modify icc
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "addxcc",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "taddcc"      : # Tagged Add and modify icc
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "taddcc",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "taddcctv"    : # Tagged Add and modify icc and Trap on overflow
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "taddcctv",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+
+  "sub"         : # Subtract
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "sub",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "subcc"       : # Subtract and modify icc
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "subcc",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "subx"        : # Subtract with Carry
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "subx",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "subxcc"      : # Subtract with Carry and modify icc
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "subxcc",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "tsubcc"      : # Tagged Subtract and modify icc
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "tsubcc",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "tsubcctv"    : # Tagged Subtract and modify icc and Trap on overflow
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "tsubcctv",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+
+  "mulscc"      : # Multiply Step and modify icc
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "mulscc",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+
+  "umul"        : # Unsigned Integer Multiply
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "umul",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "umulcc"      : # Unsigned Integer Multiply and modify icc
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "umulcc",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "smul"        : # Signed Integer Multiply
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "smul",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "smulcc"      : # Signed Integer Multiply and modify icc
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "smulcc",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+
+  "udiv"        : # Unsigned Integer Divide
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "udiv",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "udivcc"      : # Unsigned Integer Divide and modify icc
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "udivcc",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "sdiv"        : # Signed Integer Divide
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "sdiv",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "sdivcc"      : # Signed Integer Divide and modify icc
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "sdivcc",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+
+  "save"        : # Save caller's window
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "save",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "restore"     : # Restore caller's window
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "restore",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
 
   # BICC        : Branch on integer condition codes
-  "BA"          : # Branch Always
+  "ba"          : # Branch Always
   {
-      "mnemonic"    : "ba",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "ba",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "BN"          : # Branch Never
+  "bn"          : # Branch Never
   {
-      "mnemonic"    : "bn",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "bn",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "BNE"         : # Branch on Not Equal
+  "bne"         : # Branch on Not Equal
   {
-      "mnemonic"    : "bne",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "bne",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "BE"          : # Branch on Equal
+  "be"          : # Branch on Equal
   {
-      "mnemonic"    : "be",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "be",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "BG"          : # Branch on Greater
+  "bg"          : # Branch on Greater
   {
-      "mnemonic"    : "bg",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "bg",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "BLE"         : # Branch on Less or Equal
+  "ble"         : # Branch on Less or Equal
   {
-      "mnemonic"    : "ble",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "ble",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "BGE"         : # Branch on Greater or Equal
+  "bge"         : # Branch on Greater or Equal
   {
-      "mnemonic"    : "bge",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "bge",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "BL"          : # Branch on Less
+  "bl"          : # Branch on Less
   {
-      "mnemonic"    : "bl",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "bl",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "BGU"         : # Branch on Greater Unsigned
+  "bgu"         : # Branch on Greater Unsigned
   {
-      "mnemonic"    : "bgu",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "bgu",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "BLEU"        : # Branch on Less of Equal Unsigned
+  "bleu"        : # Branch on Less of Equal Unsigned
   {
-      "mnemonic"    : "bleu",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "bleu",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "BCC"         : # Branch on Carry Clear (Greater than or Equal, Unsigned)
+  "bcc"         : # Branch on Carry Clear (Greater than or Equal, Unsigned)
   {
-      "mnemonic"    : "bcc",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "bcc",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "BCS"         : # Branch on Carry Set (Less than, Unsigned)
+  "bcs"         : # Branch on Carry Set (Less than, Unsigned)
   {
-      "mnemonic"    : "bcs",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "bcs",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "BPOS"        : # Branch on Positive
+  "bpos"        : # Branch on Positive
   {
-      "mnemonic"    : "bpos",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "bpos",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "BNEG"        : # Branch on Negative
+  "bneg"        : # Branch on Negative
   {
-      "mnemonic"    : "bneg",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "bneg",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "BVC"         : # Branch on Overflow Clear
+  "bvc"         : # Branch on Overflow Clear
   {
-      "mnemonic"    : "bvc",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "bvc",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "BVS"         : # Branch on Overflow Set
+  "bvs"         : # Branch on Overflow Set
   {
-      "mnemonic"    : "bvs",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "bvs",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
 
   # FBFCC       : Branch on floating-point condition codes
-  "FBA"         : # Branch Always
+  "fba"         : # Branch Always
   {
-      "mnemonic"    : "fba",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fba",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "FBN"         : # Branch Never
+  "fbn"         : # Branch Never
   {
-      "mnemonic"    : "fbn",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fbn",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "FBU"         : # Branch on Unordered
+  "fbu"         : # Branch on Unordered
   {
-      "mnemonic"    : "fbu",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fbu",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "FBG"         : # Branch on Greater
+  "fbg"         : # Branch on Greater
   {
-      "mnemonic"    : "fbg",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fbg",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "FBUG"        : # Branch on Unordered or Greater
+  "fbug"        : # Branch on Unordered or Greater
   {
-      "mnemonic"    : "fbug",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fbug",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "FBL"         : # Branch on Less
+  "fbl"         : # Branch on Less
   {
-      "mnemonic"    : "fbl",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fbl",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "FBUL"        : # Branch on Unordered or Less
+  "fbul"        : # Branch on Unordered or Less
   {
-      "mnemonic"    : "fbul",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fbul",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "FBLG"        : # Branch on Less or Greater
+  "fblg"        : # Branch on Less or Greater
   {
-      "mnemonic"    : "fblg",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fblg",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "FBNE"        : # Branch on Not Equal
+  "fbne"        : # Branch on Not Equal
   {
-      "mnemonic"    : "fbne",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fbne",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "FBE"         : # Branch on Equal
+  "fbe"         : # Branch on Equal
   {
-      "mnemonic"    : "fbe",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fbe",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "FBUE"        : # Branch on Unordered or Equal
+  "fbue"        : # Branch on Unordered or Equal
   {
-      "mnemonic"    : "fbue",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fbue",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "FBGE"        : # Branch on Greater of Equal
+  "fbge"        : # Branch on Greater of Equal
   {
-      "mnemonic"    : "fbge",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fbge",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "FBUGE"       : # Branch on Unordered or Greater or Equal
+  "fbuge"       : # Branch on Unordered or Greater or Equal
   {
-      "mnemonic"    : "fbuge",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fbuge",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "FBLE"        : # Branch on Less or Equal
+  "fble"        : # Branch on Less or Equal
   {
-      "mnemonic"    : "fble",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fble",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "FBULE"       : # Branch on Unordered or Less or Equal
+  "fbule"       : # Branch on Unordered or Less or Equal
   {
-      "mnemonic"    : "fbule",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fbule",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "FBO"         : # Branch on Ordered
+  "fbo"         : # Branch on Ordered
   {
-      "mnemonic"    : "fbo",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fbo",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
 
 
   # CBCCC       : Branch on coprocessor condition codes
-  "CBA"         : # Always
+  "cba"         : # Always
   {
-      "mnemonic"    : "cba",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "cba",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "CBN"         : # Never
+  "cbn"         : # Never
   {
-      "mnemonic"    : "cbn",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "cbn",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "CB3"         : # 3
+  "cb3"         : # 3
   {
-      "mnemonic"    : "cb3",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "cb3",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "CB2"         : # 2
+  "cb2"         : # 2
   {
-      "mnemonic"    : "cb2",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "cb2",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "CB23"        : # 2 or 3
+  "cb23"        : # 2 or 3
   {
-      "mnemonic"    : "cb23",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "cb23",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "CB1"         : # 1
+  "cb1"         : # 1
   {
-      "mnemonic"    : "cb1",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "cb1",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "CB13"        : # 1 or 3
+  "cb13"        : # 1 or 3
   {
-      "mnemonic"    : "cb13",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "cb13",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "CB12"        : # 1 or 2
+  "cb12"        : # 1 or 2
   {
-      "mnemonic"    : "cb12",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "cb12",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "CB123"       : # 1 or 2 or 3
+  "cb123"       : # 1 or 2 or 3
   {
-      "mnemonic"    : "cb123",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "cb123",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "CB0"         : # 0
+  "cb0"         : # 0
   {
-      "mnemonic"    : "cb0",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "cb0",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "CB03"        : # 0 or 3
+  "cb03"        : # 0 or 3
   {
-      "mnemonic"    : "cb03",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "cb03",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "CB02"        : # 0 or 2
+  "cb02"        : # 0 or 2
   {
-      "mnemonic"    : "cb02",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "cb02",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "CB023"       : # 0 or 2 or 3
+  "cb023"       : # 0 or 2 or 3
   {
-      "mnemonic"    : "cb023",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "cb023",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "CB01"        : # 0 or 1
+  "cb01"        : # 0 or 1
   {
-      "mnemonic"    : "cb01",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "cb01",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "CB013"       : # 0 or 1 or 3
+  "cb013"       : # 0 or 1 or 3
   {
-      "mnemonic"    : "cb013",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "cb013",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "CB012"       : # 0 or 1 or 2
+  "cb012"       : # 0 or 1 or 2
   {
-      "mnemonic"    : "cb012",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "cb012",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
 
-  "CALL"        : # Call and Link
+  "call"        : # Call and Link
   {
-      "mnemonic"    : "call",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "call",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "JMPL"        : # Jump and Link
+  "jmpl"        : # Jump and Link
   {
-      "mnemonic"    : "jmpl",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "jmpl",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "RETT"        : # Return from Trap
+  "rett"        : # Return from Trap
   {
-      "mnemonic"    : "rett",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "rett",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
 
   # TICC        : Trap on integr contition codes
-  "TA"          : # Trap Always
+  "ta"          : # Trap Always
   {
-      "mnemonic"    : "ta",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "ta",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "TN"          : # Trap Never
+  "tn"          : # Trap Never
   {
-      "mnemonic"    : "tn",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "tn",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "TNE"         : # Trap on Not Equal
+  "tne"         : # Trap on Not Equal
   {
-      "mnemonic"    : "tne",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "tne",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "TE"          : # Trap on Equal
+  "te"          : # Trap on Equal
   {
-      "mnemonic"    : "te",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "te",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "TG"          : # Trap on Greater
+  "tg"          : # Trap on Greater
   {
-      "mnemonic"    : "tg",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "tg",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "TLE"         : # Trap on Less or Equal
+  "tle"         : # Trap on Less or Equal
   {
-      "mnemonic"    : "tle",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "tle",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "TGE"         : # Trap on Greater or Equal
+  "tge"         : # Trap on Greater or Equal
   {
-      "mnemonic"    : "tge",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "tge",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "TL"          : # Trap on Less
+  "tl"          : # Trap on Less
   {
-      "mnemonic"    : "tl",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "tl",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "TGU"         : # Trap on Greater Unsigned
+  "tgu"         : # Trap on Greater Unsigned
   {
-      "mnemonic"    : "tgu",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "tgu",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "TLEU"        : # Trap on Less or Equal Unsigned
+  "tleu"        : # Trap on Less or Equal Unsigned
   {
-      "mnemonic"    : "tleu",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "tleu",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "TCC"         : # Trap on Carry Clear (Greater than or Equal, Unsigned)
+  "tcc"         : # Trap on Carry Clear (Greater than or Equal, Unsigned)
   {
-      "mnemonic"    : "tcc",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "tcc",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "TCS"         : # Trap on Carry Set (Less Than, Unsigned)
+  "tcs"         : # Trap on Carry Set (Less Than, Unsigned)
   {
-      "mnemonic"    : "tcs",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "tcs",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "TPOS"        : # Trap on Positive
+  "tpos"        : # Trap on Positive
   {
-      "mnemonic"    : "tpos",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "tpos",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "TNEG"        : # Trap on Negative
+  "tneg"        : # Trap on Negative
   {
-      "mnemonic"    : "tneg",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "tneg",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "TVC"         : # Trap on Overflow Clear
+  "tvc"         : # Trap on Overflow Clear
   {
-      "mnemonic"    : "tvc",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "tvc",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "TVS"         : # Trap on Overflow Set
+  "tvs"         : # Trap on Overflow Set
   {
-      "mnemonic"    : "tvs",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-
-  "RDASR"       : # Read Ancillary State Register
-  {
-      "mnemonic"    : "rdasr",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "RDY"         : # Read Y Register
-  {
-      "mnemonic"    : "rdy",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "RDPSR"       : # Read Processor State Register
-  {
-      "mnemonic"    : "rdpsr",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "RDWIM"       : # Read Window Invalid Mask Register
-  {
-      "mnemonic"    : "rdwim",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "RDTBR"       : # Read Trap Base Register
-  {
-      "mnemonic"    : "rdtbr",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-
-  "WDASR"       : # Write Ancillary State Register
-  {
-      "mnemonic"    : "wdasr",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "WDY"         : # Write Y Register
-  {
-      "mnemonic"    : "wdy",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "WDPSR"       : # Write Processor State Register
-  {
-      "mnemonic"    : "wdpsr",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "WDWIM"       : # Write Window Invalid Mask Register
-  {
-      "mnemonic"    : "wdwim",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "WDTBR"       : # Write Trap Base Register
-  {
-      "mnemonic"    : "wdtbr",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-
-  "STBAR"       : # Store Barrier
-  {
-      "mnemonic"    : "stbar",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-
-  "UNIMP"       : # Unimplemented
-  {
-      "mnemonic"    : "unimp",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "tvs",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
 
-  "FLUSH"       : # Flush Instruction Memory
+  "rdasr"       : # Read Ancillary State Register
   {
-      "mnemonic"    : "flush",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "rdasr",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "rdy"         : # Read Y Register
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "rdy",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "rdpsr"       : # Read Processor State Register
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "rdpsr",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "rdwim"       : # Read Window Invalid Mask Register
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "rdwim",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "rdtbr"       : # Read Trap Base Register
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "rdtbr",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+
+  "wdasr"       : # Write Ancillary State Register
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "wdasr",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "wdy"         : # Write Y Register
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "wdy",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "wdpsr"       : # Write Processor State Register
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "wdpsr",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "wdwim"       : # Write Window Invalid Mask Register
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "wdwim",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "wdtbr"       : # Write Trap Base Register
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "wdtbr",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+
+  "stbar"       : # Store Barrier
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "stbar",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+
+  "unimp"       : # Unimplemented
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "unimp",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+
+  "flush"       : # Flush Instruction Memory
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "flush",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
 
   # FPop : Floating-point Operate (FPop1, FPop2)
-  "FITOS"       : # Convert Integer to Single
+  "fitos"       : # Convert Integer to Single
   {
-      "mnemonic"    : "fitos",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fitos",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "FITOD"       : # Convert Integer to Double
+  "fitod"       : # Convert Integer to Double
   {
-      "mnemonic"    : "fitod",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fitod",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "FITOQ"       : # Convert Integer to Quad
+  "fitoq"       : # Convert Integer to Quad
   {
-      "mnemonic"    : "fitoq",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-
-  "FSTOI"       : # Convert Single to Integer
-  {
-      "mnemonic"    : "fstoi",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "FDTOI"       : # Convert Double to Integer
-  {
-      "mnemonic"    : "fdtoi",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "FQTOI"       : # Convert Quad to Integer
-  {
-      "mnemonic"    : "fqtoi",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fitoq",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
 
-  "FSTOD"       : # Convert Single to Double
+  "fstoi"       : # Convert Single to Integer
   {
-      "mnemonic"    : "fstod",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fstoi",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "FSTOQ"       : # Convert Single to Quad
+  "fdtoi"       : # Convert Double to Integer
   {
-      "mnemonic"    : "fstoq",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fdtoi",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "FDTOS"       : # Convert Double to Single
+  "fqtoi"       : # Convert Quad to Integer
   {
-      "mnemonic"    : "fdtos",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "FDTOQ"       : # Convert Double to Quad
-  {
-      "mnemonic"    : "fdtoq",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "FQTOS"       : # Convert Quad to Single
-  {
-      "mnemonic"    : "fqtos",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "FQTOD"       : # Convert Quad to Double
-  {
-      "mnemonic"    : "fqtod",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fqtoi",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
 
-  "FMOVS"       : # Move
+  "fstod"       : # Convert Single to Double
   {
-      "mnemonic"    : "fmovs",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fstod",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "FNEGS"       : # Negate
+  "fstoq"       : # Convert Single to Quad
   {
-      "mnemonic"    : "fnegs",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fstoq",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "FABSS"       : # Absolute Value
+  "fdtos"       : # Convert Double to Single
   {
-      "mnemonic"    : "fabss",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fdtos",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-
-  "FSQRTS"      : # Square Root Single
+  "fdtoq"       : # Convert Double to Quad
   {
-      "mnemonic"    : "fsqrts",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fdtoq",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "FSQRTD"      : # Square Root Double
+  "fqtos"       : # Convert Quad to Single
   {
-      "mnemonic"    : "fsqrtd",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fqtos",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "FSQRTQ"      : # Square Root Quad
+  "fqtod"       : # Convert Quad to Double
   {
-      "mnemonic"    : "fsqrtq",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-
-  "FADDS"       : # Add Single
-  {
-      "mnemonic"    : "fadds",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "FADDD"       : # Add Double
-  {
-      "mnemonic"    : "faddd",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "FADDQ"       : # Add Quad
-  {
-      "mnemonic"    : "faddq",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "FSUBS"       : # Subtract Single
-  {
-      "mnemonic"    : "fsubs",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "FSUBD"       : # Subtract Double
-  {
-      "mnemonic"    : "fsubd",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "FSUBQ"       : # Subtract Quad
-  {
-      "mnemonic"    : "fsubq",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fqtod",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
 
-  "FMULS"       : # Multiply Single
+  "fmovs"       : # Move
   {
-      "mnemonic"    : "fmuls",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fmovs",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "FMULD"       : # Multiply Double
+  "fnegs"       : # Negate
   {
-      "mnemonic"    : "fmuld",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fnegs",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "FMULQ"       : # Multiply Quad
+  "fabss"       : # Absolute Value
   {
-      "mnemonic"    : "fmulq",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "FSMULD"      : # Multiply Single to Double
-  {
-      "mnemonic"    : "fsmuld",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "FDMULQ"      : # Multiply Double to Quad
-  {
-      "mnemonic"    : "fdmulq",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "FDIVS"       : # Divide Single
-  {
-      "mnemonic"    : "fdivs",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "FDIVD"       : # Divide Double
-  {
-      "mnemonic"    : "fdivd",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
-  },
-
-  "FDIVQ"       : # Divide Quad
-  {
-      "mnemonic"    : "fdivq",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fabss",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
 
-  "FCMPS"       : # Compare Single
+  "fsqrts"      : # Square Root Single
   {
-      "mnemonic"    : "fcmps",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fsqrts",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "FCMPD"       : # Compare Double
+  "fsqrtd"      : # Square Root Double
   {
-      "mnemonic"    : "fcmpd",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fsqrtd",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "FCMPQ"       : # Compare Quad
+  "fsqrtq"      : # Square Root Quad
   {
-      "mnemonic"    : "fcmpq",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fsqrtq",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "FCMPES"      : # Compare Single and Exception if Unordered
+
+  "fadds"       : # Add Single
   {
-      "mnemonic"    : "fcmpes",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fadds",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "FCMPED"      : # Compare Double and Exception if Unordered
+  "faddd"       : # Add Double
   {
-      "mnemonic"    : "fcmped",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "faddd",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "FCMPEQ"      : # Compare Quad and Exception if Unordered
+  "faddq"       : # Add Quad
   {
-      "mnemonic"    : "fcmpeq",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "faddq",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "fsubs"       : # Subtract Single
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fsubs",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "fsubd"       : # Subtract Double
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fsubd",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "fsubq"       : # Subtract Quad
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fsubq",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+
+  "fmuls"       : # Multiply Single
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fmuls",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "fmuld"       : # Multiply Double
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fmuld",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "fmulq"       : # Multiply Quad
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fmulq",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "fsmuld"      : # Multiply Single to Double
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fsmuld",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "fdmulq"      : # Multiply Double to Quad
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fdmulq",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "fdivs"       : # Divide Single
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fdivs",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "fdivd"       : # Divide Double
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fdivd",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "fdivq"       : # Divide Quad
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fdivq",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+
+  "fcmps"       : # Compare Single
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fcmps",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "fcmpd"       : # Compare Double
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fcmpd",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "fcmpq"       : # Compare Quad
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fcmpq",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "fcmpes"      : # Compare Single and Exception if Unordered
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fcmpes",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "fcmped"      : # Compare Double and Exception if Unordered
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fcmped",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
+  },
+
+  "fcmpeq"      : # Compare Quad and Exception if Unordered
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "fcmpeq",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
 
   # CPop        : Coprocessor Operate Instructions
-  "CPOP1"       : # Coprocessor Operate
+  "cpop1"       : # Coprocessor Operate
   {
-      "mnemonic"    : "cpop1",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "cpop1",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
-  "CPOP2"       : # Coprocessor Operate
+  "cpop2"       : # Coprocessor Operate
   {
-      "mnemonic"    : "cpop2",
-      "latency"     : latencyA,
-      "format"      : [r"format1", r"format2"],
-      "readonly"    : ["inFormat1", "inFormat2"],
-      "modified"    : ["inFormat1", "inFormat2"],
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"format1",
+          {
+            "name"      : "cpop2",
+            "latency"   : latencyA,
+            "read"      : {}, #set
+            "modified"  : {}, #set
+          }
+        ),
+      ],
   },
 
 }

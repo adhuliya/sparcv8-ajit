@@ -5,7 +5,8 @@ import sys
 
 pattern = re.compile(r"\d+\.\s*PC=(?P<addr>[a-fA-F0-9]+).*")
 
-def parseWTrace(filename):
+# Parse wtrace file
+def parse(filename):
     addresses = []
     with open(filename, "r") as f:
         for line in f:
@@ -21,5 +22,6 @@ def parseWTrace(filename):
 
 
 if __name__ == "__main__":
-    addresses = parseWTrace(sys.argv[1])
-    print(addresses)
+    addresses = parse(sys.argv[1])
+    for addr in addresses:
+        print("{:x}".format(addr), end=" ")

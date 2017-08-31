@@ -1,15 +1,16 @@
 .data
 /*
-some test comment
+some test comment "
 */
 x: .word 
 y: .word 0x9
 z: .word 0x42
+.ascii "hello world/*\n\0"
 .text
 .global _start
 main :
 _start: set x, /*some test comment*/ %r2			
-	mov %r0, %r2			!%r2 --->r0 = 0; %g0 = 0
+mov 'a'-'z', %r1; mov %r0, %r2			!%r2 --->r0 = 0; %g0 = 0
 	set y, %r1
 	ld [%r1], %r5			!%r5 --->y = 9
 	set z, %r1

@@ -9,7 +9,7 @@
 # 4. Readonly and Modified registers.
 
 
-#START : Convenient Constants
+# START : Convenient Constants
 
 hitRatio        = 0.9
 missRatio       = 1 - hitRatio
@@ -22,7 +22,29 @@ latencyA        = 2
 ldLatency       = round(memLatency)
 stLatency       = round(memLatency)
 
-#END   : Convenient Constants
+# END   : Convenient Constants
+
+# START : Assembly Syntax Related
+
+# Predefined User Sections
+sections1 = {".bss", ".comment", ".data", ".data1", ".debug", ".fini", ".init",
+        ".rodata", ".rodata1", ".text", ".line", ".note"}
+# Predefined Non-User Sections
+# These are sections that are predefined but cannot be named
+# in the section control directives because they are not under user control
+sections2 = {".dynamic", ".dynstr", ".dynsym", ".got", ".hash", ".interp",
+        ".plt", ".shstrtab", ".strtab", ".symtab"}
+
+# Set of all sections possible
+sections = set()
+
+tmpSections = section1 + section2
+for sectionName in tmpSections:
+    sections.add(sectionName)
+    sections.add(".rel" + sectionName)
+    sections.add(".rela" + sectionName)
+
+# END   : Assembly Syntax Related
 
 # Pefix '@' when using any key below in the instruction format specification.
 regexMapping = {
@@ -44,8 +66,9 @@ instructions = {
           {
             "name"      : "ldsb",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -61,8 +84,9 @@ instructions = {
           {
             "name"      : "ldsba",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -78,8 +102,9 @@ instructions = {
           {
             "name"      : "ldsh",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -95,8 +120,9 @@ instructions = {
           {
             "name"      : "ldsha",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -112,8 +138,9 @@ instructions = {
           {
             "name"      : "ldub",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -129,8 +156,9 @@ instructions = {
           {
             "name"      : "lduba",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -146,8 +174,9 @@ instructions = {
           {
             "name"      : "lduh",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -163,8 +192,9 @@ instructions = {
           {
             "name"      : "lduha",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -180,8 +210,9 @@ instructions = {
           {
             "name"      : "ld",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -197,8 +228,9 @@ instructions = {
           {
             "name"      : "lda",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -214,8 +246,9 @@ instructions = {
           {
             "name"      : "ldd",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -231,8 +264,9 @@ instructions = {
           {
             "name"      : "ldda",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -249,8 +283,9 @@ instructions = {
           {
             "name"      : "ldf",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -266,8 +301,9 @@ instructions = {
           {
             "name"      : "lddf",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -283,8 +319,9 @@ instructions = {
           {
             "name"      : "ldfsr",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -301,8 +338,9 @@ instructions = {
           {
             "name"      : "ldc",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -318,8 +356,9 @@ instructions = {
           {
             "name"      : "lddc",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -335,8 +374,9 @@ instructions = {
           {
             "name"      : "ldcsr",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -353,8 +393,9 @@ instructions = {
           {
             "name"      : "stb",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -370,8 +411,9 @@ instructions = {
           {
             "name"      : "stba",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -387,8 +429,9 @@ instructions = {
           {
             "name"      : "sth",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -404,8 +447,9 @@ instructions = {
           {
             "name"      : "stha",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -421,8 +465,9 @@ instructions = {
           {
             "name"      : "st",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -438,8 +483,9 @@ instructions = {
           {
             "name"      : "sta",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -455,8 +501,9 @@ instructions = {
           {
             "name"      : "std",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -472,8 +519,9 @@ instructions = {
           {
             "name"      : "stda",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -490,8 +538,9 @@ instructions = {
           {
             "name"      : "stf",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -507,8 +556,9 @@ instructions = {
           {
             "name"      : "stdf",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -524,8 +574,9 @@ instructions = {
           {
             "name"      : "stfsr",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -541,8 +592,9 @@ instructions = {
           {
             "name"      : "stdfq",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -559,8 +611,9 @@ instructions = {
           {
             "name"      : "stc",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -576,8 +629,9 @@ instructions = {
           {
             "name"      : "stdc",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -593,8 +647,9 @@ instructions = {
           {
             "name"      : "stcsr",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -610,8 +665,9 @@ instructions = {
           {
             "name"      : "stdcq",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -628,8 +684,9 @@ instructions = {
           {
             "name"      : "ldstub",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -645,8 +702,9 @@ instructions = {
           {
             "name"      : "ldstuba",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -662,8 +720,9 @@ instructions = {
           {
             "name"      : "swap",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -679,8 +738,9 @@ instructions = {
           {
             "name"      : "swapa",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -697,8 +757,9 @@ instructions = {
           {
             "name"      : "sethi",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -714,8 +775,9 @@ instructions = {
           {
             "name"      : "nop",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -732,8 +794,9 @@ instructions = {
           {
             "name"      : "and",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -749,8 +812,9 @@ instructions = {
           {
             "name"      : "andcc",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -766,8 +830,9 @@ instructions = {
           {
             "name"      : "andn",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -783,8 +848,9 @@ instructions = {
           {
             "name"      : "andncc",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -800,8 +866,9 @@ instructions = {
           {
             "name"      : "or",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -817,8 +884,9 @@ instructions = {
           {
             "name"      : "orcc",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -834,8 +902,9 @@ instructions = {
           {
             "name"      : "orn",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -851,8 +920,9 @@ instructions = {
           {
             "name"      : "orncc",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -868,8 +938,9 @@ instructions = {
           {
             "name"      : "xor",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -885,8 +956,9 @@ instructions = {
           {
             "name"      : "xorcc",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -902,8 +974,9 @@ instructions = {
           {
             "name"      : "xnor",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -919,8 +992,9 @@ instructions = {
           {
             "name"      : "xnorcc",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -937,8 +1011,9 @@ instructions = {
           {
             "name"      : "sll",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -954,8 +1029,9 @@ instructions = {
           {
             "name"      : "srl",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -971,8 +1047,9 @@ instructions = {
           {
             "name"      : "sra",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -989,8 +1066,9 @@ instructions = {
           {
             "name"      : "add",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1006,8 +1084,9 @@ instructions = {
           {
             "name"      : "addcc",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1023,8 +1102,9 @@ instructions = {
           {
             "name"      : "addx",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1040,8 +1120,9 @@ instructions = {
           {
             "name"      : "addxcc",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1057,8 +1138,9 @@ instructions = {
           {
             "name"      : "taddcc",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1074,8 +1156,9 @@ instructions = {
           {
             "name"      : "taddcctv",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1092,8 +1175,9 @@ instructions = {
           {
             "name"      : "sub",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1109,8 +1193,9 @@ instructions = {
           {
             "name"      : "subcc",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1126,8 +1211,9 @@ instructions = {
           {
             "name"      : "subx",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1143,8 +1229,9 @@ instructions = {
           {
             "name"      : "subxcc",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1160,8 +1247,9 @@ instructions = {
           {
             "name"      : "tsubcc",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1177,8 +1265,9 @@ instructions = {
           {
             "name"      : "tsubcctv",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1195,8 +1284,9 @@ instructions = {
           {
             "name"      : "mulscc",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1213,8 +1303,9 @@ instructions = {
           {
             "name"      : "umul",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1230,8 +1321,9 @@ instructions = {
           {
             "name"      : "umulcc",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1247,8 +1339,9 @@ instructions = {
           {
             "name"      : "smul",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1264,8 +1357,9 @@ instructions = {
           {
             "name"      : "smulcc",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1282,8 +1376,9 @@ instructions = {
           {
             "name"      : "udiv",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1299,8 +1394,9 @@ instructions = {
           {
             "name"      : "udivcc",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1316,8 +1412,9 @@ instructions = {
           {
             "name"      : "sdiv",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1333,8 +1430,9 @@ instructions = {
           {
             "name"      : "sdivcc",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1351,8 +1449,9 @@ instructions = {
           {
             "name"      : "save",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1368,8 +1467,9 @@ instructions = {
           {
             "name"      : "restore",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1387,8 +1487,9 @@ instructions = {
           {
             "name"      : "ba",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1404,8 +1505,9 @@ instructions = {
           {
             "name"      : "bn",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1421,8 +1523,9 @@ instructions = {
           {
             "name"      : "bne",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1438,8 +1541,9 @@ instructions = {
           {
             "name"      : "be",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1455,8 +1559,9 @@ instructions = {
           {
             "name"      : "bg",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1472,8 +1577,9 @@ instructions = {
           {
             "name"      : "ble",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1489,8 +1595,9 @@ instructions = {
           {
             "name"      : "bge",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1506,8 +1613,9 @@ instructions = {
           {
             "name"      : "bl",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1523,8 +1631,9 @@ instructions = {
           {
             "name"      : "bgu",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1540,8 +1649,9 @@ instructions = {
           {
             "name"      : "bleu",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1557,8 +1667,9 @@ instructions = {
           {
             "name"      : "bcc",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1574,8 +1685,9 @@ instructions = {
           {
             "name"      : "bcs",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1591,8 +1703,9 @@ instructions = {
           {
             "name"      : "bpos",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1608,8 +1721,9 @@ instructions = {
           {
             "name"      : "bneg",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1625,8 +1739,9 @@ instructions = {
           {
             "name"      : "bvc",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1642,8 +1757,9 @@ instructions = {
           {
             "name"      : "bvs",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1661,8 +1777,9 @@ instructions = {
           {
             "name"      : "fba",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1678,8 +1795,9 @@ instructions = {
           {
             "name"      : "fbn",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1695,8 +1813,9 @@ instructions = {
           {
             "name"      : "fbu",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1712,8 +1831,9 @@ instructions = {
           {
             "name"      : "fbg",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1729,8 +1849,9 @@ instructions = {
           {
             "name"      : "fbug",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1746,8 +1867,9 @@ instructions = {
           {
             "name"      : "fbl",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1763,8 +1885,9 @@ instructions = {
           {
             "name"      : "fbul",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1780,8 +1903,9 @@ instructions = {
           {
             "name"      : "fblg",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1797,8 +1921,9 @@ instructions = {
           {
             "name"      : "fbne",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1814,8 +1939,9 @@ instructions = {
           {
             "name"      : "fbe",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1831,8 +1957,9 @@ instructions = {
           {
             "name"      : "fbue",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1848,8 +1975,9 @@ instructions = {
           {
             "name"      : "fbge",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1865,8 +1993,9 @@ instructions = {
           {
             "name"      : "fbuge",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1882,8 +2011,9 @@ instructions = {
           {
             "name"      : "fble",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1899,8 +2029,9 @@ instructions = {
           {
             "name"      : "fbule",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1916,8 +2047,9 @@ instructions = {
           {
             "name"      : "fbo",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1936,8 +2068,9 @@ instructions = {
           {
             "name"      : "cba",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1953,8 +2086,9 @@ instructions = {
           {
             "name"      : "cbn",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1970,8 +2104,9 @@ instructions = {
           {
             "name"      : "cb3",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -1987,8 +2122,9 @@ instructions = {
           {
             "name"      : "cb2",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2004,8 +2140,9 @@ instructions = {
           {
             "name"      : "cb23",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2021,8 +2158,9 @@ instructions = {
           {
             "name"      : "cb1",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2038,8 +2176,9 @@ instructions = {
           {
             "name"      : "cb13",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2055,8 +2194,9 @@ instructions = {
           {
             "name"      : "cb12",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2072,8 +2212,9 @@ instructions = {
           {
             "name"      : "cb123",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2089,8 +2230,9 @@ instructions = {
           {
             "name"      : "cb0",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2106,8 +2248,9 @@ instructions = {
           {
             "name"      : "cb03",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2123,8 +2266,9 @@ instructions = {
           {
             "name"      : "cb02",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2140,8 +2284,9 @@ instructions = {
           {
             "name"      : "cb023",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2157,8 +2302,9 @@ instructions = {
           {
             "name"      : "cb01",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2174,8 +2320,9 @@ instructions = {
           {
             "name"      : "cb013",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2191,8 +2338,9 @@ instructions = {
           {
             "name"      : "cb012",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2209,8 +2357,9 @@ instructions = {
           {
             "name"      : "call",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2226,8 +2375,9 @@ instructions = {
           {
             "name"      : "jmpl",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2243,8 +2393,9 @@ instructions = {
           {
             "name"      : "rett",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2262,8 +2413,9 @@ instructions = {
           {
             "name"      : "ta",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2279,8 +2431,9 @@ instructions = {
           {
             "name"      : "tn",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2296,8 +2449,9 @@ instructions = {
           {
             "name"      : "tne",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2313,8 +2467,9 @@ instructions = {
           {
             "name"      : "te",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2330,8 +2485,9 @@ instructions = {
           {
             "name"      : "tg",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2347,8 +2503,9 @@ instructions = {
           {
             "name"      : "tle",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2364,8 +2521,9 @@ instructions = {
           {
             "name"      : "tge",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2381,8 +2539,9 @@ instructions = {
           {
             "name"      : "tl",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2398,8 +2557,9 @@ instructions = {
           {
             "name"      : "tgu",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2415,8 +2575,9 @@ instructions = {
           {
             "name"      : "tleu",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2432,8 +2593,9 @@ instructions = {
           {
             "name"      : "tcc",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2449,8 +2611,9 @@ instructions = {
           {
             "name"      : "tcs",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2466,8 +2629,9 @@ instructions = {
           {
             "name"      : "tpos",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2483,8 +2647,9 @@ instructions = {
           {
             "name"      : "tneg",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2500,8 +2665,9 @@ instructions = {
           {
             "name"      : "tvc",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2517,8 +2683,9 @@ instructions = {
           {
             "name"      : "tvs",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2535,8 +2702,9 @@ instructions = {
           {
             "name"      : "rdasr",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2552,8 +2720,9 @@ instructions = {
           {
             "name"      : "rdy",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2569,8 +2738,9 @@ instructions = {
           {
             "name"      : "rdpsr",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2586,8 +2756,9 @@ instructions = {
           {
             "name"      : "rdwim",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2603,8 +2774,9 @@ instructions = {
           {
             "name"      : "rdtbr",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2621,8 +2793,9 @@ instructions = {
           {
             "name"      : "wdasr",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2638,8 +2811,9 @@ instructions = {
           {
             "name"      : "wdy",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2655,8 +2829,9 @@ instructions = {
           {
             "name"      : "wdpsr",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2672,8 +2847,9 @@ instructions = {
           {
             "name"      : "wdwim",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2689,8 +2865,9 @@ instructions = {
           {
             "name"      : "wdtbr",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2707,8 +2884,9 @@ instructions = {
           {
             "name"      : "stbar",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2725,8 +2903,9 @@ instructions = {
           {
             "name"      : "unimp",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2743,8 +2922,9 @@ instructions = {
           {
             "name"      : "flush",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2762,8 +2942,9 @@ instructions = {
           {
             "name"      : "fitos",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2779,8 +2960,9 @@ instructions = {
           {
             "name"      : "fitod",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2796,8 +2978,9 @@ instructions = {
           {
             "name"      : "fitoq",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2814,8 +2997,9 @@ instructions = {
           {
             "name"      : "fstoi",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2831,8 +3015,9 @@ instructions = {
           {
             "name"      : "fdtoi",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2848,8 +3033,9 @@ instructions = {
           {
             "name"      : "fqtoi",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2866,8 +3052,9 @@ instructions = {
           {
             "name"      : "fstod",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2883,8 +3070,9 @@ instructions = {
           {
             "name"      : "fstoq",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2900,8 +3088,9 @@ instructions = {
           {
             "name"      : "fdtos",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2917,8 +3106,9 @@ instructions = {
           {
             "name"      : "fdtoq",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2934,8 +3124,9 @@ instructions = {
           {
             "name"      : "fqtos",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2951,8 +3142,9 @@ instructions = {
           {
             "name"      : "fqtod",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2969,8 +3161,9 @@ instructions = {
           {
             "name"      : "fmovs",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -2986,8 +3179,9 @@ instructions = {
           {
             "name"      : "fnegs",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -3003,8 +3197,9 @@ instructions = {
           {
             "name"      : "fabss",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -3021,8 +3216,9 @@ instructions = {
           {
             "name"      : "fsqrts",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -3038,8 +3234,9 @@ instructions = {
           {
             "name"      : "fsqrtd",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -3055,8 +3252,9 @@ instructions = {
           {
             "name"      : "fsqrtq",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -3073,8 +3271,9 @@ instructions = {
           {
             "name"      : "fadds",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -3090,8 +3289,9 @@ instructions = {
           {
             "name"      : "faddd",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -3107,8 +3307,9 @@ instructions = {
           {
             "name"      : "faddq",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -3124,8 +3325,9 @@ instructions = {
           {
             "name"      : "fsubs",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -3141,8 +3343,9 @@ instructions = {
           {
             "name"      : "fsubd",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -3158,8 +3361,9 @@ instructions = {
           {
             "name"      : "fsubq",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -3176,8 +3380,9 @@ instructions = {
           {
             "name"      : "fmuls",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -3193,8 +3398,9 @@ instructions = {
           {
             "name"      : "fmuld",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -3210,8 +3416,9 @@ instructions = {
           {
             "name"      : "fmulq",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -3227,8 +3434,9 @@ instructions = {
           {
             "name"      : "fsmuld",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -3244,8 +3452,9 @@ instructions = {
           {
             "name"      : "fdmulq",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -3261,8 +3470,9 @@ instructions = {
           {
             "name"      : "fdivs",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -3278,8 +3488,9 @@ instructions = {
           {
             "name"      : "fdivd",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -3295,8 +3506,9 @@ instructions = {
           {
             "name"      : "fdivq",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -3313,8 +3525,9 @@ instructions = {
           {
             "name"      : "fcmps",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -3330,8 +3543,9 @@ instructions = {
           {
             "name"      : "fcmpd",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -3347,8 +3561,9 @@ instructions = {
           {
             "name"      : "fcmpq",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -3364,8 +3579,9 @@ instructions = {
           {
             "name"      : "fcmpes",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -3381,8 +3597,9 @@ instructions = {
           {
             "name"      : "fcmped",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -3398,8 +3615,9 @@ instructions = {
           {
             "name"      : "fcmpeq",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -3417,8 +3635,9 @@ instructions = {
           {
             "name"      : "cpop1",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],
@@ -3434,8 +3653,9 @@ instructions = {
           {
             "name"      : "cpop2",
             "latency"   : latencyA,
-            "read"      : {}, #set
-            "modified"  : {}, #set
+            "reg-read"  : {}, #set
+            "reg-mod"   : {}, #set
+            "res-used"  : {}, #set
           }
         ),
       ],

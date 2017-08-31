@@ -4,9 +4,10 @@ import re
 import sys
 
 pattern = re.compile(
-  r"(?P<addr>[a-fA-F0-9]+):\s*([a-fA-F0-9][a-fA-F0-9]\s){4}\s*(?P<instr>[^!]*)!?.*")
+  r"(?P<addr>[a-fA-F0-9]+):\s*([a-fA-F0-9][a-fA-F0-9]\s){4}\s*(?P<instr>[^!]*)")
 
-def parseobj(filename):
+# Parse obj file
+def parse(filename):
     instr = dict()
     with open(filename, "r") as f:
         for line in f:
@@ -14,7 +15,7 @@ def parseobj(filename):
             match = pattern.search(line)
             if match:
                 addr = int(match.group("addr"), 16)
-                instr[addr] = match.group("instr")
+                instr[addr] = match.group("instr").strip()
 
     instr = None if not instr else instr
 
@@ -27,5 +28,5 @@ def printInstr(instr):
     print("Total Instr:", len(instr))
 
 if __name__ == "__main__":
-    instr = parseobj(sys.argv[1])
+    instr = parse(sys.argv[1])
     printInstr(instr)

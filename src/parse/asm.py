@@ -135,11 +135,6 @@ class AsmModule():
         return content
 
 
-    def replaceCommentsAndStrings(self):
-
-        return replace
-
-
 if __name__ == "__main__":
     asmMod = AsmModule(sys.argv[1])
     asmMod.parse()

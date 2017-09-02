@@ -5,6 +5,7 @@ import sys
 
 pattern = re.compile(
   r"(?P<addr>[a-fA-F0-9]+):\s*([a-fA-F0-9][a-fA-F0-9]\s){4}\s*(?P<instr>[^!]*)")
+pattern2 = re.compile(r"<[.$_a-zA-Z][.$_a-zA-Z0-9]*>$")
 
 # Parse obj file
 def parse(filename):
@@ -14,6 +15,8 @@ def parse(filename):
             line = line.strip()
             match = pattern.search(line)
             if match:
+                line = pattern2.sub("", line)
+                match = pattern.search(line)
                 addr = int(match.group("addr"), 16)
                 instr[addr] = match.group("instr").strip()
 

@@ -4,6 +4,7 @@
 
 import copy
 import random as rand
+from textwrap import dedent
 
 class InstrNode():
     id  = 0
@@ -24,14 +25,12 @@ class InstrNode():
         self.succ       = succ if succ else set()  # set of InstrNodes ids
 
     def __str__(self):
-        return """\
-        InstrNode Object
-        ID              : {},
-        Instrction      : {},
-        Priority        : {},
-        Predecessors    : {},
-        Successors      : {}.
-        """.format(self.id, self.instr, self.priority, self.pred, self.succ)
+        string = """\
+        InstrNode(id={}, instr="{}", priority={}, pred={}, succ={})"""
+
+        return dedent(string).format(
+                self.id, self.instr.instrText if self.instr else None,
+                self.priority, self.pred, self.succ)
 
     def copy(self):
         return InstrNode(id=self.id, instr=self.instr, priority=self.priority,
@@ -77,8 +76,10 @@ class DependencyGraph():
             sources = sources | DependencyGraph.extractSources(graph)
             # Seclect an appropriate next node
             selectedNode = DependencyGraph.selectNode(sortedNodes, sources, graph, huristic)
-            # Append the node into the sequence
-            sortedNodes.append(selectedNode)
+            # Append the (original)node into the sequence
+            # Original node is added because its pred and succ are intact.
+            # pred and succ info of a node may be used in selectNode()
+            sortedNodes.append(self.graph[selectedNode.id])
             # Remove the node from the sources set
             sources.remove(selectedNode)
             # Remove the selected node from the graph
@@ -134,14 +135,11 @@ class DependencyGraph():
             return src
 
 
-if __name__ == "__main__":
-    n1 = InstrNode()
-    n2 = InstrNode()
-    n3 = InstrNode()
+def sampleSortDemo():
     n4 = InstrNode()
-    n5 = InstrNode()
-    n6 = InstrNode()
-    n7 = InstrNode()
+    n2 = InstrNode()
+    n1 = InstrNode()
+    n3 = InstrNode()
 
     n1.succ |= {n2.id, n3.id}
     n2.succ |= {n4.id}
@@ -150,7 +148,8 @@ if __name__ == "__main__":
     n2.pred |= {n1.id}
     n3.pred |= {n1.id}
 
-    nodelist = [n1,n2,n3,n4, n5]
+    nodelist = [n1,n2,n3,n4]
+
     graph = dict()
     for n in nodelist:
         graph[n.id] = n
@@ -158,7 +157,12 @@ if __name__ == "__main__":
     dg = DependencyGraph(graph=graph)
 
     seq = dg.topoSort()
+    print("Diamond Graph Sort Demo")
     for item in seq:
         print(item)
+
+
+if __name__ == "__main__":
+    sampleSortDemo()
 
 

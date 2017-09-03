@@ -1,29 +1,44 @@
 #!/usr/bin/env python3
+
 # USER EDITABLE file containing important static information about
 # Sparc(Ajit) architecture and its assembly language.
+# NOTE: Never import this module. The module sparc.py should be used instead.
+# This module is processes by module sparc.py to convert the user
+# specified details to the system usable format.
+
+# All the variables are available using same name in the sparc.py module.
+# However the variable data may be processed into a different datatype.
 
 # Execution of this module prints useful information.
 
 # This python module defines the Ajit specific Sparc V8 processor details.
+# Only the properties useful for this project are present here.
 # These include,
-# 1. Instruction latencies.
-# 2. Instruction-Pair latencies.
-# 3. Instruction Formats
-# 4. Readonly and Modified registers.
+# 1. Instructions, their Formats, Latencies, resources used etc.
+# 2. Instruction-Pair latencies (For special cases)
+# 3. Registers in the system (registers)
+# 4. Sections in Assembly program.
 
 
 # START : Convenient Constants
 
-hitRatio        = 0.9
-missRatio       = 1 - hitRatio
-cacheLatency    = 2
-ramLatency      = 10
-memLatency      = cacheLatency * hitRatio + (ramLatency + cacheLatency) * missRatio
+# NOTE  : Define all constants inside the Value class only.
+
+class Value():
+    """
+    Defines user defined convenient constants that reduce the need to type,
+    and makes the information systematic.
+    """
+    hitRatio        = 0.9
+    missRatio       = 1 - hitRatio
+    cacheLatency    = 2
+    ramLatency      = 10
+    memLatency      = cacheLatency * hitRatio + (ramLatency + cacheLatency) * missRatio
 
 
-latencyA        = 2
-ldLatency       = round(memLatency)
-stLatency       = round(memLatency)
+    latencyA        = 2
+    ldLatency       = round(memLatency)
+    stLatency       = round(memLatency)
 
 # END   : Convenient Constants
 
@@ -123,7 +138,7 @@ instrData = {
           r"ldsb \[@AA1\] , @AR1",
           {
             "name"      : "ldsb",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : {"AA1"}, #set
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
@@ -141,7 +156,7 @@ instrData = {
           r"ldsba \[@AA1\] [^,]* , @AR1",
           {
             "name"      : "ldsba",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : {"AA1"}, #set
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
@@ -159,7 +174,7 @@ instrData = {
           r"ldsh \[@AA1\] , @AR1",
           {
             "name"      : "ldsh",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : {"AA1"}, #set
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
@@ -177,7 +192,7 @@ instrData = {
           r"ldsha \[@AA1\] [^,]* , @AR1",
           {
             "name"      : "ldsha",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : {"AA1"}, #set
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
@@ -195,7 +210,7 @@ instrData = {
           r"ldub \[@AA1\] , @AR1",
           {
             "name"      : "ldub",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : {"AA1"}, #set
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
@@ -213,7 +228,7 @@ instrData = {
           r"lduba \[@AA1\] [^,]* , @AR1",
           {
             "name"      : "lduba",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : {"AA1"}, #set
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
@@ -231,7 +246,7 @@ instrData = {
           r"lduh \[@AA1\] , @AR1",
           {
             "name"      : "lduh",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : {"AA1"}, #set
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
@@ -249,7 +264,7 @@ instrData = {
           r"lduha \[@AA1\] [^,]* , @AR1",
           {
             "name"      : "lduha",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : {"AA1"}, #set
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
@@ -267,7 +282,7 @@ instrData = {
           r"ld \[@AA1\] , @AR1",
           {
             "name"      : "ld",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : {"AA1"}, #set
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
@@ -285,7 +300,7 @@ instrData = {
           r"lda \[@AA1\] [^,]* , @AR1",
           {
             "name"      : "lda",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : {"AA1"}, #set
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
@@ -303,7 +318,7 @@ instrData = {
           r"ldd \[@AA1\] , @AR1",
           {
             "name"      : "ldd",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : {"AA1"}, #set
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
@@ -321,7 +336,7 @@ instrData = {
           r"ldda \[@AA1\] [^,]* , @AR1",
           {
             "name"      : "ldda",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : {"AA1"}, #set
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
@@ -340,7 +355,7 @@ instrData = {
           r"format1",
           {
             "name"      : "ldf",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -358,7 +373,7 @@ instrData = {
           r"format1",
           {
             "name"      : "lddf",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -376,7 +391,7 @@ instrData = {
           r"format1",
           {
             "name"      : "ldfsr",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -395,7 +410,7 @@ instrData = {
           r"format1",
           {
             "name"      : "ldc",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -413,7 +428,7 @@ instrData = {
           r"format1",
           {
             "name"      : "lddc",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -431,7 +446,7 @@ instrData = {
           r"format1",
           {
             "name"      : "ldcsr",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -450,7 +465,7 @@ instrData = {
           r"format1",
           {
             "name"      : "stb",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -468,7 +483,7 @@ instrData = {
           r"format1",
           {
             "name"      : "stba",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -486,7 +501,7 @@ instrData = {
           r"format1",
           {
             "name"      : "sth",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -504,7 +519,7 @@ instrData = {
           r"format1",
           {
             "name"      : "stha",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -522,7 +537,7 @@ instrData = {
           r"st @AR1 , \[@AA1\]",
           {
             "name"      : "st",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : {"AR1","AA1"}, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -540,7 +555,7 @@ instrData = {
           r"format1",
           {
             "name"      : "sta",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -558,7 +573,7 @@ instrData = {
           r"format1",
           {
             "name"      : "std",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -576,7 +591,7 @@ instrData = {
           r"format1",
           {
             "name"      : "stda",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -595,7 +610,7 @@ instrData = {
           r"format1",
           {
             "name"      : "stf",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -613,7 +628,7 @@ instrData = {
           r"format1",
           {
             "name"      : "stdf",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -631,7 +646,7 @@ instrData = {
           r"format1",
           {
             "name"      : "stfsr",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -649,7 +664,7 @@ instrData = {
           r"format1",
           {
             "name"      : "stdfq",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -668,7 +683,7 @@ instrData = {
           r"format1",
           {
             "name"      : "stc",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -686,7 +701,7 @@ instrData = {
           r"format1",
           {
             "name"      : "stdc",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -704,7 +719,7 @@ instrData = {
           r"format1",
           {
             "name"      : "stcsr",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -722,7 +737,7 @@ instrData = {
           r"format1",
           {
             "name"      : "stdcq",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -741,7 +756,7 @@ instrData = {
           r"format1",
           {
             "name"      : "ldstub",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -759,7 +774,7 @@ instrData = {
           r"format1",
           {
             "name"      : "ldstuba",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -777,7 +792,7 @@ instrData = {
           r"format1",
           {
             "name"      : "swap",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -795,7 +810,7 @@ instrData = {
           r"format1",
           {
             "name"      : "swapa",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -814,7 +829,7 @@ instrData = {
           r"sethi [^,]* , @AR1",
           {
             "name"      : "sethi",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
@@ -832,7 +847,7 @@ instrData = {
           r"nop",
           {
             "name"      : "nop",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -851,7 +866,7 @@ instrData = {
           r"format1",
           {
             "name"      : "and",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -869,7 +884,7 @@ instrData = {
           r"format1",
           {
             "name"      : "andcc",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -887,7 +902,7 @@ instrData = {
           r"format1",
           {
             "name"      : "andn",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -905,7 +920,7 @@ instrData = {
           r"format1",
           {
             "name"      : "andncc",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -923,7 +938,7 @@ instrData = {
           r"or @AR1 , @AR2 , @AR3",
           {
             "name"      : "or",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : {"AR1","AR2"}, #set
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
@@ -941,7 +956,7 @@ instrData = {
           r"format1",
           {
             "name"      : "orcc",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -959,7 +974,7 @@ instrData = {
           r"format1",
           {
             "name"      : "orn",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -977,7 +992,7 @@ instrData = {
           r"format1",
           {
             "name"      : "orncc",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -995,7 +1010,7 @@ instrData = {
           r"format1",
           {
             "name"      : "xor",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1013,7 +1028,7 @@ instrData = {
           r"format1",
           {
             "name"      : "xorcc",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1031,7 +1046,7 @@ instrData = {
           r"format1",
           {
             "name"      : "xnor",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1049,7 +1064,7 @@ instrData = {
           r"format1",
           {
             "name"      : "xnorcc",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1068,7 +1083,7 @@ instrData = {
           r"format1",
           {
             "name"      : "sll",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1086,7 +1101,7 @@ instrData = {
           r"format1",
           {
             "name"      : "srl",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1104,7 +1119,7 @@ instrData = {
           r"format1",
           {
             "name"      : "sra",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1123,7 +1138,7 @@ instrData = {
           r"add @AR1 , @AR2 , @AR3",
           {
             "name"      : "add",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : {"AR1","AR2"}, #set
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
@@ -1141,7 +1156,7 @@ instrData = {
           r"format1",
           {
             "name"      : "addcc",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1159,7 +1174,7 @@ instrData = {
           r"format1",
           {
             "name"      : "addx",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1177,7 +1192,7 @@ instrData = {
           r"format1",
           {
             "name"      : "addxcc",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1195,7 +1210,7 @@ instrData = {
           r"format1",
           {
             "name"      : "taddcc",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1213,7 +1228,7 @@ instrData = {
           r"format1",
           {
             "name"      : "taddcctv",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1232,7 +1247,7 @@ instrData = {
           r"format1",
           {
             "name"      : "sub",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1250,7 +1265,7 @@ instrData = {
           r"format1",
           {
             "name"      : "subcc",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1268,7 +1283,7 @@ instrData = {
           r"format1",
           {
             "name"      : "subx",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1286,7 +1301,7 @@ instrData = {
           r"format1",
           {
             "name"      : "subxcc",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1304,7 +1319,7 @@ instrData = {
           r"format1",
           {
             "name"      : "tsubcc",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1322,7 +1337,7 @@ instrData = {
           r"format1",
           {
             "name"      : "tsubcctv",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1341,7 +1356,7 @@ instrData = {
           r"format1",
           {
             "name"      : "mulscc",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1360,7 +1375,7 @@ instrData = {
           r"format1",
           {
             "name"      : "umul",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1378,7 +1393,7 @@ instrData = {
           r"format1",
           {
             "name"      : "umulcc",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1396,7 +1411,7 @@ instrData = {
           r"format1",
           {
             "name"      : "smul",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1414,7 +1429,7 @@ instrData = {
           r"format1",
           {
             "name"      : "smulcc",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1433,7 +1448,7 @@ instrData = {
           r"format1",
           {
             "name"      : "udiv",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1451,7 +1466,7 @@ instrData = {
           r"format1",
           {
             "name"      : "udivcc",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1469,7 +1484,7 @@ instrData = {
           r"format1",
           {
             "name"      : "sdiv",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1487,7 +1502,7 @@ instrData = {
           r"format1",
           {
             "name"      : "sdivcc",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1506,7 +1521,7 @@ instrData = {
           r"format1",
           {
             "name"      : "save",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1524,7 +1539,7 @@ instrData = {
           r"format1",
           {
             "name"      : "restore",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1544,7 +1559,7 @@ instrData = {
           r"format1",
           {
             "name"      : "ba",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1562,7 +1577,7 @@ instrData = {
           r"format1",
           {
             "name"      : "bn",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1580,7 +1595,7 @@ instrData = {
           r"bne @AL1",
           {
             "name"      : "bne",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : {"icc"}, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1590,7 +1605,7 @@ instrData = {
           r"bne,a @AL1",
           {
             "name"      : "bne",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : {"icc"}, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1608,7 +1623,7 @@ instrData = {
           r"format1",
           {
             "name"      : "be",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1626,7 +1641,7 @@ instrData = {
           r"format1",
           {
             "name"      : "bg",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1644,7 +1659,7 @@ instrData = {
           r"format1",
           {
             "name"      : "ble",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1662,7 +1677,7 @@ instrData = {
           r"format1",
           {
             "name"      : "bge",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1680,7 +1695,7 @@ instrData = {
           r"format1",
           {
             "name"      : "bl",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1698,7 +1713,7 @@ instrData = {
           r"format1",
           {
             "name"      : "bgu",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1716,7 +1731,7 @@ instrData = {
           r"format1",
           {
             "name"      : "bleu",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1734,7 +1749,7 @@ instrData = {
           r"format1",
           {
             "name"      : "bcc",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1752,7 +1767,7 @@ instrData = {
           r"format1",
           {
             "name"      : "bcs",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1770,7 +1785,7 @@ instrData = {
           r"format1",
           {
             "name"      : "bpos",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1788,7 +1803,7 @@ instrData = {
           r"format1",
           {
             "name"      : "bneg",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1806,7 +1821,7 @@ instrData = {
           r"format1",
           {
             "name"      : "bvc",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1824,7 +1839,7 @@ instrData = {
           r"format1",
           {
             "name"      : "bvs",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1844,7 +1859,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fba",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1862,7 +1877,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fbn",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1880,7 +1895,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fbu",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1898,7 +1913,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fbg",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1916,7 +1931,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fbug",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1934,7 +1949,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fbl",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1952,7 +1967,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fbul",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1970,7 +1985,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fblg",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -1988,7 +2003,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fbne",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2006,7 +2021,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fbe",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2024,7 +2039,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fbue",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2042,7 +2057,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fbge",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2060,7 +2075,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fbuge",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2078,7 +2093,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fble",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2096,7 +2111,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fbule",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2114,7 +2129,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fbo",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2135,7 +2150,7 @@ instrData = {
           r"format1",
           {
             "name"      : "cba",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2153,7 +2168,7 @@ instrData = {
           r"format1",
           {
             "name"      : "cbn",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2171,7 +2186,7 @@ instrData = {
           r"format1",
           {
             "name"      : "cb3",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2189,7 +2204,7 @@ instrData = {
           r"format1",
           {
             "name"      : "cb2",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2207,7 +2222,7 @@ instrData = {
           r"format1",
           {
             "name"      : "cb23",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2225,7 +2240,7 @@ instrData = {
           r"format1",
           {
             "name"      : "cb1",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2243,7 +2258,7 @@ instrData = {
           r"format1",
           {
             "name"      : "cb13",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2261,7 +2276,7 @@ instrData = {
           r"format1",
           {
             "name"      : "cb12",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2279,7 +2294,7 @@ instrData = {
           r"format1",
           {
             "name"      : "cb123",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2297,7 +2312,7 @@ instrData = {
           r"format1",
           {
             "name"      : "cb0",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2315,7 +2330,7 @@ instrData = {
           r"format1",
           {
             "name"      : "cb03",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2333,7 +2348,7 @@ instrData = {
           r"format1",
           {
             "name"      : "cb02",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2351,7 +2366,7 @@ instrData = {
           r"format1",
           {
             "name"      : "cb023",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2369,7 +2384,7 @@ instrData = {
           r"format1",
           {
             "name"      : "cb01",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2387,7 +2402,7 @@ instrData = {
           r"format1",
           {
             "name"      : "cb013",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2405,7 +2420,7 @@ instrData = {
           r"format1",
           {
             "name"      : "cb012",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2424,7 +2439,7 @@ instrData = {
           r"format1",
           {
             "name"      : "call",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2442,7 +2457,7 @@ instrData = {
           r"format1",
           {
             "name"      : "jmpl",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2460,7 +2475,7 @@ instrData = {
           r"format1",
           {
             "name"      : "rett",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2480,7 +2495,7 @@ instrData = {
           r"ta \d+",
           {
             "name"      : "ta",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2498,7 +2513,7 @@ instrData = {
           r"format1",
           {
             "name"      : "tn",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2516,7 +2531,7 @@ instrData = {
           r"format1",
           {
             "name"      : "tne",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2534,7 +2549,7 @@ instrData = {
           r"format1",
           {
             "name"      : "te",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2552,7 +2567,7 @@ instrData = {
           r"format1",
           {
             "name"      : "tg",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2570,7 +2585,7 @@ instrData = {
           r"format1",
           {
             "name"      : "tle",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2588,7 +2603,7 @@ instrData = {
           r"format1",
           {
             "name"      : "tge",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2606,7 +2621,7 @@ instrData = {
           r"format1",
           {
             "name"      : "tl",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2624,7 +2639,7 @@ instrData = {
           r"format1",
           {
             "name"      : "tgu",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2642,7 +2657,7 @@ instrData = {
           r"format1",
           {
             "name"      : "tleu",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2660,7 +2675,7 @@ instrData = {
           r"format1",
           {
             "name"      : "tcc",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2678,7 +2693,7 @@ instrData = {
           r"format1",
           {
             "name"      : "tcs",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2696,7 +2711,7 @@ instrData = {
           r"format1",
           {
             "name"      : "tpos",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2714,7 +2729,7 @@ instrData = {
           r"format1",
           {
             "name"      : "tneg",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2732,7 +2747,7 @@ instrData = {
           r"format1",
           {
             "name"      : "tvc",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2750,7 +2765,7 @@ instrData = {
           r"format1",
           {
             "name"      : "tvs",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2769,7 +2784,7 @@ instrData = {
           r"format1",
           {
             "name"      : "rdasr",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2787,7 +2802,7 @@ instrData = {
           r"format1",
           {
             "name"      : "rdy",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2805,7 +2820,7 @@ instrData = {
           r"format1",
           {
             "name"      : "rdpsr",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2823,7 +2838,7 @@ instrData = {
           r"format1",
           {
             "name"      : "rdwim",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2841,7 +2856,7 @@ instrData = {
           r"format1",
           {
             "name"      : "rdtbr",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2860,7 +2875,7 @@ instrData = {
           r"format1",
           {
             "name"      : "wdasr",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2878,7 +2893,7 @@ instrData = {
           r"format1",
           {
             "name"      : "wdy",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2896,7 +2911,7 @@ instrData = {
           r"format1",
           {
             "name"      : "wdpsr",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2914,7 +2929,7 @@ instrData = {
           r"format1",
           {
             "name"      : "wdwim",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2932,7 +2947,7 @@ instrData = {
           r"format1",
           {
             "name"      : "wdtbr",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2951,7 +2966,7 @@ instrData = {
           r"format1",
           {
             "name"      : "stbar",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2970,7 +2985,7 @@ instrData = {
           r"format1",
           {
             "name"      : "unimp",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -2989,7 +3004,7 @@ instrData = {
           r"format1",
           {
             "name"      : "flush",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3009,7 +3024,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fitos",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3027,7 +3042,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fitod",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3045,7 +3060,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fitoq",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3064,7 +3079,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fstoi",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3082,7 +3097,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fdtoi",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3100,7 +3115,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fqtoi",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3119,7 +3134,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fstod",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3137,7 +3152,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fstoq",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3155,7 +3170,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fdtos",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3173,7 +3188,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fdtoq",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3191,7 +3206,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fqtos",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3209,7 +3224,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fqtod",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3228,7 +3243,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fmovs",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3246,7 +3261,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fnegs",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3264,7 +3279,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fabss",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3283,7 +3298,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fsqrts",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3301,7 +3316,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fsqrtd",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3319,7 +3334,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fsqrtq",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3338,7 +3353,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fadds",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3356,7 +3371,7 @@ instrData = {
           r"format1",
           {
             "name"      : "faddd",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3374,7 +3389,7 @@ instrData = {
           r"format1",
           {
             "name"      : "faddq",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3392,7 +3407,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fsubs",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3410,7 +3425,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fsubd",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3428,7 +3443,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fsubq",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3447,7 +3462,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fmuls",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3465,7 +3480,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fmuld",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3483,7 +3498,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fmulq",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3501,7 +3516,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fsmuld",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3519,7 +3534,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fdmulq",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3537,7 +3552,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fdivs",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3555,7 +3570,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fdivd",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3573,7 +3588,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fdivq",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3592,7 +3607,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fcmps",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3610,7 +3625,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fcmpd",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3628,7 +3643,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fcmpq",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3646,7 +3661,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fcmpes",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3664,7 +3679,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fcmped",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3682,7 +3697,7 @@ instrData = {
           r"format1",
           {
             "name"      : "fcmpeq",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3702,7 +3717,7 @@ instrData = {
           r"format1",
           {
             "name"      : "cpop1",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3720,7 +3735,7 @@ instrData = {
           r"format1",
           {
             "name"      : "cpop2",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
@@ -3739,7 +3754,7 @@ instrData = {
           r"mov @AR1 , @EM1",     # wr
           {
             "name"      : "mov",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : {"AR1","r0"}, #set
             "reg-mod"   : {"EM1"}, #set
             "res-used"  : None, #set
@@ -3749,7 +3764,7 @@ instrData = {
           r"mov @EM1 , @AR1",     # rd
           {
             "name"      : "mov",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : {"EM1"}, #set
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
@@ -3759,7 +3774,7 @@ instrData = {
           r"mov @AR1 , @AR2",     # or %g0, reg_or_imm, reg
           {
             "name"      : "mov",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : {"AR1","r0"}, #set
             "reg-mod"   : {"AR2"}, #set
             "res-used"  : None, #set
@@ -3777,7 +3792,7 @@ instrData = {
           r"inc @AR1",
           {
             "name"      : "inc",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : {"AR1"}, #set
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
@@ -3787,7 +3802,7 @@ instrData = {
           r"inc @I1 , @AR1",
           {
             "name"      : "inc",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : {"AR1"}, #set
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
@@ -3805,7 +3820,7 @@ instrData = {
           r"inccc @AR1",
           {
             "name"      : "inccc",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : {"AR1"}, #set
             "reg-mod"   : {"AR1","icc"}, #set
             "res-used"  : None, #set
@@ -3815,7 +3830,7 @@ instrData = {
           r"inccc @I1 , @AR1",
           {
             "name"      : "inccc",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : {"AR1"}, #set
             "reg-mod"   : {"AR1","icc"}, #set
             "res-used"  : None, #set
@@ -3833,7 +3848,7 @@ instrData = {
           r"dec @AR1",
           {
             "name"      : "dec",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : {"AR1"}, #set
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
@@ -3843,7 +3858,7 @@ instrData = {
           r"dec @I1 , @AR1",
           {
             "name"      : "dec",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : {"AR1"}, #set
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
@@ -3861,7 +3876,7 @@ instrData = {
           r"deccc @AR1",
           {
             "name"      : "deccc",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : {"AR1"}, #set
             "reg-mod"   : {"AR1","icc"}, #set
             "res-used"  : None, #set
@@ -3871,7 +3886,7 @@ instrData = {
           r"deccc @I1 , @AR1",
           {
             "name"      : "deccc",
-            "latency"   : latencyA,
+            "latency"   : Value.latencyA,
             "reg-read"  : {"AR1"}, #set
             "reg-mod"   : {"AR1","icc"}, #set
             "res-used"  : None, #set
@@ -3900,12 +3915,36 @@ pairLatency = {
 }
 # END  : Instruction-Pair or pipeline latency
 
+
+# START : Sections in Assembly Program
+
+# Set of all sections possible.
+# It is populated in the sparc.py module using userSections and nonUserSections
+# below.
+sections = None
+
+# Predefined User Sections.
+# NOTE: They are automatically combined with .rel and .rela section prefix.
+userSections = {".bss", ".comment", ".data", ".data1", ".debug", ".fini", ".init",
+        ".rodata", ".rodata1", ".text", ".line", ".note"}
+# Predefined Non-User Sections
+# These are sections that are predefined but cannot be named
+# in the section control directives because they are not under user control
+# NOTE: They are automatically combined with .rel and .rela section prefix.
+nonUserSections = {".dynamic", ".dynstr", ".dynsym", ".got", ".hash", ".interp",
+        ".plt", ".shstrtab", ".strtab", ".symtab"}
+
+# END   : Sections in Assembly Program
+
 def printInfo():
   print("Total Instructions     :", len(instructions))
-  print("Cache Hit Ratio        :", hitRatio)
-  print("Cache Latency          :", cacheLatency)
-  print("Ram Latency            :", ramLatency)
-  print("Avg. Mem Latency       :", memLatency)
+  print("Cache Hit Ratio        :", Value.hitRatio)
+  print("Cache Latency          :", Value.cacheLatency)
+  print("Ram Latency            :", Value.ramLatency)
+  print("Avg. Mem Latency       :", Value.memLatency)
+  print("User Sections        :", userSections)
+  print("Non-User Sections    :", nonUserSections)
+  print("All Sections         :", sections)
 
 if __name__ == "__main__":
     printInfo()

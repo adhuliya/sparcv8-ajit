@@ -4,28 +4,32 @@ import re
 import sys
 import os
 import os.path as osp
-import asmdata as ad
+from .. import sparc
 
-# dqstr = Double Quote String, sqstr = Single Quote Str
-string = r"""(?P<dqstr>"(\\"|\\\n|.)*?")|(?P<sqstr>'(\\'|\\\n|.)*?')"""
+# dqstr = Double Quote STR, sqstr = Single Quote STR
+string      = r"""(?P<dqstr>"(\\"|\\\n|.)*?")|(?P<sqstr>'(\\'|\\\n|.)*?')"""
 # slc = Single Line Comment
-singleLineComment = r"(?P<slc>!.*?\n)"
+singleLineComment   = r"(?P<slc>!.*?\n)"
 # mlc = Multi Line Comment
-multiLineComment = r"(?P<mlc>/\*(.*?|\n)*\*/)"
+multiLineComment    = r"(?P<mlc>/\*(.*?|\n)*\*/)"
+# Combination of all above patterns
+stringAndComments = string + "|" + singleLineComment + "|" + multiLineComment
 
 # extracts label
-label = r"(?P<label>[.$_\w]+[ \t]*:)"
-# popln = PseudoOP Line, pop = PseudoOp
-pseudoOp = r"(?P<popln>\.[.$_\w]+[ \t]*(?!:).*?)[;\n]"
-instruction = r"(?P<instr>[a-zA-Z].*?)[;\n]"
-whiteSpace = r"(?P<ws>\s+)"
-nonWhiteSpace = r"(?P<nws>\S+)"
+label           = r"(?P<label>[.$_\w]+[ \t]*:)"
+# popln = PseudoOP LiNe, pop = PseudoOP
+pseudoOp        = r"(?P<popln>\.[.$_\w]+[ \t]*(?!:).*?)[;\n]"
+instruction     = r"(?P<instr>[a-zA-Z].*?)[;\n]"
+whiteSpace      = r"(?P<ws>\s+)"
+nonWhiteSpace   = r"(?P<nws>\S+)"
+# combining above regexes (assuming all comments are already removed)
+asmStmt         = "|".join([label, pseudoOp, instruction, whiteSpace, nonWhiteSpace])
 
 def genNonTextSectionPattern():
     pat = r"""^(?P<{0}sec>\.{0}|\.section[ \t]*\.{0}|\.section[ \t]*['"]\.{0}['"]|\.seg[ \t]*{0})"""
 
     fullpat = ""
-    for sec in ad.userSections:
+    for sec in sparc.userSections:
         if sec == ".text": continue
         fullpat = fullpat + pat.format(sec[1:]) + "|"
     fullpat = fullpat[:-1]
@@ -63,8 +67,7 @@ class AsmModule():
         self.parseIntoChunks(self.contentWithoutComments)
 
     def parseIntoChunks(self, content):
-        pattern = "|".join([label, pseudoOp, instruction, whiteSpace, nonWhiteSpace])
-        p = re.compile(pattern)
+        p = re.compile(asmStmt)
 
         def categorizeChunk(match):
             groupDict = match.groupdict()
@@ -128,8 +131,7 @@ class AsmModule():
             else:
                 assert False, "No Group Recognized : {}".format(groupDict)
 
-        pattern = string + "|" + singleLineComment + "|" + multiLineComment
-        p = re.compile(pattern)
+        p = re.compile(stringAndComments)
         content = p.sub(replace, self.originalContent)
 
         return content

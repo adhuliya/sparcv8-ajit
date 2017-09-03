@@ -54,14 +54,26 @@ def  processRegexMap():
 
     return newRMap
 
+def processSectionNames():
+    sections = set()
+    tmpSections = sparcinfo.userSections | sparcinfo.nonUserSections
+    for sectionName in tmpSections:
+        sections.add(sectionName)
+        sections.add(".rel" + sectionName)
+        sections.add(".rela" + sectionName)
+    return sections
+
+
 # START : Useful Processed Data
 
-regexMap = processRegexMap()
+regexMap    = processRegexMap()
 # process regexMap before instr
-instr = processInstrData()
-registers = sparcinfo.registers
+instr       = processInstrData()
+registers   = sparcinfo.registers
 regSynonyms = sparcinfo.regSynonyms
-pair = sparcinfo.pairLatency
+pair        = sparcinfo.pairLatency
+sections    = processSectionNames()
+Value       = sparcinfo.Value
 
 # END   : Useful Processed Data
 

@@ -1,8 +1,18 @@
 #!/usr/bin/env python3
 
+# This module defined the Instruction class.
+
 from . import sparc
 
 class Instruction():
+    """
+    Each Instruction object represents one assembly instruction.
+
+    The Instruction class holds the needed information extracted from
+    an assembly instruction used in the program. Its constuctor accepts a
+    single instruction, and its parse() method extracts the relevant info
+    from it.
+    """
     def __init__(self,instrText, mnemonic=None, suffix=None, latency=None,
             regRead=None, regMod=None, resUsed=None):
         # To create an object, only instrText argument is required

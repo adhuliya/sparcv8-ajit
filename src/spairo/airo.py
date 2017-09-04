@@ -24,6 +24,9 @@ class InstrNode():
         self.pred       = pred if pred else set()  # set of InstrNodes ids
         self.succ       = succ if succ else set()  # set of InstrNodes ids
 
+        # some huristic counters
+        self.count1     = 0
+
     def __str__(self):
         string = """\
         InstrNode(id={}, instr="{}", priority={}, pred={}, succ={})"""
@@ -69,23 +72,23 @@ class DependencyGraph():
         """
         sources     = set()
         graph       = self.copyGraph()
-        sortedNodes = []
+        sortedNodeIds = []
 
         while graph:
             # Update Sources
-            sources = sources | DependencyGraph.extractSources(graph)
+            sources = sources | self.extractSourceIds(graph)
             # Seclect an appropriate next node
-            selectedNode = DependencyGraph.selectNode(sortedNodes, sources, graph, huristic)
+            selectedNodeId = self.selectNode(sortedNodeIds, sources, graph, huristic)
             # Append the (original)node into the sequence
             # Original node is added because its pred and succ are intact.
             # pred and succ info of a node may be used in selectNode()
-            sortedNodes.append(self.graph[selectedNode.id])
+            sortedNodeIds.append(selectedNodeId)
             # Remove the node from the sources set
-            sources.remove(selectedNode)
-            # Remove the selected node from the graph
-            graph = DependencyGraph.removeNodeFromGraph(graph, selectedNode)
+            sources.remove(selectedNodeId)
+            # Remove the selected node from the working graph
+            graph = self.removeNodeFromGraph(graph, graph[selectedNodeId])
 
-        return sortedNodes
+        return sortedNodeIds
 
     @staticmethod
     def printGraph(graph):
@@ -94,19 +97,17 @@ class DependencyGraph():
             print("NodeID :", nodeid)
             print(graph[nodeid])
 
-    @staticmethod
-    def extractSources(graph):
+    def extractSourceIds(self, graph):
         sources = set()
         for nodeid in graph:
             if not graph[nodeid].pred:
-                sources.add(graph[nodeid])
+                sources.add(nodeid)
 
         assert len(sources) > 0
 
         return sources
 
-    @staticmethod
-    def removeNodeFromGraph(graph, node):
+    def removeNodeFromGraph(self, graph, node):
         len1 = len(graph)
 
         del graph[node.id]
@@ -121,39 +122,36 @@ class DependencyGraph():
 
         return graph
 
-    @staticmethod
-    def selectNode(sortedNodes, sources, graph, huristic):
+    def selectNode(self, sortedNodeIds, sources, graph, huristic):
         if huristic is None:
-            return DependencyGraph.selectAnyNode(sources)
+            return self.selectAnyNode(sources)
         elif huristic.strip().lower() == "notdependent":
             # separate the dependent nodes by putting in non-dependent nodes
-            return DependencyGraph.selectNotDependentNode(sortedNodes, sources)
+            return self.selectNotDependentNode(sortedNodeIds, sources)
 
-    @staticmethod
-    def selectNotDependentNode(sortedNodes, sources):
+    def selectNotDependentNode(self, sortedNodeIds, sources):
         """
         Selects nodes which are not dependent on the already sorted nodes.
         As far as possible.
         """
         src = sources
 
-        for node in reversed(sortedNotes):
-            leftnodes = src - sortedNodes.succ
+        for nodeid in reversed(sortedNodeIds):
+            leftnodes = src - self.graph[nodeid].succ
             if leftnodes:
                 src = leftnodes
             else:
                 break
 
-        for node in src:
-            return node
+        for nodeid in src:
+            return nodeid
 
-    @staticmethod
-    def selectAnyNode(sources):
+    def selectAnyNode(self, sources):
         """
         Return any one source.
         """
-        for src in sources:
-            return src
+        for nodeid in sources:
+            return nodeid
 
 
 def sampleSortDemo1():
@@ -180,7 +178,7 @@ def sampleSortDemo1():
     seq = dg.topoSort("notdependent")
     print("Diamond Graph Sort Demo")
     for item in seq:
-        print(item)
+        print(dg.graph[item])
 
 def sampleSortDemo2():
     n0 = InstrNode()
@@ -208,7 +206,6 @@ def sampleSortDemo2():
     #   \  /
     #    n1
 
-
     nodelist = [n0,n1,n2,n3,n4,n5]
 
     graph = dict()
@@ -220,7 +217,7 @@ def sampleSortDemo2():
     seq = dg.topoSort("notdependent")
     print("Graph Sort Demo 2")
     for item in seq:
-        print(item)
+        print(dg.graph[item])
 
 
 if __name__ == "__main__":

@@ -1,0 +1,29 @@
+
+.//main.elf:     file format elf32-sparc
+
+
+Disassembly of section .text:
+
+00000000 <_start>:
+   0:	05 00 00 40 	sethi  %hi(0x10000), %g2
+   4:	84 10 a0 00 	mov  %g2, %g2	! 10000 <x>
+   8:	84 10 00 00 	mov  %g0, %g2
+   c:	03 00 00 40 	sethi  %hi(0x10000), %g1
+  10:	82 10 60 00 	mov  %g1, %g1	! 10000 <x>
+  14:	ca 00 40 00 	ld  [ %g1 ], %g5
+  18:	03 00 00 40 	sethi  %hi(0x10000), %g1
+  1c:	82 10 60 04 	or  %g1, 4, %g1	! 10004 <z>
+  20:	c8 00 40 00 	ld  [ %g1 ], %g4
+  24:	8a 01 60 01 	inc  %g5
+
+00000028 <.test>:
+  28:	8a a1 60 01 	deccc  %g5
+  2c:	32 bf ff ff 	bne,a   28 <.test>
+  30:	84 00 80 04 	add  %g2, %g4, %g2
+  34:	01 00 00 00 	nop 
+  38:	03 00 00 40 	sethi  %hi(0x10000), %g1
+  3c:	82 10 60 00 	mov  %g1, %g1	! 10000 <x>
+  40:	c4 20 40 00 	st  %g2, [ %g1 ]
+
+00000044 <end>:
+  44:	91 d0 20 00 	ta  0

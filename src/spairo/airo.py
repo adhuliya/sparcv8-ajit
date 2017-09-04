@@ -135,7 +135,7 @@ class DependencyGraph():
             return src
 
 
-def sampleSortDemo():
+def sampleSortDemo1():
     n4 = InstrNode()
     n2 = InstrNode()
     n1 = InstrNode()
@@ -161,8 +161,49 @@ def sampleSortDemo():
     for item in seq:
         print(item)
 
+def sampleSortDemo2():
+    n0 = InstrNode()
+    n1 = InstrNode()
+    n2 = InstrNode()
+    n3 = InstrNode()
+    n4 = InstrNode()
+    n5 = InstrNode()
+
+    n0.pred |= {n5.id, n4.id}
+    n1.pred |= {n3.id, n4.id}
+    n2.pred |= {n5.id}
+    n2.succ |= {n3.id}
+    n3.succ |= {n1.id}
+    n3.pred |= {n2.id}
+    n4.succ |= {n0.id, n1.id}
+    n5.succ |= {n0.id, n2.id}
+
+    # Assume all arrows are downwards
+    # n5    n4
+    # | \  / |
+    # n2 n0  |
+    # |      /
+    # n3    /
+    #   \  /
+    #    n1
+
+
+    nodelist = [n0,n1,n2,n3,n4,n5]
+
+    graph = dict()
+    for n in nodelist:
+        graph[n.id] = n
+
+    dg = DependencyGraph(graph=graph)
+
+    seq = dg.topoSort()
+    print("Graph Sort Demo 2")
+    for item in seq:
+        print(item)
+
 
 if __name__ == "__main__":
-    sampleSortDemo()
+    sampleSortDemo1()
+    sampleSortDemo2()
 
 

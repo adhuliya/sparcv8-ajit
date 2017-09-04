@@ -5,6 +5,7 @@
 import copy
 import random as rand
 from textwrap import dedent
+from .instruction import Instruction
 
 class InstrNode():
     id  = 0
@@ -50,14 +51,39 @@ class DependencyGraph():
     def __init__(self, instrList=None, graph=None):
         # List of Instruction objects in a basic block.
         self.instrList  = instrList
-        self.graph      = graph     # Dict of (InstrNode.id : InstrNode)
+        # graph is explicity given in unittests
+        self.graph      = graph
 
-    def createGraph(self):
+        # if instrList is not None, graph is automatically generated
+        if instrList: self.generateGraph()
+
+
+    def generateGraph(self):
         """
-        Creates graph from the list of instrctions given.
-        TODO
+        Creates graph from self.instrList
+        Old graph is purged.
         """
-        self.graph      = None
+        assert self.instrList
+
+        self.graph      = dict()
+
+        # Convert instr list to instr node list
+        instrNodeList   = []
+        for instr in self.instrList:
+            instrNodeList.append(InstrNode(instr=instr))
+
+        # Work out all the dependencies
+        for i, nodePred in enumerate(instrNodeList):
+            for j, nodeSucc in enumerate(instrNodeList[i+1:]):
+                isDep = nodeSucc.instr.isDependentOn(nodePred.instr)
+                if isDep:
+                    nodePred.succ.add(nodeSucc.id)
+                    nodeSucc.pred.add(nodePred.id)
+
+        # Finally put the node into the graph
+        for node in instrNodeList:
+            self.graph[node.id] = node
+
 
     def copyGraph(self):
         copiedGraph = dict()
@@ -219,9 +245,21 @@ def sampleSortDemo2():
     for item in seq:
         print(dg.graph[item])
 
+def sampleSortDemo3():
+    instr1 = Instruction("add %r1,%r2,%r3").parse()
+    instr2 = Instruction("add %r1,%r2,%r3").parse()
+    instr3 = Instruction("add %r6,%r6,%r6").parse()
+
+    dg = DependencyGraph(instrList=[instr1, instr2, instr3])
+    seq = dg.topoSort("notdependent")
+    print("Graph Sort Demo 2")
+    for item in seq:
+        print(dg.graph[item])
+
 
 if __name__ == "__main__":
-    sampleSortDemo1()
-    sampleSortDemo2()
+    # sampleSortDemo1()
+    # sampleSortDemo2()
+    sampleSortDemo3()
 
 

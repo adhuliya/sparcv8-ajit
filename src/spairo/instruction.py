@@ -3,15 +3,14 @@
 # This module defined the Instruction class.
 
 from . import sparc
+import sys
+from textwrap import dedent
 
 class Instruction():
     """
     Each Instruction object represents one assembly instruction.
 
-    The Instruction class holds the needed information extracted from
-    an assembly instruction used in the program. Its constuctor accepts a
-    single instruction, and its parse() method extracts the relevant info
-    from it.
+    The Instruction class holds the needed information extracted from an assembly instruction used in the program. Its constuctor accepts a single instruction, and its parse() method extracts the relevant info from it.
     """
     def __init__(self,instrText, mnemonic=None, suffix=None, latency=None,
             regRead=None, regMod=None, resUsed=None):
@@ -45,7 +44,9 @@ class Instruction():
             match = fmt.match(self.instrText)
             if match: break
         else:
-            assert False, "Error on Instruction {}".format(self.instrText)
+            assert False, "No match on instruction '{}'".format(self.instrText)
+            print("No match on instruction '{}'".format(self.instrText), file=sys.stderr)
+            exit(1)
 
         # Here fmt, details contains the info for the right instr
         self.latency = details["latency"]
@@ -92,18 +93,24 @@ class Instruction():
         else:
             return None
 
+    # True if depencence otherInstr ---> self exists
+    # Semantically otherInstr should occur before this instr
+    def isDependentOn(self, otherInstr):
+        # Does otherInstr read or write reg written by this instr
+        set1 = self.regMod & (otherInstr.regRead | otherInstr.regMod)
+        if set1 : return True
+
+        # Does this instr read or write reg written by otherInstr
+        set2 = otherInstr.regMod & (self.regRead | self.regMod)
+        if set2 : return True
+
+        return False
 
     def __str__(self):
-        return """\
-        Instruction Object:
-        InstrText    : {}
-        Mnemonic     : {}
-        Suffix       : {}
-        Reg Read     : {}
-        Reg Modified : {}
-        Res Used     : {}
-        Latency      : {}
-        """.format(self.instrText, self.mnemonic, self.suffix, self.regRead, self.regMod, self.resUsed, self.latency)
+        string = """\
+        Instruction(instrText="{}", mnemonic="{}", suffix="{}", regRead={}, regMod={}, resUsed={}, latency={})
+        """
+        return dedent(string).format(self.instrText, self.mnemonic, self.suffix, self.regRead, self.regMod, self.resUsed, self.latency)
 
     # This function is used in UnitTests
     def __eq__(self, other):
@@ -126,6 +133,9 @@ def convertTextInstrList(textInstrList):
 
 
 if __name__ == "__main__":
-    print(Instruction("ldsb [%r1+%r2],%r4").parse())
+    instrArg = "ldsb [%r1+%r2],%r4"
+    if len(sys.argv) == 2:
+        instrArg = sys.argv[1]
+    print(Instruction(instrArg).parse())
 
 

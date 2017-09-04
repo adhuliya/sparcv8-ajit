@@ -30,5 +30,10 @@ def printInstr(instr):
     print("Total Instr:", len(instr))
 
 if __name__ == "__main__":
-    instr = parse(sys.argv[1])
+    filename = "testfiles/test.obj.save"
+    if len(sys.argv) == 2:
+        filename = sys.argv[1]
+    instr = parse(filename)
     printInstr(instr)
+
+

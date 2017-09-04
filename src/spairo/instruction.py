@@ -126,6 +126,6 @@ def convertTextInstrList(textInstrList):
 
 
 if __name__ == "__main__":
-    print(Instruction("ldsb [%r1+%r2],%r4"))
+    print(Instruction("ldsb [%r1+%r2],%r4").parse())
 
 

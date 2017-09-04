@@ -48,14 +48,24 @@ def instructionTrace(traceFile, objFile):
 
 
 if __name__ == "__main__":
+    wtraceFileName  = "testfiles/test.wtrace.save"
+    objFileName     = "testfiles/test.obj.save"
     if len(sys.argv) == 2:
-        addresses = parse(sys.argv[1])
+        wtraceFileName = sys.argv[1]
+        addresses = parse(wtraceFileName)
         for addr in addresses:
             print("{:x}".format(addr), end=" ")
         print("\nTotal", len(addresses))
     elif len(sys.argv) == 3:
-        instrList = instructionTrace(sys.argv[1], sys.argv[2])
+        wtraceFileName  = sys.argv[1]
+        objFileName     = sys.argv[2]
+        instrList = instructionTrace(wtraceFileName, objFileName)
         for i, instr in enumerate(instrList):
             print(i+1, ":", instr)
+    else:
+        instrList = instructionTrace(wtraceFileName, objFileName)
+        for i, instr in enumerate(instrList):
+            print(i+1, ":", instr)
+
 
 

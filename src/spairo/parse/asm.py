@@ -138,7 +138,11 @@ class AsmModule():
 
 
 if __name__ == "__main__":
-    asmMod = AsmModule(sys.argv[1])
+    filename = "testfiles/test.s"
+    if len(sys.argv) == 2:
+        filename = sys.argv[1]
+
+    asmMod = AsmModule(filename)
     asmMod.parse()
     print(asmMod.contentWithoutComments)
     print("****************************************************************")

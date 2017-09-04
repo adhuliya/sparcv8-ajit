@@ -125,6 +125,27 @@ class DependencyGraph():
     def selectNode(sortedNodes, sources, graph, huristic):
         if huristic is None:
             return DependencyGraph.selectAnyNode(sources)
+        elif huristic.strip().lower() == "notdependent":
+            # separate the dependent nodes by putting in non-dependent nodes
+            return DependencyGraph.selectNotDependentNode(sortedNodes, sources)
+
+    @staticmethod
+    def selectNotDependentNode(sortedNodes, sources):
+        """
+        Selects nodes which are not dependent on the already sorted nodes.
+        As far as possible.
+        """
+        src = sources
+
+        for node in reversed(sortedNotes):
+            leftnodes = src - sortedNodes.succ
+            if leftnodes:
+                src = leftnodes
+            else:
+                break
+
+        for node in src:
+            return node
 
     @staticmethod
     def selectAnyNode(sources):
@@ -156,7 +177,7 @@ def sampleSortDemo1():
 
     dg = DependencyGraph(graph=graph)
 
-    seq = dg.topoSort()
+    seq = dg.topoSort("notdependent")
     print("Diamond Graph Sort Demo")
     for item in seq:
         print(item)
@@ -196,7 +217,7 @@ def sampleSortDemo2():
 
     dg = DependencyGraph(graph=graph)
 
-    seq = dg.topoSort()
+    seq = dg.topoSort("notdependent")
     print("Graph Sort Demo 2")
     for item in seq:
         print(item)

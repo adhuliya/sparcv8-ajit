@@ -2,9 +2,12 @@
 
 # This module defined the Instruction class.
 
-from . import sparc
 import sys
+import re
+from . import sparc
 from textwrap import dedent
+
+commentMarkups = re.compile(r"(?P<comment><slc\d+>|<mlc\d+>)")
 
 class Instruction():
     """
@@ -16,7 +19,7 @@ class Instruction():
             regRead=None, regMod=None, resUsed=None):
         # To create an object, only instrText argument is required
         # Other arguments are used to statically populate the fields for UnitTests
-        self.instrText = instrText.strip()
+        self.instrText = instrText
         self.mnemonic  = mnemonic
         self.suffix    = suffix
         self.latency   = latency
@@ -31,9 +34,12 @@ class Instruction():
         """
         Parses the instrText and sets object fields appropriately.
         """
+        # remove possible comment markups
+        instrText = commentMarkups.sub("", self.instrText).strip(";").strip()
+
 
         # Extract mnemonic and its ",a" suffix separately
-        words = self.instrText.split()[0].lower().split(",")
+        words = instrText.split()[0].lower().split(",")
         self.mnemonic = words[0]
         self.suffix = words[2] if len(words) == 3 else None
 
@@ -41,7 +47,7 @@ class Instruction():
 
         # Find the instr format that matches the instr text
         for fmt, details in formats:
-            match = fmt.match(self.instrText)
+            match = fmt.match(instrText)
             if match: break
         else:
             assert False, "No match on instruction '{}'".format(self.instrText)

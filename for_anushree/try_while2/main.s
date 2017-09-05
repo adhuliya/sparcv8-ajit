@@ -4,7 +4,7 @@ y: .word 0x9
 z: .word 0x42
 .section .text
  .global _start
-main:
+main :
 _start: set x,/*hello*/ %r2			
 	mov %r0, %r2			!%r2 --->r0 = 0; %g0 = 0
 	set y, %r1

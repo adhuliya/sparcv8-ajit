@@ -3901,7 +3901,7 @@ regexMap = {
   "AA"   : r"%\w+",
 
   # Set of registers specially for the mov synthetic instruction
-  "EM"   : r"%y|%asr\d+|%psr|%wim|%tbr(?i)"
+  "EM"   : r"%y|%asr\d+|%psr|%wim|%tbr(?i)",
 
   # I: Immediate value expression
   # Extract Immediate Value

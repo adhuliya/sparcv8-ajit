@@ -48,7 +48,7 @@ class Instruction():
             print("No match on instruction '{}'".format(self.instrText), file=sys.stderr)
             exit(1)
 
-        # Here fmt, details contains the info for the right instr
+        # Here (fmt, details) contains the info for the matched instr
         self.latency = details["latency"]
         self.regRead = Instruction.parseResource(match, details["reg-read"])
         self.regMod  = Instruction.parseResource(match, details["reg-mod"])
@@ -79,6 +79,8 @@ class Instruction():
             regs = [reg[1:].lower() for reg in regs] # remove '%' and lower
 
             if firstTwoChar == "AA":
+                # An arithmetic expression used here.
+                # If one or less register is used, r0 is implied to be read.
                 if len(regs) <= 1:
                     regs.append("r0")
 

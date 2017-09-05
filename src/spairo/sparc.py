@@ -19,7 +19,9 @@ def processInstrData():
             if groupdict["name"] is not None:
                 name = match.group("name")
                 if name[0] == "A":
-                    # "A" means Any occurance
+                    # "A" means All matches
+                    # All content in the position is captured first.
+                    # Regex is used to extract ALL occurances from the captured text.
                     return r"(?P<{}>[^,]*?)".format(name)
                 elif name[0] == "E":
                     # "E" means Exact match

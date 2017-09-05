@@ -56,7 +56,7 @@ registers = {
   "c0", "c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9",
   "c10", "c11", "c12", "c13", "c14", "c15", "c16", "c17", "c18",
   "c19", "c20", "c21", "c22", "c23", "c24", "c25", "c26", "c27",
-  "c28", "c29", "c30",
+  "c28", "c29", "c30", "c31",
   "asr0", "asr1", "asr2", "asr3", "asr4", "asr5", "asr6", "asr7", "asr8", "asr9",
   "asr10", "asr11", "asr12", "asr13", "asr14", "asr15", "asr16", "asr17", "asr18",
   "asr19", "asr20", "asr21", "asr22", "asr23", "asr24", "asr25", "asr26", "asr27",
@@ -106,25 +106,6 @@ regSynonyms = {
 
 
 # START : Instructions with Details
-
-# Pefix '@' when using any key below in the instruction format specification.
-# Each '@<ALPHABET><NUM>' in the pattern is replaced with '(?P<ALPHABETNUM>.*?)'
-# And the matched text is processes using the regular expression the alphabet
-# is mapped to.
-regexMap = {
-  # R: Register expression
-  # Extract the Registers (only one)
-  "AR"   : r"%\w+",
-  # I: Immediate value expression
-  # Extract Immediate Value
-  "EI"   : r"[-+]?[ \t]*\d+|[-+]?[ \t]*0[xX][0-9a-fA-F]+",
-  # A: Address expression
-  # Extract All Registers
-  # If a single or no register is found, add %r0 as a register being read
-  "AA"   : r"%\w+",
-  # Set of registers speciall for mov synthetic instruction
-  "EM"   : r"%y|%asr\d+|%psr|%wim|%tbr(?i)"
-}
 
 # All sequence of spaces in the instruction is replaced with [ \t]*
 # '^' and '$' is prefixed and suffixed to each format respectively 
@@ -3896,6 +3877,35 @@ instrData = {
   },
 
 
+}
+
+# Pefix '@' to the keys defined here, and suffix a single decimal digit.
+# It is used in the specification of the instruction format.
+# Each '@<ALPHABETS><NUM>' in the format is replaced with '(?P<ALPHABETSNUM>.*?)'
+# And the matched text is processes using the regular expression the alphabet
+# is mapped to.
+# The first char should be one of A or E.
+# A = All matches
+# E = Exact match
+# NOTE  : Changing the semantics of these keys may require changes in
+#         sparc.py and instruction.py as well.
+regexMap = {
+
+  # R: Register expression
+  # Extract the Registers (only one)
+  "AR"   : r"%\w+",
+
+  # A: Address expression
+  # Extract All Registers
+  # If a single or no register is found, add %r0 as a register being read
+  "AA"   : r"%\w+",
+
+  # Set of registers specially for the mov synthetic instruction
+  "EM"   : r"%y|%asr\d+|%psr|%wim|%tbr(?i)"
+
+  # I: Immediate value expression
+  # Extract Immediate Value
+  "EI"   : r"[-+]?[ \t]*\d+|[-+]?[ \t]*0[xX][0-9a-fA-F]+",
 }
 
 # END   : Instructions with Details

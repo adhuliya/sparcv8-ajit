@@ -8,6 +8,8 @@ from . import sparc
 from textwrap import dedent
 
 commentMarkups = re.compile(r"(?P<comment><slc\d+>|<mlc\d+>)")
+digits = re.compile(r"\d+")
+alphabets = re.compile(r"[a-zA-Z]+")
 
 class Instruction():
     """
@@ -15,14 +17,15 @@ class Instruction():
 
     The Instruction class holds the needed information extracted from an assembly instruction used in the program. Its constuctor accepts a single instruction, and its parse() method extracts the relevant info from it.
     """
-    def __init__(self,instrText, mnemonic=None, suffix=None, latency=None,
+    def __init__(self,instrText, name=None, mnemonic=None, suffix=None, latency=None,
             regRead=None, regMod=None, resUsed=None):
         # To create an object, only instrText argument is required
         # Other arguments are used to statically populate the fields for UnitTests
-        self.instrText = instrText
-        self.mnemonic  = mnemonic
-        self.suffix    = suffix
-        self.latency   = latency
+        self.instrText  = instrText
+        self.mnemonic   = mnemonic
+        self.suffix     = suffix
+        self.latency    = latency
+        self.name       = name
 
         # Set of strings: each identifying a data src or dst
         self.regRead = regRead # set()
@@ -54,7 +57,8 @@ class Instruction():
             print("No match on instruction '{}'".format(self.instrText), file=sys.stderr)
             exit(1)
 
-        # Here (fmt, details) contains the info for the matched instr
+        # Here (fmt, fmt-info) contains the info for the matched instr
+        self.name    = details["name"]
         self.latency = details["latency"]
         self.regRead = Instruction.parseResource(match, details["reg-read"])
         self.regMod  = Instruction.parseResource(match, details["reg-mod"])
@@ -89,12 +93,22 @@ class Instruction():
                 # If one or less register is used, r0 is implied to be read.
                 if len(regs) <= 1:
                     regs.append("r0")
+            elif firstTwoChar == "AD":
+                # When double words are loaded LDD, LDDA, ...
+                # regs will contain only one even numbered register
+                assert len(regs) == 1
+                regNum  = int(digits.search(regs[0]).group())
+                assert regNum % 2 == 0, "AD: Destination register should be even."
+                regName = alphabets.search(regs[0]).group()
+                regs.append(regName + str(regNum+1))
 
             for reg in regs:
                 if reg in sparc.regSynonyms:
                     regSet.add(sparc.regSynonyms[reg])
-                else:
+                elif reg in sparc.registers:
                     regSet.add(reg)
+                else:
+                    assert reg in ("lo", "hi")
 
         if regSet:
             return regSet
@@ -116,13 +130,14 @@ class Instruction():
 
     def __str__(self):
         string = """\
-        Instruction(instrText="{}", mnemonic="{}", suffix="{}", regRead={}, regMod={}, resUsed={}, latency={})
+        Instruction(instrText="{}", name="{}", mnemonic="{}", suffix="{}", regRead={}, regMod={}, resUsed={}, latency={})
         """
-        return dedent(string).format(self.instrText, self.mnemonic, self.suffix, self.regRead, self.regMod, self.resUsed, self.latency)
+        return dedent(string).format(self.instrText, self.name, self.mnemonic, self.suffix, self.regRead, self.regMod, self.resUsed, self.latency)
 
     # This function is used in UnitTests
     def __eq__(self, other):
         if (self.instrText == other.instrText and
+            self.name      == other.name      and
             self.mnemonic  == other.mnemonic  and
             self.suffix    == other.suffix    and
             self.regRead   == other.regRead   and

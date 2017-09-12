@@ -73,6 +73,7 @@ regexMap    = processRegexMap()
 instr           = processInstrData()
 registers       = sparcinfo.registers
 regSynonyms     = sparcinfo.regSynonyms
+resources       = sparcinfo.resources
 pair            = sparcinfo.pairLatency
 userSections    = sparcinfo.userSections
 nonUserSections = sparcinfo.nonUserSections

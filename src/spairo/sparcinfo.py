@@ -2856,9 +2856,20 @@ instrData = {
       [
         # List of Tuple Pairs (format, format-info)
         (
-          r"format1",
+          r"cba @EL1",
           {
             "name"      : "cba",
+            "latency"   : Value.latencyA,
+            "reg-read"  : None, #set
+            "reg-mod"   : None, #set
+            "res-used"  : None, #set
+          }
+        ),
+
+        (
+          r"cba,a @EL1",
+          {
+            "name"      : "cba:a",
             "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
@@ -2874,9 +2885,20 @@ instrData = {
       [
         # List of Tuple Pairs (format, format-info)
         (
-          r"format1",
+          r"cbn @EL1",
           {
             "name"      : "cbn",
+            "latency"   : Value.latencyA,
+            "reg-read"  : None, #set
+            "reg-mod"   : None, #set
+            "res-used"  : None, #set
+          }
+        ),
+
+        (
+          r"cbn,a @EL1",
+          {
+            "name"      : "cbn:a",
             "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
@@ -2892,9 +2914,20 @@ instrData = {
       [
         # List of Tuple Pairs (format, format-info)
         (
-          r"format1",
+          r"cb3 @EL1",
           {
             "name"      : "cb3",
+            "latency"   : Value.latencyA,
+            "reg-read"  : None, #set
+            "reg-mod"   : None, #set
+            "res-used"  : None, #set
+          }
+        ),
+
+        (
+          r"cb3,a @EL1",
+          {
+            "name"      : "cb3:a",
             "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
@@ -2910,9 +2943,20 @@ instrData = {
       [
         # List of Tuple Pairs (format, format-info)
         (
-          r"format1",
+          r"cb2 @EL1",
           {
             "name"      : "cb2",
+            "latency"   : Value.latencyA,
+            "reg-read"  : None, #set
+            "reg-mod"   : None, #set
+            "res-used"  : None, #set
+          }
+        ),
+
+        (
+          r"cb2,a @EL1",
+          {
+            "name"      : "cb2:a",
             "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
@@ -2928,9 +2972,20 @@ instrData = {
       [
         # List of Tuple Pairs (format, format-info)
         (
-          r"format1",
+          r"cb23 @EL1",
           {
             "name"      : "cb23",
+            "latency"   : Value.latencyA,
+            "reg-read"  : None, #set
+            "reg-mod"   : None, #set
+            "res-used"  : None, #set
+          }
+        ),
+
+        (
+          r"cb23,a @EL1",
+          {
+            "name"      : "cb23:a",
             "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
@@ -2946,9 +3001,20 @@ instrData = {
       [
         # List of Tuple Pairs (format, format-info)
         (
-          r"format1",
+          r"cb1 @EL1",
           {
             "name"      : "cb1",
+            "latency"   : Value.latencyA,
+            "reg-read"  : None, #set
+            "reg-mod"   : None, #set
+            "res-used"  : None, #set
+          }
+        ),
+
+        (
+          r"cb1,a @EL1",
+          {
+            "name"      : "cb1:a",
             "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
@@ -2964,9 +3030,20 @@ instrData = {
       [
         # List of Tuple Pairs (format, format-info)
         (
-          r"format1",
+          r"cb13 @EL1",
           {
             "name"      : "cb13",
+            "latency"   : Value.latencyA,
+            "reg-read"  : None, #set
+            "reg-mod"   : None, #set
+            "res-used"  : None, #set
+          }
+        ),
+
+        (
+          r"cb13,a @EL1",
+          {
+            "name"      : "cb13:a",
             "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
@@ -2982,9 +3059,20 @@ instrData = {
       [
         # List of Tuple Pairs (format, format-info)
         (
-          r"format1",
+          r"cb12 @EL1",
           {
             "name"      : "cb12",
+            "latency"   : Value.latencyA,
+            "reg-read"  : None, #set
+            "reg-mod"   : None, #set
+            "res-used"  : None, #set
+          }
+        ),
+
+        (
+          r"cb12,a @EL1",
+          {
+            "name"      : "cb12:a",
             "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
@@ -3000,9 +3088,20 @@ instrData = {
       [
         # List of Tuple Pairs (format, format-info)
         (
-          r"format1",
+          r"cb123 @EL1",
           {
             "name"      : "cb123",
+            "latency"   : Value.latencyA,
+            "reg-read"  : None, #set
+            "reg-mod"   : None, #set
+            "res-used"  : None, #set
+          }
+        ),
+
+        (
+          r"cb123,a @EL1",
+          {
+            "name"      : "cb123:a",
             "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
@@ -3018,9 +3117,20 @@ instrData = {
       [
         # List of Tuple Pairs (format, format-info)
         (
-          r"format1",
+          r"cb0 @EL1",
           {
             "name"      : "cb0",
+            "latency"   : Value.latencyA,
+            "reg-read"  : None, #set
+            "reg-mod"   : None, #set
+            "res-used"  : None, #set
+          }
+        ),
+
+        (
+          r"cb0,a @EL1",
+          {
+            "name"      : "cb0:a",
             "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
@@ -3036,9 +3146,20 @@ instrData = {
       [
         # List of Tuple Pairs (format, format-info)
         (
-          r"format1",
+          r"cb03 @EL1",
           {
             "name"      : "cb03",
+            "latency"   : Value.latencyA,
+            "reg-read"  : None, #set
+            "reg-mod"   : None, #set
+            "res-used"  : None, #set
+          }
+        ),
+
+        (
+          r"cb03,a @EL1",
+          {
+            "name"      : "cb03:a",
             "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
@@ -3054,9 +3175,20 @@ instrData = {
       [
         # List of Tuple Pairs (format, format-info)
         (
-          r"format1",
+          r"cb02 @EL1",
           {
             "name"      : "cb02",
+            "latency"   : Value.latencyA,
+            "reg-read"  : None, #set
+            "reg-mod"   : None, #set
+            "res-used"  : None, #set
+          }
+        ),
+
+        (
+          r"cb02,a @EL1",
+          {
+            "name"      : "cb02:a",
             "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
@@ -3072,9 +3204,20 @@ instrData = {
       [
         # List of Tuple Pairs (format, format-info)
         (
-          r"format1",
+          r"cb023 @EL1",
           {
             "name"      : "cb023",
+            "latency"   : Value.latencyA,
+            "reg-read"  : None, #set
+            "reg-mod"   : None, #set
+            "res-used"  : None, #set
+          }
+        ),
+
+        (
+          r"cb023,a @EL1",
+          {
+            "name"      : "cb023:a",
             "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
@@ -3090,9 +3233,20 @@ instrData = {
       [
         # List of Tuple Pairs (format, format-info)
         (
-          r"format1",
+          r"cb01 @EL1",
           {
             "name"      : "cb01",
+            "latency"   : Value.latencyA,
+            "reg-read"  : None, #set
+            "reg-mod"   : None, #set
+            "res-used"  : None, #set
+          }
+        ),
+
+        (
+          r"cb01,a @EL1",
+          {
+            "name"      : "cb01:a",
             "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
@@ -3108,9 +3262,20 @@ instrData = {
       [
         # List of Tuple Pairs (format, format-info)
         (
-          r"format1",
+          r"cb013 @EL1",
           {
             "name"      : "cb013",
+            "latency"   : Value.latencyA,
+            "reg-read"  : None, #set
+            "reg-mod"   : None, #set
+            "res-used"  : None, #set
+          }
+        ),
+
+        (
+          r"cb013,a @EL1",
+          {
+            "name"      : "cb013:a",
             "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set
@@ -3126,9 +3291,20 @@ instrData = {
       [
         # List of Tuple Pairs (format, format-info)
         (
-          r"format1",
+          r"cb012 @EL1",
           {
             "name"      : "cb012",
+            "latency"   : Value.latencyA,
+            "reg-read"  : None, #set
+            "reg-mod"   : None, #set
+            "res-used"  : None, #set
+          }
+        ),
+
+        (
+          r"cb012,a @EL1",
+          {
+            "name"      : "cb012:a",
             "latency"   : Value.latencyA,
             "reg-read"  : None, #set
             "reg-mod"   : None, #set

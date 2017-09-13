@@ -49,6 +49,8 @@ class Value():
 
 
 # START : System Resources
+pipeline        = 3
+
 resources = {
   "iu",     # integer unit
   "fpu",    # floating point unit

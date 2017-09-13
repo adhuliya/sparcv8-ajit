@@ -71,9 +71,12 @@ def processSectionNames():
 regexMap    = processRegexMap()
 # process regexMap before instr
 instr           = processInstrData()
+bbBoundary      = sparcinfo.bbBoundary
+noDelaySlot     = sparcinfo.noDelaySlot
 registers       = sparcinfo.registers
 regSynonyms     = sparcinfo.regSynonyms
 resources       = sparcinfo.resources
+pipeline        = sparcinfo.pipeline
 pair            = sparcinfo.pairLatency
 userSections    = sparcinfo.userSections
 nonUserSections = sparcinfo.nonUserSections

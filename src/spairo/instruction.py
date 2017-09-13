@@ -141,6 +141,11 @@ class Instruction():
 
         return False
 
+    # True if depencence otherInstr ---> self exists and is Read after Write
+    # Semantically otherInstr should occur before this instr
+    def isRawDependentOn(self, otherInstr):
+        return bool(self.regRead & otherInstr.regMod)
+
     def __str__(self):
         string = """\
         Instruction(instrText="{}", name="{}", mnemonic="{}", suffix="{}", regRead={}, regMod={}, resUsed={}, latency={})

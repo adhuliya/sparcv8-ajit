@@ -84,6 +84,7 @@ class Instruction():
             # if placeholder exists, a match also exist.
             text = match.group(placeHolder)
 
+            # This works for AX and EX both. For EX its always a single match.
             regs = sparc.regexMap[firstTwoChar][0].findall(text)
             if not regs: continue # NO MATCH, ADD NOTHING
             regs = [reg[1:].lower() for reg in regs] # remove '%' and lower
@@ -93,14 +94,26 @@ class Instruction():
                 # If one or less register is used, r0 is implied to be read.
                 if len(regs) <= 1:
                     regs.append("r0")
-            elif firstTwoChar == "AD":
+
+            elif firstTwoChar == "ED":
                 # When double words are loaded LDD, LDDA, ...
                 # regs will contain only one even numbered register
                 assert len(regs) == 1
                 regNum  = int(digits.search(regs[0]).group())
-                assert regNum % 2 == 0, "AD: Destination register should be even."
+                assert regNum % 2 == 0, "AD: Register Number should be even."
                 regName = alphabets.search(regs[0]).group()
                 regs.append(regName + str(regNum+1))
+
+            elif firstTwoChar == "EQ":
+                # When double words are loaded LDD, LDDA, ...
+                # regs will contain only one even numbered register
+                assert len(regs) == 1
+                regNum  = int(digits.search(regs[0]).group())
+                assert regNum % 4 == 0, "AD: Register Number should be multiple of 4."
+                regName = alphabets.search(regs[0]).group()
+                regs.append(regName + str(regNum+1))
+                regs.append(regName + str(regNum+2))
+                regs.append(regName + str(regNum+3))
 
             for reg in regs:
                 if reg in sparc.regSynonyms:

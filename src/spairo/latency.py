@@ -29,14 +29,18 @@ def executionTime(instrList):
 
         if prevInstr is not None:
           if instr.isRawDependentOn(prevInstr):
-              delay += prevInstr.latency
+              delay = prevInstr.latency
 
         if prevPrevInstr is not None:
           if instr.isRawDependentOn(prevPrevInstr):
-              delay += max([0, prevPrevInstr.latency - 1])
+              delay = max([0, delay, prevPrevInstr.latency - 1])
 
+        execTime += delay
 
+    return execTime
 
 
 if __name__ == "__main__":
     pass
+
+

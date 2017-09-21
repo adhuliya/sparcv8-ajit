@@ -167,6 +167,11 @@ class Instruction():
                return True
         return False
 
+    # Does this instruction define the end of a basic block?
+    # All branching instructions return True + some others (like save, restore)
+    def isBbBoundary(self):
+        return self.mnemonic in sparc.bbBoundary
+
 
 if __name__ == "__main__":
     # A simple run for a basic test.

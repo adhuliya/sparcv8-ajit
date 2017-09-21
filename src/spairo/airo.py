@@ -49,6 +49,11 @@ class InstrNode():
 
 
 class DependencyGraph():
+    huristicsList = [
+            None,           # simple topo sort
+            "notdependent", # chose not-dependent nodes first
+            ]
+
     def __init__(self, instrList=None, graph=None):
         # List of Instruction objects in a basic block.
         self.instrList  = instrList
@@ -93,6 +98,7 @@ class DependencyGraph():
 
         return copiedGraph
 
+    # Sorts with the give huristics and returns a new sequence.
     def topoSort(self, huristic=None):
         """
         Topologically sorts using a List Algorithm with the given huristic.
@@ -116,6 +122,16 @@ class DependencyGraph():
             graph = self.removeNodeFromGraph(graph, graph[selectedNodeId])
 
         return sortedNodeIds
+
+    # Sorts with the give huristics and returns a reordered list of instructions.
+    def getReorderedInstrList(self, huristics=None):
+        seq = self.topoSort(self, huristics)
+
+        instrList = []
+        for num in seq:
+            instrList.append(self.graph[num].instr)
+
+        return instrList
 
     @staticmethod
     def printGraph(graph):
@@ -179,6 +195,10 @@ class DependencyGraph():
         """
         for nodeid in sources:
             return nodeid
+
+    def getAllHuristics(self):
+        return self.huristicsList
+
 
 
 def sampleSortDemo1():

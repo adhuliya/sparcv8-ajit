@@ -6,6 +6,7 @@ import sys
 import re
 from . import sparc
 from textwrap import dedent
+from .parse.asm import AsmChunk
 
 commentMarkups = re.compile(r"(?P<comment><slc\d+>|<mlc\d+>)")
 digits = re.compile(r"\d+")
@@ -17,11 +18,13 @@ class Instruction():
 
     The Instruction class holds the needed information extracted from an assembly instruction used in the program. Its constuctor accepts a single instruction, and its parse() method extracts the relevant info from it.
     """
-    def __init__(self,instrText, name=None, mnemonic=None, suffix=None, latency=None,
-            regRead=None, regMod=None, resUsed=None):
-        # To create an object, only instrText argument is required
+    def __init__(self, asmChunk=None, name=None, mnemonic=None, suffix=None, latency=None, regRead=None, regMod=None, resUsed=None):
+        # To create an object, only asmChunk argument is required
         # Other arguments are used to statically populate the fields for UnitTests
-        self.instrText  = instrText
+
+        # The AsmChunk obj from which this instruction is taken
+        self.asmChunk   = asmChunk
+
         self.mnemonic   = mnemonic
         self.suffix     = suffix
         self.latency    = latency
@@ -38,7 +41,7 @@ class Instruction():
         Parses the instrText and sets object fields appropriately.
         """
         # remove possible comment markups
-        instrText = commentMarkups.sub("", self.instrText).strip(";").strip()
+        instrText = commentMarkups.sub("", self.asmChunk.text).strip(";").strip()
 
 
         # Extract mnemonic and its ",a" suffix separately
@@ -53,8 +56,8 @@ class Instruction():
             match = fmt.match(instrText)
             if match: break
         else:
-            assert False, "No match on instruction '{}'".format(self.instrText)
-            print("No match on instruction '{}'".format(self.instrText), file=sys.stderr)
+            assert False, "No match on instruction '{}'".format(self.asmChunk)
+            print("No match on instruction '{}'".format(self.asmChunk), file=sys.stderr)
             exit(1)
 
         # Here (fmt, fmt-info) contains the info for the matched instr
@@ -148,13 +151,13 @@ class Instruction():
 
     def __str__(self):
         string = """\
-        Instruction(instrText="{}", name="{}", mnemonic="{}", suffix="{}", regRead={}, regMod={}, resUsed={}, latency={})
+        Instruction(asmChunk="{}", name="{}", mnemonic="{}", suffix="{}", regRead={}, regMod={}, resUsed={}, latency={})
         """
-        return dedent(string).format(self.instrText, self.name, self.mnemonic, self.suffix, self.regRead, self.regMod, self.resUsed, self.latency)
+        return dedent(string).format(self.asmChunk, self.name, self.mnemonic, self.suffix, self.regRead, self.regMod, self.resUsed, self.latency)
 
     # This function is used in UnitTests
     def __eq__(self, other):
-        if (self.instrText == other.instrText and
+        if (self.asmChunk  == other.asmChunk  and
             self.name      == other.name      and
             self.mnemonic  == other.mnemonic  and
             self.suffix    == other.suffix    and
@@ -165,18 +168,11 @@ class Instruction():
         return False
 
 
-def convertTextInstrList(textInstrList):
-    instrList = []
-    for textInstr in textInstrList:
-        instrList.append(Instruction(textInstr).parse())
-
-    return instrList
-
-
 if __name__ == "__main__":
+    # A simple run for a basic test.
     instrArg = "ldsb [%r1+%r2],%r4"
     if len(sys.argv) == 2:
         instrArg = sys.argv[1]
-    print(Instruction(instrArg).parse())
+    print(Instruction(AsmChunk(index=0, text=instrArg, unitType="instr", isTextSection=True)).parse())
 
 

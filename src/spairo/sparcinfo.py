@@ -26,8 +26,7 @@
 
 class Value():
     """
-    Defines user defined convenient constants that reduce the need to type,
-    and makes the information systematic.
+    Defines user defined convenient constants that reduce the need to type, and makes the information systematic.
     """
     hitRatio        = 0.9
     missRatio       = 1 - hitRatio
@@ -1843,7 +1842,7 @@ instrData = {
           }
         ),
       ],
-  }
+  },
 
   "bnz"         : # Branch on Not Equal, synonym of bne
   {

@@ -1,10 +1,16 @@
 #!/usr/bin/env python3
+"""
+This module parses a sparc asm file and breaks it into uints.
+It specially separates instructions and labels, which are useful
+for assembly instruction reordering.
+"""
 
 import re
 import sys
 import os
 import os.path as osp
 from .. import sparc
+from io import StringIO
 
 # dqstr = Double Quote STR, sqstr = Single Quote STR
 string      = r"""(?P<dqstr>"(\\"|\\\n|.)*?")|(?P<sqstr>'(\\'|\\\n|.)*?')"""
@@ -25,7 +31,7 @@ whiteSpace      = r"(?P<ws>\s+)"
 nonWhiteSpace   = r"(?P<nws>\S+)"
 commentMarkup   = r"(?P<comment><slc\d+>|<mlc\d+>)"
 # combining above regexes (assuming all comments are already removed)
-asmStmt         = "|".join([label, pseudoOp, instruction,
+asmChunk        = "|".join([label, pseudoOp, instruction,
     whiteSpace, commentMarkup, nonWhiteSpace])
 
 markups         = re.compile(r"<str(?P<str>\d+)>|<(slc|mlc)(?P<comment>\d+)>")
@@ -47,8 +53,32 @@ otherPseudoOp = r"^(?P<pop>.*)"
 
 detectTextSectionPat = re.compile(textSection + "|" + nonTextSection + "|" + otherPseudoOp)
 
+class AsmChunk():
+    def __init__(self, index=None, text=None, unitType=None, isTextSection=False):
+        """
+        unitType is one of
+          "label"
+          "instr"
+          "comment"
+          "popln"   Pseudo OP LiNe
+          "ws"      White Space
+        """
+        # self.index is the index in the list of AsmChunk objs
+        self.index  = index
+        self.text   = text
+        self.unitType = unitType
+        self.isTextSection = isTextSection
+
+    def __str__(self):
+        return "AsmChunk(index={:<5}, unitType={:<9}, textSection={:<5}, text={!r})".format(self.index, repr(self.unitType), str(self.isTextSection), self.text)
+
+    def __eq__(self, other):
+        return self.index == other.index
+
+
 
 # Each Sparc asm file after parsing is represented as an AsmModule object.
+# After parsing the asm file is converted to a list of AsmChunk objects.
 class AsmModule():
     def __init__(self, filename=None):
         if not filename or not osp.exists(filename):
@@ -56,47 +86,50 @@ class AsmModule():
         self.filename = filename
         self.originalContent = None
         self.contentWithoutComments = None
-        # Content divided into logical chunks which when combined together,
-        # equals the self.contentWihtoutComments
-        self.contentChunks = [("FirstChunkNameIsFlag","NoChunkContent")]
         self.strings    = []    # ordered list of strings in code
         self.comments   = []    # ordered list of comments in code
-        self.chunks     = []
+        self.chunks     = []    # ordered list of AsmChunk objects
         self.basicBlocks    = []
         self.isTextSection  = False
 
     def parse(self):
         self.originalContent = self.readFile()
-        self.contentWithoutComments = self.removeCommentsAndStrings()
+        self.contentWithoutComments = self.markupCommentsAndStrings()
         self.parseIntoChunks(self.contentWithoutComments)
 
         assert self.coalesceContents() == self.originalContent
 
     def parseIntoChunks(self, content):
-        p = re.compile(asmStmt)
+        p = re.compile(asmChunk)
 
         def categorizeChunk(match):
             groupDict = match.groupdict()
             if groupDict["label"] is not None:
-                self.chunks.append((["label", self.isTextSection], match.group("label")))
+                self.chunks.append(AsmChunk(index=len(self.chunks), unitType="label", isTextSection=self.isTextSection, text=match.group("label")))
                 return match.group("label")
+
             elif groupDict["popln"] is not None:
                 self.detectTextSection(match.group("popln"))
-                self.chunks.append((["popln", self.isTextSection], match.group("popln")))
+                self.chunks.append(AsmChunk(index=len(self.chunks), unitType="popln", isTextSection=self.isTextSection, text=match.group("popln")))
                 return match.group("popln")
+
             elif groupDict["instr"] is not None:
-                self.chunks.append((["instr", self.isTextSection], match.group("instr")))
+                self.chunks.append(AsmChunk(index=len(self.chunks), unitType="instr", isTextSection=self.isTextSection, text=match.group("instr")))
                 return match.group("instr")
+
             elif groupDict["comment"] is not None:
-                self.chunks.append((["comment", self.isTextSection], match.group("comment").strip()))
+                self.chunks.append(AsmChunk(index=len(self.chunks), unitType="comment", isTextSection=self.isTextSection, text=match.group("comment").strip()))
                 return match.group("instr")
+
             elif groupDict["ws"] is not None:
-                self.chunks.append((["ws", self.isTextSection], match.group("ws")))
+                self.chunks.append(AsmChunk(index=len(self.chunks), unitType="ws", isTextSection=self.isTextSection, text=match.group("ws")))
                 return match.group("ws")
+
             elif groupDict["nws"] is not None:
                 assert False
                 #self.chunks.append(("nws", match.group("nws")))
                 return match.group("nws")
+
             else:
                 assert False, "No group identified {}".format(groupDict)
 
@@ -120,14 +153,14 @@ class AsmModule():
                 assert False
 
 
-        coalesced = ""
+        # using StringIO() for better performance
+        coalesced1 = StringIO()
         for chunk in self.chunks:
-            coalesced += chunk[1]
+            print(chunk.text, end="", file=coalesced1)
 
-        coalesced = markups.sub(replaceMarkups, coalesced)
+        coalesced2 = markups.sub(replaceMarkups, coalesced1.getvalue())
 
-        return coalesced
-
+        return coalesced2
 
     def detectTextSection(self, popln):
         match = detectTextSectionPat.match(popln)
@@ -140,13 +173,13 @@ class AsmModule():
             self.isTextSection = False
 
     # Returns full file in an str object
-    def readFile(self ):
+    def readFile(self):
         content = None
         with open(self.filename, "r") as f:
             content = f.read()
         return content
 
-    def removeCommentsAndStrings(self):
+    def markupCommentsAndStrings(self):
         def replace(match):
             nonlocal self
 

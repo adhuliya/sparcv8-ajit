@@ -6,6 +6,7 @@ import copy
 import random as rand
 from textwrap import dedent
 from .instruction import Instruction
+from .parse.asm import AsmChunk
 
 class InstrNode():
     id  = 0
@@ -33,7 +34,7 @@ class InstrNode():
         InstrNode(id={}, instr="{}", priority={}, pred={}, succ={})"""
 
         return dedent(string).format(
-                self.id, self.instr.instrText if self.instr else None,
+                self.id, self.instr.asmChunk.text if self.instr else None,
                 self.priority, self.pred, self.succ)
 
     def copy(self):
@@ -246,9 +247,9 @@ def sampleSortDemo2():
         print(dg.graph[item])
 
 def sampleSortDemo3():
-    instr1 = Instruction("add %r1,%r2,%r3").parse()
-    instr2 = Instruction("add %r1,%r2,%r3").parse()
-    instr3 = Instruction("add %r6,%r6,%r6").parse()
+    instr1 = Instruction(AsmChunk(index=0, text="add %r1,%r2,%r3", unitType="instr", isTextSection=True)).parse()
+    instr2 = Instruction(AsmChunk(index=0, text="add %r1,%r2,%r3", unitType="instr", isTextSection=True)).parse()
+    instr3 = Instruction(AsmChunk(index=0, text="add %r6,%r6,%r6", unitType="instr", isTextSection=True)).parse()
 
     dg = DependencyGraph(instrList=[instr1, instr2, instr3])
     seq = dg.topoSort("notdependent")

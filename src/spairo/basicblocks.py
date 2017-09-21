@@ -8,13 +8,15 @@ from . import airo
 from . import sparc
 from textwrap import dedent
 from .parse.asm import AsmChunk
+from .parse.asm import AsmModule
 from io import StringIO
 from .instruction import Instruction
 
-
-# Represents a single basic block
+# Represents a single basic block.
+# Contains only instructions. No AsmChunk objects.
 class BasicBlock():
     def __init__(self, instrList=None):
+        # List of only Instruction objs
         self.instrList          = instrList
         self.reorderedInstrList = None
         self.dg                 = None
@@ -35,7 +37,7 @@ class BasicBlock():
 # that occur in between the instructions of a basic block.
 # This class is used to generate the output assembly file
 # with minimal changes, such that input/output asm comparison is easy.
-class BasicChunk():
+class ChunkBlock():
     def __init__(self, asmChunks=None):
         self.asmChunks          = asmChunks
         self.reorderedAsmChunks = []
@@ -44,55 +46,188 @@ class BasicChunk():
     def reorder(self, huristic=None):
         self.basicBlock.reorder(huristic)
 
-        self.reorderedAsmChunks = self.reChunk()
+        self.reChunk()
 
     def extractBasicBlock(self):
-        instrList = [Instruction(asmChunk=asmChunk)
-            for asmChunk in self.asmChunks if asmChunk.unitType = "instr"]
+        instrList = [chunk
+            for chunk in self.asmChunks if type(chunk) == Instruction]
 
         return BasicBlock(instrList=instrList)
 
     def reChunk(self):
         self.reorderedAsmChunks = []
         index = 0
-        for asmChunk in self.asmChunks:
-            if asmChunk.unitType == "instr":
+        for chunk in self.asmChunks:
+            if type(chunk) == Instruction:
                 self.reorderedAsmChunks.append(
                         self.basicBlock.reorderedInstrList[index])
                 index += 1
             else:
                 # its a non instruction so put it at its absolute place
-                self.reorderedAsmChunks.append(asmChunk)
+                self.reorderedAsmChunks.append(chunk)
+
+    def __str__(self):
+        val = StringIO()
+        print("ChunkBlock(", file=val)
+        for chunks in self.reorderedAsmChunks:
+            print(chunks, file=val)
+        print(")", file=val)
+
+        return val.getvalue()
 
 
-class BasicChunks():
-    def __init__(self, asmChunks=None):
-        self.asmChunks      = asmChunks
+class AsmChunkBlocks():
+    def __init__(self, asmModule=None):
+        # Takes a parsed AsmModule object.
+        self.asmModule      = asmModule
         # A list of Instruction and AsmChunks
         self.asmInstrChunks = self.genAsmInstrChunks()
         self.basicChunks    = []
 
-    # Extracts a basic chunk from a starting position.
-    def extractBasicChunk(self, start=0):
-        assert type(self.asmInstrChunks[start]) == Instruction
+    # Extracts chunk blocks.
+    def extractChunkBlocks(self):
+        self.basicChunks = []
+        # A temporary holding place for the chunk block chunks
+        chunkList = None
+        # If True, forces the first instruction to be
+        # not part of any basic block.
+        delaySlot = False
 
-        pass
+        destLabelSet = self.extractDestLabels()
+
+        for chunk in self.asmInstrChunks:
+            
+            if type(chunk) == AsmChunk:
+                asmChunk = chunk
+                if chunkList is None:
+                    self.basicChunks.append(asmChunk)
+                else:
+                    # chunkList is not None
+                    if self.isBoundaryChunk(asmChunk, destLabelSet):
+                        # i.e. chunk block ends
+                        self.basicChunks.append(ChunkBlock(chunkList))
+                        self.basicChunks.append(asmChunk)
+                        chunkList = None
+                    else:
+                        chunkList.append(asmChunk)
+
+            elif type(chunk) == Instruction:
+                instr = chunk
+                if chunkList is None:
+                    if instr.isBbBoundary():
+                        delaySlot = instr.delaySlot
+                        self.basicChunks.append(instr)
+                    else:
+                        if delaySlot:
+                            delaySlot = False
+                            self.basicChunks.append(instr)
+                        else:
+                            # start new chunkList
+                            chunkList = []
+                            chunkList.append(instr)
+                else:
+                    # chunkList is not None
+                    if instr.isBbBoundary():
+                        delaySlot = instr.delaySlot
+                        self.basicChunks.append(ChunkBlock(chunkList))
+                        self.basicChunks.append(instr)
+                        chunkList = None
+                    else:
+                        chunkList.append(instr)
+            else:
+                assert False
+
+        if chunkList is not None:
+            self.basicChunks.append(ChunkBlock(chunkList))
+
+
+    def reorder(self, huristic=None):
+        if not self.basicChunks:
+            self.extractChunkBlocks()
+
+        for chunk in self.basicChunks:
+            if type(chunk) == ChunkBlock:
+                chunk.reorder(huristic)
+
+
+    def isBoundaryChunk(self, chunk, destLabelSet):
+        val = False
+        if chunk.unitType == "popln":
+            val = True
+        elif chunk.unitType == "label":
+            if chunk.text.strip(": ") in destLabelSet:
+                val = True
+
+        return val
 
     def genAsmInstrChunks(self):
         instrChunks = []
-        for asmChunk in self.asmChunks:
+        for asmChunk in self.asmModule.chunks:
             if asmChunk.unitType == "instr":
                 if asmChunk.isTextSection:
                     instrChunks.append(Instruction(asmChunk=asmChunk).parse())
                 else:
+                    # Instruction should always be in text section
                     assert False
             else:
                 instrChunks.append(asmChunk)
 
         return instrChunks
 
+    def extractDestLabels(self):
+        destLabels = set()
+
+        for instr in self.asmInstrChunks:
+            if type(instr) == Instruction:
+                if instr.destLabel is not None:
+                    destLabels |= instr.destLabel 
+
+        return destLabels
+
+    def __str__(self):
+        val = StringIO()
+        print("AsmChunkBlocks(", file=val)
+        for chunk in self.basicChunks:
+            print(chunk, file=val)
+        print(")", file=val)
+
+    def coalesceContents(self):
+        if not self.basicChunks:
+            self.extractChunkBlocks()
+
+        val = StringIO()
+        for chunk in self.basicChunks:
+            if type(chunk) == AsmChunk:
+                print(chunk.text, file=val, end="")
+            elif type(chunk) == ChunkBlock:
+                for chnk in chunk.reorderedAsmChunks:
+                    if type(chnk) == Instruction:
+                        print(chnk.asmChunk.text, file=val, end="")
+                    elif type(chnk) == AsmChunk:
+                        print(chnk.text, file=val, end="")
+                    else:
+                        assert False, str(type(chnk))
+            elif type(chunk) == Instruction:
+                print(chunk.asmChunk.text, file=val, end="")
+            else:
+                assert False, str(type(chunk))
+
+        return self.asmModule.unMarkupCommentsAndStrings(
+                val.getvalue())
+
+
 
 if __name__ == "__main__":
-    pass
+    fileName = "testfiles/test.s"
+    if len(sys.argv) == 2:
+        filename = sys.argv[1]
+
+    asmMod = AsmModule(fileName).parse()
+    print(asmMod.originalContent)
+
+    asmChunkBlocks = AsmChunkBlocks(asmMod)
+    asmChunkBlocks.reorder()
+
+    print(asmChunkBlocks.coalesceContents())
 
 

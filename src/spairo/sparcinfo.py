@@ -140,6 +140,7 @@ instrData = {
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -159,6 +160,7 @@ instrData = {
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -178,6 +180,7 @@ instrData = {
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -197,6 +200,7 @@ instrData = {
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -216,6 +220,7 @@ instrData = {
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -235,6 +240,7 @@ instrData = {
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -254,6 +260,7 @@ instrData = {
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -273,6 +280,7 @@ instrData = {
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -292,6 +300,7 @@ instrData = {
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -311,6 +320,7 @@ instrData = {
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -330,6 +340,7 @@ instrData = {
             "reg-mod"   : {"ED1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -349,6 +360,7 @@ instrData = {
             "reg-mod"   : {"ED1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -368,7 +380,6 @@ instrData = {
 #             "reg-read"  : {"AA1"}, #set
 #             "reg-mod"   : {"ED1"}, #set
 #             "res-used"  : None, #set
-"destLabel" : None, #set
 #           }
 #         ),
 #       ],
@@ -387,7 +398,6 @@ instrData = {
 #             "reg-read"  : None, #set
 #             "reg-mod"   : None, #set
 #             "res-used"  : None, #set
-"destLabel" : None, #set
 #           }
 #         ),
 #       ],
@@ -406,7 +416,6 @@ instrData = {
 #             "reg-read"  : None, #set
 #             "reg-mod"   : None, #set
 #             "res-used"  : None, #set
-"destLabel" : None, #set
 #           }
 #         ),
 #       ],
@@ -426,7 +435,6 @@ instrData = {
 #             "reg-read"  : None, #set
 #             "reg-mod"   : None, #set
 #             "res-used"  : None, #set
-"destLabel" : None, #set
 #           }
 #         ),
 #       ],
@@ -445,7 +453,6 @@ instrData = {
 #             "reg-read"  : None, #set
 #             "reg-mod"   : None, #set
 #             "res-used"  : None, #set
-"destLabel" : None, #set
 #           }
 #         ),
 #       ],
@@ -464,7 +471,6 @@ instrData = {
 #             "reg-read"  : None, #set
 #             "reg-mod"   : None, #set
 #             "res-used"  : None, #set
-"destLabel" : None, #set
 #           }
 #         ),
 #       ],
@@ -485,6 +491,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -504,6 +511,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -523,6 +531,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -542,6 +551,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -561,6 +571,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -580,6 +591,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -599,6 +611,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -618,6 +631,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -637,6 +651,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -656,6 +671,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -675,6 +691,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -694,6 +711,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -713,6 +731,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
 
@@ -725,6 +744,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
 
@@ -737,6 +757,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -756,6 +777,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -775,6 +797,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
 
@@ -787,6 +810,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
 
@@ -799,6 +823,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -818,6 +843,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -837,7 +863,6 @@ instrData = {
 #             "reg-read"  : None, #set
 #             "reg-mod"   : None, #set
 #             "res-used"  : None, #set
-"destLabel" : None, #set
 #           }
 #         ),
 #       ],
@@ -856,7 +881,6 @@ instrData = {
 #             "reg-read"  : None, #set
 #             "reg-mod"   : None, #set
 #             "res-used"  : None, #set
-"destLabel" : None, #set
 #           }
 #         ),
 #       ],
@@ -875,7 +899,6 @@ instrData = {
 #             "reg-read"  : None, #set
 #             "reg-mod"   : None, #set
 #             "res-used"  : None, #set
-"destLabel" : None, #set
 #           }
 #         ),
 #       ],
@@ -894,7 +917,6 @@ instrData = {
 #             "reg-read"  : None, #set
 #             "reg-mod"   : None, #set
 #             "res-used"  : None, #set
-"destLabel" : None, #set
 #           }
 #         ),
 #       ],
@@ -914,7 +936,6 @@ instrData = {
 #             "reg-read"  : None, #set
 #             "reg-mod"   : None, #set
 #             "res-used"  : None, #set
-"destLabel" : None, #set
 #           }
 #         ),
 #       ],
@@ -933,7 +954,6 @@ instrData = {
 #             "reg-read"  : None, #set
 #             "reg-mod"   : None, #set
 #             "res-used"  : None, #set
-"destLabel" : None, #set
 #           }
 #         ),
 #       ],
@@ -952,7 +972,6 @@ instrData = {
 #             "reg-read"  : None, #set
 #             "reg-mod"   : None, #set
 #             "res-used"  : None, #set
-"destLabel" : None, #set
 #           }
 #         ),
 #       ],
@@ -971,7 +990,6 @@ instrData = {
 #             "reg-read"  : None, #set
 #             "reg-mod"   : None, #set
 #             "res-used"  : None, #set
-"destLabel" : None, #set
 #           }
 #         ),
 #       ],
@@ -992,6 +1010,7 @@ instrData = {
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1011,6 +1030,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1030,6 +1050,7 @@ instrData = {
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1049,6 +1070,7 @@ instrData = {
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1069,6 +1091,27 @@ instrData = {
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
+          }
+        ),
+      ],
+  },
+
+  "set"       : # Set High all bits of r Register
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"set [^,]* , @AR1",
+          {
+            "name"      : "set",
+            "latency"   : Value.latencyA,
+            "reg-read"  : {"r0"}, #set
+            "reg-mod"   : {"AR1"}, #set
+            "res-used"  : None, #set
+            "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1088,6 +1131,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1108,6 +1152,7 @@ instrData = {
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1127,6 +1172,7 @@ instrData = {
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1146,6 +1192,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1165,6 +1212,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1184,6 +1232,7 @@ instrData = {
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1203,6 +1252,7 @@ instrData = {
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1222,6 +1272,7 @@ instrData = {
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1241,6 +1292,7 @@ instrData = {
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1260,6 +1312,7 @@ instrData = {
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1279,6 +1332,7 @@ instrData = {
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1298,6 +1352,7 @@ instrData = {
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1317,6 +1372,7 @@ instrData = {
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1337,6 +1393,7 @@ instrData = {
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1356,6 +1413,7 @@ instrData = {
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1375,6 +1433,7 @@ instrData = {
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1395,6 +1454,7 @@ instrData = {
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1414,6 +1474,7 @@ instrData = {
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1433,6 +1494,7 @@ instrData = {
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1452,6 +1514,7 @@ instrData = {
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1471,6 +1534,7 @@ instrData = {
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1490,6 +1554,7 @@ instrData = {
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1510,6 +1575,7 @@ instrData = {
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1529,6 +1595,7 @@ instrData = {
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1548,6 +1615,7 @@ instrData = {
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1567,6 +1635,7 @@ instrData = {
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1586,6 +1655,7 @@ instrData = {
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1605,6 +1675,7 @@ instrData = {
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1625,6 +1696,7 @@ instrData = {
             "reg-mod"   : {"y","AR1","AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1645,6 +1717,7 @@ instrData = {
             "reg-mod"   : {"y","AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1664,6 +1737,7 @@ instrData = {
             "reg-mod"   : {"y","AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1683,6 +1757,7 @@ instrData = {
             "reg-mod"   : {"y","AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1702,6 +1777,7 @@ instrData = {
             "reg-mod"   : {"y","AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1722,6 +1798,7 @@ instrData = {
             "reg-mod"   : {"y","AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1741,6 +1818,7 @@ instrData = {
             "reg-mod"   : {"y","AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1760,6 +1838,7 @@ instrData = {
             "reg-mod"   : {"y","AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1779,6 +1858,7 @@ instrData = {
             "reg-mod"   : {"y","AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1799,6 +1879,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
 
@@ -1811,6 +1892,7 @@ instrData = {
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1830,6 +1912,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
 
@@ -1842,6 +1925,7 @@ instrData = {
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -1863,6 +1947,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
 
@@ -1875,6 +1960,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -1894,6 +1980,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
 
@@ -1906,6 +1993,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -1925,6 +2013,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
 
@@ -1937,6 +2026,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -1956,6 +2046,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
 
@@ -1968,6 +2059,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -1987,6 +2079,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
 
@@ -1999,6 +2092,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -2018,6 +2112,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
 
@@ -2030,6 +2125,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -2049,6 +2145,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
 
@@ -2061,6 +2158,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -2080,6 +2178,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
 
@@ -2092,6 +2191,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -2111,6 +2211,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
 
@@ -2123,6 +2224,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -2142,6 +2244,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
 
@@ -2154,6 +2257,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -2173,6 +2277,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
 
@@ -2185,6 +2290,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -2204,6 +2310,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
 
@@ -2216,6 +2323,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -2235,6 +2343,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
 
@@ -2247,6 +2356,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -2266,6 +2376,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
 
@@ -2278,6 +2389,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -2297,6 +2409,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
 
@@ -2309,6 +2422,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -2328,6 +2442,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
 
@@ -2340,6 +2455,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -2359,6 +2475,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
 
@@ -2371,6 +2488,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -2390,6 +2508,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
 
@@ -2402,6 +2521,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -2421,6 +2541,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
 
@@ -2433,6 +2554,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -2452,6 +2574,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
 
@@ -2464,6 +2587,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -2485,6 +2609,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
         (
@@ -2496,6 +2621,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -2515,6 +2641,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
         (
@@ -2526,6 +2653,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -2545,6 +2673,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
         (
@@ -2556,6 +2685,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -2575,6 +2705,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
         (
@@ -2586,6 +2717,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -2605,6 +2737,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
         (
@@ -2616,6 +2749,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -2635,6 +2769,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
         (
@@ -2646,6 +2781,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -2665,6 +2801,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
         (
@@ -2676,6 +2813,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -2695,6 +2833,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
 
@@ -2707,6 +2846,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -2726,6 +2866,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
 
@@ -2738,6 +2879,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -2757,6 +2899,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
 
@@ -2769,6 +2912,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -2788,6 +2932,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
 
@@ -2800,6 +2945,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -2819,6 +2965,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
 
@@ -2831,6 +2978,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -2850,6 +2998,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
 
@@ -2862,6 +3011,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -2881,6 +3031,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
 
@@ -2893,6 +3044,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -2912,6 +3064,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
 
@@ -2924,6 +3077,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -2943,6 +3097,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
 
@@ -2955,6 +3110,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -2974,6 +3130,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
 
@@ -2986,6 +3143,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -3005,6 +3163,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
 
@@ -3017,6 +3176,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
           }
         ),
       ],
@@ -3038,6 +3198,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
           }
         ),
 
@@ -3050,6 +3211,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3069,6 +3231,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
           }
         ),
 
@@ -3081,6 +3244,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3100,6 +3264,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
           }
         ),
 
@@ -3112,6 +3277,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3131,6 +3297,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
           }
         ),
 
@@ -3143,6 +3310,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3162,6 +3330,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
           }
         ),
 
@@ -3174,6 +3343,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3193,6 +3363,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
           }
         ),
 
@@ -3205,6 +3376,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3224,6 +3396,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
           }
         ),
 
@@ -3236,6 +3409,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3255,6 +3429,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
           }
         ),
 
@@ -3267,6 +3442,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3286,6 +3462,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
           }
         ),
 
@@ -3298,6 +3475,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3317,6 +3495,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
           }
         ),
 
@@ -3329,6 +3508,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3348,6 +3528,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
           }
         ),
 
@@ -3360,6 +3541,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3379,6 +3561,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
           }
         ),
 
@@ -3391,6 +3574,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3410,6 +3594,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
           }
         ),
 
@@ -3422,6 +3607,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3441,6 +3627,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
           }
         ),
 
@@ -3453,6 +3640,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3472,6 +3660,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
           }
         ),
 
@@ -3484,6 +3673,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3503,6 +3693,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
           }
         ),
 
@@ -3515,6 +3706,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3535,6 +3727,7 @@ instrData = {
             "reg-mod"   : {"r15"}, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3554,6 +3747,7 @@ instrData = {
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3573,6 +3767,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3594,6 +3789,7 @@ instrData = {
             "reg-mod"   : {"r17", "r18"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3613,6 +3809,7 @@ instrData = {
             "reg-mod"   : {"r17", "r18"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3632,6 +3829,7 @@ instrData = {
             "reg-mod"   : {"r17", "r18"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3651,6 +3849,7 @@ instrData = {
             "reg-mod"   : {"r17", "r18"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3670,6 +3869,7 @@ instrData = {
             "reg-mod"   : {"r17", "r18"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3689,6 +3889,7 @@ instrData = {
             "reg-mod"   : {"r17", "r18"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3708,6 +3909,7 @@ instrData = {
             "reg-mod"   : {"r17", "r18"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3727,6 +3929,7 @@ instrData = {
             "reg-mod"   : {"r17", "r18"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3746,6 +3949,7 @@ instrData = {
             "reg-mod"   : {"r17", "r18"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3765,6 +3969,7 @@ instrData = {
             "reg-mod"   : {"r17", "r18"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3784,6 +3989,7 @@ instrData = {
             "reg-mod"   : {"r17", "r18"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3803,6 +4009,7 @@ instrData = {
             "reg-mod"   : {"r17", "r18"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3822,6 +4029,7 @@ instrData = {
             "reg-mod"   : {"r17", "r18"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3841,6 +4049,7 @@ instrData = {
             "reg-mod"   : {"r17", "r18"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3860,6 +4069,7 @@ instrData = {
             "reg-mod"   : {"r17", "r18"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3879,6 +4089,7 @@ instrData = {
             "reg-mod"   : {"r17", "r18"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3898,6 +4109,7 @@ instrData = {
             "reg-mod"   : {"r17", "r18"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3917,6 +4129,7 @@ instrData = {
             "reg-mod"   : {"r17", "r18"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3936,6 +4149,7 @@ instrData = {
             "reg-mod"   : {"r17", "r18"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3955,6 +4169,7 @@ instrData = {
             "reg-mod"   : {"r17", "r18"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3975,6 +4190,7 @@ instrData = {
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -3995,6 +4211,7 @@ instrData = {
             "reg-mod"   : {"EM1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4015,6 +4232,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4035,6 +4253,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4055,6 +4274,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4076,6 +4296,7 @@ instrData = {
             "reg-mod"   : {"AR2"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4095,6 +4316,7 @@ instrData = {
             "reg-mod"   : {"ED1"}, #set TODO: confirm it
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4114,6 +4336,7 @@ instrData = {
             "reg-mod"   : {"EQ1"}, #set TODO
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4134,6 +4357,7 @@ instrData = {
             "reg-mod"   : {"AR2"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4153,6 +4377,7 @@ instrData = {
             "reg-mod"   : {"AR2"}, #set TODO
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4172,6 +4397,7 @@ instrData = {
             "reg-mod"   : {"AR2"}, #set TODO
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4192,6 +4418,7 @@ instrData = {
             "reg-mod"   : {"ED1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4211,6 +4438,7 @@ instrData = {
             "reg-mod"   : {"EQ1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4230,6 +4458,7 @@ instrData = {
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4249,6 +4478,7 @@ instrData = {
             "reg-mod"   : {"EQ1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4268,6 +4498,7 @@ instrData = {
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4287,6 +4518,7 @@ instrData = {
             "reg-mod"   : {"ED1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4307,6 +4539,7 @@ instrData = {
             "reg-mod"   : {"AR2"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4326,6 +4559,7 @@ instrData = {
             "reg-mod"   : {"AR2"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4345,6 +4579,7 @@ instrData = {
             "reg-mod"   : {"AR2"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4365,6 +4600,7 @@ instrData = {
             "reg-mod"   : {"AR2"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4384,6 +4620,7 @@ instrData = {
             "reg-mod"   : {"ED2"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4403,6 +4640,7 @@ instrData = {
             "reg-mod"   : {"EQ2"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4423,6 +4661,7 @@ instrData = {
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4442,6 +4681,7 @@ instrData = {
             "reg-mod"   : {"ED3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4461,6 +4701,7 @@ instrData = {
             "reg-mod"   : {"EQ3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4480,6 +4721,7 @@ instrData = {
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4499,6 +4741,7 @@ instrData = {
             "reg-mod"   : {"ED3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4518,6 +4761,7 @@ instrData = {
             "reg-mod"   : {"EQ3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4538,6 +4782,7 @@ instrData = {
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4557,6 +4802,7 @@ instrData = {
             "reg-mod"   : {"ED3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4576,6 +4822,7 @@ instrData = {
             "reg-mod"   : {"EQ3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4595,6 +4842,7 @@ instrData = {
             "reg-mod"   : {"ED1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4614,6 +4862,7 @@ instrData = {
             "reg-mod"   : {"EQ1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4633,6 +4882,7 @@ instrData = {
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4652,6 +4902,7 @@ instrData = {
             "reg-mod"   : {"ED3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4671,6 +4922,7 @@ instrData = {
             "reg-mod"   : {"EQ3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4691,6 +4943,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4710,6 +4963,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4729,6 +4983,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4748,6 +5003,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4767,6 +5023,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4786,6 +5043,7 @@ instrData = {
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4809,6 +5067,7 @@ instrData = {
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4828,6 +5087,7 @@ instrData = {
             "reg-mod"   : {"AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4848,6 +5108,7 @@ instrData = {
             "reg-mod"   : {"EM1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
         (
@@ -4859,6 +5120,7 @@ instrData = {
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
         (
@@ -4870,6 +5132,7 @@ instrData = {
             "reg-mod"   : {"AR2"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4889,6 +5152,7 @@ instrData = {
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
         (
@@ -4900,6 +5164,7 @@ instrData = {
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4919,6 +5184,7 @@ instrData = {
             "reg-mod"   : {"AR1","icc"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
         (
@@ -4930,6 +5196,7 @@ instrData = {
             "reg-mod"   : {"AR1","icc"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4949,6 +5216,7 @@ instrData = {
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
         (
@@ -4960,6 +5228,7 @@ instrData = {
             "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -4979,6 +5248,7 @@ instrData = {
             "reg-mod"   : {"AR1","icc"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
         (
@@ -4990,6 +5260,7 @@ instrData = {
             "reg-mod"   : {"AR1","icc"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
+            "delaySlot" : False,
           }
         ),
       ],
@@ -5038,7 +5309,7 @@ regexMap = {
 
   # L: Label
   # Extract Label Name
-  "EL"   : r"[.$_a-zA-Z][.$_a-zA-Z0-9]",
+  "EL"   : r"[.$_a-zA-Z][.$_a-zA-Z0-9]*",
 }
 
 labeledBranch = {

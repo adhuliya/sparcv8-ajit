@@ -99,6 +99,8 @@ class AsmModule():
 
         assert self.coalesceContents() == self.originalContent
 
+        return self
+
     def parseIntoChunks(self, content):
         p = re.compile(asmChunk)
 
@@ -139,26 +141,16 @@ class AsmModule():
     def coalesceContents(self):
         """
         Coalesce the segregated contents to reform the original file content.
-        Replace the string and comment markups with their contents.
         The idea is, coalesceContents() and originalContent should be equal.
         It helps to verify the correctness of the content parsing.
         """
-        def replaceMarkups(match):
-            groupdict = match.groupdict()
-            if groupdict["str"] is not None:
-                return self.strings[int(match.group("str"))]
-            elif groupdict["comment"] is not None:
-                return self.comments[int(match.group("comment"))]
-            else:
-                assert False
-
-
         # using StringIO() for better performance
         coalesced1 = StringIO()
         for chunk in self.chunks:
             print(chunk.text, end="", file=coalesced1)
 
-        coalesced2 = markups.sub(replaceMarkups, coalesced1.getvalue())
+        coalesced2 = self.unMarkupCommentsAndStrings(
+                coalesced1.getvalue())
 
         return coalesced2
 
@@ -178,6 +170,25 @@ class AsmModule():
         with open(self.filename, "r") as f:
             content = f.read()
         return content
+
+    def unMarkupCommentsAndStrings(self, content):
+        """
+        Replace the string and comment markups with their contents.
+        """
+        def replaceMarkups(match):
+            groupdict = match.groupdict()
+            if groupdict["str"] is not None:
+                return self.strings[int(match.group("str"))]
+            elif groupdict["comment"] is not None:
+                return self.comments[int(match.group("comment"))]
+            else:
+                assert False
+
+
+        unMarkedup = markups.sub(replaceMarkups, content)
+
+        return unMarkedup
+
 
     def markupCommentsAndStrings(self):
         def replace(match):
@@ -216,8 +227,7 @@ if __name__ == "__main__":
     if len(sys.argv) == 2:
         filename = sys.argv[1]
 
-    asmMod = AsmModule(filename)
-    asmMod.parse()
+    asmMod = AsmModule(filename).parse()
     print(asmMod.originalContent)
     print("****************************************************************")
     print(asmMod.contentWithoutComments)

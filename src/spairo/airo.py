@@ -125,7 +125,7 @@ class DependencyGraph():
 
     # Sorts with the give huristics and returns a reordered list of instructions.
     def getReorderedInstrList(self, huristics=None):
-        seq = self.topoSort(self, huristics)
+        seq = self.topoSort(huristics)
 
         instrList = []
         for num in seq:

@@ -71,6 +71,9 @@ def processSectionNames():
 regexMap    = processRegexMap()
 # process regexMap before instr
 instr           = processInstrData()
+branchInstr     = sparcinfo.branchInstr
+nonLabeledBranch= sparcinfo.nonLabeledBranch
+labeledBranch   = sparcinfo.labeledBranch
 bbBoundary      = sparcinfo.bbBoundary
 noDelaySlot     = sparcinfo.noDelaySlot
 registers       = sparcinfo.registers

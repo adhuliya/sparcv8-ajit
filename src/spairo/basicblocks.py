@@ -68,11 +68,28 @@ class BasicChunk():
 class BasicChunks():
     def __init__(self, asmChunks=None):
         self.asmChunks      = asmChunks
-        # A list of AsmChunks(for non instructions)
+        # A list of Instruction and AsmChunks
+        self.asmInstrChunks = self.genAsmInstrChunks()
         self.basicChunks    = []
 
-    def extractBasicBlocks(self):
+    # Extracts a basic chunk from a starting position.
+    def extractBasicChunk(self, start=0):
+        assert type(self.asmInstrChunks[start]) == Instruction
+
         pass
+
+    def genAsmInstrChunks(self):
+        instrChunks = []
+        for asmChunk in self.asmChunks:
+            if asmChunk.unitType == "instr":
+                if asmChunk.isTextSection:
+                    instrChunks.append(Instruction(asmChunk=asmChunk).parse())
+                else:
+                    assert False
+            else:
+                instrChunks.append(asmChunk)
+
+        return instrChunks
 
 
 if __name__ == "__main__":

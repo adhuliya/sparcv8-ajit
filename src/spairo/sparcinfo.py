@@ -5331,7 +5331,7 @@ labeledBranch = {
 
 nonLabeledBranch = {
   # Misc instructions
-  "rett", "jmpl", "retl", "ret"
+  "rett", "jmpl", "retl", "ret",
   # Trap on icc
   "ta", "tn", "tne", "tnz", "te", "tz", "tg", "tle",
   "tge", "tl", "tgu", "tleu", "tcc", "tgeu",

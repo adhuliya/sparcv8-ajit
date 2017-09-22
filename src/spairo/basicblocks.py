@@ -133,6 +133,7 @@ class AsmChunkBlocks():
                         self.basicChunks.append(instr)
                         chunkList = None
                     else:
+                        if instr.mnemonic == "ta": print(instr)
                         chunkList.append(instr)
             else:
                 assert False
@@ -148,6 +149,8 @@ class AsmChunkBlocks():
         for chunk in self.basicChunks:
             if type(chunk) == ChunkBlock:
                 chunk.reorder(huristic)
+
+        return self
 
 
     def isBoundaryChunk(self, chunk, destLabelSet):
@@ -191,7 +194,11 @@ class AsmChunkBlocks():
             print(chunk, file=val)
         print(")", file=val)
 
+    
     def coalesceContents(self):
+        """
+        Re-assembles the whole file after optimization (reordering).
+        """
         if not self.basicChunks:
             self.extractChunkBlocks()
 
@@ -216,6 +223,37 @@ class AsmChunkBlocks():
                 val.getvalue())
 
 
+    def coalesceContentsMarkBb(self):
+        """
+        Re-assembles the original file after optimization (reordering).
+        Also marks the start and end of BB.
+        """
+        if not self.basicChunks:
+            self.extractChunkBlocks()
+
+        val = StringIO()
+        for chunk in self.basicChunks:
+            if type(chunk) == AsmChunk:
+                print(chunk.text, file=val, end="")
+            elif type(chunk) == ChunkBlock:
+                print("/*start bb*/", file=val, end="")
+                for chnk in chunk.asmChunks:
+                    if type(chnk) == Instruction:
+                        print(chnk.asmChunk.text, file=val, end="")
+                    elif type(chnk) == AsmChunk:
+                        print(chnk.text, file=val, end="")
+                    else:
+                        assert False, str(type(chnk))
+                print("/*end bb*/", file=val, end="")
+            elif type(chunk) == Instruction:
+                print(chunk.asmChunk.text, file=val, end="")
+            else:
+                assert False, str(type(chunk))
+
+        return self.asmModule.unMarkupCommentsAndStrings(
+                val.getvalue())
+
+
 
 if __name__ == "__main__":
     fileName = "testfiles/test.s"
@@ -226,7 +264,7 @@ if __name__ == "__main__":
     print(asmMod.originalContent)
 
     asmChunkBlocks = AsmChunkBlocks(asmMod)
-    asmChunkBlocks.reorder()
+    asmChunkBlocks.reorder("notdependent")
 
     print(asmChunkBlocks.coalesceContents())
 

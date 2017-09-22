@@ -152,7 +152,17 @@ class Instruction():
     # True if depencence otherInstr ---> self exists and is Read after Write
     # Semantically otherInstr should occur before this instr
     def isRawDependentOn(self, otherInstr):
-        return bool(self.regRead & otherInstr.regMod)
+        return bool(otherInstr.regMod & self.regRead)
+
+    # True if depencence otherInstr ---> self exists and is Write after Write
+    # Semantically otherInstr should occur before this instr
+    def isWawDependentOn(self, otherInstr):
+        return bool(otherInstr.regMod & self.regMod)
+
+    # True if depencence otherInstr ---> self exists and is Write after Read
+    # Semantically otherInstr should occur before this instr
+    def isWarDependentOn(self, otherInstr):
+        return bool(otherInstr.regRead & self.regMod)
 
     def __str__(self):
         string = """\

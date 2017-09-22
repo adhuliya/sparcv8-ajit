@@ -49,10 +49,10 @@ class InstrNode():
 
 
 class DependencyGraph():
-    huristicsList = [
+    huristicsSet = {
             None,           # simple topo sort
             "notdependent", # chose not-dependent nodes first
-            ]
+            }
 
     def __init__(self, instrList=None, graph=None):
         # List of Instruction objects in a basic block.
@@ -78,17 +78,24 @@ class DependencyGraph():
         for instr in self.instrList:
             instrNodeList.append(InstrNode(instr=instr))
 
+        # Put the node into the graph
+        for node in instrNodeList:
+            self.graph[node.id] = node
+
         # Work out all the dependencies
         for i, nodePred in enumerate(instrNodeList):
             for j, nodeSucc in enumerate(instrNodeList[i+1:]):
                 isDep = nodeSucc.instr.isDependentOn(nodePred.instr)
                 if isDep:
+                    # add mutual dependency
                     nodePred.succ.add(nodeSucc.id)
                     nodeSucc.pred.add(nodePred.id)
+                    # convert direct dependenies to transitive
+                    for pred in nodePred.pred:
+                        if nodeSucc.id in self.graph[pred].succ:
+                            self.graph[pred].succ.remove(nodeSucc.id)
+                            nodeSucc.pred.remove(self.graph[pred].id)
 
-        # Finally put the node into the graph
-        for node in instrNodeList:
-            self.graph[node.id] = node
 
 
     def copyGraph(self):
@@ -103,6 +110,9 @@ class DependencyGraph():
         """
         Topologically sorts using a List Algorithm with the given huristic.
         """
+
+        assert huristic in self.huristicsSet, "Unknow huristic: '{}'".format(huristic)
+
         sources     = set()
         graph       = self.copyGraph()
         sortedNodeIds = []
@@ -197,7 +207,7 @@ class DependencyGraph():
             return nodeid
 
     def getAllHuristics(self):
-        return self.huristicsList
+        return self.huristicsSet
 
 
 

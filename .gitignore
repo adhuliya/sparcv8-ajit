@@ -17,3 +17,6 @@ sparc-obj/
 *.pyc
 *.pyo
 __pycache__/
+
+# deb package
+*.deb

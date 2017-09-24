@@ -1,0 +1,10 @@
+Package: spairo
+Version: 0.1.1
+Section: custom
+Priority: optional
+Architecture: all
+Essential: no
+Installed-Size: 1024
+Maintainer: Anshuman Dhuliya <dhuliya@cse.iitb.ac.in>
+Description: SParc Assembly Instruction ReOrdering (SPAIRO) -- Optimized Instr Scheduling
+Depends: python3 (>= 3.5.1)

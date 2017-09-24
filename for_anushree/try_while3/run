@@ -1,0 +1,3 @@
+#!/bin/bash
+
+AJIT_testbench_logger_icache_dcache_aa2c_mmu_aa2c $1.mmap $1.results $1.log $1.wtrace

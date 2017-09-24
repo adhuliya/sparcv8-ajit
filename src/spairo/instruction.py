@@ -85,8 +85,13 @@ class Instruction():
             firstTwoChar = placeHolder[:2]
             if not firstTwoChar.isupper():
                 # if any letter is small, a literal register is assumed
-                placeValSet.add(placeHolder)
-                break
+                # if its a synonym, replace it with the cannonical name
+                placeHolder = placeHolder.lower() # lower every char
+                if placeHolder in sparc.regSynonyms:
+                    placeValSet.add(sparc.regSynonyms[placeHolder])
+                elif placeHolder in sparc.registers:
+                    placeValSet.add(placeHolder)
+                continue
 
             # if placeholder exists, a match also exist.
             text = match.group(placeHolder)

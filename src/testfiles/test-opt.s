@@ -13,8 +13,8 @@ _start: set x, /*some test comment*/ %r2
 mov 'a'-'z', %r1; mov %r0, %r2			!%r2 --->r0 = 0; %g0 = 0
 	set y, %r1
 	ld [%r1], %r5			!%r5 --->y = 9
-	add %r5,1,%r5			!x=x+z
 	set z, %r1
+	add %r5,1,%r5			!x=x+z
 	ld [%r1], %r4			!%r4 --->z = 0x42 = 66
 test: 	subcc %r5,1,%r5			!y=y-1
 	bne,a test			!while(y>1) goto test

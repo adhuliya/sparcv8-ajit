@@ -52,6 +52,7 @@ class DependencyGraph():
     huristicsSet = {
             None,           # simple topo sort
             "notdependent", # chose not-dependent nodes first
+            "raw-last",     # tries to schedule raw dependency apart
             }
 
     def __init__(self, instrList=None, graph=None):
@@ -181,6 +182,34 @@ class DependencyGraph():
         elif huristic.strip().lower() == "notdependent":
             # separate the dependent nodes by putting in non-dependent nodes
             return self.selectNotDependentNode(sortedNodeIds, sources)
+        elif huristic.strip().lower() == "raw-last":
+            return self.selectNotRawFirst(sortedNodeIds, sources)
+
+    def selectNotRawFirst(self, sortedNodeIds, sources):
+        """
+        Select nodes which are not Raw dependent to the already sorted nodes.
+        """
+        src = sources
+
+        for nodeid in reversed(sortedNodeIds):
+            node = self.graph[nodeid]
+
+
+            # extract raw dependent successors
+            rawSet = set()
+            for succ in node.succ:
+                if self.graph[succ].instr.isRawDependentOn(node.instr):
+                    rawSet.add(succ)
+
+            leftnodes = src - rawSet
+
+            if leftnodes:
+                src = leftnodes
+            else:
+                break
+
+        for nodeid in src:
+            return nodeid
 
     def selectNotDependentNode(self, sortedNodeIds, sources):
         """

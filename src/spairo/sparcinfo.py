@@ -1358,6 +1358,39 @@ instrData = {
       ],
   },
 
+  "not"        : # one's complement -- synonym for xnor (uses xnor)
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"not @AR1 , @AR2",
+          {
+            "name"      : "not",
+            "latency"   : Value.latencyB,
+            "reg-read"  : {"AR1"}, #set
+            "reg-mod"   : {"AR2"}, #set
+            "res-used"  : None, #set
+            "destLabel" : None, #set
+            "delaySlot" : False,
+          }
+        ),
+
+        (
+          r"not @AR1",
+          {
+            "name"      : "not",
+            "latency"   : Value.latencyB,
+            "reg-read"  : {"AR1"}, #set
+            "reg-mod"   : {"AR1"}, #set
+            "res-used"  : None, #set
+            "destLabel" : None, #set
+            "delaySlot" : False,
+          }
+        ),
+      ],
+  },
+
   "xnorcc"      : # Exclusive-Nor and modify icc
   {
       "formats"     :
@@ -1573,6 +1606,39 @@ instrData = {
             "latency"   : Value.latencyB,
             "reg-read"  : {"AR1","AR2"}, #set
             "reg-mod"   : {"AR3"}, #set
+            "res-used"  : None, #set
+            "destLabel" : None, #set
+            "delaySlot" : False,
+          }
+        ),
+      ],
+  },
+
+  "neg"         : # Subtract, synonym for sub (uses sub)
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"neg @AR1 , @AR2",       # sub %g0 , @AR1, @AR2
+          {
+            "name"      : "neg",
+            "latency"   : Value.latencyB,
+            "reg-read"  : {"AR1"}, #set
+            "reg-mod"   : {"AR2"}, #set
+            "res-used"  : None, #set
+            "destLabel" : None, #set
+            "delaySlot" : False,
+          }
+        ),
+
+        (
+          r"neg @AR1",       # sub %g0 , @AR1, @AR1
+          {
+            "name"      : "neg",
+            "latency"   : Value.latencyB,
+            "reg-read"  : {"AR1"}, #set
+            "reg-mod"   : {"AR1"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
             "delaySlot" : False,
@@ -3730,6 +3796,19 @@ instrData = {
             "delaySlot" : False,
           }
         ),
+
+        (
+          r"call @AA1",         # jmpl address, %o7
+          {
+            "name"      : "call",
+            "latency"   : Value.latencyA,
+            "reg-read"  : {"AA1"}, #set
+            "reg-mod"   : {"o7"}, #set
+            "res-used"  : None, #set
+            "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
+          }
+        ),
       ],
   },
 
@@ -5251,6 +5330,7 @@ instrData = {
             "delaySlot" : False,
           }
         ),
+
         (
           r"deccc @I1 , @AR1",
           {
@@ -5258,6 +5338,219 @@ instrData = {
             "latency"   : Value.latencyA,
             "reg-read"  : {"AR1"}, #set
             "reg-mod"   : {"AR1","icc"}, #set
+            "res-used"  : None, #set
+            "destLabel" : None, #set
+            "delaySlot" : False,
+          }
+        ),
+      ],
+  },
+
+  "cmp"         : # compare
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"cmp @AR1 , @AR2",
+          {
+            "name"      : "cmp",
+            "latency"   : Value.latencyA,
+            "reg-read"  : {"AR1","AR2"}, #set
+            "reg-mod"   : {"icc"}, #set
+            "res-used"  : None, #set
+            "destLabel" : None, #set
+            "delaySlot" : False,
+          }
+        ),
+      ],
+  },
+
+  "jmp"         : # compare
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"jmp @AA1",
+          {
+            "name"      : "jmp",
+            "latency"   : Value.latencyA,
+            "reg-read"  : {"AA1"}, #set
+            "reg-mod"   : None, #set
+            "res-used"  : None, #set
+            "destLabel" : None, #set
+            "delaySlot" : False,
+          }
+        ),
+      ],
+  },
+
+  "tst"         : # test
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"tst @AR1",
+          {
+            "name"      : "tst",
+            "latency"   : Value.latencyA,
+            "reg-read"  : {"AR1"}, #set
+            "reg-mod"   : None, #set
+            "res-used"  : None, #set
+            "destLabel" : None, #set
+            "delaySlot" : False,
+          }
+        ),
+      ],
+  },
+
+  "clr"         : # clear(zero) register / word
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"clr @AR1",          # or %g0 , %g0 , @AR1
+          {
+            "name"      : "clr",
+            "latency"   : Value.latencyA,
+            "reg-read"  : None, #set
+            "reg-mod"   : {"AR1"}, #set
+            "res-used"  : None, #set
+            "destLabel" : None, #set
+            "delaySlot" : False,
+          }
+        ),
+
+        (
+          r"clr \[ @AA1 \]",          # st %g0 , [ @AA1 ]
+          {
+            "name"      : "clr",
+            "latency"   : Value.latencyA,
+            "reg-read"  : {"AA1"}, #set
+            "reg-mod"   : None, #set
+            "res-used"  : None, #set
+            "destLabel" : None, #set
+            "delaySlot" : False,
+          }
+        ),
+      ],
+  },
+
+  "clrb"         : # clear byte
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"clrb \[ @AA1 \]",          # stb %g0 , [ @AA1 ]
+          {
+            "name"      : "clrb",
+            "latency"   : Value.latencyA,
+            "reg-read"  : {"AA1"}, #set
+            "reg-mod"   : None, #set
+            "res-used"  : None, #set
+            "destLabel" : None, #set
+            "delaySlot" : False,
+          }
+        ),
+      ],
+  },
+
+  "clrh"         : # clear halfword
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"clrh \[ @AA1 \]",          # sth %g0 , [ @AA1 ]
+          {
+            "name"      : "clrh",
+            "latency"   : Value.latencyA,
+            "reg-read"  : {"AA1"}, #set
+            "reg-mod"   : None, #set
+            "res-used"  : None, #set
+            "destLabel" : None, #set
+            "delaySlot" : False,
+          }
+        ),
+      ],
+  },
+
+  "btst"         : # bit test
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"btst @AR1 , @AR2",          # andcc @AR1 , @AR2 , %g0
+          {
+            "name"      : "btst",
+            "latency"   : Value.latencyA,
+            "reg-read"  : {"AR1","AR2"}, #set
+            "reg-mod"   : {"icc"}, #set
+            "res-used"  : None, #set
+            "destLabel" : None, #set
+            "delaySlot" : False,
+          }
+        ),
+      ],
+  },
+
+  "bset"         : # bit set
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"bset @AR1 , @AR2",          # or @AR1 , @AR2 , @AR1
+          {
+            "name"      : "bset",
+            "latency"   : Value.latencyA,
+            "reg-read"  : {"AR1","AR2"}, #set
+            "reg-mod"   : {"AR2"}, #set
+            "res-used"  : None, #set
+            "destLabel" : None, #set
+            "delaySlot" : False,
+          }
+        ),
+      ],
+  },
+
+  "bclr"         : # bit clear
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"bclr @AR1 , @AR2",          # andn @AR1 , @AR2 , @AR1
+          {
+            "name"      : "bclr",
+            "latency"   : Value.latencyA,
+            "reg-read"  : {"AR1","AR2"}, #set
+            "reg-mod"   : {"AR2"}, #set
+            "res-used"  : None, #set
+            "destLabel" : None, #set
+            "delaySlot" : False,
+          }
+        ),
+      ],
+  },
+
+  "btog"         : # bit toggle
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"btog @AR1 , @AR2",          # xor @AR1 , @AR2 , @AR1
+          {
+            "name"      : "btog",
+            "latency"   : Value.latencyA,
+            "reg-read"  : {"AR1","AR2"}, #set
+            "reg-mod"   : {"AR2"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
             "delaySlot" : False,

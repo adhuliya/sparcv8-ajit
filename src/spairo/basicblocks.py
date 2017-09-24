@@ -42,8 +42,11 @@ class ChunkBlock():
         self.asmChunks          = asmChunks
         self.reorderedAsmChunks = []
         self.basicBlock         = self.extractBasicBlock()
+        # last huristic applied
+        self.lastHuristic       = None
 
     def reorder(self, huristic=None):
+        self.lastHuristic = huristic
         self.basicBlock.reorder(huristic)
 
         self.reChunk()
@@ -232,11 +235,12 @@ class AsmChunkBlocks():
             self.extractChunkBlocks()
 
         val = StringIO()
+        bbNum = 1 # give sequential id to basic block
         for chunk in self.basicChunks:
             if type(chunk) == AsmChunk:
                 print(chunk.text, file=val, end="")
             elif type(chunk) == ChunkBlock:
-                print("/*start bb*/", file=val, end="")
+                print("/*start bb {}, {}*/".format(bbNum,chunk.lastHuristic), file=val, end="")
                 for chnk in chunk.asmChunks:
                     if type(chnk) == Instruction:
                         print(chnk.asmChunk.text, file=val, end="")
@@ -244,11 +248,14 @@ class AsmChunkBlocks():
                         print(chnk.text, file=val, end="")
                     else:
                         assert False, str(type(chnk))
-                print("/*end bb*/", file=val, end="")
+                print("/*end bb {}*/".format(bbNum), file=val, end="")
+                bbNum += 1
             elif type(chunk) == Instruction:
                 print(chunk.asmChunk.text, file=val, end="")
             else:
                 assert False, str(type(chunk))
+
+        print("/*total bb = {}*/".format(bbNum-1), file=val, end="")
 
         return self.asmModule.unMarkupCommentsAndStrings(
                 val.getvalue())

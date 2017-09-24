@@ -1,11 +1,20 @@
 #!/usr/bin/env python3
 
+import sys
+
+if "spairo" in sys.argv[0]:
+    libpath = "/usr/lib/python3/dist-packages"
+    if libpath not in sys.path:
+        sys.path.append(libpath)
+
 from spairo.basicblocks import AsmChunkBlocks
 from spairo.parse.asm import AsmModule
 from spairo.airo import DependencyGraph
-import sys
 
-usageMsg = """(This Software is in alpha testing phase)
+usageMsg = """
+SParc Assembly Instruction ReOrdering (SPAIRO)
+(This Software is in alpha testing phase)
+
 Usage: spairo [ --help | <asm-filename> [reordering-method-name] ]
 
 Rordering Method Names: {}

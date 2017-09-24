@@ -51,7 +51,7 @@ class InstrNode():
 class DependencyGraph():
     huristicsSet = {
             None,           # simple topo sort
-            "notdependent", # chose not-dependent nodes first
+            "notdep", # chose not-dependent nodes first
             "raw-last",     # tries to schedule raw dependency apart
             }
 
@@ -179,7 +179,7 @@ class DependencyGraph():
     def selectNode(self, sortedNodeIds, sources, graph, huristic):
         if huristic is None:
             return self.selectAnyNode(sources)
-        elif huristic.strip().lower() == "notdependent":
+        elif huristic.strip().lower() == "notdep":
             # separate the dependent nodes by putting in non-dependent nodes
             return self.selectNotDependentNode(sortedNodeIds, sources)
         elif huristic.strip().lower() == "raw-last":
@@ -261,7 +261,7 @@ def sampleSortDemo1():
 
     dg = DependencyGraph(graph=graph)
 
-    seq = dg.topoSort("notdependent")
+    seq = dg.topoSort("notdep")
     print("Diamond Graph Sort Demo")
     for item in seq:
         print(dg.graph[item])
@@ -300,7 +300,7 @@ def sampleSortDemo2():
 
     dg = DependencyGraph(graph=graph)
 
-    seq = dg.topoSort("notdependent")
+    seq = dg.topoSort("notdep")
     print("Graph Sort Demo 2")
     for item in seq:
         print(dg.graph[item])
@@ -311,7 +311,7 @@ def sampleSortDemo3():
     instr3 = Instruction(AsmChunk(index=0, text="add %r6,%r6,%r6", unitType="instr", isTextSection=True)).parse()
 
     dg = DependencyGraph(instrList=[instr1, instr2, instr3])
-    seq = dg.topoSort("notdependent")
+    seq = dg.topoSort("notdep")
     print("Graph Sort Demo 2")
     for item in seq:
         print(dg.graph[item])

@@ -23,7 +23,7 @@ if __name__ == "__main__":
         print(behaviorMsg)
     else:
         if len(sys.argv) == 3:
-            huristic = sys.argv[3].lower()
+            huristic = sys.argv[2].lower()
         else:
             huristic = "raw-last"
 

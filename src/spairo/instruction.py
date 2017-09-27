@@ -43,8 +43,7 @@ class Instruction():
         """
         Parses the instrText and sets object fields appropriately.
         """
-        # remove possible comment markups
-        instrText = commentMarkups.sub("", self.asmChunk.text).strip(";").strip()
+        instrText = self.getInstrText()
 
 
         # Extract mnemonic and its ",a" suffix separately
@@ -150,6 +149,14 @@ class Instruction():
                     assert placeVal in ("lo", "hi")
 
         return placeValSet
+
+    def getInstrText(self):
+        """
+        Remove possible comment markups, semicolon, and strip spaces
+        in that order.
+        """
+        instrText = commentMarkups.sub("", self.asmChunk.text).strip(";").strip()
+        return instrText
 
     # True if depencence otherInstr ---> self exists
     # Semantically otherInstr should occur before this instr

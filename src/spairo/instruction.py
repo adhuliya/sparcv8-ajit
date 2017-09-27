@@ -18,7 +18,7 @@ class Instruction():
 
     The Instruction class holds the needed information extracted from an assembly instruction used in the program. Its constuctor accepts a single instruction, and its parse() method extracts the relevant info from it.
     """
-    def __init__(self, asmChunk=None, name=None, mnemonic=None, suffix=None, latency=None, regRead=None, regMod=None, resUsed=None, destLabel=None):
+    def __init__(self, asmChunk=None, name=None, mnemonic=None, suffix=None, latency=None, regRead=None, regMod=None, resUsed=None, destLabel=None, delaySlot=None):
         # To create an object, only asmChunk argument is required
         # Other arguments are used to statically populate the fields for UnitTests
 
@@ -31,11 +31,12 @@ class Instruction():
         self.name       = name
 
         # Set of strings: each identifying a data src or dst
-        self.regRead = regRead # set()
-        self.regMod  = regMod  # set()
-        self.resUsed = resUsed # set()
-        self.destLabel = destLabel # set()
-        self.delaySlot = False
+        self.regRead    = regRead # set()
+        self.regMod     = regMod  # set()
+        self.resUsed    = resUsed # set()
+        self.destLabel  = destLabel # set()
+        self.delaySlot  = delaySlot
+        self.validInstr = True
 
 
     def parse(self):
@@ -51,25 +52,34 @@ class Instruction():
         self.mnemonic = words[0]
         self.suffix = words[2] if len(words) == 3 else None
 
-        formats = sparc.instr[self.mnemonic]["formats"]
-
-        # Find the instr format that matches the instr text
-        for fmt, details in formats:
-            match = fmt.match(instrText)
-            if match: break
+        if self.mnemonic in sparc.instr:
+            formats = sparc.instr[self.mnemonic]["formats"]
         else:
-            assert False, "No match on instruction '{}'".format(self.asmChunk)
-            print("No match on instruction '{}'".format(self.asmChunk), file=sys.stderr)
-            exit(1)
+            self.validInstr = False
 
-        # Here (fmt, fmt-info) contains the info for the matched instr
-        self.name    = details["name"]
-        self.latency = details["latency"]
-        self.regRead = Instruction.parseResource(match, details["reg-read"])
-        self.regMod  = Instruction.parseResource(match, details["reg-mod"])
-        self.destLabel  = Instruction.parseResource(match, details["destLabel"])
-        self.resUsed = details["res-used"] if details["res-used"] else set()
-        self.delaySlot  = details["delaySlot"]
+        if self.validInstr:
+            # Find the instr format that matches the instr text
+            for fmt, details in formats:
+                match = fmt.match(instrText)
+                if match: break
+            else:
+                self.validInstr = False
+
+        if self.validInstr:
+            # Here (fmt, fmt-info) contains the info for the matched instr
+            self.name    = details["name"]
+            self.latency = details["latency"]
+            self.regRead = Instruction.parseResource(match, details["reg-read"])
+            self.regMod  = Instruction.parseResource(match, details["reg-mod"])
+            self.destLabel  = Instruction.parseResource(match, details["destLabel"])
+            self.resUsed    = details["res-used"] if details["res-used"] else set()
+            self.delaySlot  = details["delaySlot"]
+
+        if not self.validInstr:
+            assert False, "Invalid instruction '{}'".format(self.asmChunk)
+            # In case assertion is disabled.
+            print("Invalid instruction '{}'".format(self.asmChunk), file=sys.stderr)
+
 
         # Returns self so that one can call parse() along with the object creation 
         # Eg. instr1 = Instruction("add %r1,%r2,%r3").parse()

@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+"""
+Give a sequential list of executed intructions (as Instruction objects),
+this module calculates the total execution time in number of CPU cycles.
+"""
 
 from . import sparc
 from collections import deque
@@ -6,6 +10,10 @@ from collections import deque
 pipeline = sparc.pipeline
 
 def executionTime(instrList):
+    """
+    Give a sequential list of executed intructions (as Instruction objects),
+    this function returns the total execution time in number of CPU cycles.
+    """
     dq = deque([None for n in range(pipeline)], maxlen=pipeline)
 
     # is pipeline empty

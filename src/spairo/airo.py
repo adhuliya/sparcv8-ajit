@@ -108,7 +108,7 @@ class DependencyGraph():
         return copiedGraph
 
     # Sorts with the give huristics and returns a new sequence.
-    def topoSort(self, huristic="none"):
+    def topoSort(self, huristic=DependencyGraph.huristicsMap["default"]):
         """
         Topologically sorts using a List Algorithm with the given huristic.
         """

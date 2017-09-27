@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+"""
+This module builds the deb package used to install spairo.
+"""
 import subprocess as subp
 import sys
 

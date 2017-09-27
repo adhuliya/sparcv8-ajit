@@ -1,9 +1,8 @@
-SparcV8 Ajit
-==================
+SPAIRO (SParcV8 Assembly Insruction ReOrdering optimization)
+===========================================================
 
-SparcV8 assembly insruction reordering optimization.
--- Anshuman Dhuliya
-
+Maintained by Anshuman Dhuliya
+--------------------------------
 
 Instructions to setup:
 

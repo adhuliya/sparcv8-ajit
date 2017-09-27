@@ -75,10 +75,8 @@ class Instruction():
             self.delaySlot  = details["delaySlot"]
 
         if not self.validInstr:
-            assert False, "Invalid instruction '{}'".format(self.asmChunk)
-            # In case assertion is disabled.
-            print("Invalid instruction '{}'".format(self.asmChunk), file=sys.stderr)
-
+            print("ERROR : Invalid instruction : '{}'".format(self.asmChunk.text), file=sys.stderr)
+            exit(1)
 
         # Returns self so that one can call parse() along with the object creation 
         # Eg. instr1 = Instruction("add %r1,%r2,%r3").parse()

@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+"""
+This is the driver program for the project.
+This module is renamed to `spairo` when packaged for deployment.
+"""
 
 import sys
 
@@ -15,15 +19,16 @@ usageMsg = """
 SParc Assembly Instruction ReOrdering (SPAIRO)
 (This Software is in alpha testing phase)
 
-Usage: spairo [ --help | <asm-filename> [reordering-method-name] ]
+Usage: spairo [ --help | <asm-filename> [optinal reordering-method-name] ]
 
 Rordering Method Names: {}
 """.format(DependencyGraph.getHuristicHelpMsg())
 
 behaviorMsg = """It takes asm file (filename.s) as input and
-outputs optimized (reordered) asm file (filename-opt.s) and
-also outputs a file containing the basic blocks detected (filename-bb.s)"""
-
+outputs optimized asm file (filename-opt.s) and also
+outputs another asm file marking the basic blocks detected (filename-bb.s).
+Both the output files are valid asm files if the input is valid.
+"""
 
 if __name__ == "__main__":
     if len(sys.argv) < 2 or len(sys.argv) > 3:
@@ -42,6 +47,9 @@ if __name__ == "__main__":
         huristic = sys.argv[2].lower()
     else:
         huristic = DependencyGraph.huristicsMap["default"]
+
+    if huristic not in DependencyGraph.huristicsMap:
+        print("ERROR : Hurisitc '{}' not known.".format(huristic), file=sys.err)
 
     fileName = sys.argv[1]
     asmMod = AsmModule(fileName).parse()

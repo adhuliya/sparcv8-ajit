@@ -52,7 +52,7 @@ class DependencyGraph():
     huristicsMap = {
             "none"      : "A plain topological sort.", 
             "nodep"     : "Choose not-dependent nodes first.", 
-            "raw"       : "Tries to separate RAW dependendent instructions.",
+            "raw"       : "Tries to distance RAW dependendent instructions.",
             "default"   : "raw", # must be a valid key in THIS map
             }
 
@@ -71,7 +71,7 @@ class DependencyGraph():
         Creates graph from self.instrList
         Old graph is purged.
         """
-        assert self.instrList
+        assert self.instrList, "Initialized and non-empty instrList required."
 
         self.graph      = dict()
 
@@ -108,10 +108,13 @@ class DependencyGraph():
         return copiedGraph
 
     # Sorts with the give huristics and returns a new sequence.
-    def topoSort(self, huristic=DependencyGraph.huristicsMap["default"]):
+    def topoSort(self, huristic=None):
         """
         Topologically sorts using a List Algorithm with the given huristic.
         """
+
+        if huristic is None:
+            huristic = DependencyGraph.huristicsMap["default"]
 
         assert huristic in self.huristicsMap, "Unknow huristic: '{}'".format(huristic)
 
@@ -121,17 +124,17 @@ class DependencyGraph():
 
         while graph:
             # Update Sources
-            sources = sources | self.extractSourceIds(graph)
+            sources = sources | self._extractSourceIds(graph)
             # Seclect an appropriate next node
-            selectedNodeId = self.selectNode(sortedNodeIds, sources, graph, huristic)
+            selectedNodeId = self._selectNode(sortedNodeIds, sources, graph, huristic)
             # Append the (original)node into the sequence
             # Original node is added because its pred and succ are intact.
-            # pred and succ info of a node may be used in selectNode()
+            # pred and succ info of a node may be used in _selectNode()
             sortedNodeIds.append(selectedNodeId)
             # Remove the node from the sources set
             sources.remove(selectedNodeId)
             # Remove the selected node from the working graph
-            graph = self.removeNodeFromGraph(graph, graph[selectedNodeId])
+            graph = self._removeNodeFromGraph(graph, graph[selectedNodeId])
 
         return sortedNodeIds
 
@@ -152,7 +155,9 @@ class DependencyGraph():
             print("NodeID :", nodeid)
             print(graph[nodeid])
 
-    def extractSourceIds(self, graph):
+    def _extractSourceIds(self, graph):
+        assert graph, "Graph should never be empty."
+
         sources = set()
         for nodeid in graph:
             if not graph[nodeid].pred:
@@ -162,7 +167,7 @@ class DependencyGraph():
 
         return sources
 
-    def removeNodeFromGraph(self, graph, node):
+    def _removeNodeFromGraph(self, graph, node):
         len1 = len(graph)
 
         del graph[node.id]
@@ -177,7 +182,7 @@ class DependencyGraph():
 
         return graph
 
-    def selectNode(self, sortedNodeIds, sources, graph, huristic):
+    def _selectNode(self, sortedNodeIds, sources, graph, huristic):
         if huristic.strip().lower() == "none":
             return self.selectAnyNode(sources)
         elif huristic.strip().lower() == "nodep":

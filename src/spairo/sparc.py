@@ -90,7 +90,25 @@ Value           = sparcinfo.Value
 
 
 def printInfo():
-  print(instr)
+    print("Total Instr Menemonics   :", len(instr))
+    print()
+    print("Branch Instr             :\n", branchInstr)
+    print()
+    print("Labeled Branch Instr     :\n", labeledBranch)
+    print()
+    print("NonLabeled Branch Instr  :\n", nonLabeledBranch)
+    print()
+    print("BB Bounday Instr         :\n", bbBoundary)
+    print()
+    print("User Sections            :\n", userSections)
+    print()
+    print("Non User Sections        :\n", nonUserSections)
+    print()
+    print("Registers                :\n", registers)
+    
+
 
 if __name__ == "__main__":
-  printInfo()
+    printInfo()
+
+

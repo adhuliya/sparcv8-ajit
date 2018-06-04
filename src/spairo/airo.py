@@ -87,16 +87,17 @@ class DependencyGraph():
         # Work out all the dependencies
         for i, nodePred in enumerate(instrNodeList):
             for j, nodeSucc in enumerate(instrNodeList[i+1:]):
+                skip = False
                 isDep = nodeSucc.instr.isDependentOn(nodePred.instr)
                 if isDep:
-                    # add mutual dependency
-                    nodePred.succ.add(nodeSucc.id)
-                    nodeSucc.pred.add(nodePred.id)
-                    # convert direct dependenies to transitive
-                    for pred in nodePred.pred:
-                        if nodeSucc.id in self.graph[pred].succ:
-                            self.graph[pred].succ.remove(nodeSucc.id)
-                            nodeSucc.pred.remove(self.graph[pred].id)
+                    for succ in nodePred.succ:
+                        if nodeSucc.instr.isDependentOn(self.graph[succ].instr):
+                            skip = True
+
+                    if not skip:
+                        # add mutual dependency
+                        nodePred.succ.add(nodeSucc.id)
+                        nodeSucc.pred.add(nodePred.id)
 
 
 
@@ -199,7 +200,6 @@ class DependencyGraph():
 
         for nodeid in reversed(sortedNodeIds):
             node = self.graph[nodeid]
-
 
             # extract raw dependent successors
             rawSet = set()

@@ -11,6 +11,7 @@ from .parse.asm import AsmChunk
 from .parse.asm import AsmModule
 from io import StringIO
 from .instruction import Instruction
+import logging as log
 
 # Represents a single basic block.
 # Contains only instructions. No AsmChunk objects.
@@ -136,7 +137,7 @@ class AsmChunkBlocks():
                         self.basicChunks.append(instr)
                         chunkList = None
                     else:
-                        if instr.mnemonic == "ta": print(instr)
+                        if instr.mnemonic == "ta": log.info(instr)
                         chunkList.append(instr)
             else:
                 assert False

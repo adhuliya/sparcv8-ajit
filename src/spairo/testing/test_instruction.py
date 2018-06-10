@@ -3,10 +3,11 @@
 
 import unittest
 from .. import instruction as instr
+from ..parse.asm import AsmChunk
 
 instr_tests = [
 ("ldsb [%r1+%r2],%r4",
-instr.Instruction(instrText   = "ldsb [%r1+%r2],%r4",
+instr.Instruction(asmChunk   = "ldsb [%r1+%r2],%r4",
             mnemonic    = "ldsb",
             name        = "ldsb",
             suffix      = None,
@@ -15,7 +16,7 @@ instr.Instruction(instrText   = "ldsb [%r1+%r2],%r4",
             regMod      = {"r4"},
             resUsed     = {})),
 ("ldsb [%r1],%r4",
-instr.Instruction(instrText   = "ldsb [%r1],%r4",
+instr.Instruction(asmChunk   = "ldsb [%r1],%r4",
             mnemonic    = "ldsb",
             name        = "ldsb",
             suffix      = None,
@@ -24,7 +25,7 @@ instr.Instruction(instrText   = "ldsb [%r1],%r4",
             regMod      = {"r4"},
             resUsed     = {})),
 ("ldsb [%l0],%r4",
-instr.Instruction(instrText   = "ldsb [%l0],%r4",
+instr.Instruction(asmChunk   = "ldsb [%l0],%r4",
             mnemonic    = "ldsb",
             name        = "ldsb",
             suffix      = None,

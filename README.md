@@ -44,3 +44,6 @@ Instructions to setup:
         # END   For Project sparcv8-ajit
 
 
+  Now one can setup the ajit environment by typing `setajit` command, and unset it using `unsetajit` command.
+
+

@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 
 # airo : Assembly Instrction Reordering
+"""
+This module contains the logic to reorder a given sequence of instructions.
+"""
 
 import copy
 import random as rand
@@ -9,6 +12,10 @@ from .instruction import Instruction
 from .parse.asm import AsmChunk
 
 class InstrNode():
+    """
+    This class represents a specific line of instruction as a Node in a graph,
+    with successors and predecessor recording dependence between instructions.
+    """
     id  = 0
 
     @staticmethod
@@ -49,6 +56,13 @@ class InstrNode():
 
 
 class DependencyGraph():
+    """
+    This class,
+    1. generates the dependency graph form sequence of instructions.
+    2. topologically sorts the graph using predefined huristics. One can add
+       new huristics anytime.
+    """
+
     huristicsMap = {
             "none"      : "A plain topological sort.", 
             "nodep"     : "Choose not-dependent nodes first.", 
@@ -57,7 +71,7 @@ class DependencyGraph():
             }
 
     def __init__(self, instrList=None, graph=None):
-        # List of Instruction objects in a basic block.
+        # Sequence of Instruction objects in a basic block.
         self.instrList  = instrList
         # graph is explicity given in unittests
         self.graph      = graph

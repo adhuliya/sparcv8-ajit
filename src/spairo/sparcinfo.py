@@ -1999,6 +1999,39 @@ instrData = {
 
 
   # BICC        : Branch on integer condition codes (the icc register)
+  "b"          : # Branch Always (NEW)
+  {
+      "formats"     :
+      [
+        # List of Tuple Pairs (format, format-info)
+        (
+          r"b @EL1",
+          {
+            "name"      : "b",
+            "latency"   : Value.latencyA,
+            "reg-read"  : None, #set
+            "reg-mod"   : None, #set
+            "res-used"  : None, #set
+            "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
+          }
+        ),
+
+        (
+          r"b,a @EL1",
+          {
+            "name"      : "b:a",
+            "latency"   : Value.latencyA,
+            "reg-read"  : None, #set
+            "reg-mod"   : None, #set
+            "res-used"  : None, #set
+            "destLabel" : {"EL1"}, #set
+            "delaySlot" : True,
+          }
+        ),
+      ],
+  },
+
   "ba"          : # Branch Always
   {
       "formats"     :
@@ -3822,6 +3855,19 @@ instrData = {
             "delaySlot" : False,
           }
         ),
+
+        (
+          r"call @EL1 , 0",         # (NEW)
+          {
+            "name"      : "call",
+            "latency"   : Value.latencyA,
+            "reg-read"  : None, #set
+            "reg-mod"   : {"r15"}, #set
+            "res-used"  : None, #set
+            "destLabel" : {"EL1"}, #set
+            "delaySlot" : False,
+          }
+        ),
       ],
   },
 
@@ -5620,7 +5666,7 @@ regexMap = {
 
 labeledBranch = {
   # Misc instructions
-  "call"
+  "call",
   # Branch on icc
   "ba", "bn", "bne", "bnz", "be", "bz", "bg",
   "ble", "bge", "bl", "bgu", "bleu", "bcc", "bgeu",

@@ -6,8 +6,9 @@ from .. import instruction as instr
 from ..parse.asm import AsmChunk
 
 instr_tests = [
-("ldsb [%r1+%r2],%r4",
-instr.Instruction(asmChunk   = "ldsb [%r1+%r2],%r4",
+
+( AsmChunk (text="ldsb [%r1+%r2],%r4", unitType="instr", isTextSection=True),
+instr.Instruction(asmChunk   = AsmChunk (text="ldsb [%r1+%r2],%r4", unitType="instr", isTextSection=True),
             mnemonic    = "ldsb",
             name        = "ldsb",
             suffix      = None,
@@ -15,8 +16,9 @@ instr.Instruction(asmChunk   = "ldsb [%r1+%r2],%r4",
             regRead     = {"r1", "r2"},
             regMod      = {"r4"},
             resUsed     = {})),
-("ldsb [%r1],%r4",
-instr.Instruction(asmChunk   = "ldsb [%r1],%r4",
+
+(AsmChunk (text="ldsb [%r1],%r4", unitType="instr", isTextSection=True),
+instr.Instruction(asmChunk   = AsmChunk (text="ldsb [%r1],%r4", unitType="instr", isTextSection=True),
             mnemonic    = "ldsb",
             name        = "ldsb",
             suffix      = None,
@@ -24,8 +26,9 @@ instr.Instruction(asmChunk   = "ldsb [%r1],%r4",
             regRead     = {"r1", "r0"},
             regMod      = {"r4"},
             resUsed     = {})),
-("ldsb [%l0],%r4",
-instr.Instruction(asmChunk   = "ldsb [%l0],%r4",
+
+(AsmChunk (text="ldsb [%l0],%r4", unitType="instr", isTextSection=True),
+instr.Instruction(asmChunk   = AsmChunk (text="ldsb [%l0],%r4", unitType="instr", isTextSection=True),
             mnemonic    = "ldsb",
             name        = "ldsb",
             suffix      = None,
@@ -37,6 +40,7 @@ instr.Instruction(asmChunk   = "ldsb [%l0],%r4",
 
 class TestInstruction(unittest.TestCase):
     def test_parsing(self):
+        iobj = None
         try:
             for stmt, obj in instr_tests:
                 iobj = instr.Instruction(stmt).parse()
@@ -47,8 +51,6 @@ class TestInstruction(unittest.TestCase):
             print("INCORRECT:")
             print(iobj)
             raise e
-
-
 
 if __name__ == "__main__":
     unittest.main()

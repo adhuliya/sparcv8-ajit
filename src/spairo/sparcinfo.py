@@ -4352,6 +4352,20 @@ instrData = {
             "delaySlot" : False,
           }
         ),
+
+        # (NEW) added for: wr %l0, %psr
+        (
+          r"wr @AR1 , @EM1",
+          {
+            "name"      : "wr",
+            "latency"   : Value.latencyA,
+            "reg-read"  : {"AR1"}, #set
+            "reg-mod"   : {"EM1"}, #set
+            "res-used"  : None, #set
+            "destLabel" : None, #set
+            "delaySlot" : False,
+          }
+        ),
       ],
   },
 

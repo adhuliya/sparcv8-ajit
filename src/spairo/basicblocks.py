@@ -177,7 +177,8 @@ class AsmChunkBlocks():
                     instrChunks.append(Instruction(asmChunk=asmChunk).parse())
                 else:
                     # Instruction should always be in text section
-                    assert False, str(asmChunk)
+                    assert False, "{} :: {}".format(str(asmChunk),
+                            "Instruction should always be in text section.")
             else:
                 instrChunks.append(asmChunk)
 

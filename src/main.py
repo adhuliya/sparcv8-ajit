@@ -19,7 +19,7 @@ usageMsg = """
 SParc Assembly Instruction ReOrdering (SPAIRO)
 (This Software is in alpha testing phase)
 
-Usage: spairo [ --help | <asm-filename> [optinal reordering-method-name] ]
+Usage: spairo [ --help | <asm-filename> [optional reordering-method-name] ]
 
 Rordering Method Names: {}
 """.format(DependencyGraph.getHuristicHelpMsg())

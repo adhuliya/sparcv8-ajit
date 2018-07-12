@@ -92,7 +92,7 @@ class AsmModule():
         self.comments   = []    # ordered list of comments in code
         self.chunks     = []    # ordered list of AsmChunk objects
         self.basicBlocks    = []
-        self.isTextSection  = False
+        self.isTextSection  = True # (NEW) default
 
     def parse(self):
         self.originalContent = self.readFile()

@@ -33,10 +33,10 @@ if __name__ == "__main__":
 
         optFileName = fileName.rsplit(".")[0] + "-opt.s"
         with open(optFileName, "w") as optf:
-            optf.write(asmChunkBlocks.coalesceContents())
+            optf.write(asmChunkBlocks.coalesceChunks())
 
         bbFileName = fileName.rsplit(".")[0] + "-bb.s"
         with open(bbFileName, "w") as optf:
-            optf.write(asmChunkBlocks.coalesceContentsMarkBb())
+            optf.write(asmChunkBlocks.coalesceChunksMarkBb())
 
 

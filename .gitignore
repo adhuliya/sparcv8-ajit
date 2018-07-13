@@ -20,3 +20,8 @@ __pycache__/
 
 # deb package
 *.deb
+
+# logs
+*.log
+logs/
+spairo-logs

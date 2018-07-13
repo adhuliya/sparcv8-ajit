@@ -4,7 +4,7 @@
 # Sparc(Ajit) architecture and its assembly language.
 # NOTE: Never import this module. The module sparc.py should be used instead.
 # This module is processes by module sparc.py to convert the user
-# specified details to the system usable format.
+# specified details into a program usable format.
 
 # All the variables are available using same name in the sparc.py module.
 # However the variable data may be processed into a different datatype.
@@ -12,7 +12,7 @@
 # Execution of this module prints useful information.
 
 # This python module defines the Ajit specific Sparc V8 processor details.
-# Only the properties useful for this project are present here.
+# Only the properties useful for this (instruction-reordering) project are present here.
 # These include,
 # 1. Instructions, their Formats, Latencies, resources used etc.
 # 2. Instruction-Pair latencies (For special cases)
@@ -1544,7 +1544,7 @@ instrData = {
             "name"      : "addxcc",
             "latency"   : Value.latencyB,
             "reg-read"  : {"AR1","AR2"}, #set
-            "reg-mod"   : {"AR3"}, #set
+            "reg-mod"   : {"AR3", "psr", "icc"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
             "delaySlot" : False,
@@ -5756,7 +5756,7 @@ nonUserSections = {".dynamic", ".dynstr", ".dynsym", ".got", ".hash", ".interp",
 # END   : Sections in Assembly Program
 
 def printInfo():
-  print("Total Instructions     :", len(instructions))
+  print("Total Instructions     :", len(instrData))
   print("Cache Hit Ratio        :", Value.hitRatio)
   print("Cache Latency          :", Value.cacheLatency)
   print("Ram Latency            :", Value.ramLatency)
@@ -5767,5 +5767,4 @@ def printInfo():
 
 if __name__ == "__main__":
     printInfo()
-
 

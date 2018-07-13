@@ -3,11 +3,12 @@
 This module parses a sparc asm file and breaks it into logical uints.
 It specially separates instructions and labels, which are useful
 for assembly instruction reordering.
+It extracts macro definitions, and usages too,
+but doesn't expand the macro usage.
 """
 
 import re
 import sys
-import os
 import os.path as osp
 from .. import sparc
 from io import StringIO
@@ -131,7 +132,7 @@ class AsmModule():
         assert groupDict["macrodefname"], "spairo: error: macro def has no name"
         self.macroNames.add(groupDict["macrodefname"])
         self.chunks.append(AsmChunk(index=len(self.chunks), unitType="macrodef", isTextSection=self.isTextSection, text=match.group("macrodef")))
-        #log.info("Found macro: name: {}, content: {}".format(groupDict["macrodefname"], groupDict["macrodef"]))
+        log.info("Found macro: name: {}, content: {}".format(groupDict["macrodefname"], groupDict["macrodef"]))
         return match.group("macrodef")
 
       if groupDict["label"] is not None:
@@ -144,10 +145,11 @@ class AsmModule():
         return match.group("popln")
 
       elif groupDict["instr"] is not None:
-        assert groupDict["instrname"], "spairo: error: instr has no name"
+        assert groupDict["instrname"], "spairo: error: instr/macro has no name"
         # is it a macro use?
         if groupDict["instrname"] in self.macroNames:
           # its a macro
+          log.trace("macro used: name: {}, content: {}".format(groupDict["instrname"], groupDict["instr"]))
           self.chunks.append(AsmChunk(index=len(self.chunks), unitType="macrouse", isTextSection=self.isTextSection, text=match.group("instr")))
           return match.group("instr") # macro is a (set of) instruction(s)
         else:

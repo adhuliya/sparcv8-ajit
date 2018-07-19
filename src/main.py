@@ -74,16 +74,18 @@ if __name__ == "__main__":
 
   fileName = sys.argv[1]
 
+  log.info("Huristic: %s", huristic)
   # START: main logic
   asmMod = AsmModule(fileName).parse()
   asmChunkBlocks = AsmChunkBlocks(asmMod).reorder(huristic)
   # END  : main logic
 
-  optFileName = fileName.rsplit(".")[0] + "-opt.s"
+  log.info("%s file optimized.", fileName)
+  optFileName = fileName.rsplit(".", maxsplit=1)[0] + "-opt.s"
   with open(optFileName, "w") as optf:
     optf.write(asmChunkBlocks.coalesceChunks())
 
-  bbFileName = fileName.rsplit(".")[0] + "-bb.s"
+  bbFileName = fileName.rsplit(".", maxsplit=1)[0] + "-bb.s"
   with open(bbFileName, "w") as optf:
     optf.write(asmChunkBlocks.coalesceChunksMarkBb())
 

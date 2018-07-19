@@ -29,6 +29,20 @@ class BasicBlock():
     self.reorderedInstrList = self.dg.getReorderedInstrList(huristic)
     assert len(self.instrList) == len(self.reorderedInstrList)
 
+  def getDotGraphString(self):
+    """
+    Return a valid dot graph string representation of the dependency graph.
+    digraph {
+      nodeA [shape=record label="{a: instr zyx|b: instr sdf|b: instr sdf|c: instr sdf}"]
+      a -> b;
+      b -> c;
+      c -> d;
+      d -> a;
+    }
+    :return: str
+    """
+    return self.dg.getDotGraphString()
+
   def __str__(self):
     val = StringIO()
     for instr in self.instrList:
@@ -51,12 +65,12 @@ class ChunkBlock():
   def reorder(self, huristic=None):
     self.lastHuristic = huristic
     self.basicBlock.reorder(huristic)
+    log.info("dotgraph:\n %s", self.basicBlock.getDotGraphString())
 
     self.reChunk()
 
   def extractBasicBlock(self):
-    instrList = [chunk
-                 for chunk in self.asmChunks if type(chunk) == Instruction]
+    instrList = [chunk for chunk in self.asmChunks if type(chunk) == Instruction]
 
     return BasicBlock(instrList=instrList)
 
@@ -80,7 +94,6 @@ class ChunkBlock():
     print(")", file=val)
 
     return val.getvalue()
-
 
 class AsmChunkBlocks():
   def __init__(self, asmModule=None):
@@ -185,8 +198,7 @@ class AsmChunkBlocks():
           instrChunks.append(Instruction(asmChunk=asmChunk).parse())
         else:
           # Instruction should always be in text section
-          assert False, "{} :: {}".format(str(asmChunk),
-                                          "Instruction should always be in text section.")
+          assert False, "{} :: {}".format(str(asmChunk), "Instruction should always be in text section.")
       else:
         instrChunks.append(asmChunk)
 

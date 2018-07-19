@@ -753,7 +753,7 @@ instrData = {
           {
             "name"      : "st",
             "latency"   : Value.latencyA,
-            "reg-read"  : {"AR1","AA1"}, #set
+            "reg-read"  : {"AR1", "AA1"}, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
@@ -3826,7 +3826,7 @@ instrData = {
             "reg-mod"   : {"r15"}, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
-            "delaySlot" : False,
+            "delaySlot" : True,
           }
         ),
 
@@ -3839,7 +3839,7 @@ instrData = {
             "reg-mod"   : {"o7"}, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
-            "delaySlot" : False,
+            "delaySlot" : True,
           }
         ),
 
@@ -3852,7 +3852,7 @@ instrData = {
             "reg-mod"   : {"r15"}, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
-            "delaySlot" : False,
+            "delaySlot" : True,
           }
         ),
 
@@ -3865,7 +3865,7 @@ instrData = {
             "reg-mod"   : {"r15"}, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
-            "delaySlot" : False,
+            "delaySlot" : True,
           }
         ),
       ],

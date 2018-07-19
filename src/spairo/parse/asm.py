@@ -130,6 +130,7 @@ class AsmModule():
       groupDict = match.groupdict()
       if groupDict["macrodef"] is not None:
         assert groupDict["macrodefname"], "spairo: error: macro def has no name"
+        print("spairo: warn: macro definition found: {}.".format(groupDict["macrodefname"]), file=sys.stderr)
         self.macroNames.add(groupDict["macrodefname"])
         self.chunks.append(AsmChunk(index=len(self.chunks), unitType="macrodef", isTextSection=self.isTextSection, text=match.group("macrodef")))
         log.info("Found macro: name: {}, content: {}".format(groupDict["macrodefname"], groupDict["macrodef"]))
@@ -149,7 +150,8 @@ class AsmModule():
         # is it a macro use?
         if groupDict["instrname"] in self.macroNames:
           # its a macro
-          log.trace("macro used: name: {}, content: {}".format(groupDict["instrname"], groupDict["instr"]))
+          print("spairo: warn: use of macro found: {}".format(groupDict["instrname"]), file=sys.stderr)
+          log.info("macro used: name: {}, content: {}".format(groupDict["instrname"], groupDict["instr"]))
           self.chunks.append(AsmChunk(index=len(self.chunks), unitType="macrouse", isTextSection=self.isTextSection, text=match.group("instr")))
           return match.group("instr") # macro is a (set of) instruction(s)
         else:

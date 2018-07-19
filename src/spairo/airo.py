@@ -125,11 +125,10 @@ class DependencyGraph():
     Return a valid dot graph string representation of the dependency graph.
     digraph {
       nodeA [shape=record label="{a: instr zyx|b: instr sdf|b: instr sdf|c: instr sdf}"]
-      a -> b;
-      b -> c;
-      c -> d;
-      d -> a;
+      a -> b; b -> c; c -> d; d -> a;
     }
+    Save the genereted dot graph in a file say `tmp.dot`, and run the following
+    $ dot -Tpng tmp.dot > bb.png; xdg-open bb.png;
     :return: str
     """
     if self.graph is None:
@@ -139,7 +138,7 @@ class DependencyGraph():
     instrListString = io.StringIO()
     instrListString.write("\lOriginal")
     for nodeId in sorted(self.graph):
-      instrListString.write("\l{:>3}: {}".format(nodeId, self.graph[nodeId].instr.asmChunk.text))
+      instrListString.write("\l{:_>4}: {}".format(nodeId, self.graph[nodeId].instr.asmChunk.text))
     instrListString.write("\l--END--")
 
     if self.lastReorderedList is None:
@@ -150,15 +149,20 @@ class DependencyGraph():
     reorderedInstrListString = io.StringIO()
     reorderedInstrListString.write("\lReOrdered")
     for nodeId in reorderedInstrList:
-      reorderedInstrListString.write("\l{:>3}: {}".format(nodeId, self.graph[nodeId].instr.asmChunk.text))
+      reorderedInstrListString.write("\l{:_>4}: {}".format(nodeId, self.graph[nodeId].instr.asmChunk.text))
     reorderedInstrListString.write("\l--END--")
 
     graphString = io.StringIO()
     for nodeId in sorted(self.graph):
-      for succ in self.graph[nodeId].succ:
-        graphString.write("{} -> {}; ".format(nodeId, succ))
+      currNode = self.graph[nodeId]
+      if not currNode.succ and not currNode.pred:
+        graphString.write("{}; ".format(nodeId))
+      else:
+        for succ in currNode.succ:
+          graphString.write("{} -> {}; ".format(nodeId, succ))
 
     dotGraph = """digraph {{
+    node [fontname = "Courier"]; 
     nodeA [shape=record label="{{{}}}|{{{}}}"]
     {}
     }}""".format(instrListString.getvalue(), reorderedInstrListString.getvalue(), graphString.getvalue())

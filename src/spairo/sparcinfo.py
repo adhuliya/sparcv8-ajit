@@ -4825,7 +4825,7 @@ instrData = {
       [
         # List of Tuple Pairs (format, format-info)
         (
-          r"fadds @ED1 , @ED2 , @ED3",
+          r"faddd @ED1 , @ED2 , @ED3",
           {
             "name"      : "faddd",
             "latency"   : Value.latencyC,
@@ -5680,7 +5680,7 @@ regexMap = {
 
 labeledBranch = {
   # Misc instructions
-  "call",
+  "call", "b",
   # Branch on icc
   "ba", "bn", "bne", "bnz", "be", "bz", "bg",
   "ble", "bge", "bl", "bgu", "bleu", "bcc", "bgeu",
@@ -5761,9 +5761,9 @@ def printInfo():
   print("Cache Latency          :", Value.cacheLatency)
   print("Ram Latency            :", Value.ramLatency)
   print("Avg. Mem Latency       :", Value.memLatency)
-  print("User Sections        :", userSections)
-  print("Non-User Sections    :", nonUserSections)
-  print("All Sections         :", sections)
+  print("User Sections          :", userSections)
+  print("Non-User Sections      :", nonUserSections)
+  print("All Sections           :", sections)
 
 if __name__ == "__main__":
     printInfo()

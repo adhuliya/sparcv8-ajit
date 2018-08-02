@@ -6,7 +6,6 @@
 *.vars
 *.wtrace
 *.elf
-sparc-assembly/
 sparc-obj/
 
 # C related

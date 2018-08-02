@@ -1,0 +1,49 @@
+readelf: Warning: Section '.rodata.cst8' was not dumped because it does not exist!
+readelf: Warning: Section '.data' was not dumped because it does not exist!
+readelf: Warning: Section '.rodata' was not dumped because it does not exist!
+Info: optimization level = 2
+Info: added include-directory = /usr/include.
+Info: added assembly-file = init.s.
+Info: added src-file = utils.c.
+Info: added src-file = dhry_1.c.
+Info: added src-file = dhry_2.c.
+Info: elf-file to be produced  = dhry.elf.
+Info: var-dump-file to be produced  = dhry.vars.
+Info: hex-dump-file to be produced  = dhry.hex.
+Info: memory-map-file to be produced  = dhry.mmap.
+Info: object-dump-file to be produced  = dhry.objdump.
+Info: added define_string = AJIT.
+Info: added define_string = DHRYOPT.
+Info: linker_script_file  = LinkerScript.lnk.
+Info: Executing:
+	rm -rf .//sparc-assembly
+Info: Executing:
+	mkdir .//sparc-assembly
+Info: Executing:
+	rm -rf .//sparc-obj
+Info: Executing:
+	mkdir .//sparc-obj
+Info: Executing:
+	sparc-linux-as   -Av8  init.s -o .//sparc-obj/init.o
+Info: Executing:
+	sparc-linux-gcc  -c  -S -Wall -Werror -m32 -mcpu=v8 -nostdlib -ffreestanding   -O2  -ffreestanding -fschedule-insns -fschedule-insns2 -frename-registers     -I /usr/include  -D AJIT  -D DHRYOPT  utils.c -o .//sparc-assembly/utils.s
+Info: Executing:
+	sparc-linux-gcc  -c  -S -Wall -Werror -m32 -mcpu=v8 -nostdlib -ffreestanding   -O2  -ffreestanding -fschedule-insns -fschedule-insns2 -frename-registers     -I /usr/include  -D AJIT  -D DHRYOPT  dhry_1.c -o .//sparc-assembly/dhry_1.s
+Info: Executing:
+	sparc-linux-gcc  -c  -S -Wall -Werror -m32 -mcpu=v8 -nostdlib -ffreestanding   -O2  -ffreestanding -fschedule-insns -fschedule-insns2 -frename-registers     -I /usr/include  -D AJIT  -D DHRYOPT  dhry_2.c -o .//sparc-assembly/dhry_2.s
+Info: Executing:
+	sparc-linux-as   -Av8 .//sparc-assembly/dhry_2.s  -o .//sparc-obj/dhry_2.o
+Info: Executing:
+	sparc-linux-as   -Av8 .//sparc-assembly/dhry_1.s  -o .//sparc-obj/dhry_1.o
+Info: Executing:
+	sparc-linux-as   -Av8 .//sparc-assembly/utils.s  -o .//sparc-obj/utils.o
+Info: Executing:
+	sparc-linux-ld  -e main -T LinkerScript.lnk .//sparc-obj/init.o  .//sparc-obj/dhry_2.o  .//sparc-obj/dhry_1.o  .//sparc-obj/utils.o   -o .//dhry.elf
+Info: Executing:
+	sparc-linux-readelf  --hex-dump=.text --hex-dump=.rodata --hex-dump=.rodata.str1.8 --hex-dump=.data --hex-dump=.rodata.cst8 --hex-dump=.bss  .//dhry.elf | tr -cd '\11\12\15\40-\176' | grep 0x > .//dhry.hex
+Info: Executing:
+	sparc-linux-readelf  --symbols .//dhry.elf  > .//dhry.vars
+Info: Executing:
+	Info: Generating memory map .//dhry.mmap
+Info: Executing:
+	sparc-linux-objdump -d  .//dhry.elf > .//dhry.objdump

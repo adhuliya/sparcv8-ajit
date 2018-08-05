@@ -3,6 +3,7 @@
 import logging
 import subprocess
 import os
+import os.path as osp
 
 from logging.handlers import RotatingFileHandler
 
@@ -43,7 +44,7 @@ class LogLevels:
 Edit these configuration vairables:
 """
 
-logFileDir = "spairo-logs"
+logFileDir = ".itsoflife/local/logs/spairo-logs"
 logFileName = "spairo.log"
 logFileFullDirPath = "./spario-logs" # default value
 
@@ -69,8 +70,8 @@ def createLogDir():
   if userHome:
     logFileFullDirPath = "{}/{}".format(userHome, logFileDir)
     if not os.path.exists(logFileFullDirPath):
-      print("spairo: Attempting to create $HOME/spairo-logs/ dir.")
-      p = subprocess.getstatusoutput("mkdir {}".format(logFileFullDirPath))
+      print("spairo: Attempting to create {} dir.".format(osp.join(userHome, logFileDir)))
+      p = subprocess.getstatusoutput("mkdir -p {}".format(logFileFullDirPath))
       if p[0] != 0:
         print("spairo: failed: Can't create log dir {}: {}".format(logFileFullDirPath, p[1]))
         return False

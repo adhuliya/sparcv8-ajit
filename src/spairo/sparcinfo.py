@@ -3868,6 +3868,20 @@ instrData = {
             "delaySlot" : True,
           }
         ),
+
+        (
+          r"call @AR1 , 0",  # (NEW, unsafe)
+          {
+            "name": "call",
+            "latency": Value.latencyA,
+            "reg-read": {"AR1"},  # set
+            "reg-mod": {"r15"},  # set
+            "res-used": None,  # set
+            "destLabel": None,  # set
+            "delaySlot": True,
+          }
+        ),
+
       ],
   },
 
@@ -4940,7 +4954,27 @@ instrData = {
       ],
   },
 
-  "fmuld"       : # Multiply Double
+  "fmuld":  # Multiply Double
+    {
+      "formats":
+        [
+          # List of Tuple Pairs (format, format-info)
+          (
+            r"fmuld @ED1 , @ED2 , @ED3",
+            {
+              "name": "fmuld",
+              "latency": Value.latencyC,
+              "reg-read": {"ED1", "ED2"},  # set
+              "reg-mod": {"ED3"},  # set
+              "res-used": None,  # set
+              "destLabel": None,  # set
+              "delaySlot": False,
+            }
+          ),
+        ],
+    },
+
+  "fdivd"       : # Multiply Double
   {
       "formats"     :
       [
@@ -4948,7 +4982,7 @@ instrData = {
         (
           r"fdivd @ED1 , @ED2 , @ED3",
           {
-            "name"      : "fmuld",
+            "name"      : "fdivd",
             "latency"   : Value.latencyC,
             "reg-read"  : {"ED1","ED2"}, #set
             "reg-mod"   : {"ED3"}, #set

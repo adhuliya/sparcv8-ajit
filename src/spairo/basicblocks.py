@@ -11,7 +11,9 @@ from .parse.asm import AsmChunk
 from .parse.asm import AsmModule
 from io import StringIO
 from .instruction import Instruction
-import logging as log
+import logging
+
+log = logging.getLogger(__name__)
 
 
 # Represents a single basic block.
@@ -65,16 +67,26 @@ class ChunkBlock():
   def reorder(self, huristic=None):
     self.lastHuristic = huristic
     self.basicBlock.reorder(huristic)
-    log.info("dotgraph:\n %s", self.basicBlock.getDotGraphString())
+    if len(self.basicBlock.instrList) > 2:
+      # print graph only when three or more instruction present
+      log.info("dotgraph:\n %s", self.basicBlock.getDotGraphString())
 
     self.reChunk()
 
   def extractBasicBlock(self):
+    """
+    extracts ordered list of instructions from the (basic block) chunk of asm code.
+    :return:
+    """
     instrList = [chunk for chunk in self.asmChunks if type(chunk) == Instruction]
 
     return BasicBlock(instrList=instrList)
 
   def reChunk(self):
+    """
+    Recreate asm chunks from reorderd instructions.
+    :return:
+    """
     self.reorderedAsmChunks = []
     index = 0
     for chunk in self.asmChunks:
@@ -247,7 +259,7 @@ class AsmChunkBlocks():
 
     return self.asmModule.unMarkupCommentsAndStrings(val.getvalue())
 
-  def coalesceChunksMarkBb(self):
+  def coalesceReorderedChunksMarkBb(self):
     """
     Re-assembles the original file after optimization (reordering).
     Also marks the start and end of BB.
@@ -262,7 +274,7 @@ class AsmChunkBlocks():
         print(chunk.text, file=val, end="")
       elif type(chunk) == ChunkBlock:
         print("/*start bb {}, {}*/".format(bbNum, chunk.lastHuristic), file=val, end="")
-        for chnk in chunk.asmChunks:
+        for chnk in chunk.reorderedAsmChunks:
           if type(chnk) == Instruction:
             print(chnk.asmChunk.text, file=val, end="")
           elif type(chnk) == AsmChunk:
@@ -280,6 +292,41 @@ class AsmChunkBlocks():
 
     return self.asmModule.unMarkupCommentsAndStrings(
       val.getvalue())
+
+  def coalesceChunksMarkBb(self):
+    """
+    Re-assembles the original file after finding basic blocks.
+    Also marks the start and end of BB.
+    """
+    if not self.basicChunks:
+      self.extractChunkBlocks()
+
+    val = StringIO()
+    bbNum = 1  # give sequential id to basic block
+    for chunk in self.basicChunks:
+      if type(chunk) == AsmChunk:
+        print(chunk.text, file=val, end="")
+      elif type(chunk) == ChunkBlock:
+        print("/*start bb {}, {}*/".format(bbNum, chunk.lastHuristic), file=val, end="\n")
+        for chnk in chunk.asmChunks:
+          if type(chnk) == Instruction:
+            print(chnk.asmChunk.text, file=val, end="")
+          elif type(chnk) == AsmChunk:
+            print(chnk.text, file=val, end="")
+          else:
+            assert False, str(type(chnk))
+        print("/*end bb {}*/".format(bbNum), file=val, end="\n")
+        bbNum += 1
+      elif type(chunk) == Instruction:
+        print(chunk.asmChunk.text, file=val, end="")
+      else:
+        assert False, str(type(chunk))
+
+    print("/*total bb = {}*/".format(bbNum - 1), file=val, end="\n")
+
+    return self.asmModule.unMarkupCommentsAndStrings(
+      val.getvalue())
+
 
 
 if __name__ == "__main__":

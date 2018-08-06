@@ -51,9 +51,9 @@ matrix_test:
 	mov	0, %g1
 	mov	0, %o5
 	mov	%i1, %o3
+	mov	%g1, %o0
 	mov	0, %o2
 	mov	0, %g4
-	mov	%g1, %o0
 .L73:
 	mov	0, %o1
 .L15:
@@ -181,9 +181,9 @@ matrix_test:
 	mov	0, %g1
 	mov	0, %g4
 	mov	0, %g3
+	mov	%g1, %o5
 	mov	%i1, %o3
 	mov	0, %o2
-	mov	%g1, %o5
 .L77:
 	mov	0, %o1
 .L36:
@@ -255,8 +255,8 @@ matrix_test:
 	mov	0, %g1
 	mov	0, %g2
 	mov	0, %o7
-	mov	0, %o1
 	mov	%g1, %i2
+	mov	0, %o1
 .L79:
 	mov	0, %o4
 .L47:
@@ -417,8 +417,8 @@ core_init_matrix:
 	add	%o4, %o3, %g1
 	st	%o5, [%i3+4]
 	st	%o4, [%i3+8]
-	st	%i0, [%i3]
 	add	%g1, -1, %g1
+	st	%i0, [%i3]
 	and	%g1, -4, %g1
 	add	%g1, 4, %g1
 	st	%g1, [%i3+12]

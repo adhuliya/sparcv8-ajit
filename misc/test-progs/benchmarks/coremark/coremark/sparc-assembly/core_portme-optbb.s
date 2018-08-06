@@ -10,12 +10,10 @@ barebones_clock:
 	 nop
 	call	__ajit_read_cycle_count_register_low__, 0
 	 mov	%o0, %i0
-	/*start bb 1, raw*/
-sll	%i0, 24, %g1
+	/*start bb 1, raw*/sll	%i0, 24, %g1
 	srl	%o0, 8, %o0
 	or	%o0, %g1, %i0
-	/*end bb 1*/
-jmp	%i7+8
+	/*end bb 1*/jmp	%i7+8
 	 restore
 	.size	barebones_clock, .-barebones_clock
 	.align 4
@@ -28,14 +26,12 @@ start_time:
 	 nop
 	call	__ajit_read_cycle_count_register_low__, 0
 	 mov	%o0, %i5
-	/*start bb 2, raw*/
-sll	%i5, 24, %g1
+	/*start bb 2, raw*/sll	%i5, 24, %g1
 	srl	%o0, 8, %o0
 	or	%o0, %g1, %g2
 	sethi	%hi(start_time_val), %g1
 	st	%g2, [%g1+%lo(start_time_val)]
-	/*end bb 2*/
-jmp	%i7+8
+	/*end bb 2*/jmp	%i7+8
 	 restore
 	.size	start_time, .-start_time
 	.align 4
@@ -48,14 +44,12 @@ stop_time:
 	 nop
 	call	__ajit_read_cycle_count_register_low__, 0
 	 mov	%o0, %i5
-	/*start bb 3, raw*/
-sll	%i5, 24, %g1
+	/*start bb 3, raw*/sll	%i5, 24, %g1
 	srl	%o0, 8, %o0
 	or	%o0, %g1, %g2
 	sethi	%hi(stop_time_val), %g1
 	st	%g2, [%g1+%lo(stop_time_val)]
-	/*end bb 3*/
-jmp	%i7+8
+	/*end bb 3*/jmp	%i7+8
 	 restore
 	.size	stop_time, .-stop_time
 	.align 4
@@ -63,17 +57,13 @@ jmp	%i7+8
 	.type	get_time, #function
 	.proc	016
 get_time:
-	/*start bb 4, raw*/
-sethi	%hi(stop_time_val), %g1
+	/*start bb 4, raw*/sethi	%hi(stop_time_val), %g1
 	ld	[%g1+%lo(stop_time_val)], %o0
 	sethi	%hi(start_time_val), %g1
 	ld	[%g1+%lo(start_time_val)], %g1
-	/*end bb 4*/
-jmp	%o7+8
-	 /*start bb 5, raw*/
-sub	%o0, %g1, %o0
-	/*end bb 5*/
-.size	get_time, .-get_time
+	/*end bb 4*/jmp	%o7+8
+	 /*start bb 5, raw*/sub	%o0, %g1, %o0
+	/*end bb 5*/.size	get_time, .-get_time
 	.section	.rodata.cst8,"aM",@progbits,8
 	.align 8
 .LC0:
@@ -89,37 +79,27 @@ sub	%o0, %g1, %o0
 	.type	time_in_secs, #function
 	.proc	07
 time_in_secs:
-	/*start bb 6, raw*/
-add	%sp, -80, %sp
-	st	%o0, [%sp+76]
+	/*start bb 6, raw*/add	%sp, -80, %sp
 	cmp	%o0, 0
+	st	%o0, [%sp+76]
 	ld	[%sp+76], %f10
-	/*end bb 6*/
-bl	.L8
+	/*end bb 6*/bl	.L8
 	 fitod	%f10, %f8
-	/*start bb 7, raw*/
-sethi	%hi(.LC1), %g1
+	/*start bb 7, raw*/sethi	%hi(.LC1), %g1
 	sub	%sp, -80, %sp
 	ldd	[%g1+%lo(.LC1)], %f2
-	/*end bb 7*/
-jmp	%o7+8
-	 /*start bb 8, raw*/
-fdivd	%f8, %f2, %f0
-/*end bb 8*/
-.L8:
-	/*start bb 9, raw*/
-sethi	%hi(.LC0), %g1
+	/*end bb 7*/jmp	%o7+8
+	 /*start bb 8, raw*/fdivd	%f8, %f2, %f0
+/*end bb 8*/.L8:
+	/*start bb 9, raw*/sethi	%hi(.LC0), %g1
+	sub	%sp, -80, %sp
 	ldd	[%g1+%lo(.LC0)], %f0
-	sub	%sp, -80, %sp
-	faddd	%f8, %f0, %f8
 	sethi	%hi(.LC1), %g1
+	faddd	%f8, %f0, %f8
 	ldd	[%g1+%lo(.LC1)], %f2
-	/*end bb 9*/
-jmp	%o7+8
-	 /*start bb 10, raw*/
-fdivd	%f8, %f2, %f0
-	/*end bb 10*/
-.size	time_in_secs, .-time_in_secs
+	/*end bb 9*/jmp	%o7+8
+	 /*start bb 10, raw*/fdivd	%f8, %f2, %f0
+	/*end bb 10*/.size	time_in_secs, .-time_in_secs
 	.section	.rodata.str1.8,"aMS",@progbits,1
 	.align 8
 .LC2:
@@ -131,35 +111,29 @@ fdivd	%f8, %f2, %f0
 	.proc	020
 portable_init:
 	save	%sp, -96, %sp
-	/*start bb 11, raw*/
-mov	1, %o0
+	/*start bb 11, raw*/mov	1, %o0
 	mov	0, %o1
-	/*end bb 11*/
-call	__ajit_serial_configure__, 0
+	/*end bb 11*/call	__ajit_serial_configure__, 0
 	 mov	0, %o2
-	/*start bb 12, raw*/
-mov	13, %o1
+	/*start bb 12, raw*/mov	13, %o1
 	sethi	%hi(.LC2), %o0
-	/*end bb 12*/
-call	__ajit_serial_puts__, 0
+	/*end bb 12*/call	__ajit_serial_puts__, 0
 	 or	%o0, %lo(.LC2), %o0
-	/*start bb 13, raw*/
-sethi	%hi(seed1_volatile), %g1
+	/*start bb 13, raw*/sethi	%hi(seed1_volatile), %g1
+	mov	102, %g2
+	mov	2000, %g3
 	st	%g0, [%g1+%lo(seed1_volatile)]
 	sethi	%hi(seed2_volatile), %g1
 	st	%g0, [%g1+%lo(seed2_volatile)]
-	mov	102, %g2
 	sethi	%hi(seed3_volatile), %g1
 	st	%g2, [%g1+%lo(seed3_volatile)]
-	mov	2000, %g3
 	sethi	%hi(seed4_volatile), %g1
 	st	%g3, [%g1+%lo(seed4_volatile)]
 	sethi	%hi(seed5_volatile), %g1
 	st	%g0, [%g1+%lo(seed5_volatile)]
 	mov	1, %g1
 	stb	%g1, [%i0]
-	/*end bb 13*/
-jmp	%i7+8
+	/*end bb 13*/jmp	%i7+8
 	 restore
 	.size	portable_init, .-portable_init
 	.section	.rodata.str1.8
@@ -173,16 +147,12 @@ jmp	%i7+8
 	.proc	020
 portable_fini:
 	save	%sp, -96, %sp
-	/*start bb 14, raw*/
-mov	14, %o1
+	/*start bb 14, raw*/mov	14, %o1
 	sethi	%hi(.LC3), %o0
-	/*end bb 14*/
-call	__ajit_serial_puts__, 0
+	/*end bb 14*/call	__ajit_serial_puts__, 0
 	 or	%o0, %lo(.LC3), %o0
-	/*start bb 15, raw*/
-stb	%g0, [%i0]
-	/*end bb 15*/
-jmp	%i7+8
+	/*start bb 15, raw*/stb	%g0, [%i0]
+	/*end bb 15*/jmp	%i7+8
 	 restore
 	.size	portable_fini, .-portable_fini
 	.global default_num_contexts

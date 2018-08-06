@@ -269,12 +269,17 @@ class DependencyGraph():
     As far as possible.
     """
     src = sources
+    maxDepth = 1  # number of instructions (reversed) taken into account
+    depth = 0
 
     for nodeid in reversed(sortedNodeIds):
+      depth += 1
       leftnodes = src - self.graph[nodeid].succ
       if leftnodes:
         src = leftnodes
       else:
+        break
+      if depth == maxDepth:
         break
 
     for nodeid in src:
@@ -287,7 +292,11 @@ class DependencyGraph():
     src = sources
     rawSet = set()
 
+    maxDepth = 2 # max instructions (reversed sequence) accounted for
+    depth = 0 # depth counter
+
     for nodeid in reversed(sortedNodeIds):
+      depth += 1
       node = self.graph[nodeid]
 
       # extract raw dependent successors
@@ -301,6 +310,9 @@ class DependencyGraph():
       if leftnodes:
         src = leftnodes
       else:
+        break
+
+      if depth == maxDepth:
         break
 
     return self._selectNodeWithMaxRawSucc(src)

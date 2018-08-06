@@ -1127,7 +1127,7 @@ instrData = {
           {
             "name"      : "nop",
             "latency"   : Value.latencyB,
-            "reg-read"  : None, #set
+            "reg-read"  : registers, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
@@ -1169,7 +1169,7 @@ instrData = {
             "name"      : "andcc",
             "latency"   : Value.latencyB,
             "reg-read"  : {"AR1", "AR2"}, #set
-            "reg-mod"   : {"AR3"}, #set
+            "reg-mod"   : {"icc","AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
             "delaySlot" : False,
@@ -1209,7 +1209,7 @@ instrData = {
             "name"      : "andncc",
             "latency"   : Value.latencyB,
             "reg-read"  : None, #set
-            "reg-mod"   : None, #set
+            "reg-mod"   : {"icc"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
             "delaySlot" : False,
@@ -1249,7 +1249,7 @@ instrData = {
             "name"      : "orcc",
             "latency"   : Value.latencyB,
             "reg-read"  : {"AR1","AR2"}, #set
-            "reg-mod"   : {"AR3"}, #set
+            "reg-mod"   : {"icc","AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
             "delaySlot" : False,
@@ -1289,7 +1289,7 @@ instrData = {
             "name"      : "orncc",
             "latency"   : Value.latencyB,
             "reg-read"  : {"AR1","AR2"}, #set
-            "reg-mod"   : {"AR3"}, #set
+            "reg-mod"   : {"icc","AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
             "delaySlot" : False,
@@ -1329,7 +1329,7 @@ instrData = {
             "name"      : "xorcc",
             "latency"   : Value.latencyB,
             "reg-read"  : {"AR1","AR2"}, #set
-            "reg-mod"   : {"AR3"}, #set
+            "reg-mod"   : {"icc","AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
             "delaySlot" : False,
@@ -1402,7 +1402,7 @@ instrData = {
             "name"      : "xnorcc",
             "latency"   : Value.latencyB,
             "reg-read"  : {"AR1","AR2"}, #set
-            "reg-mod"   : {"AR3"}, #set
+            "reg-mod"   : {"icc","AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
             "delaySlot" : False,
@@ -1504,7 +1504,7 @@ instrData = {
             "name"      : "addcc",
             "latency"   : Value.latencyB,
             "reg-read"  : {"AR1","AR2"}, #set
-            "reg-mod"   : {"AR3"}, #set
+            "reg-mod"   : {"icc","AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
             "delaySlot" : False,
@@ -1564,7 +1564,7 @@ instrData = {
             "name"      : "taddcc",
             "latency"   : Value.latencyB,
             "reg-read"  : {"AR1","AR2"}, #set
-            "reg-mod"   : {"AR3"}, #set
+            "reg-mod"   : {"icc","AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
             "delaySlot" : False,
@@ -1658,7 +1658,7 @@ instrData = {
             "name"      : "subcc",
             "latency"   : Value.latencyB,
             "reg-read"  : {"AR1","AR2"}, #set
-            "reg-mod"   : {"AR3"}, #set
+            "reg-mod"   : {"icc","AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
             "delaySlot" : False,
@@ -1698,7 +1698,7 @@ instrData = {
             "name"      : "subxcc",
             "latency"   : Value.latencyB,
             "reg-read"  : {"AR1","AR2"}, #set
-            "reg-mod"   : {"AR3"}, #set
+            "reg-mod"   : {"icc","AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
             "delaySlot" : False,
@@ -1718,7 +1718,7 @@ instrData = {
             "name"      : "tsubcc",
             "latency"   : Value.latencyB,
             "reg-read"  : {"AR1","AR2"}, #set
-            "reg-mod"   : {"AR3"}, #set
+            "reg-mod"   : {"icc","AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
             "delaySlot" : False,
@@ -1759,7 +1759,7 @@ instrData = {
             "name"      : "mulscc",
             "latency"   : Value.latencyA,
             "reg-read"  : {"AR1","AR2"}, #set
-            "reg-mod"   : {"y","AR1","AR3"}, #set
+            "reg-mod"   : {"y","icc","AR1","AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
             "delaySlot" : False,
@@ -1800,7 +1800,7 @@ instrData = {
             "name"      : "umulcc",
             "latency"   : Value.latencyA,
             "reg-read"  : {"AR1","AR2"}, #set
-            "reg-mod"   : {"y","AR3"}, #set
+            "reg-mod"   : {"y","icc","AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
             "delaySlot" : False,
@@ -1840,7 +1840,7 @@ instrData = {
             "name"      : "smulcc",
             "latency"   : Value.latencyA,
             "reg-read"  : {"AR1","AR2"}, #set
-            "reg-mod"   : {"y","AR3"}, #set
+            "reg-mod"   : {"y","icc","AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
             "delaySlot" : False,
@@ -1881,7 +1881,7 @@ instrData = {
             "name"      : "udivcc",
             "latency"   : Value.latencyD,
             "reg-read"  : {"AR1","AR2"}, #set
-            "reg-mod"   : {"y","AR3"}, #set
+            "reg-mod"   : {"y","icc","AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
             "delaySlot" : False,
@@ -1921,7 +1921,7 @@ instrData = {
             "name"      : "sdivcc",
             "latency"   : Value.latencyD,
             "reg-read"  : {"AR1","AR2"}, #set
-            "reg-mod"   : {"y","AR3"}, #set
+            "reg-mod"   : {"y","icc","AR3"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
             "delaySlot" : False,
@@ -2438,7 +2438,7 @@ instrData = {
           {
             "name"      : "bcc",
             "latency"   : Value.latencyA,
-            "reg-read"  : None, #set
+            "reg-read"  : {"icc"}, #set
             "reg-mod"   : None, #set
             "res-used"  : None, #set
             "destLabel" : {"EL1"}, #set
@@ -4177,7 +4177,7 @@ instrData = {
           {
             "name"      : "tcc",
             "latency"   : Value.latencyA,
-            "reg-read"  : {"AA1"}, #set
+            "reg-read"  : {"icc","AA1"}, #set
             "reg-mod"   : {"r17", "r18"}, #set
             "res-used"  : None, #set
             "destLabel" : None, #set

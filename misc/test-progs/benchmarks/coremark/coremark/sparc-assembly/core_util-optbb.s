@@ -5,46 +5,46 @@
 	.type	get_seed_32, #function
 	.proc	04
 get_seed_32:
-	cmp	%o0, 5
-	bleu,a	.L11
+	/*start bb 1, raw*/cmp	%o0, 5
+	/*end bb 1*/bleu,a	.L11
 	 sll	%o0, 2, %o0
 .L9:
 	jmp	%o7+8
-	 mov	0, %o0
-.L11:
-	sethi	%hi(.L8), %g1
+	 /*start bb 2, raw*/mov	0, %o0
+/*end bb 2*/.L11:
+	/*start bb 3, raw*/sethi	%hi(.L8), %g1
 	or	%g1, %lo(.L8), %g1
 	ld	[%g1+%o0], %g1
-	jmp	%g1
-	 nop
-	.section	".rodata"
+	/*end bb 3*/jmp	%g1
+	 /*start bb 4, raw*/nop
+	/*end bb 4*/.section	".rodata"
 	.section	".text"
 .L7:
-	sethi	%hi(seed5_volatile), %g1
+	/*start bb 5, raw*/sethi	%hi(seed5_volatile), %g1
 	ld	[%g1+%lo(seed5_volatile)], %o0
-	jmp	%o7+8
-	 nop
-.L3:
-	sethi	%hi(seed1_volatile), %g1
+	/*end bb 5*/jmp	%o7+8
+	 /*start bb 6, raw*/nop
+/*end bb 6*/.L3:
+	/*start bb 7, raw*/sethi	%hi(seed1_volatile), %g1
 	ld	[%g1+%lo(seed1_volatile)], %o0
-	jmp	%o7+8
-	 nop
-.L4:
-	sethi	%hi(seed2_volatile), %g1
+	/*end bb 7*/jmp	%o7+8
+	 /*start bb 8, raw*/nop
+/*end bb 8*/.L4:
+	/*start bb 9, raw*/sethi	%hi(seed2_volatile), %g1
 	ld	[%g1+%lo(seed2_volatile)], %o0
-	jmp	%o7+8
-	 nop
-.L5:
-	sethi	%hi(seed3_volatile), %g1
+	/*end bb 9*/jmp	%o7+8
+	 /*start bb 10, raw*/nop
+/*end bb 10*/.L5:
+	/*start bb 11, raw*/sethi	%hi(seed3_volatile), %g1
 	ld	[%g1+%lo(seed3_volatile)], %o0
-	jmp	%o7+8
-	 nop
-.L6:
-	sethi	%hi(seed4_volatile), %g1
+	/*end bb 11*/jmp	%o7+8
+	 /*start bb 12, raw*/nop
+/*end bb 12*/.L6:
+	/*start bb 13, raw*/sethi	%hi(seed4_volatile), %g1
 	ld	[%g1+%lo(seed4_volatile)], %o0
-	jmp	%o7+8
-	 nop
-	.align 4
+	/*end bb 13*/jmp	%o7+8
+	 /*start bb 14, raw*/nop
+	/*end bb 14*/.align 4
 	.subsection	-1
 	.align 4
 .L8:
@@ -61,7 +61,7 @@ get_seed_32:
 	.type	crcu8, #function
 	.proc	015
 crcu8:
-	xor	%o0, %o1, %g3
+	/*start bb 15, raw*/xor	%o0, %o1, %g3
 	sethi	%hi(16384), %o5
 	srl	%o0, 1, %g2
 	andcc	%g3, 1, %g0
@@ -70,9 +70,9 @@ crcu8:
 	srl	%o1, 1, %g1
 	sethi	%hi(32768), %o1
 	srl	%g4, 1, %o0
-	bne	.L29
+	/*end bb 15*/bne	.L29
 	 or	%o0, %o1, %o4
-	sethi	%hi(16384), %o5
+	/*start bb 16, raw*/sethi	%hi(16384), %o5
 	sll	%g1, 16, %g1
 	or	%o5, 2, %o0
 	srl	%g1, 16, %g3
@@ -83,10 +83,10 @@ crcu8:
 	andcc	%g4, 1, %g0
 	srl	%o1, 1, %o4
 	sethi	%hi(32768), %g3
-	bne	.L30
+	/*end bb 16*/bne	.L30
 	 or	%o4, %g3, %o5
 .L16:
-	sethi	%hi(32768), %o5
+	/*start bb 17, raw*/sethi	%hi(32768), %o5
 	sll	%g1, 16, %g1
 	sethi	%hi(16384), %o1
 	srl	%g1, 16, %o0
@@ -97,10 +97,10 @@ crcu8:
 	andcc	%g4, 1, %g0
 	srl	%g3, 1, %o0
 	or	%o0, %o5, %o1
-	bne	.L31
+	/*end bb 17*/bne	.L31
 	 srl	%g1, 17, %g1
 .L18:
-	sll	%g1, 16, %g1
+	/*start bb 18, raw*/sll	%g1, 16, %g1
 	sethi	%hi(16384), %g3
 	srl	%g1, 16, %o4
 	srl	%g1, 17, %g1
@@ -111,10 +111,10 @@ crcu8:
 	sethi	%hi(32768), %o4
 	andcc	%g4, 1, %g0
 	srl	%o5, 1, %o1
-	bne	.L32
+	/*end bb 18*/bne	.L32
 	 or	%o1, %o4, %g3
 .L20:
-	sll	%g1, 16, %g1
+	/*start bb 19, raw*/sll	%g1, 16, %g1
 	sethi	%hi(16384), %o5
 	srl	%g1, 16, %o0
 	srl	%g1, 17, %g1
@@ -125,10 +125,10 @@ crcu8:
 	sethi	%hi(32768), %o0
 	andcc	%g4, 1, %g0
 	srl	%o4, 1, %g3
-	bne	.L33
+	/*end bb 19*/bne	.L33
 	 or	%g3, %o0, %o5
 .L22:
-	sethi	%hi(32768), %o5
+	/*start bb 20, raw*/sethi	%hi(32768), %o5
 	sll	%g1, 16, %g1
 	sethi	%hi(16384), %o4
 	srl	%g1, 16, %o1
@@ -139,10 +139,10 @@ crcu8:
 	andcc	%g4, 1, %g0
 	srl	%o0, 1, %o1
 	or	%o1, %o5, %o4
-	bne	.L34
+	/*end bb 20*/bne	.L34
 	 srl	%g1, 17, %g1
 .L24:
-	sll	%g1, 16, %g1
+	/*start bb 21, raw*/sll	%g1, 16, %g1
 	sethi	%hi(16384), %o0
 	srl	%g1, 16, %g3
 	srl	%g1, 17, %g1
@@ -152,10 +152,10 @@ crcu8:
 	sethi	%hi(32768), %g3
 	andcc	%g4, 1, %g0
 	srl	%o5, 1, %o4
-	bne	.L35
+	/*end bb 21*/bne	.L35
 	 or	%o4, %g3, %o0
 .L26:
-	srl	%g2, 1, %o1
+	/*start bb 22, raw*/srl	%g2, 1, %o1
 	sll	%g1, 16, %g1
 	sethi	%hi(16384), %g4
 	srl	%g1, 16, %g2
@@ -166,14 +166,14 @@ crcu8:
 	cmp	%o5, %o1
 	sethi	%hi(32768), %o1
 	srl	%g3, 1, %o0
-	bne	.L36
+	/*end bb 22*/bne	.L36
 	 or	%o0, %o1, %g2
 .L28:
-	sll	%g1, 16, %o5
-	jmp	%o7+8
-	 srl	%o5, 16, %o0
-.L29:
-	mov	%o4, %g1
+	/*start bb 23, raw*/sll	%g1, 16, %o5
+	/*end bb 23*/jmp	%o7+8
+	 /*start bb 24, raw*/srl	%o5, 16, %o0
+/*end bb 24*/.L29:
+	/*start bb 25, raw*/mov	%o4, %g1
 	sethi	%hi(16384), %o5
 	sll	%g1, 16, %g1
 	or	%o5, 2, %o0
@@ -185,10 +185,10 @@ crcu8:
 	andcc	%g4, 1, %g0
 	srl	%o1, 1, %o4
 	sethi	%hi(32768), %g3
-	be	.L16
+	/*end bb 25*/be	.L16
 	 or	%o4, %g3, %o5
 .L30:
-	mov	%o5, %g1
+	/*start bb 26, raw*/mov	%o5, %g1
 	sethi	%hi(32768), %o5
 	sethi	%hi(16384), %o1
 	sll	%g1, 16, %g1
@@ -200,10 +200,10 @@ crcu8:
 	andcc	%g4, 1, %g0
 	srl	%g3, 1, %o0
 	or	%o0, %o5, %o1
-	be	.L18
+	/*end bb 26*/be	.L18
 	 srl	%g1, 17, %g1
 .L31:
-	mov	%o1, %g1
+	/*start bb 27, raw*/mov	%o1, %g1
 	sethi	%hi(16384), %g3
 	sll	%g1, 16, %g1
 	or	%g3, 2, %o0
@@ -215,10 +215,10 @@ crcu8:
 	andcc	%g4, 1, %g0
 	srl	%o5, 1, %o1
 	sethi	%hi(32768), %o4
-	be	.L20
+	/*end bb 27*/be	.L20
 	 or	%o1, %o4, %g3
 .L32:
-	mov	%g3, %g1
+	/*start bb 28, raw*/mov	%g3, %g1
 	sethi	%hi(16384), %o5
 	sll	%g1, 16, %g1
 	or	%o5, 2, %o1
@@ -230,10 +230,10 @@ crcu8:
 	sethi	%hi(32768), %o0
 	srl	%o4, 1, %g3
 	andcc	%g4, 1, %g0
-	be	.L22
+	/*end bb 28*/be	.L22
 	 or	%g3, %o0, %o5
 .L33:
-	mov	%o5, %g1
+	/*start bb 29, raw*/mov	%o5, %g1
 	sethi	%hi(32768), %o5
 	sethi	%hi(16384), %o4
 	sll	%g1, 16, %g1
@@ -245,10 +245,10 @@ crcu8:
 	andcc	%g4, 1, %g0
 	srl	%o0, 1, %o1
 	or	%o1, %o5, %o4
-	be	.L24
+	/*end bb 29*/be	.L24
 	 srl	%g1, 17, %g1
 .L34:
-	mov	%o4, %g1
+	/*start bb 30, raw*/mov	%o4, %g1
 	sethi	%hi(16384), %o0
 	sll	%g1, 16, %g1
 	or	%o0, 2, %o1
@@ -259,10 +259,10 @@ crcu8:
 	sethi	%hi(32768), %g3
 	andcc	%g4, 1, %g0
 	srl	%o5, 1, %o4
-	be	.L26
+	/*end bb 30*/be	.L26
 	 or	%o4, %g3, %o0
 .L35:
-	sethi	%hi(16384), %g4
+	/*start bb 31, raw*/sethi	%hi(16384), %g4
 	srl	%g2, 1, %o1
 	mov	%o0, %g1
 	or	%g4, 2, %o4
@@ -274,20 +274,20 @@ crcu8:
 	cmp	%o5, %o1
 	sethi	%hi(32768), %o1
 	srl	%g3, 1, %o0
-	be	.L28
+	/*end bb 31*/be	.L28
 	 or	%o0, %o1, %g2
 .L36:
-	mov	%g2, %g1
+	/*start bb 32, raw*/mov	%g2, %g1
 	sll	%g1, 16, %o5
-	jmp	%o7+8
-	 srl	%o5, 16, %o0
-	.size	crcu8, .-crcu8
+	/*end bb 32*/jmp	%o7+8
+	 /*start bb 33, raw*/srl	%o5, 16, %o0
+	/*end bb 33*/.size	crcu8, .-crcu8
 	.align 4
 	.global crcu16
 	.type	crcu16, #function
 	.proc	015
 crcu16:
-	and	%o0, 0xff, %g4
+	/*start bb 34, raw*/and	%o0, 0xff, %g4
 	sethi	%hi(16384), %o5
 	xor	%o0, %o1, %g1
 	srl	%g4, 1, %o4
@@ -298,9 +298,9 @@ crcu16:
 	srl	%g3, 1, %g4
 	mov	%o4, %g3
 	andcc	%g1, 1, %g0
-	bne	.L70
+	/*end bb 34*/bne	.L70
 	 or	%g4, %o5, %g4
-	and	%g3, 0xff, %g3
+	/*start bb 35, raw*/and	%g3, 0xff, %g3
 	sethi	%hi(16384), %o5
 	sll	%o1, 16, %g2
 	srl	%g3, 1, %o1
@@ -313,10 +313,10 @@ crcu16:
 	sethi	%hi(32768), %o4
 	srl	%g1, 1, %g1
 	mov	%o1, %g4
-	bne	.L71
+	/*end bb 35*/bne	.L71
 	 or	%g1, %o4, %g1
 .L41:
-	sll	%g2, 16, %g2
+	/*start bb 36, raw*/sll	%g2, 16, %g2
 	and	%g4, 0xff, %g4
 	sethi	%hi(16384), %o5
 	srl	%g2, 16, %g1
@@ -329,10 +329,10 @@ crcu16:
 	sethi	%hi(32768), %o1
 	srl	%g1, 1, %g1
 	mov	%g4, %g3
-	bne	.L72
+	/*end bb 36*/bne	.L72
 	 or	%g1, %o1, %g1
 .L43:
-	sll	%g2, 16, %o1
+	/*start bb 37, raw*/sll	%g2, 16, %o1
 	sethi	%hi(16384), %o5
 	and	%g3, 0xff, %g3
 	srl	%o1, 16, %g1
@@ -345,10 +345,10 @@ crcu16:
 	mov	%g3, %g4
 	andcc	%o4, 1, %g0
 	srl	%g1, 1, %g1
-	bne	.L73
+	/*end bb 37*/bne	.L73
 	 or	%g1, %o1, %g1
 .L45:
-	and	%g4, 0xff, %o4
+	/*start bb 38, raw*/and	%g4, 0xff, %o4
 	sll	%o5, 16, %g2
 	sethi	%hi(16384), %o5
 	srl	%o4, 1, %g4
@@ -361,10 +361,10 @@ crcu16:
 	sethi	%hi(32768), %o1
 	srl	%g1, 1, %g1
 	mov	%g4, %g3
-	bne	.L74
+	/*end bb 38*/bne	.L74
 	 or	%g1, %o1, %g1
 .L47:
-	sll	%g2, 16, %o1
+	/*start bb 39, raw*/sll	%g2, 16, %o1
 	sethi	%hi(16384), %o4
 	and	%g3, 0xff, %g3
 	srl	%o1, 16, %g1
@@ -377,10 +377,10 @@ crcu16:
 	srl	%g1, 1, %g1
 	mov	%g3, %o5
 	andcc	%g4, 1, %g0
-	bne	.L75
+	/*end bb 39*/bne	.L75
 	 or	%g1, %o1, %g1
 .L49:
-	sethi	%hi(16384), %g4
+	/*start bb 40, raw*/sethi	%hi(16384), %g4
 	sll	%o4, 16, %g2
 	sethi	%hi(32768), %o4
 	or	%g4, 2, %o1
@@ -390,10 +390,10 @@ crcu16:
 	xor	%g1, %o1, %g1
 	andcc	%g3, 1, %g0
 	srl	%g1, 1, %g1
-	bne	.L76
+	/*end bb 40*/bne	.L76
 	 or	%g1, %o4, %g1
 .L51:
-	sll	%g2, 16, %o1
+	/*start bb 41, raw*/sll	%g2, 16, %o1
 	and	%o5, 0xff, %o5
 	sethi	%hi(16384), %o4
 	srl	%o1, 16, %g1
@@ -405,10 +405,10 @@ crcu16:
 	cmp	%g4, %g3
 	xor	%g1, %o1, %g1
 	srl	%g1, 1, %g1
-	bne	.L77
+	/*end bb 41*/bne	.L77
 	 or	%g1, %o5, %g1
 .L53:
-	sll	%g2, 16, %o4
+	/*start bb 42, raw*/sll	%g2, 16, %o4
 	srl	%o0, 8, %o0
 	sethi	%hi(16384), %o5
 	srl	%o4, 16, %g1
@@ -421,10 +421,10 @@ crcu16:
 	mov	%g4, %g3
 	srl	%g1, 1, %g1
 	andcc	%o1, 1, %g0
-	bne	.L78
+	/*end bb 42*/bne	.L78
 	 or	%g1, %o4, %g1
 .L55:
-	sll	%o0, 16, %o1
+	/*start bb 43, raw*/sll	%o0, 16, %o1
 	and	%g3, 0xff, %g3
 	sethi	%hi(16384), %o5
 	srl	%o1, 16, %g1
@@ -437,10 +437,10 @@ crcu16:
 	mov	%o0, %g4
 	andcc	%o4, 1, %g0
 	srl	%g1, 1, %g1
-	bne	.L79
+	/*end bb 43*/bne	.L79
 	 or	%g1, %o1, %g1
 .L57:
-	sll	%g3, 16, %g2
+	/*start bb 44, raw*/sll	%g3, 16, %g2
 	sethi	%hi(16384), %o5
 	and	%g4, 0xff, %o4
 	srl	%g2, 16, %g1
@@ -453,10 +453,10 @@ crcu16:
 	srl	%g1, 1, %g1
 	andcc	%o0, 1, %g0
 	sethi	%hi(32768), %o4
-	bne	.L80
+	/*end bb 44*/bne	.L80
 	 or	%g1, %o4, %g1
 .L59:
-	sll	%g2, 16, %o0
+	/*start bb 45, raw*/sll	%g2, 16, %o0
 	sethi	%hi(16384), %o5
 	and	%o1, 0xff, %o1
 	srl	%o0, 16, %g1
@@ -469,10 +469,10 @@ crcu16:
 	mov	%g3, %g4
 	andcc	%o4, 1, %g0
 	srl	%g1, 1, %g1
-	bne	.L81
+	/*end bb 45*/bne	.L81
 	 or	%g1, %o0, %g1
 .L61:
-	and	%g4, 0xff, %o4
+	/*start bb 46, raw*/and	%g4, 0xff, %o4
 	sll	%o1, 16, %g2
 	sethi	%hi(16384), %o5
 	srl	%o4, 1, %g4
@@ -485,10 +485,10 @@ crcu16:
 	mov	%g4, %g3
 	andcc	%o0, 1, %g0
 	srl	%g1, 1, %g1
-	bne	.L82
+	/*end bb 46*/bne	.L82
 	 or	%g1, %o4, %g1
 .L63:
-	sll	%g2, 16, %o0
+	/*start bb 47, raw*/sll	%g2, 16, %o0
 	sethi	%hi(16384), %o4
 	and	%g3, 0xff, %g3
 	srl	%o0, 16, %g1
@@ -501,10 +501,10 @@ crcu16:
 	srl	%g1, 1, %g1
 	srl	%o0, 17, %g3
 	sethi	%hi(32768), %o0
-	bne	.L83
+	/*end bb 47*/bne	.L83
 	 or	%g1, %o0, %g1
 .L65:
-	sll	%g3, 16, %o4
+	/*start bb 48, raw*/sll	%g3, 16, %o4
 	sethi	%hi(16384), %g4
 	sethi	%hi(32768), %o0
 	srl	%o4, 16, %g1
@@ -514,10 +514,10 @@ crcu16:
 	xor	%g1, %g2, %g1
 	andcc	%o1, 1, %g0
 	srl	%g1, 1, %g1
-	bne	.L84
+	/*end bb 48*/bne	.L84
 	 or	%g1, %o0, %g1
 .L67:
-	sll	%g3, 16, %o4
+	/*start bb 49, raw*/sll	%g3, 16, %o4
 	sethi	%hi(16384), %o0
 	and	%o5, 0xff, %o5
 	srl	%o4, 16, %g1
@@ -529,14 +529,14 @@ crcu16:
 	sethi	%hi(32768), %o4
 	srl	%g1, 1, %g1
 	cmp	%g4, %o1
-	bne	.L85
+	/*end bb 49*/bne	.L85
 	 or	%g1, %o4, %g1
 .L69:
-	sll	%g2, 16, %o5
-	jmp	%o7+8
-	 srl	%o5, 16, %o0
-.L70:
-	and	%g3, 0xff, %g3
+	/*start bb 50, raw*/sll	%g2, 16, %o5
+	/*end bb 50*/jmp	%o7+8
+	 /*start bb 51, raw*/srl	%o5, 16, %o0
+/*end bb 51*/.L70:
+	/*start bb 52, raw*/and	%g3, 0xff, %g3
 	sethi	%hi(16384), %o5
 	mov	%g4, %o1
 	sll	%o1, 16, %g2
@@ -550,10 +550,10 @@ crcu16:
 	sethi	%hi(32768), %o4
 	srl	%g1, 1, %g1
 	mov	%o1, %g4
-	be	.L41
+	/*end bb 52*/be	.L41
 	 or	%g1, %o4, %g1
 .L71:
-	mov	%g1, %g2
+	/*start bb 53, raw*/mov	%g1, %g2
 	and	%g4, 0xff, %g4
 	sethi	%hi(16384), %o5
 	sll	%g2, 16, %g2
@@ -567,10 +567,10 @@ crcu16:
 	sethi	%hi(32768), %o1
 	srl	%g1, 1, %g1
 	mov	%g4, %g3
-	be	.L43
+	/*end bb 53*/be	.L43
 	 or	%g1, %o1, %g1
 .L72:
-	mov	%g1, %g2
+	/*start bb 54, raw*/mov	%g1, %g2
 	sethi	%hi(16384), %o5
 	and	%g3, 0xff, %g3
 	sll	%g2, 16, %o1
@@ -584,10 +584,10 @@ crcu16:
 	mov	%g3, %g4
 	andcc	%o4, 1, %g0
 	srl	%g1, 1, %g1
-	be	.L45
+	/*end bb 54*/be	.L45
 	 or	%g1, %o1, %g1
 .L73:
-	mov	%g1, %o5
+	/*start bb 55, raw*/mov	%g1, %o5
 	and	%g4, 0xff, %o4
 	sll	%o5, 16, %g2
 	sethi	%hi(16384), %o5
@@ -601,10 +601,10 @@ crcu16:
 	sethi	%hi(32768), %o1
 	srl	%g1, 1, %g1
 	mov	%g4, %g3
-	be	.L47
+	/*end bb 55*/be	.L47
 	 or	%g1, %o1, %g1
 .L74:
-	mov	%g1, %g2
+	/*start bb 56, raw*/mov	%g1, %g2
 	sethi	%hi(16384), %o4
 	and	%g3, 0xff, %g3
 	sll	%g2, 16, %o1
@@ -618,10 +618,10 @@ crcu16:
 	mov	%g3, %o5
 	andcc	%g4, 1, %g0
 	srl	%g1, 1, %g1
-	be	.L49
+	/*end bb 56*/be	.L49
 	 or	%g1, %o1, %g1
 .L75:
-	mov	%g1, %o4
+	/*start bb 57, raw*/mov	%g1, %o4
 	sethi	%hi(16384), %g4
 	sll	%o4, 16, %g2
 	sethi	%hi(32768), %o4
@@ -632,10 +632,10 @@ crcu16:
 	xor	%g1, %o1, %g1
 	andcc	%g3, 1, %g0
 	srl	%g1, 1, %g1
-	be	.L51
+	/*end bb 57*/be	.L51
 	 or	%g1, %o4, %g1
 .L76:
-	sethi	%hi(16384), %o4
+	/*start bb 58, raw*/sethi	%hi(16384), %o4
 	mov	%g1, %g2
 	and	%o5, 0xff, %o5
 	sll	%g2, 16, %o1
@@ -648,10 +648,10 @@ crcu16:
 	xor	%g1, %o1, %g1
 	cmp	%g4, %g3
 	srl	%g1, 1, %g1
-	be	.L53
+	/*end bb 58*/be	.L53
 	 or	%g1, %o5, %g1
 .L77:
-	mov	%g1, %g2
+	/*start bb 59, raw*/mov	%g1, %g2
 	srl	%o0, 8, %o0
 	sethi	%hi(16384), %o5
 	sll	%g2, 16, %o4
@@ -665,10 +665,10 @@ crcu16:
 	sethi	%hi(32768), %o4
 	srl	%g1, 1, %g1
 	andcc	%o1, 1, %g0
-	be	.L55
+	/*end bb 59*/be	.L55
 	 or	%g1, %o4, %g1
 .L78:
-	mov	%g1, %o0
+	/*start bb 60, raw*/mov	%g1, %o0
 	and	%g3, 0xff, %g3
 	sethi	%hi(16384), %o5
 	sll	%o0, 16, %o1
@@ -682,10 +682,10 @@ crcu16:
 	mov	%o0, %g4
 	andcc	%o4, 1, %g0
 	srl	%g1, 1, %g1
-	be	.L57
+	/*end bb 60*/be	.L57
 	 or	%g1, %o1, %g1
 .L79:
-	mov	%g1, %g3
+	/*start bb 61, raw*/mov	%g1, %g3
 	sethi	%hi(16384), %o5
 	and	%g4, 0xff, %o4
 	sll	%g3, 16, %g2
@@ -699,10 +699,10 @@ crcu16:
 	mov	%g4, %o1
 	andcc	%o0, 1, %g0
 	srl	%g1, 1, %g1
-	be	.L59
+	/*end bb 61*/be	.L59
 	 or	%g1, %o4, %g1
 .L80:
-	mov	%g1, %g2
+	/*start bb 62, raw*/mov	%g1, %g2
 	sethi	%hi(16384), %o5
 	and	%o1, 0xff, %o1
 	sll	%g2, 16, %o0
@@ -716,10 +716,10 @@ crcu16:
 	mov	%g3, %g4
 	andcc	%o4, 1, %g0
 	srl	%g1, 1, %g1
-	be	.L61
+	/*end bb 62*/be	.L61
 	 or	%g1, %o0, %g1
 .L81:
-	mov	%g1, %o1
+	/*start bb 63, raw*/mov	%g1, %o1
 	and	%g4, 0xff, %o4
 	sethi	%hi(16384), %o5
 	sll	%o1, 16, %g2
@@ -733,10 +733,10 @@ crcu16:
 	mov	%g4, %g3
 	andcc	%o0, 1, %g0
 	srl	%g1, 1, %g1
-	be	.L63
+	/*end bb 63*/be	.L63
 	 or	%g1, %o4, %g1
 .L82:
-	mov	%g1, %g2
+	/*start bb 64, raw*/mov	%g1, %g2
 	and	%g3, 0xff, %g3
 	sethi	%hi(16384), %o4
 	sll	%g2, 16, %o0
@@ -750,10 +750,10 @@ crcu16:
 	sethi	%hi(32768), %o0
 	andcc	%g4, 1, %g0
 	srl	%g1, 1, %g1
-	be	.L65
+	/*end bb 64*/be	.L65
 	 or	%g1, %o0, %g1
 .L83:
-	mov	%g1, %g3
+	/*start bb 65, raw*/mov	%g1, %g3
 	sethi	%hi(16384), %g4
 	sethi	%hi(32768), %o0
 	sll	%g3, 16, %o4
@@ -764,10 +764,10 @@ crcu16:
 	xor	%g1, %g2, %g1
 	andcc	%o1, 1, %g0
 	srl	%g1, 1, %g1
-	be	.L67
+	/*end bb 65*/be	.L67
 	 or	%g1, %o0, %g1
 .L84:
-	mov	%g1, %g3
+	/*start bb 66, raw*/mov	%g1, %g3
 	and	%o5, 0xff, %o5
 	sethi	%hi(16384), %o0
 	sll	%g3, 16, %o4
@@ -780,20 +780,20 @@ crcu16:
 	xor	%g1, %g3, %g1
 	cmp	%g4, %o1
 	srl	%g1, 1, %g1
-	be	.L69
+	/*end bb 66*/be	.L69
 	 or	%g1, %o4, %g1
 .L85:
-	mov	%g1, %g2
+	/*start bb 67, raw*/mov	%g1, %g2
 	sll	%g2, 16, %o5
-	jmp	%o7+8
-	 srl	%o5, 16, %o0
-	.size	crcu16, .-crcu16
+	/*end bb 67*/jmp	%o7+8
+	 /*start bb 68, raw*/srl	%o5, 16, %o0
+	/*end bb 68*/.size	crcu16, .-crcu16
 	.align 4
 	.global crcu32
 	.type	crcu32, #function
 	.proc	015
 crcu32:
-	and	%o0, 0xff, %g4
+	/*start bb 69, raw*/and	%o0, 0xff, %g4
 	sethi	%hi(16384), %o5
 	xor	%o0, %o1, %g1
 	srl	%g4, 1, %o4
@@ -804,9 +804,9 @@ crcu32:
 	srl	%g3, 1, %g4
 	mov	%o4, %g3
 	andcc	%g1, 1, %g0
-	bne	.L151
+	/*end bb 69*/bne	.L151
 	 or	%g4, %o5, %g4
-	and	%g3, 0xff, %g3
+	/*start bb 70, raw*/and	%g3, 0xff, %g3
 	sethi	%hi(16384), %o5
 	sll	%o1, 16, %g2
 	srl	%g3, 1, %o1
@@ -819,10 +819,10 @@ crcu32:
 	sethi	%hi(32768), %o4
 	srl	%g1, 1, %g1
 	mov	%o1, %g4
-	bne	.L152
+	/*end bb 70*/bne	.L152
 	 or	%g1, %o4, %g1
 .L90:
-	sll	%g2, 16, %g2
+	/*start bb 71, raw*/sll	%g2, 16, %g2
 	and	%g4, 0xff, %g4
 	sethi	%hi(16384), %o5
 	srl	%g2, 16, %g1
@@ -835,10 +835,10 @@ crcu32:
 	sethi	%hi(32768), %o1
 	srl	%g1, 1, %g1
 	mov	%g4, %g3
-	bne	.L153
+	/*end bb 71*/bne	.L153
 	 or	%g1, %o1, %g1
 .L92:
-	and	%g3, 0xff, %g3
+	/*start bb 72, raw*/and	%g3, 0xff, %g3
 	sll	%g2, 16, %o1
 	sethi	%hi(16384), %o5
 	srl	%g3, 1, %g3
@@ -851,10 +851,10 @@ crcu32:
 	andcc	%o4, 1, %g0
 	srl	%g1, 1, %g1
 	sethi	%hi(32768), %o1
-	bne	.L154
+	/*end bb 72*/bne	.L154
 	 or	%g1, %o1, %g1
 .L94:
-	and	%g4, 0xff, %o4
+	/*start bb 73, raw*/and	%g4, 0xff, %o4
 	sll	%o5, 16, %g2
 	sethi	%hi(16384), %o5
 	srl	%o4, 1, %g4
@@ -867,10 +867,10 @@ crcu32:
 	sethi	%hi(32768), %o1
 	srl	%g1, 1, %g1
 	mov	%g4, %g3
-	bne	.L155
+	/*end bb 73*/bne	.L155
 	 or	%g1, %o1, %g1
 .L96:
-	sethi	%hi(16384), %o4
+	/*start bb 74, raw*/sethi	%hi(16384), %o4
 	and	%g3, 0xff, %g3
 	sll	%g2, 16, %o1
 	or	%o4, 2, %g2
@@ -883,10 +883,10 @@ crcu32:
 	mov	%g3, %o5
 	andcc	%g4, 1, %g0
 	srl	%g1, 1, %g1
-	bne	.L156
+	/*end bb 74*/bne	.L156
 	 or	%g1, %o1, %g1
 .L98:
-	sll	%o4, 16, %g2
+	/*start bb 75, raw*/sll	%o4, 16, %g2
 	sethi	%hi(16384), %g4
 	sethi	%hi(32768), %o4
 	srl	%g2, 16, %g1
@@ -896,10 +896,10 @@ crcu32:
 	xor	%g1, %o1, %g1
 	andcc	%g3, 1, %g0
 	srl	%g1, 1, %g1
-	bne	.L157
+	/*end bb 75*/bne	.L157
 	 or	%g1, %o4, %g1
 .L100:
-	sll	%g2, 16, %o1
+	/*start bb 76, raw*/sll	%g2, 16, %o1
 	sethi	%hi(16384), %o4
 	and	%o5, 0xff, %o5
 	srl	%o1, 16, %g1
@@ -911,10 +911,10 @@ crcu32:
 	cmp	%g4, %g3
 	xor	%g1, %o1, %g1
 	srl	%g1, 1, %g1
-	bne	.L158
+	/*end bb 76*/bne	.L158
 	 or	%g1, %o5, %g1
 .L102:
-	sll	%o0, 16, %g3
+	/*start bb 77, raw*/sll	%o0, 16, %g3
 	sll	%g2, 16, %o4
 	sethi	%hi(16384), %g2
 	srl	%g3, 24, %g4
@@ -928,10 +928,10 @@ crcu32:
 	srl	%g1, 1, %g1
 	mov	%o5, %g4
 	andcc	%o1, 1, %g0
-	bne	.L159
+	/*end bb 77*/bne	.L159
 	 or	%g1, %o4, %g1
 .L104:
-	sll	%g2, 16, %o1
+	/*start bb 78, raw*/sll	%g2, 16, %o1
 	and	%g4, 0xff, %g3
 	srl	%o1, 16, %g1
 	srl	%g3, 1, %g3
@@ -944,10 +944,10 @@ crcu32:
 	sethi	%hi(32768), %o1
 	xor	%g1, %g2, %g1
 	srl	%g1, 1, %g1
-	bne	.L160
+	/*end bb 78*/bne	.L160
 	 or	%g1, %o1, %g1
 .L106:
-	and	%g4, 0xff, %o4
+	/*start bb 79, raw*/and	%g4, 0xff, %o4
 	sll	%o5, 16, %g2
 	sethi	%hi(16384), %o5
 	srl	%o4, 1, %g4
@@ -960,10 +960,10 @@ crcu32:
 	sethi	%hi(32768), %o1
 	srl	%g1, 1, %g1
 	mov	%g4, %g3
-	bne	.L161
+	/*end bb 79*/bne	.L161
 	 or	%g1, %o1, %g1
 .L108:
-	sll	%g2, 16, %o1
+	/*start bb 80, raw*/sll	%g2, 16, %o1
 	sethi	%hi(16384), %o5
 	and	%g3, 0xff, %g3
 	srl	%o1, 16, %g1
@@ -976,10 +976,10 @@ crcu32:
 	mov	%g3, %g4
 	andcc	%o4, 1, %g0
 	srl	%g1, 1, %g1
-	bne	.L162
+	/*end bb 80*/bne	.L162
 	 or	%g1, %o1, %g1
 .L110:
-	and	%g4, 0xff, %o4
+	/*start bb 81, raw*/and	%g4, 0xff, %o4
 	sll	%o5, 16, %g2
 	sethi	%hi(16384), %o5
 	srl	%o4, 1, %g4
@@ -992,10 +992,10 @@ crcu32:
 	sethi	%hi(32768), %o1
 	srl	%g1, 1, %g1
 	mov	%g4, %g3
-	bne	.L163
+	/*end bb 81*/bne	.L163
 	 or	%g1, %o1, %g1
 .L112:
-	and	%g3, 0xff, %g3
+	/*start bb 82, raw*/and	%g3, 0xff, %g3
 	sll	%g2, 16, %o1
 	sethi	%hi(16384), %o4
 	srl	%g3, 1, %g3
@@ -1008,10 +1008,10 @@ crcu32:
 	mov	%g3, %o5
 	andcc	%g4, 1, %g0
 	srl	%g1, 1, %g1
-	bne	.L164
+	/*end bb 82*/bne	.L164
 	 or	%g1, %o1, %g1
 .L114:
-	sll	%o4, 16, %g2
+	/*start bb 83, raw*/sll	%o4, 16, %g2
 	sethi	%hi(16384), %g4
 	sethi	%hi(32768), %o4
 	srl	%g2, 16, %g1
@@ -1021,10 +1021,10 @@ crcu32:
 	xor	%g1, %o1, %g1
 	andcc	%g3, 1, %g0
 	srl	%g1, 1, %g1
-	bne	.L165
+	/*end bb 83*/bne	.L165
 	 or	%g1, %o4, %g1
 .L116:
-	sll	%g2, 16, %o1
+	/*start bb 84, raw*/sll	%g2, 16, %o1
 	sethi	%hi(16384), %o4
 	and	%o5, 0xff, %o5
 	srl	%o1, 16, %g1
@@ -1036,10 +1036,10 @@ crcu32:
 	sethi	%hi(32768), %o5
 	cmp	%g4, %g3
 	srl	%g1, 1, %g1
-	bne	.L166
+	/*end bb 84*/bne	.L166
 	 or	%g1, %o5, %g1
 .L118:
-	srl	%o0, 16, %o0
+	/*start bb 85, raw*/srl	%o0, 16, %o0
 	sethi	%hi(16384), %o5
 	sll	%g2, 16, %o1
 	and	%o0, 0xff, %g3
@@ -1053,10 +1053,10 @@ crcu32:
 	mov	%g4, %g3
 	srl	%g1, 1, %g1
 	andcc	%o4, 1, %g0
-	bne	.L167
+	/*end bb 85*/bne	.L167
 	 or	%g1, %o1, %g1
 .L120:
-	and	%g3, 0xff, %o4
+	/*start bb 86, raw*/and	%g3, 0xff, %o4
 	sll	%o5, 16, %g2
 	sethi	%hi(16384), %o5
 	srl	%o4, 1, %g3
@@ -1069,10 +1069,10 @@ crcu32:
 	sethi	%hi(32768), %o1
 	srl	%g1, 1, %g1
 	mov	%g3, %g4
-	bne	.L168
+	/*end bb 86*/bne	.L168
 	 or	%g1, %o1, %g1
 .L122:
-	sll	%g2, 16, %o1
+	/*start bb 87, raw*/sll	%g2, 16, %o1
 	sethi	%hi(16384), %o5
 	and	%g4, 0xff, %g4
 	srl	%o1, 16, %g1
@@ -1085,10 +1085,10 @@ crcu32:
 	mov	%g4, %g3
 	andcc	%o4, 1, %g0
 	srl	%g1, 1, %g1
-	bne	.L169
+	/*end bb 87*/bne	.L169
 	 or	%g1, %o1, %g1
 .L124:
-	and	%g3, 0xff, %o4
+	/*start bb 88, raw*/and	%g3, 0xff, %o4
 	sll	%o5, 16, %g2
 	sethi	%hi(16384), %o5
 	srl	%o4, 1, %g3
@@ -1101,10 +1101,10 @@ crcu32:
 	sethi	%hi(32768), %o1
 	srl	%g1, 1, %g1
 	mov	%g3, %g4
-	bne	.L170
+	/*end bb 88*/bne	.L170
 	 or	%g1, %o1, %g1
 .L126:
-	and	%g4, 0xff, %g4
+	/*start bb 89, raw*/and	%g4, 0xff, %g4
 	sll	%g2, 16, %o1
 	sethi	%hi(16384), %o5
 	srl	%g4, 1, %g4
@@ -1117,10 +1117,10 @@ crcu32:
 	mov	%g4, %g3
 	andcc	%o4, 1, %g0
 	srl	%g1, 1, %g1
-	bne	.L171
+	/*end bb 89*/bne	.L171
 	 or	%g1, %o1, %g1
 .L128:
-	and	%g3, 0xff, %o4
+	/*start bb 90, raw*/and	%g3, 0xff, %o4
 	sll	%o5, 16, %g2
 	sethi	%hi(16384), %o5
 	srl	%o4, 1, %g3
@@ -1133,10 +1133,10 @@ crcu32:
 	sethi	%hi(32768), %g4
 	srl	%g1, 1, %g1
 	mov	%g3, %o1
-	bne	.L172
+	/*end bb 90*/bne	.L172
 	 or	%g1, %g4, %g1
 .L130:
-	sll	%g2, 16, %o5
+	/*start bb 91, raw*/sll	%g2, 16, %o5
 	sethi	%hi(16384), %o4
 	srl	%o5, 16, %g1
 	srl	%o5, 17, %g2
@@ -1146,10 +1146,10 @@ crcu32:
 	xor	%g1, %g4, %g1
 	andcc	%g3, 1, %g0
 	srl	%g1, 1, %g1
-	bne	.L173
+	/*end bb 91*/bne	.L173
 	 or	%g1, %o5, %g1
 .L132:
-	sll	%g2, 16, %o4
+	/*start bb 92, raw*/sll	%g2, 16, %o4
 	and	%o1, 0xff, %o1
 	sethi	%hi(16384), %o5
 	srl	%o4, 16, %g1
@@ -1161,10 +1161,10 @@ crcu32:
 	xor	%g1, %o4, %g1
 	cmp	%g4, %g3
 	srl	%g1, 1, %g1
-	bne	.L174
+	/*end bb 92*/bne	.L174
 	 or	%g1, %o1, %g1
 .L134:
-	sll	%g2, 16, %o4
+	/*start bb 93, raw*/sll	%g2, 16, %o4
 	srl	%o0, 8, %o0
 	sethi	%hi(16384), %o5
 	srl	%o4, 16, %g1
@@ -1177,10 +1177,10 @@ crcu32:
 	mov	%g4, %g3
 	andcc	%o1, 1, %g0
 	srl	%g1, 1, %g1
-	bne	.L175
+	/*end bb 93*/bne	.L175
 	 or	%g1, %o4, %g1
 .L136:
-	sll	%o0, 16, %o1
+	/*start bb 94, raw*/sll	%o0, 16, %o1
 	and	%g3, 0xff, %g3
 	sethi	%hi(16384), %o5
 	srl	%o1, 16, %g1
@@ -1193,10 +1193,10 @@ crcu32:
 	srl	%o1, 17, %g3
 	sethi	%hi(32768), %o1
 	srl	%g1, 1, %g1
-	bne	.L176
+	/*end bb 94*/bne	.L176
 	 or	%g1, %o1, %g1
 .L138:
-	sethi	%hi(16384), %o5
+	/*start bb 95, raw*/sethi	%hi(16384), %o5
 	and	%g4, 0xff, %o4
 	sll	%g3, 16, %g2
 	or	%o5, 2, %g3
@@ -1209,10 +1209,10 @@ crcu32:
 	mov	%g4, %o1
 	andcc	%o0, 1, %g0
 	srl	%g1, 1, %g1
-	bne	.L177
+	/*end bb 95*/bne	.L177
 	 or	%g1, %o4, %g1
 .L140:
-	sll	%g2, 16, %o0
+	/*start bb 96, raw*/sll	%g2, 16, %o0
 	sethi	%hi(16384), %o5
 	and	%o1, 0xff, %o1
 	srl	%o0, 16, %g1
@@ -1225,10 +1225,10 @@ crcu32:
 	mov	%g3, %g4
 	andcc	%o4, 1, %g0
 	srl	%g1, 1, %g1
-	bne	.L178
+	/*end bb 96*/bne	.L178
 	 or	%g1, %o0, %g1
 .L142:
-	and	%g4, 0xff, %o4
+	/*start bb 97, raw*/and	%g4, 0xff, %o4
 	sll	%o1, 16, %g2
 	sethi	%hi(16384), %o5
 	srl	%o4, 1, %g4
@@ -1241,10 +1241,10 @@ crcu32:
 	andcc	%o0, 1, %g0
 	srl	%g1, 1, %g1
 	sethi	%hi(32768), %o4
-	bne	.L179
+	/*end bb 97*/bne	.L179
 	 or	%g1, %o4, %g1
 .L144:
-	sll	%g2, 16, %o0
+	/*start bb 98, raw*/sll	%g2, 16, %o0
 	sethi	%hi(16384), %o4
 	and	%g3, 0xff, %g3
 	srl	%o0, 16, %g1
@@ -1257,10 +1257,10 @@ crcu32:
 	srl	%g1, 1, %g1
 	mov	%o1, %o5
 	andcc	%g4, 1, %g0
-	bne	.L180
+	/*end bb 98*/bne	.L180
 	 or	%g1, %o0, %g1
 .L146:
-	sll	%g3, 16, %o4
+	/*start bb 99, raw*/sll	%g3, 16, %o4
 	sethi	%hi(16384), %g4
 	sethi	%hi(32768), %o0
 	srl	%o4, 16, %g1
@@ -1270,10 +1270,10 @@ crcu32:
 	xor	%g1, %g2, %g1
 	andcc	%o1, 1, %g0
 	srl	%g1, 1, %g1
-	bne	.L181
+	/*end bb 99*/bne	.L181
 	 or	%g1, %o0, %g1
 .L148:
-	sll	%g3, 16, %o4
+	/*start bb 100, raw*/sll	%g3, 16, %o4
 	sethi	%hi(16384), %o0
 	and	%o5, 0xff, %o5
 	srl	%o4, 16, %g1
@@ -1285,13 +1285,13 @@ crcu32:
 	sethi	%hi(32768), %o4
 	cmp	%g4, %o1
 	srl	%g1, 1, %g1
-	bne	.L182
+	/*end bb 100*/bne	.L182
 	 or	%g1, %o4, %g1
-	sll	%g2, 16, %o5
-	jmp	%o7+8
-	 srl	%o5, 16, %o0
-.L151:
-	and	%g3, 0xff, %g3
+	/*start bb 101, raw*/sll	%g2, 16, %o5
+	/*end bb 101*/jmp	%o7+8
+	 /*start bb 102, raw*/srl	%o5, 16, %o0
+/*end bb 102*/.L151:
+	/*start bb 103, raw*/and	%g3, 0xff, %g3
 	sethi	%hi(16384), %o5
 	mov	%g4, %o1
 	sll	%o1, 16, %g2
@@ -1305,10 +1305,10 @@ crcu32:
 	sethi	%hi(32768), %o4
 	srl	%g1, 1, %g1
 	mov	%o1, %g4
-	be	.L90
+	/*end bb 103*/be	.L90
 	 or	%g1, %o4, %g1
 .L152:
-	mov	%g1, %g2
+	/*start bb 104, raw*/mov	%g1, %g2
 	and	%g4, 0xff, %g4
 	sethi	%hi(16384), %o5
 	sll	%g2, 16, %g2
@@ -1322,10 +1322,10 @@ crcu32:
 	sethi	%hi(32768), %o1
 	srl	%g1, 1, %g1
 	mov	%g4, %g3
-	be	.L92
+	/*end bb 104*/be	.L92
 	 or	%g1, %o1, %g1
 .L153:
-	mov	%g1, %g2
+	/*start bb 105, raw*/mov	%g1, %g2
 	and	%g3, 0xff, %g3
 	sethi	%hi(16384), %o5
 	sll	%g2, 16, %o1
@@ -1339,10 +1339,10 @@ crcu32:
 	mov	%g3, %g4
 	andcc	%o4, 1, %g0
 	srl	%g1, 1, %g1
-	be	.L94
+	/*end bb 105*/be	.L94
 	 or	%g1, %o1, %g1
 .L154:
-	mov	%g1, %o5
+	/*start bb 106, raw*/mov	%g1, %o5
 	and	%g4, 0xff, %o4
 	sll	%o5, 16, %g2
 	sethi	%hi(16384), %o5
@@ -1356,10 +1356,10 @@ crcu32:
 	sethi	%hi(32768), %o1
 	srl	%g1, 1, %g1
 	mov	%g4, %g3
-	be	.L96
+	/*end bb 106*/be	.L96
 	 or	%g1, %o1, %g1
 .L155:
-	mov	%g1, %g2
+	/*start bb 107, raw*/mov	%g1, %g2
 	sethi	%hi(16384), %o4
 	and	%g3, 0xff, %g3
 	sll	%g2, 16, %o1
@@ -1373,10 +1373,10 @@ crcu32:
 	mov	%g3, %o5
 	andcc	%g4, 1, %g0
 	srl	%g1, 1, %g1
-	be	.L98
+	/*end bb 107*/be	.L98
 	 or	%g1, %o1, %g1
 .L156:
-	mov	%g1, %o4
+	/*start bb 108, raw*/mov	%g1, %o4
 	sethi	%hi(16384), %g4
 	sll	%o4, 16, %g2
 	sethi	%hi(32768), %o4
@@ -1387,10 +1387,10 @@ crcu32:
 	xor	%g1, %o1, %g1
 	andcc	%g3, 1, %g0
 	srl	%g1, 1, %g1
-	be	.L100
+	/*end bb 108*/be	.L100
 	 or	%g1, %o4, %g1
 .L157:
-	sethi	%hi(16384), %o4
+	/*start bb 109, raw*/sethi	%hi(16384), %o4
 	mov	%g1, %g2
 	and	%o5, 0xff, %o5
 	sll	%g2, 16, %o1
@@ -1403,17 +1403,17 @@ crcu32:
 	xor	%g1, %o1, %g1
 	cmp	%g4, %g3
 	srl	%g1, 1, %g1
-	be	.L102
+	/*end bb 109*/be	.L102
 	 or	%g1, %o5, %g1
 .L158:
 	b	.L102
 	 mov	%g1, %g2
 .L182:
-	mov	%g1, %g2
+	/*start bb 110, raw*/mov	%g1, %g2
 	sll	%g2, 16, %o5
-	jmp	%o7+8
-	 srl	%o5, 16, %o0
-.L181:
+	/*end bb 110*/jmp	%o7+8
+	 /*start bb 111, raw*/srl	%o5, 16, %o0
+/*end bb 111*/.L181:
 	b	.L148
 	 mov	%g1, %g3
 .L180:
@@ -1488,7 +1488,7 @@ crcu32:
 	.type	crc16, #function
 	.proc	015
 crc16:
-	and	%o0, 0xff, %g4
+	/*start bb 112, raw*/and	%o0, 0xff, %g4
 	sethi	%hi(16384), %o5
 	xor	%o0, %o1, %g1
 	srl	%g4, 1, %o4
@@ -1499,9 +1499,9 @@ crc16:
 	srl	%g3, 1, %g4
 	mov	%o4, %g3
 	andcc	%g1, 1, %g0
-	bne	.L216
+	/*end bb 112*/bne	.L216
 	 or	%g4, %o5, %g4
-	and	%g3, 0xff, %g3
+	/*start bb 113, raw*/and	%g3, 0xff, %g3
 	sethi	%hi(16384), %o5
 	sll	%o1, 16, %g2
 	srl	%g3, 1, %o1
@@ -1514,10 +1514,10 @@ crc16:
 	sethi	%hi(32768), %o4
 	srl	%g1, 1, %g1
 	mov	%o1, %g4
-	bne	.L217
+	/*end bb 113*/bne	.L217
 	 or	%g1, %o4, %g1
 .L187:
-	sll	%g2, 16, %g2
+	/*start bb 114, raw*/sll	%g2, 16, %g2
 	and	%g4, 0xff, %g4
 	sethi	%hi(16384), %o5
 	srl	%g2, 16, %g1
@@ -1530,10 +1530,10 @@ crc16:
 	sethi	%hi(32768), %o1
 	srl	%g1, 1, %g1
 	mov	%g4, %g3
-	bne	.L218
+	/*end bb 114*/bne	.L218
 	 or	%g1, %o1, %g1
 .L189:
-	sll	%g2, 16, %o1
+	/*start bb 115, raw*/sll	%g2, 16, %o1
 	sethi	%hi(16384), %o5
 	and	%g3, 0xff, %g3
 	srl	%o1, 16, %g1
@@ -1546,10 +1546,10 @@ crc16:
 	mov	%g3, %g4
 	andcc	%o4, 1, %g0
 	srl	%g1, 1, %g1
-	bne	.L219
+	/*end bb 115*/bne	.L219
 	 or	%g1, %o1, %g1
 .L191:
-	and	%g4, 0xff, %o4
+	/*start bb 116, raw*/and	%g4, 0xff, %o4
 	sll	%o5, 16, %g2
 	sethi	%hi(16384), %o5
 	srl	%o4, 1, %g4
@@ -1562,10 +1562,10 @@ crc16:
 	sethi	%hi(32768), %o1
 	srl	%g1, 1, %g1
 	mov	%g4, %g3
-	bne	.L220
+	/*end bb 116*/bne	.L220
 	 or	%g1, %o1, %g1
 .L193:
-	sll	%g2, 16, %o1
+	/*start bb 117, raw*/sll	%g2, 16, %o1
 	sethi	%hi(16384), %o4
 	and	%g3, 0xff, %g3
 	srl	%o1, 16, %g1
@@ -1578,10 +1578,10 @@ crc16:
 	srl	%g1, 1, %g1
 	mov	%g3, %o5
 	andcc	%g4, 1, %g0
-	bne	.L221
+	/*end bb 117*/bne	.L221
 	 or	%g1, %o1, %g1
 .L195:
-	sethi	%hi(16384), %g4
+	/*start bb 118, raw*/sethi	%hi(16384), %g4
 	sll	%o4, 16, %g2
 	sethi	%hi(32768), %o4
 	or	%g4, 2, %o1
@@ -1591,10 +1591,10 @@ crc16:
 	xor	%g1, %o1, %g1
 	andcc	%g3, 1, %g0
 	srl	%g1, 1, %g1
-	bne	.L222
+	/*end bb 118*/bne	.L222
 	 or	%g1, %o4, %g1
 .L197:
-	sll	%g2, 16, %o1
+	/*start bb 119, raw*/sll	%g2, 16, %o1
 	and	%o5, 0xff, %o5
 	sethi	%hi(16384), %o4
 	srl	%o1, 16, %g1
@@ -1606,10 +1606,10 @@ crc16:
 	cmp	%g4, %g3
 	xor	%g1, %o1, %g1
 	srl	%g1, 1, %g1
-	bne	.L223
+	/*end bb 119*/bne	.L223
 	 or	%g1, %o5, %g1
 .L199:
-	sll	%g2, 16, %o4
+	/*start bb 120, raw*/sll	%g2, 16, %o4
 	sethi	%hi(16384), %o5
 	sll	%o0, 16, %o0
 	srl	%o4, 16, %g1
@@ -1623,10 +1623,10 @@ crc16:
 	srl	%g1, 1, %g1
 	srl	%o4, 17, %g3
 	sethi	%hi(32768), %o4
-	bne	.L224
+	/*end bb 120*/bne	.L224
 	 or	%g1, %o4, %g1
 .L201:
-	and	%o0, 0xff, %g4
+	/*start bb 121, raw*/and	%o0, 0xff, %g4
 	sll	%g3, 16, %g2
 	sethi	%hi(16384), %o5
 	srl	%g4, 1, %o4
@@ -1639,10 +1639,10 @@ crc16:
 	srl	%g2, 17, %g2
 	srl	%g1, 1, %g1
 	andcc	%o1, 1, %g0
-	bne	.L225
+	/*end bb 121*/bne	.L225
 	 or	%g1, %g4, %g1
 .L203:
-	sll	%g2, 16, %o1
+	/*start bb 122, raw*/sll	%g2, 16, %o1
 	and	%o0, 0xff, %o0
 	sethi	%hi(16384), %o5
 	srl	%o1, 16, %g1
@@ -1655,10 +1655,10 @@ crc16:
 	srl	%o1, 17, %o0
 	sethi	%hi(32768), %o1
 	srl	%g1, 1, %g1
-	bne	.L226
+	/*end bb 122*/bne	.L226
 	 or	%g1, %o1, %g1
 .L205:
-	sethi	%hi(16384), %o5
+	/*start bb 123, raw*/sethi	%hi(16384), %o5
 	and	%g3, 0xff, %o4
 	sll	%o0, 16, %g2
 	or	%o5, 2, %o0
@@ -1671,10 +1671,10 @@ crc16:
 	mov	%g3, %g4
 	andcc	%o1, 1, %g0
 	srl	%g1, 1, %g1
-	bne	.L227
+	/*end bb 123*/bne	.L227
 	 or	%g1, %o4, %g1
 .L207:
-	sll	%g2, 16, %o1
+	/*start bb 124, raw*/sll	%g2, 16, %o1
 	and	%g4, 0xff, %g4
 	sethi	%hi(16384), %o5
 	srl	%o1, 16, %g1
@@ -1687,10 +1687,10 @@ crc16:
 	mov	%o0, %g3
 	andcc	%o4, 1, %g0
 	srl	%g1, 1, %g1
-	bne	.L228
+	/*end bb 124*/bne	.L228
 	 or	%g1, %o1, %g1
 .L209:
-	sll	%g4, 16, %g2
+	/*start bb 125, raw*/sll	%g4, 16, %g2
 	sethi	%hi(16384), %o1
 	and	%g3, 0xff, %o4
 	srl	%g2, 16, %g1
@@ -1703,10 +1703,10 @@ crc16:
 	srl	%g1, 1, %g1
 	andcc	%o0, 1, %g0
 	sethi	%hi(32768), %o4
-	bne	.L229
+	/*end bb 125*/bne	.L229
 	 or	%g1, %o4, %g1
 .L211:
-	sll	%g2, 16, %o0
+	/*start bb 126, raw*/sll	%g2, 16, %o0
 	sethi	%hi(16384), %o1
 	sethi	%hi(32768), %o4
 	srl	%o0, 16, %g1
@@ -1716,10 +1716,10 @@ crc16:
 	xor	%g1, %g4, %g1
 	andcc	%g3, 1, %g0
 	srl	%g1, 1, %g1
-	bne	.L230
+	/*end bb 126*/bne	.L230
 	 or	%g1, %o4, %g1
 .L213:
-	sll	%g2, 16, %o0
+	/*start bb 127, raw*/sll	%g2, 16, %o0
 	sethi	%hi(16384), %g4
 	and	%o5, 0xff, %o5
 	srl	%o0, 16, %g1
@@ -1731,13 +1731,13 @@ crc16:
 	sethi	%hi(32768), %o0
 	srl	%g1, 1, %g1
 	cmp	%o1, %g3
-	bne	.L231
+	/*end bb 127*/bne	.L231
 	 or	%g1, %o0, %g1
-	sll	%g2, 16, %o5
-	jmp	%o7+8
-	 srl	%o5, 16, %o0
-.L216:
-	and	%g3, 0xff, %g3
+	/*start bb 128, raw*/sll	%g2, 16, %o5
+	/*end bb 128*/jmp	%o7+8
+	 /*start bb 129, raw*/srl	%o5, 16, %o0
+/*end bb 129*/.L216:
+	/*start bb 130, raw*/and	%g3, 0xff, %g3
 	sethi	%hi(16384), %o5
 	mov	%g4, %o1
 	sll	%o1, 16, %g2
@@ -1751,10 +1751,10 @@ crc16:
 	sethi	%hi(32768), %o4
 	srl	%g1, 1, %g1
 	mov	%o1, %g4
-	be	.L187
+	/*end bb 130*/be	.L187
 	 or	%g1, %o4, %g1
 .L217:
-	mov	%g1, %g2
+	/*start bb 131, raw*/mov	%g1, %g2
 	and	%g4, 0xff, %g4
 	sethi	%hi(16384), %o5
 	sll	%g2, 16, %g2
@@ -1768,10 +1768,10 @@ crc16:
 	sethi	%hi(32768), %o1
 	srl	%g1, 1, %g1
 	mov	%g4, %g3
-	be	.L189
+	/*end bb 131*/be	.L189
 	 or	%g1, %o1, %g1
 .L218:
-	mov	%g1, %g2
+	/*start bb 132, raw*/mov	%g1, %g2
 	sethi	%hi(16384), %o5
 	and	%g3, 0xff, %g3
 	sll	%g2, 16, %o1
@@ -1785,10 +1785,10 @@ crc16:
 	mov	%g3, %g4
 	andcc	%o4, 1, %g0
 	srl	%g1, 1, %g1
-	be	.L191
+	/*end bb 132*/be	.L191
 	 or	%g1, %o1, %g1
 .L219:
-	mov	%g1, %o5
+	/*start bb 133, raw*/mov	%g1, %o5
 	and	%g4, 0xff, %o4
 	sll	%o5, 16, %g2
 	sethi	%hi(16384), %o5
@@ -1802,10 +1802,10 @@ crc16:
 	sethi	%hi(32768), %o1
 	srl	%g1, 1, %g1
 	mov	%g4, %g3
-	be	.L193
+	/*end bb 133*/be	.L193
 	 or	%g1, %o1, %g1
 .L220:
-	mov	%g1, %g2
+	/*start bb 134, raw*/mov	%g1, %g2
 	sethi	%hi(16384), %o4
 	and	%g3, 0xff, %g3
 	sll	%g2, 16, %o1
@@ -1819,10 +1819,10 @@ crc16:
 	sethi	%hi(32768), %o1
 	andcc	%g4, 1, %g0
 	srl	%g1, 1, %g1
-	be	.L195
+	/*end bb 134*/be	.L195
 	 or	%g1, %o1, %g1
 .L221:
-	mov	%g1, %o4
+	/*start bb 135, raw*/mov	%g1, %o4
 	sethi	%hi(16384), %g4
 	sll	%o4, 16, %g2
 	sethi	%hi(32768), %o4
@@ -1833,10 +1833,10 @@ crc16:
 	xor	%g1, %o1, %g1
 	andcc	%g3, 1, %g0
 	srl	%g1, 1, %g1
-	be	.L197
+	/*end bb 135*/be	.L197
 	 or	%g1, %o4, %g1
 .L222:
-	sethi	%hi(16384), %o4
+	/*start bb 136, raw*/sethi	%hi(16384), %o4
 	mov	%g1, %g2
 	and	%o5, 0xff, %o5
 	sll	%g2, 16, %o1
@@ -1849,17 +1849,17 @@ crc16:
 	xor	%g1, %o1, %g1
 	cmp	%g4, %g3
 	srl	%g1, 1, %g1
-	be	.L199
+	/*end bb 136*/be	.L199
 	 or	%g1, %o5, %g1
 .L223:
 	b	.L199
 	 mov	%g1, %g2
 .L231:
-	mov	%g1, %g2
+	/*start bb 137, raw*/mov	%g1, %g2
 	sll	%g2, 16, %o5
-	jmp	%o7+8
-	 srl	%o5, 16, %o0
-.L230:
+	/*end bb 137*/jmp	%o7+8
+	 /*start bb 138, raw*/srl	%o5, 16, %o0
+/*end bb 138*/.L230:
 	b	.L213
 	 mov	%g1, %g2
 .L229:
@@ -1887,7 +1887,8 @@ crc16:
 	.proc	014
 check_data_types:
 	jmp	%o7+8
-	 mov	0, %o0
-	.size	check_data_types, .-check_data_types
+	 /*start bb 139, raw*/mov	0, %o0
+	/*end bb 139*/.size	check_data_types, .-check_data_types
 	.ident	"GCC: (Buildroot 2014.08-ga33456e-dirty) 4.7.4"
 	.section	.note.GNU-stack,"",@progbits
+/*total bb = 139*/

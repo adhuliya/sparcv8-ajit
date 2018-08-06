@@ -89,4 +89,8 @@ if __name__ == "__main__":
   with open(bbFileName, "w") as optf:
     optf.write(asmChunkBlocks.coalesceChunksMarkBb())
 
+  bbFileName = fileName.rsplit(".", maxsplit=1)[0] + "-optbb.s"
+  with open(bbFileName, "w") as optf:
+    optf.write(asmChunkBlocks.coalesceReorderedChunksMarkBb())
+
   spairoExit(0)

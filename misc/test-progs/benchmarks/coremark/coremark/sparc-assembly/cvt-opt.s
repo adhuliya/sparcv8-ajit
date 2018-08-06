@@ -33,34 +33,33 @@ cvt:
 	 mov	78, %o7
 .L3:
 	sethi	%hi(.LC0), %g2
-	nop
 	ldd	[%g2+%lo(.LC0)], %f8
 	fcmped	%f10, %f8
+	nop
 	fbl	.L4
 	 mov	1, %g1
 	st	%g0, [%i4]
 .L5:
-	fdtoi	%f10, %f0
 	ldd	[%g2+%lo(.LC0)], %f12
-	nop
+	fdtoi	%f10, %f0
 	fitod	%f0, %f20
 	fcmpd	%f20, %f12
+	nop
 	fbe	.L6
 	 fsubd	%f10, %f20, %f10
 	add	%i5, 80, %i1
 	sethi	%hi(.LC1), %i0
 	sethi	%hi(.LC2), %i2
 	sethi	%hi(.LC0), %i4
-	mov	0, %g4
 	mov	%i1, %g1
+	mov	0, %g4
+	ldd	[%i4+%lo(.LC0)], %f4
 	ldd	[%i0+%lo(.LC1)], %f14
 	ldd	[%i2+%lo(.LC2)], %f18
-	ldd	[%i4+%lo(.LC0)], %f4
 .L7:
 	fdivd	%f20, %f14, %f6
 	add	%g1, -1, %g1
 	ld	[%fp-12], %g2
-	nop
 	fdtoi	%f6, %f1
 	add	%g2, 48, %g3
 	fitod	%f1, %f20
@@ -71,6 +70,7 @@ cvt:
 	fmuld	%f24, %f14, %f12
 	fdtoi	%f12, %f3
 	st	%f3, [%fp-12]
+	nop
 	fbne	.L7
 	 add	%g4, 1, %g4
 	cmp	%i1, %g1
@@ -83,11 +83,11 @@ cvt:
 	sub	%i5, %g1, %o3
 	mov	%g1, %g2
 	cmp	%i5, %i0
+	add	%o3, 80, %o3
 	cmp	%g1, %i2
 	or	%i4, %g3, %i4
-	mov	1, %g3
-	add	%o3, 80, %o3
 	srl	%o3, 2, %i0
+	mov	1, %g3
 	cmp	%o3, 3
 	bgu	.L10
 	 sll	%i0, 2, %o4
@@ -206,14 +206,14 @@ cvt:
 	 nop
 	sethi	%hi(.LC1), %g3
 	sethi	%hi(.LC3), %g1
-	nop
 	mov	0, %g4
 	ldd	[%g3+%lo(.LC1)], %f2
-	ldd	[%g3+%lo(.LC1)], %f16
 	ldd	[%g1+%lo(.LC3)], %f8
+	ldd	[%g3+%lo(.LC1)], %f16
 	fmuld	%f10, %f2, %f12
 	fmovs	%f8, %f14
 	fcmped	%f12, %f8
+	nop
 	fbl	.L16
 	 fmovs	%f9, %f15
 	b	.L8
@@ -223,8 +223,8 @@ cvt:
 	fmovs	%f9, %f13
 .L16:
 	fmuld	%f12, %f16, %f8
-	nop
 	fcmped	%f8, %f14
+	nop
 	fbl	.L40
 	 add	%g4, -1, %g4
 	mov	%i5, %g2
@@ -315,11 +315,11 @@ ecvt:
 	mov	1, %g1
 	mov	%i0, %o0
 	mov	%i1, %o1
+	st	%g1, [%sp+92]
 	mov	%i4, %o4
 	sethi	%hi(CVTBUF), %o5
 	mov	%i2, %o2
 	mov	%i3, %o3
-	st	%g1, [%sp+92]
 	call	cvt, 0
 	 or	%o5, %lo(CVTBUF), %o5
 	jmp	%i7+8
@@ -335,9 +335,9 @@ ecvtbuf:
 	mov	%i0, %o0
 	mov	%i4, %o4
 	mov	%i1, %o1
+	st	%g1, [%sp+92]
 	mov	%i2, %o2
 	mov	%i3, %o3
-	st	%g1, [%sp+92]
 	call	cvt, 0
 	 mov	%i5, %o5
 	jmp	%i7+8

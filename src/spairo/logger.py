@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 
-import logging
+
 import subprocess
 import os
 import os.path as osp
+import logging
 
 from logging.handlers import RotatingFileHandler
 

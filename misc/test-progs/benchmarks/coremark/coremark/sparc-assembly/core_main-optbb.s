@@ -224,9 +224,9 @@ ajit_main:
 	 add	%l2, 1, %i4
 	/*start bb 22, raw*/mov	%i4, %l2
 /*end bb 22*/.L23:
-	/*start bb 23, raw*/mov	2000, %l5
+	/*start bb 23, raw*/sll	%l2, 16, %l3
+	mov	2000, %l5
 	wr	%g0, 0, %y
-	sll	%l2, 16, %l3
 	srl	%l3, 16, %l4
 	nop
 	nop
@@ -684,8 +684,8 @@ ajit_main:
 .L143:
 	/*start bb 106, raw*/sethi	%hi(.LC2), %g1
 	ldd	[%g1+%lo(.LC2)], %f2
-	nop
 	fcmped	%f0, %f2
+	nop
 	/*end bb 106*/fbul	.L144
 	 nop
 	/*start bb 107, raw*/fsubd	%f0, %f2, %f4
@@ -704,11 +704,11 @@ ajit_main:
 	nop
 	nop
 	nop
+	sethi	%hi(.LC3), %i1
 	udiv	%l7, %g1, %i0
 	ld	[%fp-44], %g1
-	sethi	%hi(.LC3), %i1
-	add	%i0, 1, %i2
 	or	%i1, %lo(.LC3), %o0
+	add	%i0, 1, %i2
 	smul	%i2, %g1, %o1
 	/*end bb 109*/call	ee_printf, 0
 	 st	%o1, [%fp-44]

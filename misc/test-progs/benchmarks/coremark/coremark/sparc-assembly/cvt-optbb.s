@@ -40,8 +40,8 @@ cvt:
 	 mov	1, %g1
 	/*start bb 4, raw*/st	%g0, [%i4]
 /*end bb 4*/.L5:
-	/*start bb 5, raw*/ldd	[%g2+%lo(.LC0)], %f12
-	fdtoi	%f10, %f0
+	/*start bb 5, raw*/fdtoi	%f10, %f0
+	ldd	[%g2+%lo(.LC0)], %f12
 	fitod	%f0, %f20
 	fcmpd	%f20, %f12
 	nop
@@ -200,8 +200,8 @@ cvt:
 	jmp	%i7+8
 	 restore %g0, %i5, %o0
 .L6:
-	/*start bb 31, raw*/nop
-	fcmped	%f10, %f12
+	/*start bb 31, raw*/fcmped	%f10, %f12
+	nop
 	/*end bb 31*/fbule	.L52
 	 nop
 	/*start bb 32, raw*/sethi	%hi(.LC1), %g3

@@ -1127,8 +1127,8 @@ instrData = {
           {
             "name"      : "nop",
             "latency"   : Value.latencyB,
-            "reg-read"  : registers, #set
-            "reg-mod"   : None, #set
+            "reg-read"  : None, #set
+            "reg-mod"   : registers, #set
             "res-used"  : None, #set
             "destLabel" : None, #set
             "delaySlot" : False,

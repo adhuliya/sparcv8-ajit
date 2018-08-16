@@ -38,13 +38,13 @@ instruction = r"(?P<instr>(?P<instrname>\w+)[^;\n]*[;]?)"
 semicolon = r"(?P<sc>;>)"
 whiteSpace = r"(?P<ws>\s+)"
 nonWhiteSpace = r"(?P<nws>\S+)"
-commentMarkup = r"(?P<comment><slc\d+>|<mlc\d+>)"
+commentMarkup = r"(?P<comment><(slc\d+|mlc\d+):(?P<lines>\d+)>)"
 appNoApp = r"(?P<app>#(NO_)?APP)"
 # combining above regexes (assuming all comments are already removed)
 asmChunk = "|".join([macroDef, label, pseudoOp, instruction,
                      whiteSpace, commentMarkup, appNoApp, nonWhiteSpace])
 
-markups = re.compile(r"<str(?P<str>\d+)>|<(slc|mlc)(?P<comment>\d+)>")
+markups = re.compile(r"<str(?P<str>\d+)>|<(slc|mlc)(?P<comment>\d+):(?P<lines>\d+)>")
 strMarkup = re.compile(r"<str(?P<str>\d+)>")
 
 
@@ -68,7 +68,7 @@ detectTextSectionPat = re.compile(textSection + "|" + nonTextSection + "|" + oth
 
 
 class AsmChunk():
-  def __init__(self, index=None, text=None, unitType=None, isTextSection=False):
+  def __init__(self, index=None, text=None, unitType=None, isTextSection=False, filename="", lineNum=0):
     """
     unitType is one of
       "label"
@@ -84,6 +84,8 @@ class AsmChunk():
     self.text = text
     self.unitType = unitType
     self.isTextSection = isTextSection
+    self.filename = filename
+    self.lineNum = lineNum
 
   def __str__(self):
     return "AsmChunk(index={:<5}, unitType={:<9}, textSection={:<5}, text={!r})".format(self.index, repr(self.unitType), str(self.isTextSection), self.text)
@@ -107,6 +109,7 @@ class AsmModule():
     self.chunks = []  # ordered list of AsmChunk objects
     self.basicBlocks = []
     self.isTextSection = True  # (NEW) default
+    self.currLine = 1 # keeps track of line numbers
 
   def parse(self):
     self.originalContent = self.readFile()
@@ -132,17 +135,17 @@ class AsmModule():
         assert groupDict["macrodefname"], "spairo: error: macro def has no name"
         print("spairo: warn: macro definition found: {}.".format(groupDict["macrodefname"]), file=sys.stderr)
         self.macroNames.add(groupDict["macrodefname"])
-        self.chunks.append(AsmChunk(index=len(self.chunks), unitType="macrodef", isTextSection=self.isTextSection, text=match.group("macrodef")))
+        self.chunks.append(AsmChunk(index=len(self.chunks), unitType="macrodef", isTextSection=self.isTextSection, text=match.group("macrodef"), filename=self.filename, lineNum=self.currLine))
         log.info("Found macro: name: {}, content: {}".format(groupDict["macrodefname"], groupDict["macrodef"]))
         return match.group("macrodef")
 
       if groupDict["label"] is not None:
-        self.chunks.append(AsmChunk(index=len(self.chunks), unitType="label", isTextSection=self.isTextSection, text=match.group("label")))
+        self.chunks.append(AsmChunk(index=len(self.chunks), unitType="label", isTextSection=self.isTextSection, text=match.group("label"), filename=self.filename, lineNum=self.currLine))
         return match.group("label")
 
       elif groupDict["popln"] is not None:
         self.detectTextSection(match.group("popln"))
-        self.chunks.append(AsmChunk(index=len(self.chunks), unitType="popln", isTextSection=self.isTextSection, text=match.group("popln")))
+        self.chunks.append(AsmChunk(index=len(self.chunks), unitType="popln", isTextSection=self.isTextSection, text=match.group("popln"), filename=self.filename, lineNum=self.currLine))
         return match.group("popln")
 
       elif groupDict["instr"] is not None:
@@ -152,25 +155,27 @@ class AsmModule():
           # its a macro
           print("spairo: warn: use of macro found: {}".format(groupDict["instrname"]), file=sys.stderr)
           log.info("macro used: name: {}, content: {}".format(groupDict["instrname"], groupDict["instr"]))
-          self.chunks.append(AsmChunk(index=len(self.chunks), unitType="macrouse", isTextSection=self.isTextSection, text=match.group("instr")))
+          self.chunks.append(AsmChunk(index=len(self.chunks), unitType="macrouse", isTextSection=self.isTextSection, text=match.group("instr"), filename=self.filename, lineNum=self.currLine))
           return match.group("instr") # macro is a (set of) instruction(s)
         else:
           # its an instruction
-          self.chunks.append(AsmChunk(index=len(self.chunks), unitType="instr", isTextSection=self.isTextSection, text=match.group("instr")))
+          self.chunks.append(AsmChunk(index=len(self.chunks), unitType="instr", isTextSection=self.isTextSection, text=match.group("instr"), filename=self.filename, lineNum=self.currLine))
           return match.group("instr")
 
       elif groupDict["comment"] is not None:
-        self.chunks.append(AsmChunk(index=len(self.chunks), unitType="comment", isTextSection=self.isTextSection, text=match.group("comment").strip()))
+        self.chunks.append(AsmChunk(index=len(self.chunks), unitType="comment", isTextSection=self.isTextSection, text=match.group("comment").strip(), filename=self.filename, lineNum=self.currLine))
+        self.currLine += int(groupDict["lines"])
         return match.group("instr")
 
       elif groupDict["ws"] is not None:
+        self.currLine += groupDict["ws"].count("\n")
         self.chunks.append(
-          AsmChunk(index=len(self.chunks), unitType="ws", isTextSection=self.isTextSection, text=match.group("ws")))
+          AsmChunk(index=len(self.chunks), unitType="ws", isTextSection=self.isTextSection, text=match.group("ws"), filename=self.filename, lineNum=self.currLine))
         return match.group("ws")
 
       elif groupDict["app"] is not None:
         self.chunks.append(
-          AsmChunk(index=len(self.chunks), unitType="app", isTextSection=self.isTextSection, text=match.group("app")))
+          AsmChunk(index=len(self.chunks), unitType="app", isTextSection=self.isTextSection, text=match.group("app"), filename=self.filename, lineNum=self.currLine))
         return match.group("app")
 
       elif groupDict["nws"] is not None:
@@ -249,11 +254,12 @@ class AsmModule():
       assert len(groupDict) == 4, "Groups are {}.".format(groupDict.keys())
 
       if groupDict["slc"] is not None:
-        rep = "<slc" + str(len(self.comments)) + ">"
+        rep = "<slc" + str(len(self.comments)) + ":0>"
         self.comments.append(match.group("slc"))
         return rep
       elif groupDict["mlc"] is not None:
-        rep = "<mlc" + str(len(self.comments)) + ">"
+        lines = self.countNewLines(groupDict["mlc"])
+        rep = "<mlc" + str(len(self.comments)) + ":" + lines + ">"
         self.comments.append(match.group("mlc"))
         return rep
       elif groupDict["dqstr"] is not None:
@@ -271,6 +277,9 @@ class AsmModule():
     newContent = p.sub(replace, content)
 
     return newContent
+
+  def countNewLines(self, string):
+    return str(string).count("\n")
 
 
 if __name__ == "__main__":

@@ -3,29 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="6240fab7-a2ec-4734-b098-60aab0fb84fd" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/ajit_access_routines-bb.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/ajit_access_routines-bb.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/ajit_access_routines-opt.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/ajit_access_routines-opt.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/core_list_join-bb.s" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/core_list_join-opt.s" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/core_main-bb.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/core_main-bb.s" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/core_main-opt.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/core_main-opt.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/core_matrix-bb.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/core_matrix-bb.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/core_matrix-opt.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/core_matrix-opt.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/core_portme-bb.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/core_portme-bb.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/core_state-bb.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/core_state-bb.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/core_state-opt.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/core_state-opt.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/core_util-bb.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/core_util-bb.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/core_util-opt.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/core_util-opt.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/cvt-bb.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/cvt-bb.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/core_main-optbb.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/core_main-optbb.s" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/cvt-opt.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/cvt-opt.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/ee_printf-bb.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/ee_printf-bb.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/cvt-optbb.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/cvt-optbb.s" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/ee_printf-opt.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/ee_printf-opt.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/benchmarks/dhrystone/compiled/clean.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/ee_printf-optbb.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/benchmarks/coremark/coremark/sparc-assembly/ee_printf-optbb.s" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/spairo/airo.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/spairo/airo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/spairo/basicblocks.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/spairo/basicblocks.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/spairo/instruction.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/spairo/instruction.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/spairo/logger.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/spairo/logger.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/spairo/parse/asm.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/spairo/parse/asm.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/spairo/sparcinfo.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/spairo/sparcinfo.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -47,27 +32,29 @@
     <session id="-1002050406">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="6" />
+          <entry key="project.closed" value="7" />
           <entry key="project.open.time.25" value="1" />
           <entry key="project.open.time.26" value="1" />
           <entry key="project.open.time.27" value="2" />
           <entry key="project.open.time.28" value="1" />
+          <entry key="project.open.time.30" value="1" />
+          <entry key="project.open.time.31" value="1" />
           <entry key="project.open.time.41" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="7" />
+          <entry key="project.opened" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.js.language.service.starts" />
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="1565" />
+          <entry key="py" value="2256" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open" />
       <usages-collector id="statistics.file.extensions.open" />
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="1565" />
+          <entry key="Python" value="2256" />
         </counts>
       </usages-collector>
     </session>
@@ -80,8 +67,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1320">
-              <caret line="89" column="53" selection-start-line="89" selection-start-column="53" selection-end-line="89" selection-end-column="53" />
+            <state>
               <folding>
                 <element signature="e#317#327#0" expanded="true" />
               </folding>
@@ -92,8 +78,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/spairo/basicblocks.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4110">
-              <caret line="283" column="61" selection-start-line="283" selection-start-column="61" selection-end-line="283" selection-end-column="61" />
+            <state relative-caret-position="660">
+              <caret line="45" column="24" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="24" />
               <folding>
                 <element signature="e#87#97#0" expanded="true" />
               </folding>
@@ -104,8 +90,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/spairo/sparcinfo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="335">
-              <caret line="1129" column="41" selection-start-line="1129" selection-start-column="41" selection-end-line="1129" selection-end-column="41" />
+            <state>
+              <caret line="1129" column="30" selection-start-line="1129" selection-start-column="30" selection-end-line="1129" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -113,8 +99,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/spairo/parse/asm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="465">
-              <caret line="36" column="26" selection-start-line="36" selection-start-column="26" selection-end-line="36" selection-end-column="26" />
+            <state relative-caret-position="242">
+              <caret line="41" column="33" selection-start-line="41" selection-start-column="33" selection-end-line="41" selection-end-column="33" />
               <folding>
                 <element signature="e#287#296#0" expanded="true" />
               </folding>
@@ -125,10 +111,9 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/spairo/instruction.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1440">
-              <caret line="101" column="7" selection-start-line="101" selection-start-column="7" selection-end-line="101" selection-end-column="7" />
+            <state relative-caret-position="-110">
+              <caret line="4" column="10" selection-start-line="4" selection-start-column="7" selection-end-line="4" selection-end-column="10" />
               <folding>
-                <element signature="e#70#80#0" expanded="true" />
                 <marker date="1533574783496" expanded="true" signature="3103:3638" ph="..." />
               </folding>
             </state>
@@ -138,7 +123,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/spairo/logger.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
+            <state>
               <caret line="7" selection-start-line="7" selection-end-line="7" />
             </state>
           </provider>
@@ -147,8 +132,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/spairo/airo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4410">
-              <caret line="294" column="16" selection-start-line="294" selection-start-column="16" selection-end-line="294" selection-end-column="16" />
+            <state relative-caret-position="631">
+              <caret line="173" column="49" selection-start-line="173" selection-start-column="49" selection-end-line="173" selection-end-column="49" />
               <folding>
                 <element signature="e#149#160#0" expanded="true" />
               </folding>
@@ -159,7 +144,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
+            <state>
               <caret line="27" selection-start-line="27" selection-end-line="27" />
             </state>
           </provider>
@@ -209,10 +194,10 @@
         <option value="$PROJECT_DIR$/src/spairo/latency.py" />
         <option value="$PROJECT_DIR$/src/spairo/logger.py" />
         <option value="$PROJECT_DIR$/src/main.py" />
-        <option value="$PROJECT_DIR$/src/spairo/parse/asm.py" />
         <option value="$PROJECT_DIR$/src/spairo/basicblocks.py" />
-        <option value="$PROJECT_DIR$/src/spairo/instruction.py" />
         <option value="$PROJECT_DIR$/src/spairo/sparcinfo.py" />
+        <option value="$PROJECT_DIR$/src/spairo/instruction.py" />
+        <option value="$PROJECT_DIR$/src/spairo/parse/asm.py" />
         <option value="$PROJECT_DIR$/src/spairo/airo.py" />
       </list>
     </option>
@@ -224,8 +209,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="width" value="1366" />
-    <option name="height" value="749" />
+    <option name="width" value="1920" />
+    <option name="height" value="1059" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -338,9 +323,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1366" height="749" extended-state="0" />
+    <frame x="0" y="0" width="1920" height="1059" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18257576" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18676628" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -393,20 +379,50 @@
     <entry file="file:///usr/lib/python3.5/os.py" />
     <entry file="file://$PROJECT_DIR$/src/spairo/latency.py" />
     <entry file="file://$PROJECT_DIR$/src/spairo.log" />
+    <entry file="file://$PROJECT_DIR$/src/spairo/sparcinfo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="1129" column="30" selection-start-line="1129" selection-start-column="30" selection-end-line="1129" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/spairo/logger.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1320">
-          <caret line="89" column="53" selection-start-line="89" selection-start-column="53" selection-end-line="89" selection-end-column="53" />
+        <state>
           <folding>
             <element signature="e#317#327#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/spairo/instruction.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-110">
+          <caret line="4" column="10" selection-start-line="4" selection-start-column="7" selection-end-line="4" selection-end-column="10" />
+          <folding>
+            <marker date="1533574783496" expanded="true" signature="3103:3638" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/spairo/basicblocks.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4110">
-          <caret line="283" column="61" selection-start-line="283" selection-start-column="61" selection-end-line="283" selection-end-column="61" />
+        <state relative-caret-position="660">
+          <caret line="45" column="24" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="24" />
           <folding>
             <element signature="e#87#97#0" expanded="true" />
           </folding>
@@ -415,50 +431,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/spairo/parse/asm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="36" column="26" selection-start-line="36" selection-start-column="26" selection-end-line="36" selection-end-column="26" />
+        <state relative-caret-position="242">
+          <caret line="41" column="33" selection-start-line="41" selection-start-column="33" selection-end-line="41" selection-end-column="33" />
           <folding>
             <element signature="e#287#296#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/spairo/instruction.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1440">
-          <caret line="101" column="7" selection-start-line="101" selection-start-column="7" selection-end-line="101" selection-end-column="7" />
-          <folding>
-            <element signature="e#70#80#0" expanded="true" />
-            <marker date="1533574783496" expanded="true" signature="3103:3638" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/spairo/logger.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" selection-start-line="27" selection-end-line="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/spairo/sparcinfo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="1129" column="41" selection-start-line="1129" selection-start-column="41" selection-end-line="1129" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/spairo/airo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4410">
-          <caret line="294" column="16" selection-start-line="294" selection-start-column="16" selection-end-line="294" selection-end-column="16" />
+        <state relative-caret-position="631">
+          <caret line="173" column="49" selection-start-line="173" selection-start-column="49" selection-end-line="173" selection-end-column="49" />
           <folding>
             <element signature="e#149#160#0" expanded="true" />
           </folding>

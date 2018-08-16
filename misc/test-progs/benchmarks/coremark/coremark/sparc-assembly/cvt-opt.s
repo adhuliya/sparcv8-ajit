@@ -40,8 +40,8 @@ cvt:
 	 mov	1, %g1
 	st	%g0, [%i4]
 .L5:
-	ldd	[%g2+%lo(.LC0)], %f12
 	fdtoi	%f10, %f0
+	ldd	[%g2+%lo(.LC0)], %f12
 	fitod	%f0, %f20
 	fcmpd	%f20, %f12
 	nop
@@ -200,8 +200,8 @@ cvt:
 	jmp	%i7+8
 	 restore %g0, %i5, %o0
 .L6:
-	nop
 	fcmped	%f10, %f12
+	nop
 	fbule	.L52
 	 nop
 	sethi	%hi(.LC1), %g3

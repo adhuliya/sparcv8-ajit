@@ -135,6 +135,13 @@ class DependencyGraph():
       log.error("graph is None. No dot graph generated.")
       return None
 
+    for nodeId in sorted(self.graph):
+      topnodeId = nodeId
+      break
+
+    asmChunk = self.graph[topnodeId].instr.asmChunk
+    fileAndLine = "\lFile: {}, Line: {}".format(asmChunk.filename, asmChunk.lineNum)
+
     instrListString = io.StringIO()
     instrListString.write("\lOriginal")
     for nodeId in sorted(self.graph):
@@ -162,10 +169,10 @@ class DependencyGraph():
           graphString.write("{} -> {}; ".format(nodeId, succ))
 
     dotGraph = """digraph {{
-    node [fontname = "Courier"]; 
-    nodeA [shape=record label="{{{}}}|{{{}}}"]
+    node [fontname = "Courier"];
+    nodeA [shape=record label="{{{}|{{{{{}}}|{{{}}}}}}}"];
     {}
-    }}""".format(instrListString.getvalue(), reorderedInstrListString.getvalue(), graphString.getvalue())
+    }}""".format(fileAndLine, instrListString.getvalue(), reorderedInstrListString.getvalue(), graphString.getvalue())
 
     return dotGraph
 

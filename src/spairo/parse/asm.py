@@ -36,7 +36,7 @@ pseudoOp = r"(?P<popln>\.[.$_\w]+[ \t]*(?!:)[^;\n]*)"
 # instruction may also match a macro use
 instruction = r"(?P<instr>(?P<instrname>\w+)[^;\n]*[;]?)"
 semicolon = r"(?P<sc>;>)"
-whiteSpace = r"(?P<ws>\s+)"
+whiteSpace = r"(?P<ws>(?P<endws>\s*?\n)|(?P<notendws>[^\S\n]+))"
 nonWhiteSpace = r"(?P<nws>\S+)"
 commentMarkup = r"(?P<comment><(slc\d+|mlc\d+):(?P<lines>\d+)>)"
 appNoApp = r"(?P<app>#(NO_)?APP)"
@@ -168,9 +168,9 @@ class AsmModule():
         return match.group("instr")
 
       elif groupDict["ws"] is not None:
-        self.currLine += groupDict["ws"].count("\n")
         self.chunks.append(
           AsmChunk(index=len(self.chunks), unitType="ws", isTextSection=self.isTextSection, text=match.group("ws"), filename=self.filename, lineNum=self.currLine))
+        self.currLine += groupDict["ws"].count("\n")
         return match.group("ws")
 
       elif groupDict["app"] is not None:
@@ -179,7 +179,7 @@ class AsmModule():
         return match.group("app")
 
       elif groupDict["nws"] is not None:
-        print(groupDict["nws"])
+        print("AD: not white space: '{}', file: {}, line: {}".format(groupDict["nws"], self.filename, self.currLine))
         assert False
         # self.chunks.append(("nws", match.group("nws")))
         return match.group("nws")

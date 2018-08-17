@@ -57,12 +57,16 @@ class BasicBlock():
 # This class is used to generate the output assembly file
 # with minimal changes, such that input/output asm comparison is easy.
 class ChunkBlock():
+  blkid = 0
   def __init__(self, asmChunks=None):
     self.asmChunks = asmChunks
     self.reorderedAsmChunks = []
     self.basicBlock = self.extractBasicBlock()
     # last huristic applied
     self.lastHuristic = None
+    # gives sequential id to each block
+    ChunkBlock.blkid += 1
+    self.blkid = ChunkBlock.blkid
 
   def reorder(self, huristic=None):
     self.lastHuristic = huristic
@@ -118,59 +122,101 @@ class AsmChunkBlocks():
   # Extracts chunk blocks.
   def extractChunkBlocks(self):
     self.basicChunks = []
-    # A temporary holding place for the chunk block chunks
+    # A temporary holding place for the chunks and chunk blocks
     chunkList = None
     # If True, forces the first instruction to be
     # not part of any basic block.
     delaySlot = False
 
     destLabelSet = self.extractDestLabels()
+    currLine = 1  # to buffer chunks by line
+    currLineChunks = []  # buffer of chunks in same line
+
+    def addToCurrLine(theChunk):
+      nonlocal currLine, currLineChunks
+      if type(theChunk) == Instruction:
+        lineNum = theChunk.asmChunk.lineNum
+      else:
+        # must be an AsmChunk
+        lineNum = theChunk.lineNum
+
+      if lineNum == currLine:
+        currLineChunks.append(theChunk)
+        return None
+      else:
+        tmp = currLineChunks
+        currLine = lineNum
+        currLineChunks = [theChunk]
+        return tmp  # return the last line
 
     for chunk in self.asmInstrChunks:
-
       if type(chunk) == AsmChunk:
         asmChunk = chunk
         if chunkList is None:
-          self.basicChunks.append(asmChunk)
+          lastLine = addToCurrLine(asmChunk)
+          if lastLine:
+            self.basicChunks.extend(lastLine)
+            #self.basicChunks.append(asmChunk)
         else:
           # chunkList is not None
           if self.isBoundaryChunk(asmChunk, destLabelSet):
             # i.e. chunk block ends
+            lastLine = addToCurrLine(asmChunk)
+            if lastLine:
+              chunkList.extend(lastLine)
             self.basicChunks.append(ChunkBlock(chunkList))
-            self.basicChunks.append(asmChunk)
             chunkList = None
           else:
-            chunkList.append(asmChunk)
+            lastLine = addToCurrLine(asmChunk)
+            if lastLine:
+              chunkList.extend(lastLine)
 
       elif type(chunk) == Instruction:
         instr = chunk
         if chunkList is None:
           if instr.isBbBoundary():
             delaySlot = instr.delaySlot
-            self.basicChunks.append(instr)
+            lastLine = addToCurrLine(instr)
+            if lastLine:
+              self.basicChunks.extend(lastLine)
           else:
             if delaySlot:
               delaySlot = False
-              self.basicChunks.append(instr)
+              lastLine = addToCurrLine(instr)
+              if lastLine:
+                self.basicChunks.extend(lastLine)
             else:
               # start new chunkList
               chunkList = []
-              chunkList.append(instr)
+              lastLine = addToCurrLine(instr)
+              if lastLine:
+                chunkList.extend(lastLine)
         else:
           # chunkList is not None
           if instr.isBbBoundary():
             delaySlot = instr.delaySlot
+            lastLine = addToCurrLine(instr)
+            if lastLine:
+              chunkList.extend(lastLine)
             self.basicChunks.append(ChunkBlock(chunkList))
-            self.basicChunks.append(instr)
             chunkList = None
           else:
             if instr.mnemonic == "ta": log.info(instr)
-            chunkList.append(instr)
+            lastLine = addToCurrLine(instr)
+            if lastLine:
+              chunkList.extend(lastLine)
       else:
         assert False
 
-    if chunkList is not None:
-      self.basicChunks.append(ChunkBlock(chunkList))
+    if currLineChunks:
+      if chunkList:
+        chunkList.extend(currLineChunks)
+        self.basicChunks.append(ChunkBlock(chunkList))
+      else:
+        self.basicChunks.extend(currLineChunks)
+
+    #if chunkList is not None:
+    #  self.basicChunks.append(ChunkBlock(chunkList))
 
   def reorder(self, huristic=None):
     if not self.basicChunks:
@@ -191,10 +237,11 @@ class AsmChunkBlocks():
       val = True
     if unitType == "label":
       val = True
-      # commented to account for `trap_table_base` and its series of
-      # labels of the format `HW_TRAP_0x00` and `SW_TRAP_0x44`...
-      #if chunk.text.strip(": ") in destLabelSet:
-      #  val = True
+      if chunk.text.strip(": ") in destLabelSet:
+        # commented to account for `trap_table_base` and its series of
+        # labels of the format `HW_TRAP_0x00` and `SW_TRAP_0x44`...
+        #  val = True
+        pass
     if unitType == "macrouse":
       val = True
     if unitType == "macrodef":
@@ -268,12 +315,11 @@ class AsmChunkBlocks():
       self.extractChunkBlocks()
 
     val = StringIO()
-    bbNum = 1  # give sequential id to basic block
     for chunk in self.basicChunks:
       if type(chunk) == AsmChunk:
         print(chunk.text, file=val, end="")
       elif type(chunk) == ChunkBlock:
-        print("/*start bb {}, {}*/".format(bbNum, chunk.lastHuristic), file=val, end="")
+        print("/*start bb {}, {}*/\n".format(chunk.blkid, chunk.lastHuristic), file=val, end="")
         for chnk in chunk.reorderedAsmChunks:
           if type(chnk) == Instruction:
             print(chnk.asmChunk.text, file=val, end="")
@@ -281,14 +327,13 @@ class AsmChunkBlocks():
             print(chnk.text, file=val, end="")
           else:
             assert False, str(type(chnk))
-        print("/*end bb {}*/".format(bbNum), file=val, end="")
-        bbNum += 1
+        print("/*end bb {}*/\n".format(chunk.blkid), file=val, end="")
       elif type(chunk) == Instruction:
         print(chunk.asmChunk.text, file=val, end="")
       else:
         assert False, str(type(chunk))
 
-    print("/*total bb = {}*/".format(bbNum - 1), file=val, end="")
+    # print("/*total bb = {}*/".format(bbNum - 1), file=val, end="")
 
     return self.asmModule.unMarkupCommentsAndStrings(
       val.getvalue())
@@ -302,12 +347,11 @@ class AsmChunkBlocks():
       self.extractChunkBlocks()
 
     val = StringIO()
-    bbNum = 1  # give sequential id to basic block
     for chunk in self.basicChunks:
       if type(chunk) == AsmChunk:
         print(chunk.text, file=val, end="")
       elif type(chunk) == ChunkBlock:
-        print("/*start bb {}, {}*/".format(bbNum, chunk.lastHuristic), file=val, end="\n")
+        print("/*start bb {}, {}*/\n".format(chunk.blkid, chunk.lastHuristic), file=val, end="")
         for chnk in chunk.asmChunks:
           if type(chnk) == Instruction:
             print(chnk.asmChunk.text, file=val, end="")
@@ -315,18 +359,16 @@ class AsmChunkBlocks():
             print(chnk.text, file=val, end="")
           else:
             assert False, str(type(chnk))
-        print("/*end bb {}*/".format(bbNum), file=val, end="\n")
-        bbNum += 1
+        print("/*end bb {}*/\n".format(chunk.blkid), file=val, end="")
       elif type(chunk) == Instruction:
         print(chunk.asmChunk.text, file=val, end="")
       else:
         assert False, str(type(chunk))
 
-    print("/*total bb = {}*/".format(bbNum - 1), file=val, end="\n")
+    # print("/*total bb = {}*/".format(bbNum - 1), file=val, end="\n")
 
     return self.asmModule.unMarkupCommentsAndStrings(
       val.getvalue())
-
 
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-This module parses a sparc asm file and breaks it into logical uints.
+This module parses a sparc asm file and breaks it into logical lexical chunks.
 It specially separates instructions and labels, which are useful
 for assembly instruction reordering.
 It extracts macro definitions, and usages too,

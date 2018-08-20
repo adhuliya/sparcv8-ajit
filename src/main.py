@@ -74,7 +74,8 @@ if __name__ == "__main__":
 
   fileName = sys.argv[1]
 
-  log.info("Huristic: %s", huristic)
+  log.info("file name: %s", fileName)
+  log.info("huristic: %s", huristic)
   # START: main logic
   asmMod = AsmModule(fileName).parse()
   asmChunkBlocks = AsmChunkBlocks(asmMod).reorder(huristic)

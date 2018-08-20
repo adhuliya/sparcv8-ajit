@@ -1,0 +1,545 @@
+Info:pThreadUtils: started thread listenOnGpioOut
+
+Warning: pipeHandler:read_from_pipe: job used unregistered pipe AJIT_to_ENV_gpio_out, will register it as a FIFO with depth 1.
+Info: allocating main memory with 36 address-bits.
+Info:pThreadUtils: started thread listenOnDebugCommandDaemon
+Info:pThreadUtils: started thread listenOnSerialRxDaemon
+
+Warning: pipeHandler:read_from_pipe: job used unregistered pipe ENV_to_AJIT_debug_command, will register it as a FIFO with depth 1.
+Info:pThreadUtils: started thread aggregatorDaemon
+
+Warning: pipeHandler:read_from_pipe: job used unregistered pipe CONSOLE_to_SERIAL_RX, will register it as a FIFO with depth 1.
+Info: starting console threads.
+Info:pThreadUtils: started thread consoleOutput
+Info:pThreadUtils: started thread consoleInput
+Info:pThreadUtils: started thread listenToPmode
+pipe CONSOLE_to_SERIAL_RX is not written into.
+pipe CONSOLE_to_SERIAL_RX is not read from.
+pipe CONSOLE_to_SERIAL_RX is not written into.
+pipe CONSOLE_to_SERIAL_RX is not read from.
+pipe SERIAL_TX_to_CONSOLE is not written into.
+pipe SERIAL_TX_to_CONSOLE is not read from.
+pipe ENV_to_AJIT_debug_command is not written into.
+pipe ENV_to_AJIT_debug_command is not read from.
+pipe AJIT_to_ENV_gpio_out is not written into.
+pipe AJIT_to_ENV_gpio_out is not read from.
+pipe noblock_from_debug_command is not written into.
+pipe noblock_from_debug_command is not read from.
+pipe noblock_from_console is not written into.
+pipe noblock_from_console is not read from.
+pipe AJIT_to_ENV_gpio_out is not written into.
+pipe AJIT_to_ENV_gpio_out is not read from.
+pipe ENV_to_AJIT_gpio_in is not written into.
+pipe ENV_to_AJIT_gpio_in is not read from.
+pipe ENV_to_AJIT_reset is not written into.
+pipe ENV_to_AJIT_reset is not read from.
+Entered putTheProcessorInReset().
+
+Warning: pipeHandler:write_to_pipe: job used unregistered pipe ENV_to_AJIT_irl, will register it as a FIFO with depth 1.
+asserted reset.
+
+Warning: pipeHandler:read_from_pipe: job used unregistered pipe AJIT_to_ENV_processor_mode, will register it as a FIFO with depth 1.
+Info:aggregator:receiveFromCpu: cpu mode changed to 0x1 from 0x0.
+processor put into reset-mode.
+Info: initializing main memory using memory-map dhry.mmap
+Info: will use debug interface to initialize memory.
+
+Warning: pipeHandler:read_from_pipe: job used unregistered pipe AJIT_to_ENV_debug_response, will register it as a FIFO with depth 1.
+Info: initialized mem[0x0] = 0x90102100.
+Info: initialized mem[0x4] = 0xd0a00080.
+Info: initialized mem[0x8] = 0x9c103000.
+Info: initialized mem[0xc] = 0xbc100000.
+Info: initialized mem[0x10] = 0xa0102001.
+Info: initialized mem[0x14] = 0x81942000.
+Info: initialized mem[0x18] = 0x21000004.
+Info: initialized mem[0x1c] = 0xa01420e0.
+Info: initialized mem[0x20] = 0x81880010.
+Info: initialized mem[0x24] = 0xa0102000.
+Info: initialized mem[0x28] = 0x819c2000.
+Info: initialized mem[0x2c] = 0x40000171.
+Info: initialized mem[0x30] = 0x1000000.
+Info: initialized mem[0x34] = 0x91d02000.
+Info: initialized mem[0x38] = 0x90022002.
+Info: initialized mem[0x3c] = 0x92024008.
+Info: initialized mem[0x40] = 0x81c3e008.
+Info: initialized mem[0x44] = 0xd2228000.
+Info: initialized mem[0x48] = 0x8602a005.
+Info: initialized mem[0x4c] = 0x9b28e002.
+Info: initialized mem[0x50] = 0xd622000d.
+Info: initialized mem[0x54] = 0x8202a006.
+Info: initialized mem[0x58] = 0x85286002.
+Info: initialized mem[0x5c] = 0xd6220002.
+Info: initialized mem[0x60] = 0x8802a023.
+Info: initialized mem[0x64] = 0x97292002.
+Info: initialized mem[0x68] = 0xc622000b.
+Info: initialized mem[0x6c] = 0x80a0c001.
+Info: initialized mem[0x70] = 0x1480000b.
+Info: initialized mem[0x74] = 0x88100001.
+Info: initialized mem[0x78] = 0x8258e0c8.
+Info: initialized mem[0x7c] = 0x84100003.
+Info: initialized mem[0x80] = 0x82024001.
+Info: initialized mem[0x84] = 0x8200400d.
+Info: initialized mem[0x88] = 0xc6204000.
+Info: initialized mem[0x8c] = 0x8400a001.
+Info: initialized mem[0x90] = 0x80a08004.
+Info: initialized mem[0x94] = 0x4bffffd.
+Info: initialized mem[0x98] = 0x82006004.
+Info: initialized mem[0x9c] = 0x8258e0c8.
+Info: initialized mem[0xa0] = 0x9402a004.
+Info: initialized mem[0xa4] = 0x82024001.
+Info: initialized mem[0xa8] = 0x932aa002.
+Info: initialized mem[0xac] = 0xd6004009.
+Info: initialized mem[0xb0] = 0x8802e001.
+Info: initialized mem[0xb4] = 0xc8204009.
+Info: initialized mem[0xb8] = 0x8728e002.
+Info: initialized mem[0xbc] = 0xd002000d.
+Info: initialized mem[0xc0] = 0x82004003.
+Info: initialized mem[0xc4] = 0xd0206fa0.
+Info: initialized mem[0xc8] = 0x9a102005.
+Info: initialized mem[0xcc] = 0x300000e.
+Info: initialized mem[0xd0] = 0x81c3e008.
+Info: initialized mem[0xd4] = 0xda206010.
+Info: initialized mem[0xd8] = 0x832a2018.
+Info: initialized mem[0xdc] = 0x932a6018.
+Info: initialized mem[0xe0] = 0x85386018.
+Info: initialized mem[0xe4] = 0x80a24001.
+Info: initialized mem[0xe8] = 0x12800005.
+Info: initialized mem[0xec] = 0x90102000.
+Info: initialized mem[0xf0] = 0x300000e.
+Info: initialized mem[0xf4] = 0x90102001.
+Info: initialized mem[0xf8] = 0xc4286014.
+Info: initialized mem[0xfc] = 0x81c3e008.
+Info: initialized mem[0x100] = 0x1000000.
+Info: initialized mem[0x104] = 0x9de3bfa0.
+Info: initialized mem[0x108] = 0xba102002.
+Info: initialized mem[0x10c] = 0x8206401d.
+Info: initialized mem[0x110] = 0xd04e001d.
+Info: initialized mem[0x114] = 0x7ffffff1.
+Info: initialized mem[0x118] = 0xd2486001.
+Info: initialized mem[0x11c] = 0x80a00008.
+Info: initialized mem[0x120] = 0xba677fff.
+Info: initialized mem[0x124] = 0x80a76002.
+Info: initialized mem[0x128] = 0x4bffffa.
+Info: initialized mem[0x12c] = 0x8206401d.
+Info: initialized mem[0x130] = 0x90100018.
+Info: initialized mem[0x134] = 0x40000167.
+Info: initialized mem[0x138] = 0x92100019.
+Info: initialized mem[0x13c] = 0x80a22000.
+Info: initialized mem[0x140] = 0x4800006.
+Info: initialized mem[0x144] = 0x84076007.
+Info: initialized mem[0x148] = 0x300000e.
+Info: initialized mem[0x14c] = 0xc4206010.
+Info: initialized mem[0x150] = 0x81c7e008.
+Info: initialized mem[0x154] = 0x91e82001.
+Info: initialized mem[0x158] = 0x81c7e008.
+Info: initialized mem[0x15c] = 0x91e82000.
+Info: initialized mem[0x160] = 0x901a2002.
+Info: initialized mem[0x164] = 0x80a00008.
+Info: initialized mem[0x168] = 0x81c3e008.
+Info: initialized mem[0x16c] = 0x90603fff.
+Info: initialized mem[0x170] = 0x9de3bfa0.
+Info: initialized mem[0x174] = 0x7ffffffb.
+Info: initialized mem[0x178] = 0x90100018.
+Info: initialized mem[0x17c] = 0x80a22000.
+Info: initialized mem[0x180] = 0x12800003.
+Info: initialized mem[0x184] = 0x82100018.
+Info: initialized mem[0x188] = 0x82102003.
+Info: initialized mem[0x18c] = 0x80a62001.
+Info: initialized mem[0x190] = 0x280000d.
+Info: initialized mem[0x194] = 0xc2264000.
+Info: initialized mem[0x198] = 0x80a62001.
+Info: initialized mem[0x19c] = 0x2a800010.
+Info: initialized mem[0x1a0] = 0xc0264000.
+Info: initialized mem[0x1a4] = 0x80a62002.
+Info: initialized mem[0x1a8] = 0x2800012.
+Info: initialized mem[0x1ac] = 0x80a62004.
+Info: initialized mem[0x1b0] = 0x1280000b.
+Info: initialized mem[0x1b4] = 0x82102002.
+Info: initialized mem[0x1b8] = 0xc2264000.
+Info: initialized mem[0x1bc] = 0x81c7e008.
+Info: initialized mem[0x1c0] = 0x81e80000.
+Info: initialized mem[0x1c4] = 0x300000e.
+Info: initialized mem[0x1c8] = 0xc2006010.
+Info: initialized mem[0x1cc] = 0x80a06064.
+Info: initialized mem[0x1d0] = 0x24800005.
+Info: initialized mem[0x1d4] = 0x82102003.
+Info: initialized mem[0x1d8] = 0xc0264000.
+Info: initialized mem[0x1dc] = 0x81c7e008.
+Info: initialized mem[0x1e0] = 0x81e80000.
+Info: initialized mem[0x1e4] = 0xc2264000.
+Info: initialized mem[0x1e8] = 0x81c7e008.
+Info: initialized mem[0x1ec] = 0x81e80000.
+Info: initialized mem[0x1f0] = 0x82102001.
+Info: initialized mem[0x1f4] = 0xc2264000.
+Info: initialized mem[0x1f8] = 0x81c7e008.
+Info: initialized mem[0x1fc] = 0x81e80000.
+Info: initialized mem[0x200] = 0x91478000.
+Info: initialized mem[0x204] = 0x81c3e008.
+Info: initialized mem[0x208] = 0x1000000.
+Info: initialized mem[0x20c] = 0x9147c000.
+Info: initialized mem[0x210] = 0x81c3e008.
+Info: initialized mem[0x214] = 0x1000000.
+Info: initialized mem[0x218] = 0x9947c000.
+Info: initialized mem[0x21c] = 0x83478000.
+Info: initialized mem[0x220] = 0x88102000.
+Info: initialized mem[0x224] = 0x86102000.
+Info: initialized mem[0x228] = 0x90104004.
+Info: initialized mem[0x22c] = 0x81c3e008.
+Info: initialized mem[0x230] = 0x9210c00c.
+Info: initialized mem[0x234] = 0x82100008.
+Info: initialized mem[0x238] = 0x81c3e008.
+Info: initialized mem[0x23c] = 0x1000000.
+Info: initialized mem[0x240] = 0x84100008.
+Info: initialized mem[0x244] = 0x81c3e008.
+Info: initialized mem[0x248] = 0x1000000.
+Info: initialized mem[0x24c] = 0x86100008.
+Info: initialized mem[0x250] = 0x81c3e008.
+Info: initialized mem[0x254] = 0x1000000.
+Info: initialized mem[0x258] = 0x88100008.
+Info: initialized mem[0x25c] = 0x81c3e008.
+Info: initialized mem[0x260] = 0x1000000.
+Info: initialized mem[0x264] = 0x8a100008.
+Info: initialized mem[0x268] = 0x81c3e008.
+Info: initialized mem[0x26c] = 0x1000000.
+Info: initialized mem[0x270] = 0x91d02000.
+Info: initialized mem[0x274] = 0x1000000.
+Info: initialized mem[0x278] = 0x1000000.
+Info: initialized mem[0x27c] = 0x81c3e008.
+Info: initialized mem[0x280] = 0x1000000.
+Info: initialized mem[0x284] = 0xd0a24080.
+Info: initialized mem[0x288] = 0x81c3e008.
+Info: initialized mem[0x28c] = 0x1000000.
+Info: initialized mem[0x290] = 0x300000e.
+Info: initialized mem[0x294] = 0xc2486014.
+Info: initialized mem[0x298] = 0x80a06041.
+Info: initialized mem[0x29c] = 0x12800007.
+Info: initialized mem[0x2a0] = 0xc4020000.
+Info: initialized mem[0x2a4] = 0x8600a009.
+Info: initialized mem[0x2a8] = 0x300000e.
+Info: initialized mem[0x2ac] = 0xc2006010.
+Info: initialized mem[0x2b0] = 0x8820c001.
+Info: initialized mem[0x2b4] = 0xc8220000.
+Info: initialized mem[0x2b8] = 0x81c3e008.
+Info: initialized mem[0x2bc] = 0x1000000.
+Info: initialized mem[0x2c0] = 0x9de3bfa0.
+Info: initialized mem[0x2c4] = 0x300000e.
+Info: initialized mem[0x2c8] = 0xc2006018.
+Info: initialized mem[0x2cc] = 0x80a06000.
+Info: initialized mem[0x2d0] = 0x22800005.
+Info: initialized mem[0x2d4] = 0x300000e.
+Info: initialized mem[0x2d8] = 0xc2004000.
+Info: initialized mem[0x2dc] = 0xc2260000.
+Info: initialized mem[0x2e0] = 0x300000e.
+Info: initialized mem[0x2e4] = 0xd4006018.
+Info: initialized mem[0x2e8] = 0x300000e.
+Info: initialized mem[0x2ec] = 0x9010200a.
+Info: initialized mem[0x2f0] = 0xd2006010.
+Info: initialized mem[0x2f4] = 0x7fffff51.
+Info: initialized mem[0x2f8] = 0x9402a00c.
+Info: initialized mem[0x2fc] = 0x81c7e008.
+Info: initialized mem[0x300] = 0x81e80000.
+Info: initialized mem[0x304] = 0x9de3bfa0.
+Info: initialized mem[0x308] = 0x300000e.
+Info: initialized mem[0x30c] = 0xfa060000.
+Info: initialized mem[0x310] = 0xd2006018.
+Info: initialized mem[0x314] = 0x94102030.
+Info: initialized mem[0x318] = 0x400000d6.
+Info: initialized mem[0x31c] = 0x9010001d.
+Info: initialized mem[0x320] = 0x82102005.
+Info: initialized mem[0x324] = 0xc226200c.
+Info: initialized mem[0x328] = 0xc227600c.
+Info: initialized mem[0x32c] = 0xc2060000.
+Info: initialized mem[0x330] = 0x9010001d.
+Info: initialized mem[0x334] = 0x7fffffe3.
+Info: initialized mem[0x338] = 0xc2274000.
+Info: initialized mem[0x33c] = 0xc2076004.
+Info: initialized mem[0x340] = 0x80a06000.
+Info: initialized mem[0x344] = 0x12800011.
+Info: initialized mem[0x348] = 0x90100018.
+Info: initialized mem[0x34c] = 0x82102006.
+Info: initialized mem[0x350] = 0x92076008.
+Info: initialized mem[0x354] = 0xc227600c.
+Info: initialized mem[0x358] = 0x7fffff86.
+Info: initialized mem[0x35c] = 0xd0062008.
+Info: initialized mem[0x360] = 0x300000e.
+Info: initialized mem[0x364] = 0xc2006018.
+Info: initialized mem[0x368] = 0xc2004000.
+Info: initialized mem[0x36c] = 0xd007600c.
+Info: initialized mem[0x370] = 0x9210200a.
+Info: initialized mem[0x374] = 0x9407600c.
+Info: initialized mem[0x378] = 0x7fffff30.
+Info: initialized mem[0x37c] = 0xc2274000.
+Info: initialized mem[0x380] = 0x81c7e008.
+Info: initialized mem[0x384] = 0x81e80000.
+Info: initialized mem[0x388] = 0xd2060000.
+Info: initialized mem[0x38c] = 0x400000b9.
+Info: initialized mem[0x390] = 0x94102030.
+Info: initialized mem[0x394] = 0x81c7e008.
+Info: initialized mem[0x398] = 0x81e80000.
+Info: initialized mem[0x39c] = 0x700000e.
+Info: initialized mem[0x3a0] = 0xc848e014.
+Info: initialized mem[0x3a4] = 0x86192041.
+Info: initialized mem[0x3a8] = 0x88102042.
+Info: initialized mem[0x3ac] = 0x300000e.
+Info: initialized mem[0x3b0] = 0x80a00003.
+Info: initialized mem[0x3b4] = 0xc40060e4.
+Info: initialized mem[0x3b8] = 0x700000e.
+Info: initialized mem[0x3bc] = 0xc828e015.
+Info: initialized mem[0x3c0] = 0x88603fff.
+Info: initialized mem[0x3c4] = 0x84110002.
+Info: initialized mem[0x3c8] = 0x81c3e008.
+Info: initialized mem[0x3cc] = 0xc42060e4.
+Info: initialized mem[0x3d0] = 0x300000e.
+Info: initialized mem[0x3d4] = 0x84102041.
+Info: initialized mem[0x3d8] = 0xc4286014.
+Info: initialized mem[0x3dc] = 0x300000e.
+Info: initialized mem[0x3e0] = 0x81c3e008.
+Info: initialized mem[0x3e4] = 0xc02060e4.
+Info: initialized mem[0x3e8] = 0x9de3bf50.
+Info: initialized mem[0x3ec] = 0x3000004.
+Info: initialized mem[0x3f0] = 0x5000004.
+Info: initialized mem[0x3f4] = 0x901060c8.
+Info: initialized mem[0x3f8] = 0x8810a098.
+Info: initialized mem[0x3fc] = 0xc82060c8.
+Info: initialized mem[0x400] = 0x82102002.
+Info: initialized mem[0x404] = 0x700000e.
+Info: initialized mem[0x408] = 0xc2222008.
+Info: initialized mem[0x40c] = 0x15000004.
+Info: initialized mem[0x410] = 0x82102028.
+Info: initialized mem[0x414] = 0x1300000e.
+Info: initialized mem[0x418] = 0xc222200c.
+Info: initialized mem[0x41c] = 0xd020e018.
+Info: initialized mem[0x420] = 0xc822600c.
+Info: initialized mem[0x424] = 0xc0222004.
+Info: initialized mem[0x428] = 0x9212a000.
+Info: initialized mem[0x42c] = 0x4000009a.
+Info: initialized mem[0x430] = 0x90022010.
+Info: initialized mem[0x434] = 0x17000004.
+Info: initialized mem[0x438] = 0x9007bfd0.
+Info: initialized mem[0x43c] = 0x40000096.
+Info: initialized mem[0x440] = 0x9212e020.
+Info: initialized mem[0x444] = 0x9810200a.
+Info: initialized mem[0x448] = 0x3000005.
+Info: initialized mem[0x44c] = 0x80a62000.
+Info: initialized mem[0x450] = 0x4800066.
+Info: initialized mem[0x454] = 0xd8206354.
+Info: initialized mem[0x458] = 0x21000004.
+Info: initialized mem[0x45c] = 0x3300000e.
+Info: initialized mem[0x460] = 0x35000004.
+Info: initialized mem[0x464] = 0x37000004.
+Info: initialized mem[0x468] = 0xb8102001.
+Info: initialized mem[0x46c] = 0xa0142040.
+Info: initialized mem[0x470] = 0xb216601c.
+Info: initialized mem[0x474] = 0xb416a0f8.
+Info: initialized mem[0x478] = 0xb616e060.
+Info: initialized mem[0x47c] = 0x7fffffd5.
+Info: initialized mem[0x480] = 0x1000000.
+Info: initialized mem[0x484] = 0x7fffffc6.
+Info: initialized mem[0x488] = 0x1000000.
+Info: initialized mem[0x48c] = 0x82102002.
+Info: initialized mem[0x490] = 0x92100010.
+Info: initialized mem[0x494] = 0xc227bffc.
+Info: initialized mem[0x498] = 0x4000007f.
+Info: initialized mem[0x49c] = 0x9007bfb0.
+Info: initialized mem[0x4a0] = 0x82102001.
+Info: initialized mem[0x4a4] = 0x9007bfd0.
+Info: initialized mem[0x4a8] = 0xc227bff4.
+Info: initialized mem[0x4ac] = 0x7fffff16.
+Info: initialized mem[0x4b0] = 0x9207bfb0.
+Info: initialized mem[0x4b4] = 0x300000e.
+Info: initialized mem[0x4b8] = 0x80a00008.
+Info: initialized mem[0x4bc] = 0x9a603fff.
+Info: initialized mem[0x4c0] = 0xda2060e4.
+Info: initialized mem[0x4c4] = 0xd407bffc.
+Info: initialized mem[0x4c8] = 0x80a2a002.
+Info: initialized mem[0x4cc] = 0x14800010.
+Info: initialized mem[0x4d0] = 0x90100019.
+Info: initialized mem[0x4d4] = 0x832aa002.
+Info: initialized mem[0x4d8] = 0x9e00400a.
+Info: initialized mem[0x4dc] = 0x8203fffd.
+Info: initialized mem[0x4e0] = 0x9407bff8.
+Info: initialized mem[0x4e4] = 0xd007bffc.
+Info: initialized mem[0x4e8] = 0x92102003.
+Info: initialized mem[0x4ec] = 0x7ffffed3.
+Info: initialized mem[0x4f0] = 0xc227bff8.
+Info: initialized mem[0x4f4] = 0xe207bffc.
+Info: initialized mem[0x4f8] = 0x94046001.
+Info: initialized mem[0x4fc] = 0x80a2a002.
+Info: initialized mem[0x500] = 0x4bffff5.
+Info: initialized mem[0x504] = 0xd427bffc.
+Info: initialized mem[0x508] = 0x90100019.
+Info: initialized mem[0x50c] = 0x9210001a.
+Info: initialized mem[0x510] = 0x7ffffece.
+Info: initialized mem[0x514] = 0xd607bff8.
+Info: initialized mem[0x518] = 0x300000e.
+Info: initialized mem[0x51c] = 0x7fffff7a.
+Info: initialized mem[0x520] = 0xd0006018.
+Info: initialized mem[0x524] = 0x300000e.
+Info: initialized mem[0x528] = 0xc2486015.
+Info: initialized mem[0x52c] = 0x80a06040.
+Info: initialized mem[0x530] = 0x480001e.
+Info: initialized mem[0x534] = 0xba102041.
+Info: initialized mem[0x538] = 0xa4102003.
+Info: initialized mem[0x53c] = 0x2700000e.
+Info: initialized mem[0x540] = 0x2300000e.
+Info: initialized mem[0x544] = 0x912f6018.
+Info: initialized mem[0x548] = 0x92102043.
+Info: initialized mem[0x54c] = 0x7ffffee3.
+Info: initialized mem[0x550] = 0x913a2018.
+Info: initialized mem[0x554] = 0xc207bff4.
+Info: initialized mem[0x558] = 0x80a20001.
+Info: initialized mem[0x55c] = 0x3280000b.
+Info: initialized mem[0x560] = 0xba076001.
+Info: initialized mem[0x564] = 0x90102000.
+Info: initialized mem[0x568] = 0x7fffff02.
+Info: initialized mem[0x56c] = 0x9207bff4.
+Info: initialized mem[0x570] = 0x9007bfb0.
+Info: initialized mem[0x574] = 0x9210001b.
+Info: initialized mem[0x578] = 0x40000047.
+Info: initialized mem[0x57c] = 0xa410001c.
+Info: initialized mem[0x580] = 0xf824e010.
+Info: initialized mem[0x584] = 0xba076001.
+Info: initialized mem[0x588] = 0xc44c6015.
+Info: initialized mem[0x58c] = 0x832f6018.
+Info: initialized mem[0x590] = 0x83386018.
+Info: initialized mem[0x594] = 0x80a08001.
+Info: initialized mem[0x598] = 0x16bfffec.
+Info: initialized mem[0x59c] = 0x912f6018.
+Info: initialized mem[0x5a0] = 0x10800004.
+Info: initialized mem[0x5a4] = 0xc207bffc.
+Info: initialized mem[0x5a8] = 0xa4102003.
+Info: initialized mem[0x5ac] = 0xc207bffc.
+Info: initialized mem[0x5b0] = 0x885c8001.
+Info: initialized mem[0x5b4] = 0x8339201f.
+Info: initialized mem[0x5b8] = 0x81806000.
+Info: initialized mem[0x5bc] = 0xc207bff8.
+Info: initialized mem[0x5c0] = 0x1000000.
+Info: initialized mem[0x5c4] = 0x1000000.
+Info: initialized mem[0x5c8] = 0x86790001.
+Info: initialized mem[0x5cc] = 0x9007bffc.
+Info: initialized mem[0x5d0] = 0x7fffff30.
+Info: initialized mem[0x5d4] = 0xc627bffc.
+Info: initialized mem[0x5d8] = 0xb8072001.
+Info: initialized mem[0x5dc] = 0x80a6001c.
+Info: initialized mem[0x5e0] = 0x16bfffa7.
+Info: initialized mem[0x5e4] = 0x1000000.
+Info: initialized mem[0x5e8] = 0x81c7e008.
+Info: initialized mem[0x5ec] = 0x81e80000.
+Info: initialized mem[0x5f0] = 0x9de3bfa0.
+Info: initialized mem[0x5f4] = 0x84102000.
+Info: initialized mem[0x5f8] = 0x82102100.
+Info: initialized mem[0x5fc] = 0xc2a08080.
+Info: initialized mem[0x600] = 0xa7478000.
+Info: initialized mem[0x604] = 0xa947c000.
+Info: initialized mem[0x608] = 0xb184e000.
+Info: initialized mem[0x60c] = 0xb3852000.
+Info: initialized mem[0x610] = 0x11000009.
+Info: initialized mem[0x614] = 0x7fffff75.
+Info: initialized mem[0x618] = 0x90122310.
+Info: initialized mem[0x61c] = 0x300000e.
+Info: initialized mem[0x620] = 0xc2006010.
+Info: initialized mem[0x624] = 0x84100001.
+Info: initialized mem[0x628] = 0x300000e.
+Info: initialized mem[0x62c] = 0xc20060e4.
+Info: initialized mem[0x630] = 0x86100001.
+Info: initialized mem[0x634] = 0x300000e.
+Info: initialized mem[0x638] = 0xc2486014.
+Info: initialized mem[0x63c] = 0x88100001.
+Info: initialized mem[0x640] = 0x300000e.
+Info: initialized mem[0x644] = 0xc200603c.
+Info: initialized mem[0x648] = 0x8a100001.
+Info: initialized mem[0x64c] = 0xa7478000.
+Info: initialized mem[0x650] = 0xa947c000.
+Info: initialized mem[0x654] = 0xb584e000.
+Info: initialized mem[0x658] = 0xb7852000.
+Info: initialized mem[0x65c] = 0x91d02000.
+Info: initialized mem[0x660] = 0x1000000.
+Info: initialized mem[0x664] = 0x1000000.
+Info: initialized mem[0x668] = 0x81c7e008.
+Info: initialized mem[0x66c] = 0x91e82000.
+Info: initialized mem[0x670] = 0xc41a4000.
+Info: initialized mem[0x674] = 0x82102000.
+Info: initialized mem[0x678] = 0xc43a0001.
+Info: initialized mem[0x67c] = 0x82006008.
+Info: initialized mem[0x680] = 0x80a0400a.
+Info: initialized mem[0x684] = 0xabffffd.
+Info: initialized mem[0x688] = 0xc41a4001.
+Info: initialized mem[0x68c] = 0x81c3e008.
+Info: initialized mem[0x690] = 0x1000000.
+Info: initialized mem[0x694] = 0x1b3fbfbf.
+Info: initialized mem[0x698] = 0x9202020.
+Info: initialized mem[0x69c] = 0xc4024000.
+Info: initialized mem[0x6a0] = 0x82102000.
+Info: initialized mem[0x6a4] = 0x9a1362ff.
+Info: initialized mem[0x6a8] = 0x88112080.
+Info: initialized mem[0x6ac] = 0xc4220001.
+Info: initialized mem[0x6b0] = 0x8600800d.
+Info: initialized mem[0x6b4] = 0x82006004.
+Info: initialized mem[0x6b8] = 0x8628c002.
+Info: initialized mem[0x6bc] = 0x8088c004.
+Info: initialized mem[0x6c0] = 0x2bffffb.
+Info: initialized mem[0x6c4] = 0xc4024001.
+Info: initialized mem[0x6c8] = 0x81c3e008.
+Info: initialized mem[0x6cc] = 0x1000000.
+Info: initialized mem[0x6d0] = 0x173fbfbf.
+Info: initialized mem[0x6d4] = 0x19202020.
+Info: initialized mem[0x6d8] = 0x9a100008.
+Info: initialized mem[0x6dc] = 0x82102000.
+Info: initialized mem[0x6e0] = 0x9612e2ff.
+Info: initialized mem[0x6e4] = 0x98132080.
+Info: initialized mem[0x6e8] = 0xc8024001.
+Info: initialized mem[0x6ec] = 0xc4034001.
+Info: initialized mem[0x6f0] = 0x90208004.
+Info: initialized mem[0x6f4] = 0x8600800b.
+Info: initialized mem[0x6f8] = 0x8428c002.
+Info: initialized mem[0x6fc] = 0x8808800c.
+Info: initialized mem[0x700] = 0x80910008.
+Info: initialized mem[0x704] = 0x2bffff9.
+Info: initialized mem[0x708] = 0x82006004.
+Info: initialized mem[0x70c] = 0x81c3e008.
+Info: initialized mem[0x710] = 0x1000000.
+Info: initialized mem[0x714] = 0x0.
+Info: initialized mem[0x718] = 0x82006004.
+Info: initialized mem[0x71c] = 0x81c3e008.
+Info: initialized mem[0x1000] = 0x44485259.
+Info: initialized mem[0x1004] = 0x53544f4e.
+Info: initialized mem[0x1008] = 0x45205052.
+Info: initialized mem[0x100c] = 0x4f475241.
+Info: initialized mem[0x1010] = 0x4d2c2053.
+Info: initialized mem[0x1014] = 0x4f4d4520.
+Info: initialized mem[0x1018] = 0x53545249.
+Info: initialized mem[0x101c] = 0x4e470000.
+Info: initialized mem[0x1020] = 0x44485259.
+Info: initialized mem[0x1024] = 0x53544f4e.
+Info: initialized mem[0x1028] = 0x45205052.
+Info: initialized mem[0x102c] = 0x4f475241.
+Info: initialized mem[0x1030] = 0x4d2c2031.
+Info: initialized mem[0x1034] = 0x27535420.
+Info: initialized mem[0x1038] = 0x53545249.
+Info: initialized mem[0x103c] = 0x4e470000.
+Info: initialized mem[0x1040] = 0x44485259.
+Info: initialized mem[0x1044] = 0x53544f4e.
+Info: initialized mem[0x1048] = 0x45205052.
+Info: initialized mem[0x104c] = 0x4f475241.
+Info: initialized mem[0x1050] = 0x4d2c2032.
+Info: initialized mem[0x1054] = 0x274e4420.
+Info: initialized mem[0x1058] = 0x53545249.
+Info: initialized mem[0x105c] = 0x4e470000.
+Info: initialized mem[0x1060] = 0x44485259.
+Info: initialized mem[0x1064] = 0x53544f4e.
+Info: initialized mem[0x1068] = 0x45205052.
+Info: initialized mem[0x106c] = 0x4f475241.
+Info: initialized mem[0x1070] = 0x4d2c2033.
+Info: initialized mem[0x1074] = 0x27524420.
+Info: initialized mem[0x1078] = 0x53545249.
+Info: initialized mem[0x107c] = 0x4e470000.
+
+ Finished initializing memory from file dhry.mmap.			
+Last address written = 107f.
+Info: bring CPU out of reset: reset value = 0x0.
+Info: processor brought out of reset-mode. Debug-mode=0, Single-step-mode=0, Logging-enabled=0
+Info:aggregator:receiveFromCpu: cpu mode changed to 0x2 from 0x1.
+Info:aggregator:receiveFromCpu: cpu mode changed to 0x3 from 0x2.
+
+Error state detected
+Total time taken by CPU: 8.423010e-02 secs

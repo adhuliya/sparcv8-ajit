@@ -56,7 +56,7 @@ class BasicBlock():
 # that occur in between the instructions of a basic block.
 # This class is used to generate the output assembly file
 # with minimal changes, such that input/output asm comparison is easy.
-class ChunkBlock():
+class AsmChunkBlock():
   blkid = 0
   def __init__(self, asmChunks=None):
     self.asmChunks = asmChunks
@@ -65,8 +65,8 @@ class ChunkBlock():
     # last huristic applied
     self.lastHuristic = None
     # gives sequential id to each block
-    ChunkBlock.blkid += 1
-    self.blkid = ChunkBlock.blkid
+    AsmChunkBlock.blkid += 1
+    self.blkid = AsmChunkBlock.blkid
 
   def reorder(self, huristic=None):
     self.lastHuristic = huristic
@@ -164,7 +164,7 @@ class AsmChunkBlocks():
             lastLine = addToCurrLine(asmChunk)
             if lastLine:
               chunkList.extend(lastLine)
-            self.basicChunks.append(ChunkBlock(chunkList))
+            self.basicChunks.append(AsmChunkBlock(chunkList))
             chunkList = None
           else:
             lastLine = addToCurrLine(asmChunk)
@@ -198,7 +198,7 @@ class AsmChunkBlocks():
             lastLine = addToCurrLine(instr)
             if lastLine:
               chunkList.extend(lastLine)
-            self.basicChunks.append(ChunkBlock(chunkList))
+            self.basicChunks.append(AsmChunkBlock(chunkList))
             chunkList = None
           else:
             if instr.mnemonic == "ta": log.info(instr)
@@ -211,7 +211,7 @@ class AsmChunkBlocks():
     if currLineChunks:
       if chunkList:
         chunkList.extend(currLineChunks)
-        self.basicChunks.append(ChunkBlock(chunkList))
+        self.basicChunks.append(AsmChunkBlock(chunkList))
       else:
         self.basicChunks.extend(currLineChunks)
 
@@ -223,7 +223,7 @@ class AsmChunkBlocks():
       self.extractChunkBlocks()
 
     for chunk in self.basicChunks:
-      if type(chunk) == ChunkBlock:
+      if type(chunk) == AsmChunkBlock:
         chunk.reorder(huristic)
 
     return self
@@ -291,7 +291,7 @@ class AsmChunkBlocks():
     for chunk in self.basicChunks:
       if type(chunk) == AsmChunk:
         print(chunk.text, file=val, end="")
-      elif type(chunk) == ChunkBlock:
+      elif type(chunk) == AsmChunkBlock:
         for chnk in chunk.reorderedAsmChunks:
           if type(chnk) == Instruction:
             print(chnk.asmChunk.text, file=val, end="")
@@ -318,7 +318,7 @@ class AsmChunkBlocks():
     for chunk in self.basicChunks:
       if type(chunk) == AsmChunk:
         print(chunk.text, file=val, end="")
-      elif type(chunk) == ChunkBlock:
+      elif type(chunk) == AsmChunkBlock:
         print("/*start bb {}, {}*/\n".format(chunk.blkid, chunk.lastHuristic), file=val, end="")
         for chnk in chunk.reorderedAsmChunks:
           if type(chnk) == Instruction:
@@ -350,7 +350,7 @@ class AsmChunkBlocks():
     for chunk in self.basicChunks:
       if type(chunk) == AsmChunk:
         print(chunk.text, file=val, end="")
-      elif type(chunk) == ChunkBlock:
+      elif type(chunk) == AsmChunkBlock:
         print("/*start bb {}, {}*/\n".format(chunk.blkid, chunk.lastHuristic), file=val, end="")
         for chnk in chunk.asmChunks:
           if type(chnk) == Instruction:

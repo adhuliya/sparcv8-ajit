@@ -1,0 +1,475 @@
+
+.//dhry.elf:     file format elf32-sparc
+
+
+Disassembly of section .text:
+
+00000000 <main>:
+   0:	90 10 21 00 	mov  0x100, %o0
+   4:	d0 a0 00 80 	sta  %o0, [ %g0 ] #ASI_N
+   8:	9c 10 30 00 	mov  -4096, %sp
+   c:	bc 10 00 00 	mov  %g0, %fp
+  10:	a0 10 20 01 	mov  1, %l0
+  14:	81 94 20 00 	mov  %l0, %wim
+  18:	21 00 00 04 	sethi  %hi(0x1000), %l0
+  1c:	a0 14 20 e0 	or  %l0, 0xe0, %l0	! 10e0 <p_rec+0x18>
+  20:	81 88 00 10 	mov  %l0, %psr
+  24:	a0 10 20 00 	clr  %l0
+  28:	81 9c 20 00 	mov  %l0, %tbr
+  2c:	40 00 01 17 	call  488 <ajit_main>
+  30:	01 00 00 00 	nop 
+  34:	91 d0 20 00 	ta  0
+
+00000038 <__memcpy>:
+  38:	c4 1a 40 00 	ldd  [ %o1 ], %g2
+  3c:	82 10 20 00 	clr  %g1
+  40:	c4 3a 00 01 	std  %g2, [ %o0 + %g1 ]
+  44:	82 00 60 08 	add  %g1, 8, %g1
+  48:	80 a2 80 01 	cmp  %o2, %g1
+  4c:	18 bf ff fd 	bgu  40 <__memcpy+0x8>
+  50:	c4 1a 40 01 	ldd  [ %o1 + %g1 ], %g2
+  54:	81 c3 e0 08 	retl 
+  58:	01 00 00 00 	nop 
+
+0000005c <__strcpy>:
+  5c:	09 20 20 20 	sethi  %hi(0x80808000), %g4
+  60:	1b 3f bf bf 	sethi  %hi(0xfefefc00), %o5
+  64:	c4 02 40 00 	ld  [ %o1 ], %g2
+  68:	82 10 20 00 	clr  %g1
+  6c:	9a 13 62 ff 	or  %o5, 0x2ff, %o5
+  70:	88 11 20 80 	or  %g4, 0x80, %g4
+  74:	86 00 80 0d 	add  %g2, %o5, %g3
+  78:	86 28 c0 02 	andn  %g3, %g2, %g3
+  7c:	c4 22 00 01 	st  %g2, [ %o0 + %g1 ]
+  80:	80 88 c0 04 	btst  %g3, %g4
+  84:	82 00 60 04 	add  %g1, 4, %g1
+  88:	02 bf ff fb 	be  74 <__strcpy+0x18>
+  8c:	c4 02 40 01 	ld  [ %o1 + %g1 ], %g2
+  90:	81 c3 e0 08 	retl 
+  94:	01 00 00 00 	nop 
+
+00000098 <__strcmp>:
+  98:	17 3f bf bf 	sethi  %hi(0xfefefc00), %o3
+  9c:	19 20 20 20 	sethi  %hi(0x80808000), %o4
+  a0:	9a 10 00 08 	mov  %o0, %o5
+  a4:	82 10 20 00 	clr  %g1
+  a8:	98 13 20 80 	or  %o4, 0x80, %o4
+  ac:	96 12 e2 ff 	or  %o3, 0x2ff, %o3
+  b0:	c4 03 40 01 	ld  [ %o5 + %g1 ], %g2
+  b4:	c8 02 40 01 	ld  [ %o1 + %g1 ], %g4
+  b8:	84 28 c0 02 	andn  %g3, %g2, %g2
+  bc:	86 00 80 0b 	add  %g2, %o3, %g3
+  c0:	90 20 80 04 	sub  %g2, %g4, %o0
+  c4:	88 08 80 0c 	and  %g2, %o4, %g4
+  c8:	80 91 00 08 	orcc  %g4, %o0, %g0
+  cc:	02 bf ff f9 	be  b0 <__strcmp+0x18>
+  d0:	82 00 60 04 	add  %g1, 4, %g1
+  d4:	81 c3 e0 08 	retl 
+  d8:	01 00 00 00 	nop 
+
+000000dc <__ajit_read_cycle_count_register_high__>:
+  dc:	91 47 80 00 	rd  %asr30, %o0
+  e0:	81 c3 e0 08 	retl 
+  e4:	01 00 00 00 	nop 
+
+000000e8 <__ajit_read_cycle_count_register_low__>:
+  e8:	91 47 c0 00 	rd  %asr31, %o0
+  ec:	81 c3 e0 08 	retl 
+  f0:	01 00 00 00 	nop 
+
+000000f4 <__ajit_get_clock_time>:
+  f4:	99 47 c0 00 	rd  %asr31, %o4
+  f8:	83 47 80 00 	rd  %asr30, %g1
+  fc:	88 10 20 00 	clr  %g4
+ 100:	86 10 20 00 	clr  %g3
+ 104:	90 10 40 04 	or  %g1, %g4, %o0
+ 108:	81 c3 e0 08 	retl 
+ 10c:	92 10 c0 0c 	or  %g3, %o4, %o1
+
+00000110 <put_g1>:
+ 110:	82 10 00 08 	mov  %o0, %g1
+ 114:	81 c3 e0 08 	retl 
+ 118:	01 00 00 00 	nop 
+
+0000011c <put_g2>:
+ 11c:	84 10 00 08 	mov  %o0, %g2
+ 120:	81 c3 e0 08 	retl 
+ 124:	01 00 00 00 	nop 
+
+00000128 <put_g3>:
+ 128:	86 10 00 08 	mov  %o0, %g3
+ 12c:	81 c3 e0 08 	retl 
+ 130:	01 00 00 00 	nop 
+
+00000134 <put_g4>:
+ 134:	88 10 00 08 	mov  %o0, %g4
+ 138:	81 c3 e0 08 	retl 
+ 13c:	01 00 00 00 	nop 
+
+00000140 <put_g5>:
+ 140:	8a 10 00 08 	mov  %o0, %g5
+ 144:	81 c3 e0 08 	retl 
+ 148:	01 00 00 00 	nop 
+
+0000014c <halt>:
+ 14c:	91 d0 20 00 	ta  0
+ 150:	01 00 00 00 	nop 
+ 154:	01 00 00 00 	nop 
+ 158:	81 c3 e0 08 	retl 
+ 15c:	01 00 00 00 	nop 
+
+00000160 <store_word_mmureg>:
+ 160:	d0 a2 40 80 	sta  %o0, [ %o1 ] #ASI_N
+ 164:	81 c3 e0 08 	retl 
+ 168:	01 00 00 00 	nop 
+
+0000016c <Proc_2>:
+ 16c:	03 00 00 0e 	sethi  %hi(0x3800), %g1
+ 170:	c2 48 60 14 	ldsb  [ %g1 + 0x14 ], %g1	! 3814 <Ch_1_Glob>
+ 174:	80 a0 60 41 	cmp  %g1, 0x41
+ 178:	02 80 00 04 	be  188 <Proc_2+0x1c>
+ 17c:	c4 02 00 00 	ld  [ %o0 ], %g2
+ 180:	81 c3 e0 08 	retl 
+ 184:	01 00 00 00 	nop 
+ 188:	03 00 00 0e 	sethi  %hi(0x3800), %g1
+ 18c:	86 00 a0 09 	add  %g2, 9, %g3
+ 190:	c2 00 60 10 	ld  [ %g1 + 0x10 ], %g1
+ 194:	88 20 c0 01 	sub  %g3, %g1, %g4
+ 198:	81 c3 e0 08 	retl 
+ 19c:	c8 22 00 00 	st  %g4, [ %o0 ]
+
+000001a0 <Proc_3>:
+ 1a0:	03 00 00 0e 	sethi  %hi(0x3800), %g1
+ 1a4:	c4 00 60 18 	ld  [ %g1 + 0x18 ], %g2	! 3818 <Ptr_Glob>
+ 1a8:	80 a0 a0 00 	cmp  %g2, 0
+ 1ac:	02 80 00 0c 	be  1dc <Proc_3+0x3c>
+ 1b0:	94 10 20 00 	clr  %o2
+ 1b4:	d4 00 60 18 	ld  [ %g1 + 0x18 ], %o2
+ 1b8:	03 00 00 0e 	sethi  %hi(0x3800), %g1
+ 1bc:	c6 00 80 00 	ld  [ %g2 ], %g3
+ 1c0:	94 02 a0 0c 	add  %o2, 0xc, %o2
+ 1c4:	d2 00 60 10 	ld  [ %g1 + 0x10 ], %o1
+ 1c8:	c6 22 00 00 	st  %g3, [ %o0 ]
+ 1cc:	90 10 20 0a 	mov  0xa, %o0
+ 1d0:	82 13 c0 00 	mov  %o7, %g1
+ 1d4:	40 00 00 e9 	call  578 <Proc_7>
+ 1d8:	9e 10 40 00 	mov  %g1, %o7
+ 1dc:	03 00 00 0e 	sethi  %hi(0x3800), %g1
+ 1e0:	90 10 20 0a 	mov  0xa, %o0
+ 1e4:	94 02 a0 0c 	add  %o2, 0xc, %o2
+ 1e8:	d2 00 60 10 	ld  [ %g1 + 0x10 ], %o1
+ 1ec:	82 13 c0 00 	mov  %o7, %g1
+ 1f0:	40 00 00 e2 	call  578 <Proc_7>
+ 1f4:	9e 10 40 00 	mov  %g1, %o7
+
+000001f8 <Proc_1>:
+ 1f8:	9d e3 bf a0 	save  %sp, -96, %sp
+ 1fc:	fa 06 00 00 	ld  [ %i0 ], %i5
+ 200:	94 10 20 30 	mov  0x30, %o2
+ 204:	37 00 00 0e 	sethi  %hi(0x3800), %i3
+ 208:	90 10 00 1d 	mov  %i5, %o0
+ 20c:	7f ff ff 8b 	call  38 <__memcpy>
+ 210:	d2 06 e0 18 	ld  [ %i3 + 0x18 ], %o1
+ 214:	82 10 20 05 	mov  5, %g1
+ 218:	c4 06 00 00 	ld  [ %i0 ], %g2
+ 21c:	c2 26 20 0c 	st  %g1, [ %i0 + 0xc ]
+ 220:	c2 27 60 0c 	st  %g1, [ %i5 + 0xc ]
+ 224:	c4 27 40 00 	st  %g2, [ %i5 ]
+ 228:	7f ff ff de 	call  1a0 <Proc_3>
+ 22c:	90 10 00 1d 	mov  %i5, %o0
+ 230:	c2 07 60 04 	ld  [ %i5 + 4 ], %g1
+ 234:	80 a0 60 00 	cmp  %g1, 0
+ 238:	02 80 00 05 	be  24c <Proc_1+0x54>
+ 23c:	82 10 20 06 	mov  6, %g1
+ 240:	f2 06 00 00 	ld  [ %i0 ], %i1
+ 244:	7f ff ff 7d 	call  38 <__memcpy>
+ 248:	95 e8 20 30 	restore  %g0, 0x30, %o2
+ 24c:	d0 06 20 08 	ld  [ %i0 + 8 ], %o0
+ 250:	c2 27 60 0c 	st  %g1, [ %i5 + 0xc ]
+ 254:	40 00 00 ad 	call  508 <Proc_6>
+ 258:	92 07 60 08 	add  %i5, 8, %o1
+ 25c:	c2 06 e0 18 	ld  [ %i3 + 0x18 ], %g1
+ 260:	b2 10 20 0a 	mov  0xa, %i1
+ 264:	f0 07 60 0c 	ld  [ %i5 + 0xc ], %i0
+ 268:	c2 00 40 00 	ld  [ %g1 ], %g1
+ 26c:	c2 27 40 00 	st  %g1, [ %i5 ]
+ 270:	40 00 00 c2 	call  578 <Proc_7>
+ 274:	95 ef 60 0c 	restore  %i5, 0xc, %o2
+
+00000278 <run_dhrystone>:
+ 278:	9d e3 bf 58 	save  %sp, -168, %sp
+ 27c:	03 00 00 04 	sethi  %hi(0x1000), %g1
+ 280:	05 00 00 04 	sethi  %hi(0x1000), %g2
+ 284:	2d 00 00 0e 	sethi  %hi(0x3800), %l6
+ 288:	90 10 60 c8 	or  %g1, 0xc8, %o0
+ 28c:	88 10 a0 98 	or  %g2, 0x98, %g4
+ 290:	13 00 00 04 	sethi  %hi(0x1000), %o1
+ 294:	07 00 00 0e 	sethi  %hi(0x3800), %g3
+ 298:	c0 22 20 04 	clr  [ %o0 + 4 ]
+ 29c:	c8 20 60 c8 	st  %g4, [ %g1 + 0xc8 ]
+ 2a0:	82 10 20 02 	mov  2, %g1
+ 2a4:	c8 20 e0 0c 	st  %g4, [ %g3 + 0xc ]
+ 2a8:	d0 25 a0 18 	st  %o0, [ %l6 + 0x18 ]
+ 2ac:	c2 22 20 08 	st  %g1, [ %o0 + 8 ]
+ 2b0:	82 10 20 28 	mov  0x28, %g1
+ 2b4:	92 12 60 00 	mov  %o1, %o1
+ 2b8:	c2 22 20 0c 	st  %g1, [ %o0 + 0xc ]
+ 2bc:	7f ff ff 68 	call  5c <__strcpy>
+ 2c0:	90 02 20 10 	add  %o0, 0x10, %o0
+ 2c4:	90 07 bf c0 	add  %fp, -64, %o0
+ 2c8:	15 00 00 04 	sethi  %hi(0x1000), %o2
+ 2cc:	7f ff ff 64 	call  5c <__strcpy>
+ 2d0:	92 12 a0 20 	or  %o2, 0x20, %o1	! 1020 <Func_3+0x9b0>
+ 2d4:	23 00 00 04 	sethi  %hi(0x1000), %l1
+ 2d8:	82 10 20 0a 	mov  0xa, %g1
+ 2dc:	80 a6 20 00 	cmp  %i0, 0
+ 2e0:	96 14 60 f8 	or  %l1, 0xf8, %o3
+ 2e4:	04 80 00 54 	ble  434 <run_dhrystone+0x1bc>
+ 2e8:	c2 22 e6 5c 	st  %g1, [ %o3 + 0x65c ]
+ 2ec:	27 00 00 04 	sethi  %hi(0x1000), %l3
+ 2f0:	25 00 00 0e 	sethi  %hi(0x3800), %l2
+ 2f4:	21 00 00 04 	sethi  %hi(0x1000), %l0
+ 2f8:	a6 14 e0 40 	or  %l3, 0x40, %l3
+ 2fc:	2f 00 00 0e 	sethi  %hi(0x3800), %l7
+ 300:	35 00 00 0e 	sethi  %hi(0x3800), %i2
+ 304:	3b 00 00 0e 	sethi  %hi(0x3800), %i5
+ 308:	b8 10 20 01 	mov  1, %i4
+ 30c:	ae 15 e0 14 	or  %l7, 0x14, %l7
+ 310:	b4 16 a0 e4 	or  %i2, 0xe4, %i2
+ 314:	ba 17 60 15 	or  %i5, 0x15, %i5
+ 318:	ac 15 a0 18 	or  %l6, 0x18, %l6
+ 31c:	aa 10 20 41 	mov  0x41, %l5
+ 320:	b6 10 20 01 	mov  1, %i3
+ 324:	a8 10 20 42 	mov  0x42, %l4
+ 328:	a4 14 a0 1c 	or  %l2, 0x1c, %l2
+ 32c:	a0 14 20 60 	or  %l0, 0x60, %l0
+ 330:	33 00 00 0e 	sethi  %hi(0x3800), %i1
+ 334:	92 10 00 13 	mov  %l3, %o1
+ 338:	ea 2d c0 00 	stb  %l5, [ %l7 ]
+ 33c:	f6 26 80 00 	st  %i3, [ %i2 ]
+ 340:	e8 2f 40 00 	stb  %l4, [ %i5 ]
+ 344:	7f ff ff 46 	call  5c <__strcpy>
+ 348:	90 07 bf e0 	add  %fp, -32, %o0
+ 34c:	92 07 bf e0 	add  %fp, -32, %o1
+ 350:	f6 27 bf bc 	st  %i3, [ %fp + -68 ]
+ 354:	40 00 00 b2 	call  61c <Func_2>
+ 358:	90 07 bf c0 	add  %fp, -64, %o0
+ 35c:	80 a0 00 08 	cmp  %g0, %o0
+ 360:	94 07 bf b8 	add  %fp, -72, %o2
+ 364:	82 60 3f ff 	subx  %g0, -1, %g1
+ 368:	90 10 20 02 	mov  2, %o0
+ 36c:	c2 26 80 00 	st  %g1, [ %i2 ]
+ 370:	82 10 20 07 	mov  7, %g1
+ 374:	c2 27 bf b8 	st  %g1, [ %fp + -72 ]
+ 378:	40 00 00 80 	call  578 <Proc_7>
+ 37c:	92 10 20 03 	mov  3, %o1
+ 380:	19 00 00 04 	sethi  %hi(0x1000), %o4
+ 384:	90 10 00 12 	mov  %l2, %o0
+ 388:	94 10 20 03 	mov  3, %o2
+ 38c:	92 13 20 f8 	or  %o4, 0xf8, %o1
+ 390:	40 00 00 7e 	call  588 <Proc_8>
+ 394:	d6 07 bf b8 	ld  [ %fp + -72 ], %o3
+ 398:	7f ff ff 98 	call  1f8 <Proc_1>
+ 39c:	d0 05 80 00 	ld  [ %l6 ], %o0
+ 3a0:	da 4f 40 00 	ldsb  [ %i5 ], %o5
+ 3a4:	80 a3 60 40 	cmp  %o5, 0x40
+ 3a8:	14 80 00 0a 	bg  3d0 <run_dhrystone+0x158>
+ 3ac:	a2 10 20 41 	mov  0x41, %l1
+ 3b0:	10 80 00 1e 	b  428 <run_dhrystone+0x1b0>
+ 3b4:	b8 07 20 01 	inc  %i4
+ 3b8:	de 4f 40 00 	ldsb  [ %i5 ], %o7
+ 3bc:	91 2c 60 18 	sll  %l1, 0x18, %o0
+ 3c0:	89 3a 20 18 	sra  %o0, 0x18, %g4
+ 3c4:	80 a1 00 0f 	cmp  %g4, %o7
+ 3c8:	34 80 00 18 	bg,a   428 <run_dhrystone+0x1b0>
+ 3cc:	b8 07 20 01 	inc  %i4
+ 3d0:	90 10 00 11 	mov  %l1, %o0
+ 3d4:	40 00 00 86 	call  5ec <Func_1>
+ 3d8:	92 10 20 43 	mov  0x43, %o1
+ 3dc:	c4 07 bf bc 	ld  [ %fp + -68 ], %g2
+ 3e0:	80 a2 00 02 	cmp  %o0, %g2
+ 3e4:	32 bf ff f5 	bne,a   3b8 <run_dhrystone+0x140>
+ 3e8:	a2 04 60 01 	inc  %l1
+ 3ec:	90 10 20 00 	clr  %o0
+ 3f0:	40 00 00 46 	call  508 <Proc_6>
+ 3f4:	92 07 bf bc 	add  %fp, -68, %o1
+ 3f8:	90 07 bf e0 	add  %fp, -32, %o0
+ 3fc:	7f ff ff 18 	call  5c <__strcpy>
+ 400:	92 10 00 10 	mov  %l0, %o1
+ 404:	a2 04 60 01 	inc  %l1
+ 408:	de 4f 40 00 	ldsb  [ %i5 ], %o7
+ 40c:	f8 26 60 10 	st  %i4, [ %i1 + 0x10 ]
+ 410:	91 2c 60 18 	sll  %l1, 0x18, %o0
+ 414:	89 3a 20 18 	sra  %o0, 0x18, %g4
+ 418:	80 a1 00 0f 	cmp  %g4, %o7
+ 41c:	04 bf ff ee 	ble  3d4 <run_dhrystone+0x15c>
+ 420:	90 10 00 11 	mov  %l1, %o0
+ 424:	b8 07 20 01 	inc  %i4
+ 428:	80 a6 00 1c 	cmp  %i0, %i4
+ 42c:	16 bf ff c3 	bge  338 <run_dhrystone+0xc0>
+ 430:	92 10 00 13 	mov  %l3, %o1
+ 434:	81 c7 e0 08 	ret 
+ 438:	81 e8 00 00 	restore 
+
+0000043c <Proc_4>:
+ 43c:	07 00 00 0e 	sethi  %hi(0x3800), %g3
+ 440:	03 00 00 0e 	sethi  %hi(0x3800), %g1
+ 444:	c8 48 e0 14 	ldsb  [ %g3 + 0x14 ], %g4
+ 448:	c4 00 60 e4 	ld  [ %g1 + 0xe4 ], %g2
+ 44c:	86 19 20 41 	xor  %g4, 0x41, %g3
+ 450:	88 10 20 42 	mov  0x42, %g4
+ 454:	80 a0 00 03 	cmp  %g0, %g3
+ 458:	07 00 00 0e 	sethi  %hi(0x3800), %g3
+ 45c:	c8 28 e0 15 	stb  %g4, [ %g3 + 0x15 ]	! 3815 <Ch_2_Glob>
+ 460:	88 60 3f ff 	subx  %g0, -1, %g4
+ 464:	84 11 00 02 	or  %g4, %g2, %g2
+ 468:	81 c3 e0 08 	retl 
+ 46c:	c4 20 60 e4 	st  %g2, [ %g1 + 0xe4 ]
+
+00000470 <Proc_5>:
+ 470:	84 10 20 41 	mov  0x41, %g2
+ 474:	03 00 00 0e 	sethi  %hi(0x3800), %g1
+ 478:	c4 28 60 14 	stb  %g2, [ %g1 + 0x14 ]	! 3814 <Ch_1_Glob>
+ 47c:	03 00 00 0e 	sethi  %hi(0x3800), %g1
+ 480:	81 c3 e0 08 	retl 
+ 484:	c0 20 60 e4 	clr  [ %g1 + 0xe4 ]	! 38e4 <Bool_Glob>
+
+00000488 <ajit_main>:
+ 488:	9d e3 bf a0 	save  %sp, -96, %sp
+ 48c:	84 10 20 00 	clr  %g2
+ 490:	82 10 21 00 	mov  0x100, %g1
+ 494:	a9 47 c0 00 	rd  %asr31, %l4
+ 498:	a7 47 80 00 	rd  %asr30, %l3
+ 49c:	c2 a0 80 80 	sta  %g1, [ %g2 ] #ASI_N
+ 4a0:	b3 85 20 00 	mov  %l4, %asr25
+ 4a4:	b1 84 e0 00 	mov  %l3, %asr24
+ 4a8:	11 00 00 09 	sethi  %hi(0x2400), %o0
+ 4ac:	7f ff ff 73 	call  278 <run_dhrystone>
+ 4b0:	90 12 23 10 	or  %o0, 0x310, %o0	! 2710 <Arr_2_Glob+0x1618>
+ 4b4:	03 00 00 0e 	sethi  %hi(0x3800), %g1
+ 4b8:	c2 00 60 10 	ld  [ %g1 + 0x10 ], %g1	! 3810 <Int_Glob>
+ 4bc:	84 10 00 01 	mov  %g1, %g2
+ 4c0:	03 00 00 0e 	sethi  %hi(0x3800), %g1
+ 4c4:	c2 00 60 e4 	ld  [ %g1 + 0xe4 ], %g1	! 38e4 <Bool_Glob>
+ 4c8:	86 10 00 01 	mov  %g1, %g3
+ 4cc:	03 00 00 0e 	sethi  %hi(0x3800), %g1
+ 4d0:	c2 48 60 14 	ldsb  [ %g1 + 0x14 ], %g1	! 3814 <Ch_1_Glob>
+ 4d4:	88 10 00 01 	mov  %g1, %g4
+ 4d8:	03 00 00 0e 	sethi  %hi(0x3800), %g1
+ 4dc:	c2 00 60 3c 	ld  [ %g1 + 0x3c ], %g1	! 383c <Arr_1_Glob+0x20>
+ 4e0:	a7 47 80 00 	rd  %asr30, %l3
+ 4e4:	a9 47 c0 00 	rd  %asr31, %l4
+ 4e8:	8a 10 00 01 	mov  %g1, %g5
+ 4ec:	b5 84 e0 00 	mov  %l3, %asr26
+ 4f0:	b7 85 20 00 	mov  %l4, %asr27
+ 4f4:	91 d0 20 00 	ta  0
+ 4f8:	01 00 00 00 	nop 
+ 4fc:	01 00 00 00 	nop 
+ 500:	81 c7 e0 08 	ret 
+ 504:	91 e8 20 00 	restore  %g0, 0, %o0
+
+00000508 <Proc_6>:
+ 508:	80 a2 20 02 	cmp  %o0, 2
+ 50c:	02 80 00 11 	be  550 <Proc_6+0x48>
+ 510:	82 10 20 03 	mov  3, %g1
+ 514:	80 a2 20 01 	cmp  %o0, 1
+ 518:	02 80 00 11 	be  55c <Proc_6+0x54>
+ 51c:	c2 22 40 00 	st  %g1, [ %o1 ]
+ 520:	80 a2 20 01 	cmp  %o0, 1
+ 524:	1a 80 00 04 	bcc  534 <Proc_6+0x2c>
+ 528:	80 a2 20 02 	cmp  %o0, 2
+ 52c:	81 c3 e0 08 	retl 
+ 530:	c0 22 40 00 	clr  [ %o1 ]
+ 534:	02 80 00 07 	be  550 <Proc_6+0x48>
+ 538:	80 a2 20 04 	cmp  %o0, 4
+ 53c:	12 80 00 03 	bne  548 <Proc_6+0x40>
+ 540:	82 10 20 02 	mov  2, %g1
+ 544:	c2 22 40 00 	st  %g1, [ %o1 ]
+ 548:	81 c3 e0 08 	retl 
+ 54c:	01 00 00 00 	nop 
+ 550:	82 10 20 01 	mov  1, %g1	! 1 <main+0x1>
+ 554:	81 c3 e0 08 	retl 
+ 558:	c2 22 40 00 	st  %g1, [ %o1 ]
+ 55c:	03 00 00 0e 	sethi  %hi(0x3800), %g1
+ 560:	c2 00 60 10 	ld  [ %g1 + 0x10 ], %g1	! 3810 <Int_Glob>
+ 564:	80 a0 60 64 	cmp  %g1, 0x64
+ 568:	04 bf ff f8 	ble  548 <Proc_6+0x40>
+ 56c:	01 00 00 00 	nop 
+ 570:	81 c3 e0 08 	retl 
+ 574:	c0 22 40 00 	clr  [ %o1 ]
+
+00000578 <Proc_7>:
+ 578:	90 02 20 02 	add  %o0, 2, %o0
+ 57c:	92 02 40 08 	add  %o1, %o0, %o1
+ 580:	81 c3 e0 08 	retl 
+ 584:	d2 22 80 00 	st  %o1, [ %o2 ]
+
+00000588 <Proc_8>:
+ 588:	82 02 a0 05 	add  %o2, 5, %g1
+ 58c:	88 02 a0 23 	add  %o2, 0x23, %g4
+ 590:	86 02 a0 06 	add  %o2, 6, %g3
+ 594:	85 28 60 02 	sll  %g1, 2, %g2
+ 598:	94 02 a0 04 	add  %o2, 4, %o2
+ 59c:	87 28 e0 02 	sll  %g3, 2, %g3
+ 5a0:	d6 22 00 02 	st  %o3, [ %o0 + %g2 ]
+ 5a4:	d6 22 00 03 	st  %o3, [ %o0 + %g3 ]
+ 5a8:	97 29 20 02 	sll  %g4, 2, %o3
+ 5ac:	88 58 60 c8 	smul  %g1, 0xc8, %g4
+ 5b0:	c2 22 00 0b 	st  %g1, [ %o0 + %o3 ]
+ 5b4:	92 02 40 04 	add  %o1, %g4, %o1
+ 5b8:	96 02 40 02 	add  %o1, %g2, %o3
+ 5bc:	c2 22 40 02 	st  %g1, [ %o1 + %g2 ]
+ 5c0:	c2 22 40 03 	st  %g1, [ %o1 + %g3 ]
+ 5c4:	87 2a a0 02 	sll  %o2, 2, %g3
+ 5c8:	c2 02 40 03 	ld  [ %o1 + %g3 ], %g1
+ 5cc:	82 00 60 01 	inc  %g1
+ 5d0:	c2 22 40 03 	st  %g1, [ %o1 + %g3 ]
+ 5d4:	c2 02 00 02 	ld  [ %o0 + %g2 ], %g1
+ 5d8:	90 10 20 05 	mov  5, %o0
+ 5dc:	c2 22 ef a0 	st  %g1, [ %o3 + 0xfa0 ]
+ 5e0:	03 00 00 0e 	sethi  %hi(0x3800), %g1
+ 5e4:	81 c3 e0 08 	retl 
+ 5e8:	d0 20 60 10 	st  %o0, [ %g1 + 0x10 ]	! 3810 <Int_Glob>
+
+000005ec <Func_1>:
+ 5ec:	83 2a 20 18 	sll  %o0, 0x18, %g1
+ 5f0:	93 2a 60 18 	sll  %o1, 0x18, %o1
+ 5f4:	85 38 60 18 	sra  %g1, 0x18, %g2
+ 5f8:	80 a2 40 01 	cmp  %o1, %g1
+ 5fc:	02 80 00 04 	be  60c <Func_1+0x20>
+ 600:	90 10 20 00 	clr  %o0
+ 604:	81 c3 e0 08 	retl 
+ 608:	01 00 00 00 	nop 
+ 60c:	03 00 00 0e 	sethi  %hi(0x3800), %g1
+ 610:	90 10 20 01 	mov  1, %o0
+ 614:	81 c3 e0 08 	retl 
+ 618:	c4 28 60 14 	stb  %g2, [ %g1 + 0x14 ]
+
+0000061c <Func_2>:
+ 61c:	9d e3 bf a0 	save  %sp, -96, %sp
+ 620:	c8 4e 20 02 	ldsb  [ %i0 + 2 ], %g4
+ 624:	c6 4e 60 03 	ldsb  [ %i1 + 3 ], %g3
+ 628:	03 00 00 0e 	sethi  %hi(0x3800), %g1
+ 62c:	90 10 00 18 	mov  %i0, %o0
+ 630:	92 10 00 19 	mov  %i1, %o1
+ 634:	80 a1 00 03 	cmp  %g4, %g3
+ 638:	02 80 00 0d 	be  66c <Func_2+0x50>
+ 63c:	c4 08 60 14 	ldub  [ %g1 + 0x14 ], %g2
+ 640:	7f ff fe 96 	call  98 <__strcmp>
+ 644:	c4 28 60 14 	stb  %g2, [ %g1 + 0x14 ]
+ 648:	80 a2 20 00 	cmp  %o0, 0
+ 64c:	04 80 00 06 	ble  664 <Func_2+0x48>
+ 650:	90 10 20 0a 	mov  0xa, %o0
+ 654:	03 00 00 0e 	sethi  %hi(0x3800), %g1
+ 658:	d0 20 60 10 	st  %o0, [ %g1 + 0x10 ]	! 3810 <Int_Glob>
+ 65c:	81 c7 e0 08 	ret 
+ 660:	91 e8 20 01 	restore  %g0, 1, %o0
+ 664:	81 c7 e0 08 	ret 
+ 668:	91 e8 20 00 	restore  %g0, 0, %o0
+ 66c:	30 80 00 00 	b,a   66c <Func_2+0x50>
+
+00000670 <Func_3>:
+ 670:	90 1a 20 02 	xor  %o0, 2, %o0
+ 674:	80 a0 00 08 	cmp  %g0, %o0
+ 678:	81 c3 e0 08 	retl 
+ 67c:	90 60 3f ff 	subx  %g0, -1, %o0

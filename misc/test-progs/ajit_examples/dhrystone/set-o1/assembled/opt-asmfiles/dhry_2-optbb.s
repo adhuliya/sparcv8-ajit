@@ -20,15 +20,15 @@ Proc_7:
 	.proc	020
 Proc_8:
 /*start bb 3, raw*/
-	add	%o2, 5, %g3
 	add	%o2, 6, %g1
-	add	%o2, 35, %g4
-	sll	%g3, 2, %o5
+	add	%o2, 5, %g3
 	sll	%g1, 2, %g2
-	cmp	%g3, %g1
-	st	%o3, [%o0+%o5]
+	sll	%g3, 2, %o5
+	add	%o2, 35, %g4
 	st	%o3, [%o0+%g2]
+	st	%o3, [%o0+%o5]
 	sll	%g4, 2, %o3
+	cmp	%g3, %g1
 	st	%g3, [%o0+%o3]
 /*end bb 3*/
 	bg	.L3
@@ -49,15 +49,15 @@ Proc_8:
 	 add	%g1, 4, %g1
 .L3:
 /*start bb 6, raw*/
-	ld	[%o0+%o5], %o0
 	smul	%g3, 200, %g1
-	sll	%g3, 2, %g3
 	add	%o2, 4, %o2
 	add	%o1, %g1, %g1
-	mov	5, %o5
 	sll	%o2, 2, %o1
+	sll	%g3, 2, %g3
 	ld	[%g1+%o1], %o3
+	ld	[%o0+%o5], %o0
 	add	%o3, 1, %g4
+	mov	5, %o5
 	st	%g4, [%g1+%o1]
 	add	%g1, %g3, %g1
 	st	%o0, [%g1+4000]
@@ -74,10 +74,10 @@ Proc_8:
 	.proc	012
 Func_1:
 /*start bb 8, raw*/
-	sll	%o0, 24, %g1
 	sll	%o1, 24, %o1
-	sra	%g1, 24, %g2
+	sll	%o0, 24, %g1
 	cmp	%o1, %g1
+	sra	%g1, 24, %g2
 /*end bb 8*/
 	bne	.L9
 	 mov	0, %o0

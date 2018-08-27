@@ -259,7 +259,7 @@ class AsmModule():
         return rep
       elif groupDict["mlc"] is not None:
         lines = self.countNewLines(groupDict["mlc"])
-        rep = "<mlc" + str(len(self.comments)) + ":" + lines + ">"
+        rep = "<mlc" + str(len(self.comments)) + ":" + str(lines) + ">"
         self.comments.append(match.group("mlc"))
         return rep
       elif groupDict["dqstr"] is not None:

@@ -90,13 +90,13 @@ get_seed_32:
 	.proc	015
 crcu8:
 /*start bb 15, raw*/
-	sethi	%hi(31744), %g4
-	sethi	%hi(16384), %o4
-	mov	8, %g2
-	sethi	%hi(-32768), %o5
 	mov	%o0, %g1
 	mov	%o1, %o0
+	sethi	%hi(31744), %g4
+	sethi	%hi(-32768), %o5
 	or	%g4, 1023, %o1
+	mov	8, %g2
+	sethi	%hi(16384), %o4
 /*end bb 15*/
 	b	.L14
 	 or	%o4, 2, %g4
@@ -137,12 +137,12 @@ crcu8:
 	.proc	015
 crcu16:
 /*start bb 20, raw*/
-	sethi	%hi(31744), %g4
 	sethi	%hi(16384), %o4
-	mov	%o0, %g2
+	sethi	%hi(31744), %g4
 	mov	8, %g1
-	or	%g4, 1023, %g4
 	or	%o4, 2, %o4
+	or	%g4, 1023, %g4
+	mov	%o0, %g2
 /*end bb 20*/
 	b	.L22
 	 sethi	%hi(-32768), %o5
@@ -174,12 +174,12 @@ crcu16:
 	 srl	%o1, 16, %o1
 .L30:
 /*start bb 24, raw*/
-	sethi	%hi(31744), %g4
 	sethi	%hi(16384), %o5
+	sethi	%hi(31744), %g4
+	mov	8, %g1
+	or	%o5, 2, %g3
 	srl	%o0, 8, %o0
 	or	%g4, 1023, %o4
-	or	%o5, 2, %g3
-	mov	8, %g1
 /*end bb 24*/
 	b	.L24
 	 sethi	%hi(-32768), %g4
@@ -200,10 +200,10 @@ crcu16:
 	be	.L23
 	 srl	%o0, 1, %o0
 /*start bb 27, raw*/
-	add	%g1, -1, %g1
 	xor	%o1, %g3, %o5
-	andcc	%g1, 0xff, %g0
+	add	%g1, -1, %g1
 	srl	%o5, 1, %g2
+	andcc	%g1, 0xff, %g0
 	or	%g2, %g4, %o1
 	sll	%o1, 16, %o5
 /*end bb 27*/
@@ -221,12 +221,12 @@ crcu16:
 	.proc	015
 crc16:
 /*start bb 29, raw*/
-	sethi	%hi(31744), %g4
 	sethi	%hi(16384), %o4
-	mov	%o0, %g2
+	sethi	%hi(31744), %g4
 	mov	8, %g1
-	or	%g4, 1023, %g4
 	or	%o4, 2, %o4
+	or	%g4, 1023, %g4
+	mov	%o0, %g2
 /*end bb 29*/
 	b	.L34
 	 sethi	%hi(-32768), %o5
@@ -258,13 +258,13 @@ crc16:
 	 srl	%o1, 16, %o1
 .L42:
 /*start bb 33, raw*/
-	sethi	%hi(31744), %g4
-	sll	%o0, 16, %o0
 	sethi	%hi(16384), %o5
-	or	%g4, 1023, %o4
-	srl	%o0, 24, %o0
-	mov	8, %g1
+	sll	%o0, 16, %o0
+	sethi	%hi(31744), %g4
 	or	%o5, 2, %g3
+	mov	8, %g1
+	srl	%o0, 24, %o0
+	or	%g4, 1023, %o4
 /*end bb 33*/
 	b	.L36
 	 sethi	%hi(-32768), %g4
@@ -285,10 +285,10 @@ crc16:
 	be	.L35
 	 srl	%o0, 1, %o0
 /*start bb 36, raw*/
-	add	%g1, -1, %g1
 	xor	%o1, %g3, %o5
-	andcc	%g1, 0xff, %g0
+	add	%g1, -1, %g1
 	srl	%o5, 1, %g2
+	andcc	%g1, 0xff, %g0
 	or	%g2, %g4, %o1
 	sll	%o1, 16, %o5
 /*end bb 36*/
@@ -307,9 +307,9 @@ crc16:
 crcu32:
 	save	%sp, -96, %sp
 /*start bb 38, raw*/
-	mov	%i1, %o1
 	sll	%i0, 16, %o0
 	sra	%i0, 16, %i0
+	mov	%i1, %o1
 /*end bb 38*/
 	call	crc16, 0
 	 sra	%o0, 16, %o0

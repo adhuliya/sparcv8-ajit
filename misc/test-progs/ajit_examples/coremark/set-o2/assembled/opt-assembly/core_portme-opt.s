@@ -10,8 +10,8 @@ barebones_clock:
 	 nop
 	call	__ajit_read_cycle_count_register_low__, 0
 	 mov	%o0, %i0
-	sll	%i0, 24, %g1
 	srl	%o0, 8, %o0
+	sll	%i0, 24, %g1
 	or	%o0, %g1, %i0
 	jmp	%i7+8
 	 restore
@@ -101,19 +101,19 @@ time_in_secs:
 	.proc	020
 portable_init:
 	save	%sp, -96, %sp
-	mov	1, %o0
 	mov	0, %o1
+	mov	1, %o0
 	call	__ajit_serial_configure__, 0
 	 mov	0, %o2
-	mov	13, %o1
 	sethi	%hi(.LC2), %o0
+	mov	13, %o1
 	call	__ajit_serial_puts__, 0
 	 or	%o0, %lo(.LC2), %o0
 	sethi	%hi(seed1_volatile), %g1
 	mov	102, %g2
-	mov	2000, %g3
 	st	%g0, [%g1+%lo(seed1_volatile)]
 	sethi	%hi(seed2_volatile), %g1
+	mov	2000, %g3
 	st	%g0, [%g1+%lo(seed2_volatile)]
 	sethi	%hi(seed3_volatile), %g1
 	st	%g2, [%g1+%lo(seed3_volatile)]
@@ -137,8 +137,8 @@ portable_init:
 	.proc	020
 portable_fini:
 	save	%sp, -96, %sp
-	mov	14, %o1
 	sethi	%hi(.LC3), %o0
+	mov	14, %o1
 	call	__ajit_serial_puts__, 0
 	 or	%o0, %lo(.LC3), %o0
 	stb	%g0, [%i0]

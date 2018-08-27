@@ -7,16 +7,16 @@
 core_init_state:
 	save	%sp, -96, %sp
 /*start bb 1, raw*/
-	mov	0, %g4
-	add	%i0, -1, %o7
-	mov	0, %g3
-	mov	0, %i5
-	mov	44, %o4
-	sethi	%hi(intpat), %o0
-	sethi	%hi(errpat), %o1
-	sethi	%hi(scipat), %o2
 	sethi	%hi(floatpat), %o3
+	sethi	%hi(scipat), %o2
+	sethi	%hi(errpat), %o1
 	sethi	%hi(.L9), %o5
+	sethi	%hi(intpat), %o0
+	mov	44, %o4
+	mov	0, %i5
+	mov	0, %g3
+	add	%i0, -1, %o7
+	mov	0, %g4
 /*end bb 1*/
 .L21:
 /*start bb 2, raw*/
@@ -46,9 +46,9 @@ core_init_state:
 	bne,a	.L27
 	 ldub	[%g4+%g1], %g2
 /*start bb 6, raw*/
-	stb	%o4, [%i2+%i3]
-	mov	%i4, %i5
 	add	%i1, 1, %i1
+	mov	%i4, %i5
+	stb	%o4, [%i2+%i3]
 /*end bb 6*/
 .L26:
 /*start bb 7, raw*/
@@ -63,9 +63,9 @@ core_init_state:
 	bleu	.L24
 	 or	%o5, %lo(.L9), %g4
 /*start bb 8, raw*/
-	or	%o0, %lo(intpat), %g1
 	srl	%g3, 17, %i3
 	mov	4, %g3
+	or	%o0, %lo(intpat), %g1
 	and	%i3, 12, %i4
 	add	%i5, %g3, %i3
 	ld	[%g1+%i4], %g4
@@ -111,17 +111,17 @@ core_init_state:
 /*start bb 15, raw*/
 	srl	%i1, 1, %g1
 	mov	8, %g3
-	or	%o3, %lo(floatpat), %i3
 	and	%g1, 12, %g1
+	or	%o3, %lo(floatpat), %i3
 /*end bb 15*/
 	b	.L21
 	 ld	[%i3+%g1], %g4
 .L7:
 /*start bb 16, raw*/
 	srl	%i1, 1, %g1
-	or	%o2, %lo(scipat), %i4
 	mov	8, %g3
 	and	%g1, 12, %g1
+	or	%o2, %lo(scipat), %i4
 /*end bb 16*/
 	b	.L21
 	 ld	[%i4+%g1], %g4
@@ -129,8 +129,8 @@ core_init_state:
 /*start bb 17, raw*/
 	srl	%i1, 1, %g1
 	mov	8, %g3
-	or	%o1, %lo(errpat), %g2
 	and	%g1, 12, %g1
+	or	%o1, %lo(errpat), %g2
 /*end bb 17*/
 	b	.L21
 	 ld	[%g2+%g1], %g4
@@ -163,14 +163,14 @@ core_state_transition:
 	be	.L87
 	 add	%o5, 1, %g2
 /*start bb 20, raw*/
-	mov	0, %o0
 	sethi	%hi(.L44), %o3
+	mov	0, %o0
 	mov	%o5, %g3
 /*end bb 20*/
 .L75:
 /*start bb 21, raw*/
-	or	%o3, %lo(.L44), %o4
 	sll	%o0, 2, %o5
+	or	%o3, %lo(.L44), %o4
 	ld	[%o4+%o5], %o4
 /*end bb 21*/
 	jmp	%o4
@@ -228,8 +228,8 @@ core_state_transition:
 	 mov	1, %o0
 .L61:
 /*start bb 31, raw*/
-	add	%g2, 1, %g2
 	cmp	%g4, 44
+	add	%g2, 1, %g2
 /*end bb 31*/
 	bne	.L75
 	 add	%g3, 1, %g3
@@ -269,8 +269,8 @@ core_state_transition:
 	bgu	.L89
 	 ld	[%o1+24], %g1
 /*start bb 38, raw*/
-	mov	7, %o0
 	add	%g1, 1, %g1
+	mov	7, %o0
 /*end bb 38*/
 	b	.L49
 	 st	%g1, [%o1+24]
@@ -337,8 +337,8 @@ core_state_transition:
 /*end bb 48*/
 .L50:
 /*start bb 49, raw*/
-	mov	%g2, %o5
 	mov	1, %o0
+	mov	%g2, %o5
 /*end bb 49*/
 .L94:
 	jmp	%o7+8
@@ -391,8 +391,8 @@ core_state_transition:
 .L71:
 .L93:
 /*start bb 58, raw*/
-	mov	2, %o0
 	add	%g1, 1, %g1
+	mov	2, %o0
 /*end bb 58*/
 	b	.L36
 	 st	%g1, [%o1]
@@ -441,11 +441,11 @@ core_state_transition:
 core_bench_state:
 	save	%sp, -168, %sp
 /*start bb 62, raw*/
-	mov	0, %g1
 	add	%fp, -32, %l0
-	st	%i1, [%fp-68]
+	mov	0, %g1
 	add	%fp, -64, %l1
 	st	%g0, [%l0+%g1]
+	st	%i1, [%fp-68]
 /*end bb 62*/
 .L131:
 /*start bb 63, raw*/

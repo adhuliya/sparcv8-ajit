@@ -83,6 +83,8 @@ class DependencyGraph():
     self.instrList = instrList
     # graph is explicity given in unittests
     self.graph = graph
+    self.maxDepth = 0
+    self.maxHeights = None  # generated along with the graph
 
     # if instrList is not None, graph is automatically generated
     if instrList: self.generateGraph()
@@ -94,7 +96,7 @@ class DependencyGraph():
     """
     assert self.instrList, "Initialized and non-empty instrList required."
 
-    self.graph = dict()
+    graph = dict()
 
     # Convert instr list to instr node list
     instrNodeList = []
@@ -103,22 +105,80 @@ class DependencyGraph():
 
     # Put the node into the graph
     for node in instrNodeList:
-      self.graph[node.id] = node
+      graph[node.id] = node
 
     # Work out all the dependencies
     for i, nodePred in enumerate(instrNodeList):
       for j, nodeSucc in enumerate(instrNodeList[i + 1:]):
-        skip = False
         isDep = nodeSucc.instr.isDependentOn(nodePred.instr)
         if isDep:
-          for succ in nodePred.succ:
-            if nodeSucc.instr.isDependentOn(self.graph[succ].instr):
-              skip = True
+          # add mutual dependency
+          nodePred.succ.add(nodeSucc.id)
+          nodeSucc.pred.add(nodePred.id)
 
-          if not skip:
-            # add mutual dependency
-            nodePred.succ.add(nodeSucc.id)
-            nodeSucc.pred.add(nodePred.id)
+    self.graph = self.simplifyGraph(graph)
+    self.maxHeights = self.maxNodeHeights(graph)
+
+  def maxNodeHeights(self, graph):
+    """
+    Returns a dict of maximum height of all nodes in the graph.
+    :param graph:
+    :return:
+    """
+    nodeIds = list(graph.keys())
+    nodeIds.sort()
+    nodeIds.reverse()  # for post-order traversal
+    maxHeights = dict([(id, 1) for id in nodeIds])
+
+    for nodeId in nodeIds:
+      succMax = 1
+      for succId in graph[nodeId].succ:
+        succMax = max(succMax, maxHeights[succId])
+      maxHeights[nodeId] = succMax + 1
+
+    return maxHeights
+
+  def maxGraphHeight(self, graph):
+    """
+    The maximum number of nodes in the longest path.
+    :param graph:
+    :return:
+    """
+    theMax = 1
+    maxHeights = self.maxNodeHeights(graph)
+    for nodeId in maxHeights.keys():
+      theMax = max(maxHeights[nodeId], theMax)
+
+    return theMax
+
+  def simplifyGraph(self, graph):
+    """
+    Removes redundant dependency edges from the graph.
+    Eg. If A -> B -> C and A -> C exists, the edge A -> C is removed.
+    :param graph:
+    :return:
+    """
+    newGraph = self.copyGraph(graph)
+    nodeIds = list(graph.keys())
+    nodeIds.sort()  # to traverse in pre-order
+    ancestors = dict([(id, set()) for id in nodeIds])
+
+    # calculate the set of all the ancestors of a node
+    for nodeId in nodeIds:
+      for predId in graph[nodeId].pred:
+        ancestors[nodeId].add(predId)
+        ancestors[nodeId].update(ancestors[predId])
+
+    # remove predecessors to which there is transitive dependence too
+    for nodeId in nodeIds:
+      transitiveDepOn = set()  # set of Ids
+      for predId in graph[nodeId].pred:
+        transitiveDepOn.update(ancestors[predId] & graph[nodeId].pred)
+      for tDepsId in transitiveDepOn:
+        newGraph[nodeId].pred.remove(tDepsId)
+        newGraph[tDepsId].succ.remove(nodeId)
+
+    return newGraph
 
   def getDotGraphString(self):
     """
@@ -166,7 +226,10 @@ class DependencyGraph():
         graphString.write("{}; ".format(nodeId))
       else:
         for succ in currNode.succ:
-          graphString.write("{} -> {}; ".format(nodeId, succ))
+          if self.graph[succ].instr.isRawDependentOn(currNode.instr):
+            graphString.write("{} -> {}; ".format(nodeId, succ))
+          else:
+            graphString.write("{} -> {} [style=dashed]; ".format(nodeId, succ))
 
     dotGraph = """digraph {{
     node [fontname = "Courier"];
@@ -176,10 +239,10 @@ class DependencyGraph():
 
     return dotGraph
 
-  def copyGraph(self):
+  def copyGraph(self, graph):
     copiedGraph = dict()
-    for nodeid in self.graph:
-      copiedGraph[nodeid] = self.graph[nodeid].copy()
+    for nodeid in graph:
+      copiedGraph[nodeid] = graph[nodeid].copy()
 
     return copiedGraph
 
@@ -197,7 +260,7 @@ class DependencyGraph():
     assert huristic in self.huristicsMap, "Unknow huristic: '{}'".format(huristic)
 
     sources = set()
-    graph = self.copyGraph()
+    graph = self.copyGraph(self.graph)
     sortedNodeIds = []
 
     while graph:
@@ -292,14 +355,28 @@ class DependencyGraph():
     for nodeid in src:
       return nodeid
 
+  def decideMaxDepth(self):
+    """
+    A return value (say) 2 means that consider only the last
+    two instructions from the currently selected sequence
+    of instructions to decide the next selection of instruction.
+    :return:
+    """
+    maxHeight = self.maxGraphHeight(self.graph)
+    if maxHeight > len(self.graph)//2:
+      return 1
+    else:
+      return 2
+
   def selectNotRawFirst(self, sortedNodeIds, sources):
     """
-    Select nodes which are not Raw dependent to the already sorted nodes.
+    Select nodes which are not Raw dependent to the already sorted/selected nodes.
     """
     src = sources
     rawSet = set()
 
-    maxDepth = 2 # max instructions (reversed sequence) accounted for
+    # max instructions (reversed sequence) accounted for
+    maxDepth = self.decideMaxDepth()
     depth = 0 # depth counter
 
     for nodeid in reversed(sortedNodeIds):
@@ -322,10 +399,18 @@ class DependencyGraph():
       if depth == maxDepth:
         break
 
-    return self._selectNodeWithMaxRawSucc(src)
+    # FIXIT: create a separate function which uses self._selectNodeWithMaxHeight()
+    #return self._selectNodeWithMaxRawSucc(src)
+    return self._selectNodeWithMaxHeight(src)
+
+  def _selectNodeWithMaxHeight(self, nodeIdSet):
+    # returns the node id with max height
+    nodeList = [(self.maxHeights[id], id) for id in nodeIdSet]
+    nodeList.sort()
+    return nodeList[-1][1]
 
   def _selectNodeWithMaxRawSucc(self, nodeIdSet):
-    # return node with max raw successors, among the given
+    # return node id with max raw successors, among the given
     maxSelectNode = None # stores the node currently with max raw succ
     maxRawSuccCount = 0 # raw succ count of the current node
 

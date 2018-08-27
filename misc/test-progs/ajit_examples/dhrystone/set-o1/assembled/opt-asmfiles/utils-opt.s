@@ -5,8 +5,8 @@
 	.type	__memcpy, #function
 	.proc	0120
 __memcpy:
-	ldd	[%o1], %g2
 	mov	0, %g1
+	ldd	[%o1], %g2
 .L2:
 	std	%g2, [%o0+%g1]
 	add	%g1, 8, %g1
@@ -23,15 +23,15 @@ __memcpy:
 __strcpy:
 	sethi	%hi(-2139062272), %g4
 	sethi	%hi(-16843776), %o5
-	ld	[%o1], %g2
 	mov	0, %g1
-	or	%o5, 767, %o5
 	or	%g4, 128, %g4
+	or	%o5, 767, %o5
+	ld	[%o1], %g2
 .L5:
 	add	%g2, %o5, %g3
-	andn	%g3, %g2, %g3
 	st	%g2, [%o0+%g1]
 	andcc	%g3, %g4, %g0
+	andn	%g3, %g2, %g3
 	add	%g1, 4, %g1
 	be	.L5
 	 ld	[%o1+%g1], %g2
@@ -43,19 +43,19 @@ __strcpy:
 	.type	__strcmp, #function
 	.proc	04
 __strcmp:
-	sethi	%hi(-16843776), %o3
 	sethi	%hi(-2139062272), %o4
-	mov	%o0, %o5
+	sethi	%hi(-16843776), %o3
 	mov	0, %g1
 	or	%o4, 128, %o4
 	or	%o3, 767, %o3
+	mov	%o0, %o5
 .L8:
 	ld	[%o5+%g1], %g2
 	ld	[%o1+%g1], %g4
 	andn	%g3, %g2, %g2
-	add	%g2, %o3, %g3
 	sub	%g2, %g4, %o0
 	and	%g2, %o4, %g4
+	add	%g2, %o3, %g3
 	orcc	%g4, %o0, %g0
 	be	.L8
 	 add	%g1, 4, %g1

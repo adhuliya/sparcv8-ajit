@@ -42,10 +42,10 @@ __ajit_get_clock_time:
 #APP
 ! 32 "dhry_1.c" 1
 /*start bb 5, raw*/
-	rd %asr31, %o4 
+	rd %asr30, %g1 
 ! 0 "" 2
 ! 25 "dhry_1.c" 1
-	rd %asr30, %g1 
+	rd %asr31, %o4 
 ! 0 "" 2
 /*end bb 5*/
 #NO_APP
@@ -197,8 +197,8 @@ Proc_2:
 	bne	.L13
 	 ld	[%o0], %g2
 /*start bb 23, raw*/
-	add	%g2, 9, %g3
 	sethi	%hi(Int_Glob), %g1
+	add	%g2, 9, %g3
 	ld	[%g1+%lo(Int_Glob)], %g1
 	sub	%g3, %g1, %g4
 	st	%g4, [%o0]
@@ -248,16 +248,16 @@ Proc_1:
 /*start bb 28, raw*/
 	sethi	%hi(Ptr_Glob), %g1
 	mov	48, %o2
-	ld	[%i0], %i5
 	ld	[%g1+%lo(Ptr_Glob)], %o1
+	ld	[%i0], %i5
 /*end bb 28*/
 	call	__memcpy, 0
 	 mov	%i5, %o0
 /*start bb 29, raw*/
 	mov	5, %g1
 	mov	%i5, %o0
-	st	%g1, [%i0+12]
 	st	%g1, [%i5+12]
+	st	%g1, [%i0+12]
 	ld	[%i0], %g1
 /*end bb 29*/
 	call	Proc_3, 0
@@ -277,9 +277,9 @@ Proc_1:
 	 ld	[%i0+8], %o0
 /*start bb 32, raw*/
 	sethi	%hi(Ptr_Glob), %g1
-	mov	10, %o1
 	add	%i5, 12, %o2
 	ld	[%g1+%lo(Ptr_Glob)], %g1
+	mov	10, %o1
 	ld	[%i5+12], %o0
 	ld	[%g1], %g1
 /*end bb 32*/
@@ -356,48 +356,48 @@ Proc_5:
 run_dhrystone:
 	save	%sp, -176, %sp
 /*start bb 38, raw*/
-	sethi	%hi(p_rec), %g1
-	sethi	%hi(Ptr_Glob), %g3
-	sethi	%hi(.LC0), %o2
-	or	%g1, %lo(p_rec), %o0
 	sethi	%hi(g_rec), %g2
+	sethi	%hi(p_rec), %g1
 	sethi	%hi(Next_Ptr_Glob), %o1
-	st	%o0, [%g3+%lo(Ptr_Glob)]
 	or	%g2, %lo(g_rec), %g4
-	st	%g0, [%o0+4]
+	or	%g1, %lo(p_rec), %o0
+	sethi	%hi(.LC0), %o2
 	st	%g4, [%g1+%lo(p_rec)]
 	mov	2, %g1
 	st	%g4, [%o1+%lo(Next_Ptr_Glob)]
-	or	%o2, %lo(.LC0), %o1
+	sethi	%hi(Ptr_Glob), %g3
 	st	%g1, [%o0+8]
 	mov	40, %g1
+	or	%o2, %lo(.LC0), %o1
+	st	%g0, [%o0+4]
+	st	%o0, [%g3+%lo(Ptr_Glob)]
 	st	%g1, [%o0+12]
 /*end bb 38*/
 	call	__strcpy, 0
 	 add	%o0, 16, %o0
 /*start bb 39, raw*/
-	sethi	%hi(.LC1), %o3
 	add	%fp, -48, %o0
+	sethi	%hi(.LC1), %o3
 /*end bb 39*/
 	call	__strcpy, 0
 	 or	%o3, %lo(.LC1), %o1
 /*start bb 40, raw*/
 	cmp	%i0, 0
-	mov	10, %o4
 	sethi	%hi(Arr_2_Glob+1628), %g1
+	mov	10, %o4
 /*end bb 40*/
 	ble	.L39
 	 st	%o4, [%g1+%lo(Arr_2_Glob+1628)]
 /*start bb 41, raw*/
-	sethi	%hi(.LC2), %l0
-	sethi	%hi(Arr_1_Glob), %i1
-	sethi	%hi(Arr_2_Glob), %i2
 	sethi	%hi(.LC3), %i3
-	mov	1, %i4
-	or	%i2, %lo(Arr_2_Glob), %i2
+	sethi	%hi(Arr_2_Glob), %i2
+	sethi	%hi(Arr_1_Glob), %i1
+	sethi	%hi(.LC2), %l0
 	or	%i3, %lo(.LC3), %i3
-	or	%l0, %lo(.LC2), %l0
+	or	%i2, %lo(Arr_2_Glob), %i2
 	or	%i1, %lo(Arr_1_Glob), %i1
+	or	%l0, %lo(.LC2), %l0
+	mov	1, %i4
 /*end bb 41*/
 .L29:
 	call	Proc_5, 0
@@ -421,19 +421,19 @@ run_dhrystone:
 /*start bb 44, raw*/
 	subcc	%g0, %o0, %g0
 	sethi	%hi(Bool_Glob), %g1
-	subx	%g0, -1, %o5
 	ld	[%fp-4], %o2
-	st	%o5, [%g1+%lo(Bool_Glob)]
+	subx	%g0, -1, %o5
 	cmp	%o2, 2
+	st	%o5, [%g1+%lo(Bool_Glob)]
 /*end bb 44*/
 	bg	.L36
 	 mov	%i1, %o0
 .L31:
 /*start bb 45, raw*/
 	sll	%o2, 2, %g1
-	ld	[%fp-4], %o0
 	mov	3, %o1
 	add	%g1, %o2, %o7
+	ld	[%fp-4], %o0
 	add	%fp, -8, %o2
 	add	%o7, -3, %g1
 /*end bb 45*/
@@ -469,9 +469,9 @@ run_dhrystone:
 	 mov	65, %i5
 /*start bb 51, raw*/
 	sll	%i5, 24, %o0
-	mov	3, %l2
-	sethi	%hi(Int_Glob), %l3
 	sethi	%hi(Ch_2_Glob), %l1
+	sethi	%hi(Int_Glob), %l3
+	mov	3, %l2
 /*end bb 51*/
 .L38:
 /*start bb 52, raw*/
@@ -491,8 +491,8 @@ run_dhrystone:
 	call	Proc_6, 0
 	 add	%fp, -12, %o1
 /*start bb 55, raw*/
-	add	%fp, -80, %o0
 	mov	%i3, %o1
+	add	%fp, -80, %o0
 /*end bb 55*/
 	call	__strcpy, 0
 	 mov	%i4, %l2
@@ -502,8 +502,8 @@ run_dhrystone:
 /*end bb 56*/
 .L37:
 /*start bb 57, raw*/
-	ldsb	[%l1+%lo(Ch_2_Glob)], %g2
 	sll	%i5, 24, %g1
+	ldsb	[%l1+%lo(Ch_2_Glob)], %g2
 	sra	%g1, 24, %g1
 	cmp	%g2, %g1
 /*end bb 57*/
@@ -513,8 +513,8 @@ run_dhrystone:
 	 ld	[%fp-4], %g1
 .L30:
 /*start bb 58, raw*/
-	mov	3, %l2
 	ld	[%fp-4], %g1
+	mov	3, %l2
 /*end bb 58*/
 .L35:
 /*start bb 59, raw*/
@@ -524,8 +524,8 @@ run_dhrystone:
 	ld	[%fp-8], %g1
 	nop
 	nop
-	sdiv	%g4, %g1, %g3
 	add	%fp, -4, %o0
+	sdiv	%g4, %g1, %g3
 /*end bb 59*/
 	call	Proc_2, 0
 	 st	%g3, [%fp-4]
@@ -546,21 +546,21 @@ run_dhrystone:
 ajit_main:
 	save	%sp, -96, %sp
 /*start bb 61, raw*/
-	mov	0, %g2
 	mov	256, %g1
+	mov	0, %g2
 /*end bb 61*/
 #APP
 ! 79 "dhry_1.c" 1
 /*start bb 62, raw*/
-	rd %asr30, %l3 
+	rd %asr31, %l4 
 	
 ! 0 "" 2
 ! 456 "dhry_1.c" 1
-	rd %asr31, %l4 
+	rd %asr30, %l3 
 	 
 ! 0 "" 2
 ! 457 "dhry_1.c" 1
-	sta %g1, [%g2] 4
+	wr %l4, 0x00, %asr25 
 	 
 ! 0 "" 2
 ! 458 "dhry_1.c" 1
@@ -568,7 +568,7 @@ ajit_main:
 	
 ! 0 "" 2
 ! 459 "dhry_1.c" 1
-	wr %l4, 0x00, %asr25 
+	sta %g1, [%g2] 4
 	
 ! 0 "" 2
 /*end bb 62*/
@@ -621,15 +621,15 @@ ajit_main:
 #APP
 ! 69 "dhry_1.c" 1
 /*start bb 71, raw*/
-	rd %asr30, %l3 
+	rd %asr31, %l4 
 	
 ! 0 "" 2
 ! 471 "dhry_1.c" 1
-	rd %asr31, %l4 
+	rd %asr30, %l3 
 	 
 ! 0 "" 2
 ! 472 "dhry_1.c" 1
-	mov %g1, %g5
+	wr %l4, 0x00, %asr27 
 	 
 ! 0 "" 2
 ! 473 "dhry_1.c" 1
@@ -637,7 +637,7 @@ ajit_main:
 	
 ! 0 "" 2
 ! 474 "dhry_1.c" 1
-	wr %l4, 0x00, %asr27 
+	mov %g1, %g5
 	
 ! 0 "" 2
 ! 73 "dhry_1.c" 1

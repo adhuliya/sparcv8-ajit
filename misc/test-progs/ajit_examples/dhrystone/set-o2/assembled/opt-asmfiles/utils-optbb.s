@@ -32,16 +32,16 @@ __strcpy:
 	sethi	%hi(-16843776), %o5
 	ld	[%o1], %g2
 	mov	0, %g1
-	or	%o5, 767, %o5
 	or	%g4, 128, %g4
+	or	%o5, 767, %o5
 /*end bb 4*/
 .L6:
 /*start bb 5, raw*/
 	add	%g2, %o5, %g3
 	andn	%g3, %g2, %g3
 	st	%g2, [%o0+%g1]
-	andcc	%g3, %g4, %g0
 	add	%g1, 4, %g1
+	andcc	%g3, %g4, %g0
 /*end bb 5*/
 	be	.L6
 	 ld	[%o1+%g1], %g2
@@ -60,8 +60,8 @@ __strcmp:
 	sethi	%hi(-2139062272), %o4
 	mov	%o0, %o5
 	mov	0, %g1
-	or	%o4, 128, %o4
 	or	%o3, 767, %o3
+	or	%o4, 128, %o4
 /*end bb 7*/
 .L12:
 /*start bb 8, raw*/

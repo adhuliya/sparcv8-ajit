@@ -117,9 +117,9 @@ class DependencyGraph():
           nodeSucc.pred.add(nodePred.id)
 
     self.graph = self.simplifyGraph(graph)
-    self.maxHeights = self.maxNodeHeights(graph)
+    self.maxHeights = self.maxRawNodeHeights(graph)
 
-  def maxNodeHeights(self, graph):
+  def maxRawNodeHeights(self, graph):
     """
     Returns a dict of maximum height of all nodes in the graph.
     :param graph:
@@ -128,13 +128,16 @@ class DependencyGraph():
     nodeIds = list(graph.keys())
     nodeIds.sort()
     nodeIds.reverse()  # for post-order traversal
-    maxHeights = dict([(id, 1) for id in nodeIds])
+    maxHeights = dict([(id, 0) for id in nodeIds])
 
     for nodeId in nodeIds:
-      succMax = 1
+      succMax = 0
       for succId in graph[nodeId].succ:
-        succMax = max(succMax, maxHeights[succId])
-      maxHeights[nodeId] = succMax + 1
+        increment = 0
+        if graph[succId].instr.isRawDependentOn(graph[nodeId].instr):
+          increment = 1
+        succMax = max(succMax, (maxHeights[succId]+increment))
+      maxHeights[nodeId] = succMax
 
     return maxHeights
 
@@ -145,7 +148,7 @@ class DependencyGraph():
     :return:
     """
     theMax = 1
-    maxHeights = self.maxNodeHeights(graph)
+    maxHeights = self.maxRawNodeHeights(graph)
     for nodeId in maxHeights.keys():
       theMax = max(maxHeights[nodeId], theMax)
 
@@ -363,10 +366,16 @@ class DependencyGraph():
     :return:
     """
     maxHeight = self.maxGraphHeight(self.graph)
-    if maxHeight > len(self.graph)//2:
-      return 1
-    else:
-      return 2
+    graphLen = len(self.graph)
+    depth = 2  # default value
+
+    if maxHeight > (graphLen//2):
+      depth = 1
+    elif maxHeight <= (2*graphLen)//5:
+      depth = 3
+    log.error("depth: %s, maxHeight: %s, len(graph): %s,  lineNum: %s", str(depth), str(maxHeight),
+              str(len(self.graph)), str(self.instrList[0].asmChunk.lineNum))
+    return depth
 
   def selectNotRawFirst(self, sortedNodeIds, sources):
     """
@@ -385,6 +394,7 @@ class DependencyGraph():
 
       # extract raw dependent successors
       rawSet.clear()
+
       for succ in node.succ:
         if self.graph[succ].instr.isRawDependentOn(node.instr):
           rawSet.add(succ)
@@ -407,7 +417,12 @@ class DependencyGraph():
     # returns the node id with max height
     nodeList = [(self.maxHeights[id], id) for id in nodeIdSet]
     nodeList.sort()
-    return nodeList[-1][1]
+    maxHeight = nodeList[-1][0]
+    maxNodeList = [nodetup[1] for nodetup in nodeList if nodetup[0] == maxHeight]
+    if len(maxNodeList) == 1:
+      return maxNodeList[0]
+    else:
+      return self._selectNodeWithMaxRawSucc(set(maxNodeList))
 
   def _selectNodeWithMaxRawSucc(self, nodeIdSet):
     # return node id with max raw successors, among the given

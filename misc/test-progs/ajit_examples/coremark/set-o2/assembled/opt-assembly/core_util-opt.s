@@ -61,13 +61,13 @@ get_seed_32:
 	.type	crcu8, #function
 	.proc	015
 crcu8:
+	sethi	%hi(31744), %g4
+	sethi	%hi(16384), %o4
+	mov	8, %g2
+	sethi	%hi(-32768), %o5
 	mov	%o0, %g1
 	mov	%o1, %o0
-	sethi	%hi(31744), %g4
-	sethi	%hi(-32768), %o5
 	or	%g4, 1023, %o1
-	mov	8, %g2
-	sethi	%hi(16384), %o4
 	b	.L14
 	 or	%o4, 2, %g4
 .L13:
@@ -98,12 +98,12 @@ crcu8:
 	.type	crcu16, #function
 	.proc	015
 crcu16:
-	sethi	%hi(16384), %o4
 	sethi	%hi(31744), %g4
-	mov	8, %g1
-	or	%o4, 2, %o4
-	or	%g4, 1023, %g4
+	sethi	%hi(16384), %o4
 	mov	%o0, %g2
+	mov	8, %g1
+	or	%g4, 1023, %g4
+	or	%o4, 2, %o4
 	b	.L22
 	 sethi	%hi(-32768), %o5
 .L21:
@@ -127,12 +127,12 @@ crcu16:
 	bne	.L22
 	 srl	%o1, 16, %o1
 .L30:
-	sethi	%hi(16384), %o5
 	sethi	%hi(31744), %g4
-	mov	8, %g1
-	or	%o5, 2, %g3
+	sethi	%hi(16384), %o5
 	srl	%o0, 8, %o0
+	mov	8, %g1
 	or	%g4, 1023, %o4
+	or	%o5, 2, %g3
 	b	.L24
 	 sethi	%hi(-32768), %g4
 .L23:
@@ -164,12 +164,12 @@ crcu16:
 	.type	crc16, #function
 	.proc	015
 crc16:
-	sethi	%hi(16384), %o4
 	sethi	%hi(31744), %g4
-	mov	8, %g1
-	or	%o4, 2, %o4
-	or	%g4, 1023, %g4
+	sethi	%hi(16384), %o4
 	mov	%o0, %g2
+	mov	8, %g1
+	or	%g4, 1023, %g4
+	or	%o4, 2, %o4
 	b	.L34
 	 sethi	%hi(-32768), %o5
 .L33:
@@ -193,13 +193,13 @@ crc16:
 	bne	.L34
 	 srl	%o1, 16, %o1
 .L42:
-	sethi	%hi(16384), %o5
-	sll	%o0, 16, %o0
 	sethi	%hi(31744), %g4
-	or	%o5, 2, %g3
+	sll	%o0, 16, %o0
+	sethi	%hi(16384), %o5
 	mov	8, %g1
-	srl	%o0, 24, %o0
 	or	%g4, 1023, %o4
+	srl	%o0, 24, %o0
+	or	%o5, 2, %g3
 	b	.L36
 	 sethi	%hi(-32768), %g4
 .L35:
@@ -232,9 +232,9 @@ crc16:
 	.proc	015
 crcu32:
 	save	%sp, -96, %sp
+	mov	%i1, %o1
 	sll	%i0, 16, %o0
 	sra	%i0, 16, %i0
-	mov	%i1, %o1
 	call	crc16, 0
 	 sra	%o0, 16, %o0
 	call	crc16, 0

@@ -54,10 +54,10 @@ Proc_7:
 	.proc	020
 Proc_8:
 	add	%o2, 5, %g1
-	add	%o2, 35, %g4
 	add	%o2, 6, %g3
-	sll	%g1, 2, %g2
+	add	%o2, 35, %g4
 	add	%o2, 4, %o2
+	sll	%g1, 2, %g2
 	sll	%g3, 2, %g3
 	st	%o3, [%o0+%g2]
 	st	%o3, [%o0+%g3]
@@ -65,10 +65,10 @@ Proc_8:
 	smul	%g1, 200, %g4
 	st	%g1, [%o0+%o3]
 	add	%o1, %g4, %o1
-	add	%o1, %g2, %o3
-	st	%g1, [%o1+%g2]
 	st	%g1, [%o1+%g3]
 	sll	%o2, 2, %g3
+	st	%g1, [%o1+%g2]
+	add	%o1, %g2, %o3
 	ld	[%o1+%g3], %g1
 	add	%g1, 1, %g1
 	st	%g1, [%o1+%g3]

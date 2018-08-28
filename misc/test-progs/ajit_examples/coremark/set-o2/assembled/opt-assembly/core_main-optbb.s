@@ -12,12 +12,12 @@ iterate:
 	save	%sp, -96, %sp
 /*start bb 1, raw*/
 	sethi	%hi(.LC0), %o0
-	sth	%g0, [%i0+62]
-	sth	%g0, [%i0+60]
-	or	%o0, %lo(.LC0), %o0
-	sth	%g0, [%i0+58]
-	sth	%g0, [%i0+56]
 	ld	[%i0+28], %i4
+	sth	%g0, [%i0+56]
+	sth	%g0, [%i0+58]
+	sth	%g0, [%i0+60]
+	sth	%g0, [%i0+62]
+	or	%o0, %lo(.LC0), %o0
 /*end bb 1*/
 	call	ee_printf, 0
 	 mov	%i4, %o1
@@ -33,20 +33,20 @@ iterate:
 	call	core_bench_list, 0
 	 mov	%i0, %o0
 /*start bb 4, raw*/
-	lduh	[%i0+56], %o1
 	sll	%o0, 16, %g1
+	lduh	[%i0+56], %o1
 /*end bb 4*/
 	call	crcu16, 0
 	 srl	%g1, 16, %o0
 /*start bb 5, raw*/
-	sth	%o0, [%i0+56]
 	mov	-1, %o1
+	sth	%o0, [%i0+56]
 /*end bb 5*/
 	call	core_bench_list, 0
 	 mov	%i0, %o0
 /*start bb 6, raw*/
-	lduh	[%i0+56], %o1
 	sll	%o0, 16, %g2
+	lduh	[%i0+56], %o1
 /*end bb 6*/
 	call	crcu16, 0
 	 srl	%g2, 16, %o0
@@ -268,18 +268,18 @@ ajit_main:
 .L19:
 /*start bb 23, raw*/
 	sll	%l1, 16, %l2
-	wr	%g0, 0, %y
-	add	%fp, -60, %i5
-	srl	%l2, 16, %l3
 	mov	2000, %i4
+	add	%fp, -60, %i5
+	wr	%g0, 0, %y
+	srl	%l2, 16, %l3
 	nop
 	nop
 	nop
 	udiv	%i4, %l3, %o0
-	mov	1, %i2
-	mov	0, %i3
-	st	%o0, [%fp-48]
 	mov	0, %g3
+	mov	0, %i3
+	mov	1, %i2
+	st	%o0, [%fp-48]
 /*end bb 23*/
 .L21:
 /*start bb 24, raw*/
@@ -344,8 +344,8 @@ ajit_main:
 	call	get_time, 0
 	 nop
 /*start bb 33, raw*/
-	mov	%o0, %i1
 	mov	0, %o1
+	mov	%o0, %i1
 /*end bb 33*/
 	call	crc16, 0
 	 ldsh	[%fp-72], %o0
@@ -394,33 +394,33 @@ ajit_main:
 /*end bb 40*/
 .L147:
 /*start bb 41, raw*/
-	sethi	%hi(default_num_contexts), %i0
-	sth	%l0, [%fp-74]
 	mov	-1, %l1
+	sth	%l0, [%fp-74]
+	sethi	%hi(default_num_contexts), %i0
 /*end bb 41*/
 .L32:
 	call	check_data_types, 0
 	 sethi	%hi(.LC12), %i2
 /*start bb 42, raw*/
-	and	%o0, 0xff, %i5
 	ld	[%fp-48], %o1
+	and	%o0, 0xff, %i5
 /*end bb 42*/
 	call	ee_printf, 0
 	 or	%i2, %lo(.LC12), %o0
 /*start bb 43, raw*/
-	sethi	%hi(.LC13), %l0
 	mov	%i1, %o1
+	sethi	%hi(.LC13), %l0
 /*end bb 43*/
 	call	ee_printf, 0
 	 or	%l0, %lo(.LC13), %o0
 	call	time_in_secs, 0
 	 mov	%i1, %o0
 /*start bb 44, raw*/
-	ldd	[%fp-104], %g2
 	sethi	%hi(.LC14), %o3
-	mov	%g2, %o1
-	or	%o3, %lo(.LC14), %o0
+	ldd	[%fp-104], %g2
 	std	%f0, [%fp-104]
+	or	%o3, %lo(.LC14), %o0
+	mov	%g2, %o1
 /*end bb 44*/
 	call	ee_printf, 0
 	 mov	%g3, %o2
@@ -436,12 +436,12 @@ ajit_main:
 	fbule	.L46
 	 mov	%l1, %i3
 /*start bb 46, raw*/
-	ld	[%fp-44], %g1
 	ld	[%i0+%lo(default_num_contexts)], %o1
+	ld	[%fp-44], %g1
 	ld	[%fp-92], %f1
 	smul	%o1, %g1, %g1
-	cmp	%g1, 0
 	st	%g1, [%fp-92]
+	cmp	%g1, 0
 /*end bb 46*/
 	bl	.L126
 	 fitod	%f1, %f8
@@ -454,8 +454,8 @@ ajit_main:
 /*start bb 48, raw*/
 	ldd	[%fp-88], %f8
 	ldd	[%fp-104], %g2
-	fdivd	%f8, %f0, %f14
 	sethi	%hi(.LC17), %o4
+	fdivd	%f8, %f0, %f14
 	mov	%g2, %o1
 	or	%o4, %lo(.LC17), %o0
 	std	%f14, [%fp-104]
@@ -523,18 +523,18 @@ ajit_main:
 	be	.L53
 	 sethi	%hi(.LC28), %o2
 /*start bb 58, raw*/
-	mov	0, %i4
 	sethi	%hi(default_num_contexts), %g4
-	sll	%i4, 16, %i2
+	mov	0, %i4
 	or	%o2, %lo(.LC28), %i5
 	or	%g4, %lo(default_num_contexts), %l2
+	sll	%i4, 16, %i2
 /*end bb 58*/
 .L139:
 /*start bb 59, raw*/
 	srl	%i2, 16, %o1
 	mov	%i5, %o0
-	sll	%o1, 6, %g1
 	sll	%o1, 2, %l0
+	sll	%o1, 6, %g1
 	add	%l0, %g1, %g1
 	add	%fp, %g1, %g1
 /*end bb 59*/
@@ -564,18 +564,18 @@ ajit_main:
 	be	.L60
 	 sethi	%hi(default_num_contexts), %o1
 /*start bb 64, raw*/
-	mov	0, %l3
 	sethi	%hi(.LC29), %o4
-	sll	%l3, 16, %o5
-	or	%o4, %lo(.LC29), %l4
+	mov	0, %l3
 	or	%o1, %lo(default_num_contexts), %l6
+	or	%o4, %lo(.LC29), %l4
+	sll	%l3, 16, %o5
 /*end bb 64*/
 .L141:
 /*start bb 65, raw*/
 	srl	%o5, 16, %o1
 	mov	%l4, %o0
-	sll	%o1, 6, %g1
 	sll	%o1, 2, %o7
+	sll	%o1, 6, %g1
 	add	%o7, %g1, %g1
 	add	%fp, %g1, %g1
 /*end bb 65*/
@@ -603,19 +603,19 @@ ajit_main:
 	be,a	.L136
 	 sll	%i3, 16, %i3
 /*start bb 69, raw*/
-	mov	0, %i4
 	sethi	%hi(.LC30), %o2
+	mov	0, %i4
 	sethi	%hi(default_num_contexts), %l2
-	sll	%i4, 16, %l0
 	or	%o2, %lo(.LC30), %i2
+	sll	%i4, 16, %l0
 	or	%l2, %lo(default_num_contexts), %i5
 /*end bb 69*/
 .L143:
 /*start bb 70, raw*/
 	srl	%l0, 16, %o1
 	mov	%i2, %o0
-	sll	%o1, 6, %g1
 	sll	%o1, 2, %o3
+	sll	%o1, 6, %g1
 	add	%o3, %g1, %g1
 	add	%fp, %g1, %g1
 /*end bb 70*/
@@ -637,11 +637,11 @@ ajit_main:
 	be	.L60
 	 sethi	%hi(default_num_contexts), %l6
 /*start bb 73, raw*/
-	mov	0, %l2
 	sethi	%hi(.LC31), %o4
-	sll	%l2, 16, %o5
-	or	%o4, %lo(.LC31), %l3
+	mov	0, %l2
 	or	%l6, %lo(default_num_contexts), %l4
+	or	%o4, %lo(.LC31), %l3
+	sll	%l2, 16, %o5
 /*end bb 73*/
 .L144:
 /*start bb 74, raw*/
@@ -685,8 +685,8 @@ ajit_main:
 	 restore
 .L123:
 /*start bb 78, raw*/
-	or	%o0, %lo(.LC1), %l0
 	mov	1, %g1
+	or	%o0, %lo(.LC1), %l0
 /*end bb 78*/
 .L129:
 /*start bb 79, raw*/
@@ -732,16 +732,16 @@ ajit_main:
 	 mov	1, %g1
 .L31:
 /*start bb 84, raw*/
-	wr	%g0, 0, %y
-	sethi	%hi(.LC3), %o7
 	mov	10, %o4
+	sethi	%hi(.LC3), %o7
+	wr	%g0, 0, %y
 	nop
 	nop
 	nop
 	udiv	%o4, %g1, %o5
 	ld	[%fp-44], %g1
-	add	%o5, 1, %l1
 	or	%o7, %lo(.LC3), %o0
+	add	%o5, 1, %l1
 	smul	%l1, %g1, %o1
 /*end bb 84*/
 	call	ee_printf, 0
@@ -756,9 +756,9 @@ ajit_main:
 .L121:
 /*start bb 85, raw*/
 	ldsh	[%fp-70], %g4
+	ld	[%fp-48], %o0
 	ld	[%fp-56], %o1
 	sll	%g4, 16, %o2
-	ld	[%fp-48], %o0
 	or	%o2, %g1, %o2
 /*end bb 85*/
 	call	core_init_matrix, 0
@@ -769,18 +769,18 @@ ajit_main:
 	call	core_list_init, 0
 	 ldsh	[%fp-72], %o2
 /*start bb 86, raw*/
-	st	%o0, [%fp-36]
 	ld	[%fp-40], %g1
+	st	%o0, [%fp-36]
 /*end bb 86*/
 	b	.L22
 	 and	%g1, 2, %g2
 .L119:
 /*start bb 87, raw*/
 	mov	102, %g3
-	sethi	%hi(65536), %o1
-	sth	%g3, [%fp-68]
 	ld	[%fp-72], %o0
+	sethi	%hi(65536), %o1
 	sth	%g0, [%fp-70]
+	sth	%g3, [%fp-68]
 /*end bb 87*/
 .L137:
 /*start bb 88, raw*/
@@ -805,8 +805,8 @@ ajit_main:
 	 sth	%o4, [%fp-70]
 .L12:
 /*start bb 91, raw*/
-	st	%g1, [%fp-40]
 	mov	1, %g4
+	st	%g1, [%fp-40]
 /*end bb 91*/
 	b	.L13
 	 mov	1, %i5
@@ -842,12 +842,12 @@ ajit_main:
 	 mov	0, %l1
 /*start bb 97, raw*/
 	lduh	[%fp-74], %o7
-	sethi	%hi(list_known_crc), %l1
-	sll	%o7, 16, %i4
-	or	%i0, %lo(default_num_contexts), %i5
-	sra	%i4, 16, %i2
-	mov	0, %l7
 	mov	0, %l2
+	mov	0, %l7
+	or	%i0, %lo(default_num_contexts), %i5
+	sll	%o7, 16, %i4
+	sethi	%hi(list_known_crc), %l1
+	sra	%i4, 16, %i2
 /*end bb 97*/
 	b	.L45
 	 sethi	%hi(matrix_known_crc), %l0
@@ -860,8 +860,8 @@ ajit_main:
 /*start bb 99, raw*/
 	add	%l7, 1, %l7
 	add	%g1, %l2, %g1
-	sll	%l7, 16, %l2
 	ld	[%i5], %o0
+	sll	%l7, 16, %l2
 	srl	%l2, 16, %i4
 	cmp	%i4, %o0
 /*end bb 99*/
@@ -871,8 +871,8 @@ ajit_main:
 /*start bb 100, raw*/
 	sll	%l7, 16, %l4
 	srl	%l4, 16, %i3
-	sll	%i3, 6, %l5
 	sll	%i3, 2, %l6
+	sll	%i3, 6, %l5
 	add	%l6, %l5, %l4
 	add	%fp, %l4, %i4
 	ld	[%i4-40], %g1
@@ -909,11 +909,11 @@ ajit_main:
 	be	.L149
 	 andcc	%g1, 4, %g0
 /*start bb 105, raw*/
-	add	%i2, %i2, %o3
-	or	%l0, %lo(matrix_known_crc), %o1
 	add	%fp, %l4, %i4
-	lduh	[%o1+%o3], %o3
+	or	%l0, %lo(matrix_known_crc), %o1
+	add	%i2, %i2, %o3
 	lduh	[%i4-12], %o2
+	lduh	[%o1+%o3], %o3
 	cmp	%o2, %o3
 /*end bb 105*/
 	be	.L41
@@ -940,8 +940,8 @@ ajit_main:
 	add	%fp, %l4, %l5
 	sethi	%hi(state_known_crc), %l4
 	add	%i2, %i2, %g1
-	or	%l4, %lo(state_known_crc), %g3
 	lduh	[%l5-10], %o2
+	or	%l4, %lo(state_known_crc), %g3
 	lduh	[%g3+%g1], %o3
 	cmp	%o2, %o3
 /*end bb 109*/
@@ -950,9 +950,9 @@ ajit_main:
 /*start bb 110, raw*/
 	lduh	[%l5-8], %g1
 	add	%l7, 1, %l7
+	ld	[%i5], %o0
 	add	%g1, %l2, %g1
 	sll	%l7, 16, %l2
-	ld	[%i5], %o0
 	srl	%l2, 16, %i4
 	cmp	%i4, %o0
 /*end bb 110*/
@@ -964,16 +964,16 @@ ajit_main:
 .L29:
 /*start bb 111, raw*/
 	fdtoi	%f4, %f10
+	sethi	%hi(-2147483648), %o3
 	ld	[%fp-92], %g1
 	st	%f10, [%fp-92]
-	sethi	%hi(-2147483648), %o3
 /*end bb 111*/
 	b	.L30
 	 xor	%g1, %o3, %g1
 .L125:
 /*start bb 112, raw*/
-	sth	%o1, [%fp-74]
 	sethi	%hi(.LC7), %o3
+	sth	%o1, [%fp-74]
 /*end bb 112*/
 	call	ee_printf, 0
 	 or	%o3, %lo(.LC7), %o0
@@ -1007,8 +1007,8 @@ ajit_main:
 	ld	[%fp-44], %g1
 	ld	[%fp-92], %f3
 	smul	%o3, %g1, %g1
-	cmp	%g1, 0
 	st	%g1, [%fp-92]
+	cmp	%g1, 0
 /*end bb 116*/
 	bl	.L132
 	 fitod	%f3, %f8
@@ -1020,20 +1020,20 @@ ajit_main:
 	 std	%f8, [%fp-88]
 /*start bb 118, raw*/
 	ldd	[%fp-88], %f8
-	or	%l5, %lo(.LC22), %o3
 	ldd	[%fp-104], %g2
-	fdivd	%f8, %f0, %f20
+	or	%l5, %lo(.LC22), %o3
 	sethi	%hi(.LC33), %l5
-	mov	%g3, %o2
-	mov	%g2, %o1
+	fdivd	%f8, %f0, %f20
 	or	%l7, %lo(.LC24), %o4
+	mov	%g2, %o1
+	mov	%g3, %o2
 	std	%f20, [%fp-104]
 /*end bb 118*/
 	call	ee_printf, 0
 	 or	%l5, %lo(.LC33), %o0
 /*start bb 119, raw*/
-	sethi	%hi(.LC34), %l7
 	or	%l1, %lo(.LC26), %o1
+	sethi	%hi(.LC34), %l7
 /*end bb 119*/
 	call	ee_printf, 0
 	 or	%l7, %lo(.LC34), %o0
@@ -1061,8 +1061,8 @@ ajit_main:
 	 restore
 .L36:
 /*start bb 122, raw*/
-	sth	%g0, [%fp-74]
 	sethi	%hi(.LC4), %o4
+	sth	%g0, [%fp-74]
 /*end bb 122*/
 	call	ee_printf, 0
 	 or	%o4, %lo(.LC4), %o0

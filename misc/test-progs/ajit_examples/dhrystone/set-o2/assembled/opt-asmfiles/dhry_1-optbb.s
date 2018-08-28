@@ -230,9 +230,9 @@ Proc_3:
 	ld	[%g2], %g3
 	add	%o2, 12, %o2
 	ld	[%g1+%lo(Int_Glob)], %o1
+	or	%o7, %g0, %g1
 	st	%g3, [%o0]
 	mov	10, %o0
-	or	%o7, %g0, %g1
 /*end bb 27*/
 	call	Proc_7, 0
 	 or	%g1, %g0, %o7
@@ -319,21 +319,21 @@ Proc_1:
 run_dhrystone:
 	save	%sp, -168, %sp
 /*start bb 35, raw*/
-	sethi	%hi(p_rec), %g1
 	sethi	%hi(g_rec), %g2
+	sethi	%hi(p_rec), %g1
 	sethi	%hi(Ptr_Glob), %l6
-	or	%g1, %lo(p_rec), %o0
-	or	%g2, %lo(g_rec), %g4
 	sethi	%hi(.LC0), %o1
+	or	%g2, %lo(g_rec), %g4
+	or	%g1, %lo(p_rec), %o0
 	sethi	%hi(Next_Ptr_Glob), %g3
-	st	%g0, [%o0+4]
+	or	%o1, %lo(.LC0), %o1
 	st	%g4, [%g1+%lo(p_rec)]
 	mov	2, %g1
 	st	%g4, [%g3+%lo(Next_Ptr_Glob)]
+	st	%g0, [%o0+4]
 	st	%o0, [%l6+%lo(Ptr_Glob)]
 	st	%g1, [%o0+8]
 	mov	40, %g1
-	or	%o1, %lo(.LC0), %o1
 	st	%g1, [%o0+12]
 /*end bb 35*/
 	call	__strcpy, 0
@@ -356,8 +356,8 @@ run_dhrystone:
 	sethi	%hi(.LC2), %l3
 	sethi	%hi(Arr_1_Glob), %l2
 	sethi	%hi(.LC3), %l0
-	or	%l3, %lo(.LC2), %l3
 	sethi	%hi(Ch_1_Glob), %l7
+	or	%l3, %lo(.LC2), %l3
 	sethi	%hi(Bool_Glob), %i2
 	sethi	%hi(Ch_2_Glob), %i5
 	mov	1, %i4
@@ -418,8 +418,8 @@ run_dhrystone:
 	 add	%i4, 1, %i4
 .L27:
 /*start bb 44, raw*/
-	ldsb	[%i5], %o7
 	sll	%l1, 24, %o0
+	ldsb	[%i5], %o7
 	sra	%o0, 24, %g4
 	cmp	%g4, %o7
 /*end bb 44*/

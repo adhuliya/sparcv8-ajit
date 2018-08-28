@@ -8,63 +8,63 @@ __ajit_clear_all_gp_registers__:
 #APP
 ! 12 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
 /*start bb 1, raw*/
-	mov %g0, %o7 
+	mov %g0, %g1 
 	 
 ! 0 "" 2
 ! 12 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %o6 
+	mov %g0, %g2 
 	 
 ! 0 "" 2
 ! 13 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %o5 
+	mov %g0, %g3 
 	 
 ! 0 "" 2
 ! 13 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %o4 
+	mov %g0, %g4 
 	 
 ! 0 "" 2
 ! 14 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %o3 
+	mov %g0, %g5 
 	 
 ! 0 "" 2
 ! 14 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %o2 
+	mov %g0, %g6 
 	 
 ! 0 "" 2
 ! 15 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %o1 
+	mov %g0, %g7 
 	 
 ! 0 "" 2
 ! 17 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %o0 
+	mov %g0, %i0 
 	 
 ! 0 "" 2
 ! 17 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %l7 
+	mov %g0, %i1 
 	 
 ! 0 "" 2
 ! 18 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %l6 
+	mov %g0, %i2 
 	 
 ! 0 "" 2
 ! 18 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %l5 
+	mov %g0, %i3 
 	 
 ! 0 "" 2
 ! 19 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %l4 
+	mov %g0, %i4 
 	 
 ! 0 "" 2
 ! 19 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %l3 
+	mov %g0, %i5 
 	 
 ! 0 "" 2
 ! 20 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %l2 
+	mov %g0, %i6 
 	 
 ! 0 "" 2
 ! 20 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %l1 
+	mov %g0, %i7 
 	 
 ! 0 "" 2
 ! 22 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
@@ -72,63 +72,63 @@ __ajit_clear_all_gp_registers__:
 	 
 ! 0 "" 2
 ! 22 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %i7 
+	mov %g0, %l1 
 	 
 ! 0 "" 2
 ! 23 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %i6 
+	mov %g0, %l2 
 	 
 ! 0 "" 2
 ! 23 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %i5 
+	mov %g0, %l3 
 	 
 ! 0 "" 2
 ! 24 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %i4 
+	mov %g0, %l4 
 	 
 ! 0 "" 2
 ! 24 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %i3 
+	mov %g0, %l5 
 	 
 ! 0 "" 2
 ! 25 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %i2 
+	mov %g0, %l6 
 	 
 ! 0 "" 2
 ! 25 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %i1 
+	mov %g0, %l7 
 	 
 ! 0 "" 2
 ! 27 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %i0 
+	mov %g0, %o0 
 	 
 ! 0 "" 2
 ! 27 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %g7 
+	mov %g0, %o1 
 	 
 ! 0 "" 2
 ! 28 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %g6 
+	mov %g0, %o2 
 	 
 ! 0 "" 2
 ! 28 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %g5 
+	mov %g0, %o3 
 	 
 ! 0 "" 2
 ! 29 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %g4 
+	mov %g0, %o4 
 	 
 ! 0 "" 2
 ! 29 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %g3 
+	mov %g0, %o5 
 	 
 ! 0 "" 2
 ! 30 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %g2 
+	mov %g0, %o6 
 	 
 ! 0 "" 2
 ! 30 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %g1 
+	mov %g0, %o7 
 	 
 ! 0 "" 2
 /*end bb 1*/
@@ -144,67 +144,67 @@ __ajit_clear_all_gp_registers__:
 ! 0 "" 2
 ! 38 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
 /*start bb 3, raw*/
-	mov %g0, %o7 
+	mov %g0, %l0 
 	 
 ! 0 "" 2
 ! 38 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %o6 
+	mov %g0, %l1 
 	 
 ! 0 "" 2
 ! 39 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %o5 
+	mov %g0, %l2 
 	 
 ! 0 "" 2
 ! 39 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %o4 
+	mov %g0, %l3 
 	 
 ! 0 "" 2
 ! 40 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %o3 
+	mov %g0, %l4 
 	 
 ! 0 "" 2
 ! 40 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %o2 
+	mov %g0, %l5 
 	 
 ! 0 "" 2
 ! 41 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %o1 
+	mov %g0, %l6 
 	 
 ! 0 "" 2
 ! 41 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %o0 
-	 
-! 0 "" 2
-! 43 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
 	mov %g0, %l7 
 	 
 ! 0 "" 2
 ! 43 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %l6 
+	mov %g0, %o0 
+	 
+! 0 "" 2
+! 43 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
+	mov %g0, %o1 
 	 
 ! 0 "" 2
 ! 44 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %l5 
+	mov %g0, %o2 
 	 
 ! 0 "" 2
 ! 44 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %l4 
+	mov %g0, %o3 
 	 
 ! 0 "" 2
 ! 45 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %l3 
+	mov %g0, %o7 
 	 
 ! 0 "" 2
 ! 45 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %l2 
+	mov %g0, %o4 
 	 
 ! 0 "" 2
 ! 46 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %l1 
+	mov %g0, %o5 
 	 
 ! 0 "" 2
 ! 46 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %g0, %l0 
+	mov %g0, %o6 
 	 
 ! 0 "" 2
 /*end bb 3*/
@@ -276,10 +276,10 @@ __ajit_get_clock_time:
 #APP
 ! 75 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
 /*start bb 12, raw*/
-	rd %asr30, %g1 
+	rd %asr31, %o4 
 ! 0 "" 2
 ! 68 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	rd %asr31, %o4 
+	rd %asr30, %g1 
 ! 0 "" 2
 /*end bb 12*/
 #NO_APP
@@ -439,8 +439,8 @@ __ajit_disable_mmu__:
 /*end bb 32*/
 #NO_APP
 /*start bb 33, raw*/
-	and	%g1, -2, %g1
 	mov	0, %g2
+	and	%g1, -2, %g1
 /*end bb 33*/
 #APP
 ! 136 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
@@ -499,11 +499,11 @@ __ajit_mmu_context_switch__:
 #APP
 ! 222 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
 /*start bb 40, raw*/
-	sta %g0, [%g0] 19
+	mov %o0, %l0
 	
 ! 0 "" 2
 ! 226 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	mov %o0, %l0
+	sta %g0, [%g0] 19
 	
 ! 0 "" 2
 ! 229 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
@@ -523,11 +523,11 @@ __ajit_mmu_context_switch__:
 #APP
 ! 234 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
 /*start bb 43, raw*/
-	sta %g0, [%g0] 19
+	sta %l0, [%g1] 4
 	
 ! 0 "" 2
 ! 237 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
-	sta %l0, [%g1] 4
+	sta %g0, [%g0] 19
 	
 ! 0 "" 2
 ! 240 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1
@@ -590,12 +590,12 @@ __ajit_make_pte__:
 /*start bb 51, raw*/
 	sll	%o1, 7, %o1
 	sll	%o2, 6, %o2
-	or	%o1, 2, %g1
 	sll	%o3, 5, %o3
-	or	%g1, %o2, %g2
+	or	%o1, 2, %g1
 	sll	%o4, 2, %o4
-	or	%g2, %o3, %g3
 	sll	%o0, 8, %o0
+	or	%g1, %o2, %g2
+	or	%g2, %o3, %g3
 	or	%g3, %o4, %g4
 /*end bb 51*/
 	jmp	%o7+8
@@ -955,10 +955,10 @@ __ajit_serial_getchar__:
 __ajit_serial_puts__:
 /*start bb 103, raw*/
 	sethi	%hi(-53248), %o4
-	cmp	%o1, 0
-	mov	0, %g4
-	or	%o4, 512, %g2
 	mov	0, %o5
+	mov	0, %g4
+	cmp	%o1, 0
+	or	%o4, 512, %g2
 /*end bb 103*/
 	be	.L76
 	 or	%o4, 528, %o4
@@ -1019,10 +1019,10 @@ __ajit_serial_gets__:
 	be	.L98
 	 sethi	%hi(-53248), %g4
 /*start bb 112, raw*/
-	or	%g4, 512, %g2
-	or	%g4, 544, %g4
-	mov	0, %g3
 	mov	0, %o5
+	or	%g4, 512, %g2
+	mov	0, %g3
+	or	%g4, 544, %g4
 /*end bb 112*/
 .L91:
 #APP
@@ -1174,8 +1174,8 @@ __ajit_gpio_xfer__:
 /*end bb 132*/
 #NO_APP
 /*start bb 133, raw*/
-	or	%g4, 776, %o0
 	mov	19, %g1
+	or	%g4, 776, %o0
 /*end bb 133*/
 #APP
 ! 143 "/usr/local/ajit_release/ajit_access_routines/src/ajit_access_routines.c" 1

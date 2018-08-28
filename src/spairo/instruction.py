@@ -179,7 +179,7 @@ class Instruction():
     instrText = commentMarkups.sub("", self.asmChunk.text).strip(";").strip()
     return instrText
 
-  # True if depencence otherInstr ---> self exists
+  # True if dependence otherInstr ---> self exists
   # Semantically otherInstr should occur before this instr
   def isDependentOn(self, otherInstr):
     # Does otherInstr read or write reg written by this instr

@@ -32,27 +32,27 @@ core_init_matrix:
 /*start bb 5, raw*/
 	add	%i1, -1, %i0
 	smul	%g2, %g2, %i4
-	and	%i0, -4, %i5
 	cmp	%g2, 0
+	and	%i0, -4, %i5
 	mov	%g2, %i0
-	add	%i5, 4, %o5
 	add	%i4, %i4, %o3
+	add	%i5, 4, %o5
 /*end bb 5*/
 	be	.L6
 	 add	%o5, %o3, %o4
 .L5:
 /*start bb 6, raw*/
 	sethi	%hi(64512), %g2
+	mov	0, %o7
 	mov	1, %g4
 	or	%g2, 1023, %i1
-	mov	0, %o7
 /*end bb 6*/
 .L8:
 /*start bb 7, raw*/
 	smul	%o7, %i0, %g3
+	mov	%g4, %g1
 	mov	0, %g2
 	add	%g3, %g3, %i5
-	mov	%g4, %g1
 	add	%o4, %i5, %i4
 	add	%o5, %i5, %i5
 /*end bb 7*/
@@ -84,11 +84,11 @@ core_init_matrix:
 .L6:
 /*start bb 10, raw*/
 	add	%o4, %o3, %g1
-	st	%i0, [%i3]
-	add	%g1, -1, %g1
-	st	%o4, [%i3+8]
-	and	%g1, -4, %g1
 	st	%o5, [%i3+4]
+	st	%o4, [%i3+8]
+	add	%g1, -1, %g1
+	st	%i0, [%i3]
+	and	%g1, -4, %g1
 	add	%g1, 4, %g1
 	st	%g1, [%i3+12]
 /*end bb 10*/
@@ -97,9 +97,9 @@ core_init_matrix:
 .L3:
 /*start bb 11, raw*/
 	and	%i1, -4, %o4
+	mov	2, %o3
 	mov	-1, %i0
 	add	%o4, 4, %o5
-	mov	2, %o3
 /*end bb 11*/
 	b	.L5
 	 add	%o4, 6, %o4
@@ -116,19 +116,19 @@ matrix_sum:
 	be	.L21
 	 sll	%i0, 2, %i3
 /*start bb 13, raw*/
-	mov	0, %g2
 	mov	0, %i5
-	mov	0, %g4
+	mov	0, %g2
 	mov	0, %o7
+	mov	0, %g4
 /*end bb 13*/
 .L16:
 	b	.L20
 	 mov	0, %g1
 .L24:
 /*start bb 14, raw*/
-	cmp	%i3, %g1
-	mov	0, %g2
 	add	%g4, 10, %g4
+	mov	0, %g2
+	cmp	%i3, %g1
 /*end bb 14*/
 	be	.L23
 	 mov	%g3, %i5
@@ -189,8 +189,8 @@ matrix_mul_const:
 	be	.L33
 	 add	%o0, %o0, %g4
 /*start bb 23, raw*/
-	mov	0, %o5
 	sll	%o0, 2, %o4
+	mov	0, %o5
 /*end bb 23*/
 .L27:
 /*start bb 24, raw*/
@@ -198,8 +198,8 @@ matrix_mul_const:
 /*end bb 24*/
 .L28:
 /*start bb 25, raw*/
-	add	%g1, %g1, %g2
 	ldsh	[%o2+%g1], %g3
+	add	%g1, %g1, %g2
 	add	%g1, 2, %g1
 	smul	%g3, %o3, %g3
 	cmp	%g4, %g1
@@ -230,8 +230,8 @@ matrix_add_const:
 	be	.L44
 	 add	%o0, %o0, %g4
 /*start bb 29, raw*/
-	add	%g4, %o1, %g2
 	mov	0, %g3
+	add	%g4, %o1, %g2
 /*end bb 29*/
 .L43:
 /*start bb 30, raw*/
@@ -269,19 +269,19 @@ matrix_mul_vect:
 	be	.L52
 	 add	%o0, %o0, %o5
 /*start bb 35, raw*/
-	sll	%o0, 2, %o0
 	mov	0, %o4
+	sll	%o0, 2, %o0
 /*end bb 35*/
 .L48:
 /*start bb 36, raw*/
-	mov	0, %g2
 	mov	0, %g1
+	mov	0, %g2
 	st	%g0, [%o1+%o4]
 /*end bb 36*/
 .L47:
 /*start bb 37, raw*/
-	ldsh	[%o3+%g1], %g3
 	ldsh	[%o2+%g1], %g4
+	ldsh	[%o3+%g1], %g3
 	add	%g1, 2, %g1
 	smul	%g4, %g3, %g4
 	cmp	%g1, %o5
@@ -313,9 +313,9 @@ matrix_mul_matrix:
 	be	.L63
 	 add	%i0, %i0, %g4
 /*start bb 41, raw*/
-	mov	0, %o5
-	mov	%i1, %o4
 	sll	%i0, 2, %o3
+	mov	%i1, %o4
+	mov	0, %o5
 /*end bb 41*/
 .L55:
 /*start bb 42, raw*/
@@ -324,19 +324,19 @@ matrix_mul_matrix:
 /*end bb 42*/
 .L57:
 /*start bb 43, raw*/
-	mov	0, %g3
-	mov	0, %g1
-	add	%i3, %i1, %g2
 	st	%g0, [%o7]
+	add	%i3, %i1, %g2
+	mov	0, %g1
+	mov	0, %g3
 /*end bb 43*/
 .L56:
 /*start bb 44, raw*/
 	ldsh	[%i2+%g1], %i4
-	add	%g1, 2, %g1
 	ldsh	[%g2], %i5
-	cmp	%g4, %g1
+	add	%g1, 2, %g1
 	add	%g2, %g4, %g2
 	smul	%i4, %i5, %i4
+	cmp	%g4, %g1
 /*end bb 44*/
 	bne	.L56
 	 add	%g3, %i4, %g3
@@ -370,34 +370,34 @@ matrix_mul_matrix_bitextract:
 	be	.L74
 	 add	%i0, %i0, %i5
 /*start bb 48, raw*/
-	mov	0, %o5
-	mov	%i1, %o4
 	sll	%i0, 2, %o3
+	mov	%i1, %o4
+	mov	0, %o5
 /*end bb 48*/
 .L66:
 /*start bb 49, raw*/
-	mov	0, %i1
 	mov	%o4, %o7
+	mov	0, %i1
 /*end bb 49*/
 .L68:
 /*start bb 50, raw*/
-	mov	0, %g4
-	mov	0, %g1
 	add	%i3, %i1, %g2
+	mov	0, %g1
+	mov	0, %g4
 	st	%g0, [%o7]
 /*end bb 50*/
 .L67:
 /*start bb 51, raw*/
-	ldsh	[%g2], %g3
 	ldsh	[%i2+%g1], %i4
+	ldsh	[%g2], %g3
 	add	%g1, 2, %g1
+	add	%g2, %i5, %g2
 	smul	%i4, %g3, %g3
 	cmp	%i5, %g1
 	sra	%g3, 5, %i4
 	sra	%g3, 2, %g3
 	and	%i4, 127, %i4
 	and	%g3, 15, %g3
-	add	%g2, %i5, %g2
 	smul	%i4, %g3, %i4
 /*end bb 51*/
 	bne	.L67
@@ -435,9 +435,9 @@ matrix_test:
 	mov	%i2, %l2
 	add	%i0, %i0, %l0
 	mov	0, %g1
+	mov	%i4, %i5
 	mov	%i2, %l1
 	add	%l0, %l2, %o4
-	mov	%i4, %i5
 /*end bb 55*/
 .L91:
 /*start bb 56, raw*/
@@ -459,10 +459,10 @@ matrix_test:
 	bne	.L91
 	 add	%l0, %l2, %o4
 /*start bb 59, raw*/
-	mov	0, %o2
-	mov	%i2, %g4
-	mov	%i1, %o4
 	sll	%i0, 2, %o0
+	mov	%i1, %o4
+	mov	%i2, %g4
+	mov	0, %o2
 /*end bb 59*/
 .L80:
 /*start bb 60, raw*/
@@ -470,8 +470,8 @@ matrix_test:
 /*end bb 60*/
 .L81:
 /*start bb 61, raw*/
-	add	%g1, %g1, %g2
 	ldsh	[%g4+%g1], %o1
+	add	%g1, %g1, %g2
 	add	%g1, 2, %g1
 	smul	%o1, %i4, %g3
 	cmp	%l0, %g1
@@ -486,29 +486,29 @@ matrix_test:
 	bne	.L80
 	 add	%o4, %o0, %o4
 /*start bb 63, raw*/
-	mov	%i1, %o1
 	mov	%o3, %o2
+	mov	%i1, %o1
 	mov	%o3, %i4
 /*end bb 63*/
 	call	matrix_sum, 0
 	 mov	%i0, %o0
 /*start bb 64, raw*/
-	mov	0, %o1
 	sll	%o0, 16, %o5
+	mov	0, %o1
 /*end bb 64*/
 	call	crc16, 0
 	 sra	%o5, 16, %o0
 /*start bb 65, raw*/
-	mov	%i2, %o2
-	mov	%i1, %o1
-	mov	%o0, %l2
 	mov	%i3, %o3
+	mov	%o0, %l2
+	mov	%i1, %o1
+	mov	%i2, %o2
 /*end bb 65*/
 	call	matrix_mul_vect, 0
 	 mov	%i0, %o0
 /*start bb 66, raw*/
-	mov	%i4, %o2
 	mov	%i1, %o1
+	mov	%i4, %o2
 /*end bb 66*/
 	call	matrix_sum, 0
 	 mov	%i0, %o0
@@ -521,15 +521,15 @@ matrix_test:
 	 sra	%o3, 16, %o0
 /*start bb 68, raw*/
 	mov	%i2, %o2
-	mov	%i1, %o1
-	mov	%o0, %l2
 	mov	%i3, %o3
+	mov	%o0, %l2
+	mov	%i1, %o1
 /*end bb 68*/
 	call	matrix_mul_matrix, 0
 	 mov	%i0, %o0
 /*start bb 69, raw*/
-	mov	%i4, %o2
 	mov	%i1, %o1
+	mov	%i4, %o2
 /*end bb 69*/
 	call	matrix_sum, 0
 	 mov	%i0, %o0
@@ -541,24 +541,24 @@ matrix_test:
 	call	crc16, 0
 	 sra	%o0, 16, %o0
 /*start bb 71, raw*/
-	mov	%o0, %l2
 	mov	%i2, %o2
-	mov	%i1, %o1
+	mov	%o0, %l2
 	mov	%i3, %o3
+	mov	%i1, %o1
 /*end bb 71*/
 	call	matrix_mul_matrix_bitextract, 0
 	 mov	%i0, %o0
 /*start bb 72, raw*/
-	mov	%i4, %o2
 	mov	%i1, %o1
+	mov	%i4, %o2
 /*end bb 72*/
 	call	matrix_sum, 0
 	 mov	%i0, %o0
 /*start bb 73, raw*/
-	sll	%o0, 16, %i2
 	sll	%l2, 16, %i1
-	sra	%i2, 16, %o0
+	sll	%o0, 16, %i2
 	srl	%i1, 16, %o1
+	sra	%i2, 16, %o0
 /*end bb 73*/
 	call	crc16, 0
 	 mov	0, %i3
@@ -591,29 +591,29 @@ matrix_test:
 	 restore
 .L76:
 /*start bb 78, raw*/
-	mov	%i1, %o1
-	mov	%o3, %o2
 	mov	%o3, %i5
+	mov	%o3, %o2
+	mov	%i1, %o1
 /*end bb 78*/
 	call	matrix_sum, 0
 	 mov	0, %o0
 /*start bb 79, raw*/
-	sll	%o0, 16, %o0
 	mov	0, %o1
+	sll	%o0, 16, %o0
 /*end bb 79*/
 	call	crc16, 0
 	 sra	%o0, 16, %o0
 /*start bb 80, raw*/
-	mov	%i2, %o2
-	mov	%i1, %o1
-	mov	%o0, %i4
 	mov	%i3, %o3
+	mov	%o0, %i4
+	mov	%i1, %o1
+	mov	%i2, %o2
 /*end bb 80*/
 	call	matrix_mul_vect, 0
 	 mov	0, %o0
 /*start bb 81, raw*/
-	mov	%i1, %o1
 	mov	%i5, %o2
+	mov	%i1, %o1
 /*end bb 81*/
 	call	matrix_sum, 0
 	 mov	0, %o0
@@ -625,16 +625,16 @@ matrix_test:
 	call	crc16, 0
 	 srl	%o1, 16, %o1
 /*start bb 83, raw*/
-	mov	%i2, %o2
-	mov	%i1, %o1
-	mov	%o0, %l0
 	mov	%i3, %o3
+	mov	%o0, %l0
+	mov	%i1, %o1
+	mov	%i2, %o2
 /*end bb 83*/
 	call	matrix_mul_matrix, 0
 	 mov	0, %o0
 /*start bb 84, raw*/
-	mov	%i1, %o1
 	mov	%i5, %o2
+	mov	%i1, %o1
 /*end bb 84*/
 	call	matrix_sum, 0
 	 mov	0, %o0
@@ -646,16 +646,16 @@ matrix_test:
 	call	crc16, 0
 	 sra	%g3, 16, %o0
 /*start bb 86, raw*/
-	mov	%i2, %o2
-	mov	%i1, %o1
-	mov	%o0, %l1
 	mov	%i3, %o3
+	mov	%o0, %l1
+	mov	%i1, %o1
+	mov	%i2, %o2
 /*end bb 86*/
 	call	matrix_mul_matrix_bitextract, 0
 	 mov	0, %o0
 /*start bb 87, raw*/
-	mov	%i5, %o2
 	mov	%i1, %o1
+	mov	%i5, %o2
 /*end bb 87*/
 	call	matrix_sum, 0
 	 mov	0, %o0
@@ -680,11 +680,11 @@ matrix_test:
 core_bench_matrix:
 	save	%sp, -96, %sp
 /*start bb 90, raw*/
-	ld	[%i0+8], %o3
-	ld	[%i0+4], %o2
-	ld	[%i0+12], %o1
-	ld	[%i0], %o0
 	mov	%i1, %o4
+	ld	[%i0+4], %o2
+	ld	[%i0+8], %o3
+	ld	[%i0], %o0
+	ld	[%i0+12], %o1
 /*end bb 90*/
 	call	matrix_test, 0
 	 mov	%i2, %i1

@@ -6,16 +6,16 @@
 	.proc	020
 core_init_state:
 	save	%sp, -96, %sp
-	sethi	%hi(floatpat), %o3
-	sethi	%hi(scipat), %o2
-	sethi	%hi(errpat), %o1
-	sethi	%hi(.L9), %o5
-	sethi	%hi(intpat), %o0
-	mov	44, %o4
-	mov	0, %i5
-	mov	0, %g3
-	add	%i0, -1, %o7
 	mov	0, %g4
+	add	%i0, -1, %o7
+	mov	0, %g3
+	mov	0, %i5
+	mov	44, %o4
+	sethi	%hi(intpat), %o0
+	sethi	%hi(errpat), %o1
+	sethi	%hi(scipat), %o2
+	sethi	%hi(floatpat), %o3
+	sethi	%hi(.L9), %o5
 .L21:
 	add	%i5, %g3, %i3
 	add	%i3, 1, %i4
@@ -35,9 +35,9 @@ core_init_state:
 	cmp	%g1, %g3
 	bne,a	.L27
 	 ldub	[%g4+%g1], %g2
-	add	%i1, 1, %i1
-	mov	%i4, %i5
 	stb	%o4, [%i2+%i3]
+	mov	%i4, %i5
+	add	%i1, 1, %i1
 .L26:
 	sll	%i1, 16, %g3
 	sra	%g3, 16, %i1
@@ -82,22 +82,22 @@ core_init_state:
 .L6:
 	srl	%i1, 1, %g1
 	mov	8, %g3
-	and	%g1, 12, %g1
 	or	%o3, %lo(floatpat), %i3
+	and	%g1, 12, %g1
 	b	.L21
 	 ld	[%i3+%g1], %g4
 .L7:
 	srl	%i1, 1, %g1
+	or	%o2, %lo(scipat), %i4
 	mov	8, %g3
 	and	%g1, 12, %g1
-	or	%o2, %lo(scipat), %i4
 	b	.L21
 	 ld	[%i4+%g1], %g4
 .L8:
 	srl	%i1, 1, %g1
 	mov	8, %g3
-	and	%g1, 12, %g1
 	or	%o1, %lo(errpat), %g2
+	and	%g1, 12, %g1
 	b	.L21
 	 ld	[%g2+%g1], %g4
 	.align 4
@@ -124,12 +124,12 @@ core_state_transition:
 	cmp	%g4, 44
 	be	.L87
 	 add	%o5, 1, %g2
-	sethi	%hi(.L44), %o3
 	mov	0, %o0
+	sethi	%hi(.L44), %o3
 	mov	%o5, %g3
 .L75:
-	sll	%o0, 2, %o5
 	or	%o3, %lo(.L44), %o4
+	sll	%o0, 2, %o5
 	ld	[%o4+%o5], %o4
 	jmp	%o4
 	 nop
@@ -167,8 +167,8 @@ core_state_transition:
 	be,a	.L94
 	 mov	1, %o0
 .L61:
-	cmp	%g4, 44
 	add	%g2, 1, %g2
+	cmp	%g4, 44
 	bne	.L75
 	 add	%g3, 1, %g3
 	add	%o5, 1, %o5
@@ -194,8 +194,8 @@ core_state_transition:
 	cmp	%g1, 9
 	bgu	.L89
 	 ld	[%o1+24], %g1
-	add	%g1, 1, %g1
 	mov	7, %o0
+	add	%g1, 1, %g1
 	b	.L49
 	 st	%g1, [%o1+24]
 .L41:
@@ -240,8 +240,8 @@ core_state_transition:
 	 add	%g1, 1, %g1
 	st	%g1, [%o1+12]
 .L50:
-	mov	1, %o0
 	mov	%g2, %o5
+	mov	1, %o0
 .L94:
 	jmp	%o7+8
 	 st	%o5, [%o2]
@@ -276,8 +276,8 @@ core_state_transition:
 	 st	%g1, [%o1+24]
 .L71:
 .L93:
-	add	%g1, 1, %g1
 	mov	2, %o0
+	add	%g1, 1, %g1
 	b	.L36
 	 st	%g1, [%o1]
 .L90:
@@ -318,11 +318,11 @@ core_state_transition:
 	.proc	015
 core_bench_state:
 	save	%sp, -168, %sp
-	add	%fp, -32, %l0
 	mov	0, %g1
+	add	%fp, -32, %l0
+	st	%i1, [%fp-68]
 	add	%fp, -64, %l1
 	st	%g0, [%l0+%g1]
-	st	%i1, [%fp-68]
 .L131:
 	st	%g0, [%l1+%g1]
 	add	%g1, 4, %g1

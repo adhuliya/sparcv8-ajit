@@ -36,8 +36,8 @@ number:
 	 and	%i5, 1, %g1
 /*start bb 5, raw*/
 	subcc	%g0, %g1, %g0
-	mov	0, %o4
 	addx	%g0, -1, %o5
+	mov	0, %o4
 	andcc	%i5, 2, %g0
 	and	%o5, 240, %g2
 /*end bb 5*/
@@ -56,8 +56,8 @@ number:
 	be	.L64
 	 andcc	%i5, 32, %o3
 /*start bb 8, raw*/
-	mov	32, %o4
 	add	%i3, -1, %i3
+	mov	32, %o4
 /*end bb 8*/
 .L6:
 /*start bb 9, raw*/
@@ -73,8 +73,8 @@ number:
 	be	.L57
 	 xor	%i2, 8, %g1
 /*start bb 11, raw*/
-	addx	%i3, -1, %i3
 	subcc	%g0, %g1, %g0
+	addx	%i3, -1, %i3
 /*end bb 11*/
 .L9:
 /*start bb 12, raw*/
@@ -88,9 +88,9 @@ number:
 /*end bb 13*/
 .L63:
 /*start bb 14, raw*/
+	add	%fp, -72, %g4
 	stb	%g1, [%fp-72]
 	mov	1, %g1
-	add	%fp, -72, %g4
 /*end bb 14*/
 .L12:
 /*start bb 15, raw*/
@@ -160,8 +160,8 @@ number:
 	ble	.L33
 	 add	%i4, -1, %i5
 /*start bb 27, raw*/
-	stb	%o5, [%i0]
 	add	%i0, %i4, %i2
+	stb	%o5, [%i0]
 /*end bb 27*/
 .L71:
 /*start bb 28, raw*/
@@ -194,8 +194,8 @@ number:
 	 stb	%g3, [%i0]
 .L21:
 /*start bb 33, raw*/
-	mov	%i0, %g2
 	mov	%i1, %g1
+	mov	%i0, %g2
 /*end bb 33*/
 .L23:
 /*start bb 34, raw*/
@@ -291,8 +291,8 @@ number:
 	 mov	48, %g1
 .L55:
 /*start bb 45, raw*/
-	andcc	%i5, 32, %o3
 	add	%i3, -1, %i3
+	andcc	%i5, 32, %o3
 	sub	%g0, %i1, %i1
 /*end bb 45*/
 	be	.L9
@@ -377,32 +377,32 @@ ee_printf:
 /*start bb 52, raw*/
 	ldub	[%i0], %o5
 	add	%fp, 72, %l3
-	st	%i5, [%fp+88]
-	sll	%o5, 24, %g1
-	st	%l3, [%fp-436]
+	st	%i3, [%fp+80]
 	st	%i4, [%fp+84]
+	sll	%o5, 24, %g1
+	st	%i5, [%fp+88]
+	st	%l3, [%fp-436]
+	st	%i1, [%fp+72]
 	cmp	%g1, 0
 	st	%i2, [%fp+76]
-	st	%i1, [%fp+72]
-	st	%i3, [%fp+80]
 /*end bb 52*/
 	be	.L219
 	 add	%fp, -256, %i3
 /*start bb 53, raw*/
-	sethi	%hi(.LC0), %i1
-	add	%fp, -160, %l5
-	add	%fp, -336, %l2
-	sethi	%hi(.LC3), %l0
-	sethi	%hi(.L125), %i2
-	mov	%i3, %i5
 	sethi	%hi(.L101), %l4
+	mov	%i3, %i5
+	sethi	%hi(.L125), %i2
+	sethi	%hi(.LC3), %l0
+	add	%fp, -336, %l2
+	add	%fp, -160, %l5
+	sethi	%hi(.LC0), %i1
 /*end bb 53*/
 	b	.L214
 	 sethi	%hi(.LC1), %l1
 .L314:
 /*start bb 54, raw*/
-	ldub	[%i0+1], %o5
 	add	%i5, 1, %i5
+	ldub	[%i0+1], %o5
 /*end bb 54*/
 .L94:
 /*start bb 55, raw*/
@@ -443,12 +443,12 @@ ee_printf:
 /*end bb 60*/
 .L104:
 /*start bb 61, raw*/
+	sll	%g1, 24, %g1
 	add	%i4, %i4, %l7
 	sll	%i4, 3, %i4
-	sll	%g1, 24, %g1
-	add	%l7, %i4, %i0
-	sra	%g1, 24, %g1
 	add	%g2, 1, %g2
+	sra	%g1, 24, %g1
+	add	%l7, %i4, %i0
 	add	%i0, %g1, %g3
 	ldub	[%g2], %g1
 	add	%g1, -48, %o0
@@ -501,8 +501,8 @@ ee_printf:
 	mov	37, %g1
 	ldsb	[%i0], %l7
 	stb	%g1, [%i5]
-	cmp	%l7, 0
 	add	%i5, 1, %i5
+	cmp	%l7, 0
 /*end bb 67*/
 	be	.L92
 	 ldub	[%i0], %g1
@@ -543,8 +543,8 @@ ee_printf:
 	 restore
 .L315:
 /*start bb 72, raw*/
-	sll	%o0, 2, %o1
 	or	%l4, %lo(.L101), %g4
+	sll	%o0, 2, %o1
 	ld	[%g4+%o1], %o2
 /*end bb 72*/
 	jmp	%o2
@@ -602,9 +602,9 @@ ee_printf:
 	be	.L318
 	 sra	%o7, 24, %o1
 /*start bb 82, raw*/
-	cmp	%o1, 46
-	mov	-1, %i4
 	mov	%g2, %i0
+	mov	-1, %i4
+	cmp	%o1, 46
 /*end bb 82*/
 	bne	.L107
 	 mov	-1, %l6
@@ -622,12 +622,12 @@ ee_printf:
 /*end bb 84*/
 .L109:
 /*start bb 85, raw*/
+	sll	%g1, 24, %g1
 	add	%l6, %l6, %l7
 	sll	%l6, 3, %l6
-	sll	%g1, 24, %g1
-	add	%l7, %l6, %i0
 	sra	%g1, 24, %g1
 	add	%g2, 1, %g2
+	add	%l7, %l6, %i0
 	add	%i0, %g1, %g3
 	ldub	[%g2], %g1
 	add	%g1, -48, %o0
@@ -661,11 +661,11 @@ ee_printf:
 	 mov	0, %g2
 /*start bb 89, raw*/
 	ld	[%l3], %o7
+	add	%l3, 4, %l3
+	mov	0, %g3
 	mov	48, %o2
 	ldub	[%o7+%g2], %g1
-	mov	0, %g3
 	cmp	%g1, 0
-	add	%l3, 4, %l3
 /*end bb 89*/
 	bne	.L152
 	 mov	46, %o3
@@ -701,12 +701,12 @@ ee_printf:
 	nop
 	sdiv	%g1, 100, %l6
 	or	%i1, %lo(.LC0), %g4
+	add	%fp, %g3, %o1
 	smul	%l6, 100, %o0
 	ldub	[%g4+%l6], %o4
 	sub	%g1, %o0, %g1
-	add	%fp, %g3, %o1
-	sra	%g1, 31, %o0
 	stb	%o4, [%o1-336]
+	sra	%g1, 31, %o0
 	wr	%o0, 0, %y
 	nop
 	nop
@@ -714,19 +714,19 @@ ee_printf:
 	sdiv	%g1, 10, %l7
 	add	%g3, 2, %g3
 	ldub	[%g4+%l7], %l6
+	add	%l7, %l7, %o0
 	sll	%l7, 3, %o4
 	stb	%l6, [%o1-335]
-	add	%l7, %l7, %o0
 	add	%o0, %o4, %o1
 	sub	%g1, %o1, %g1
 /*end bb 93*/
 .L155:
 /*start bb 94, raw*/
-	add	%g2, 1, %g2
-	add	%fp, %g3, %l7
 	ldub	[%g4+%g1], %g1
-	cmp	%g2, 4
+	add	%fp, %g3, %l7
+	add	%g2, 1, %g2
 	stb	%g1, [%l7-336]
+	cmp	%g2, 4
 /*end bb 94*/
 	bne	.L156
 	 add	%g3, 1, %g4
@@ -742,10 +742,10 @@ ee_printf:
 	bge	.L233
 	 add	%i4, -1, %g1
 /*start bb 97, raw*/
-	mov	32, %o7
 	sub	%i4, %g4, %g1
-	stb	%o7, [%i5]
+	mov	32, %o7
 	add	%i5, %g1, %g1
+	stb	%o7, [%i5]
 /*end bb 97*/
 .L338:
 /*start bb 98, raw*/
@@ -779,10 +779,10 @@ ee_printf:
 	bge	.L313
 	 add	%i5, %g1, %i5
 /*start bb 104, raw*/
-	mov	32, %o2
 	sub	%i4, %g1, %g1
-	stb	%o2, [%i5]
+	mov	32, %o2
 	add	%i5, %g1, %g1
+	stb	%o2, [%i5]
 /*end bb 104*/
 .L340:
 /*start bb 105, raw*/
@@ -796,20 +796,20 @@ ee_printf:
 	 ldub	[%i0+1], %o5
 .L115:
 /*start bb 106, raw*/
-	mov	16, %o2
 	or	%o5, 64, %o5
+	mov	16, %o2
 /*end bb 106*/
 .L124:
 /*start bb 107, raw*/
-	mov	%i4, %o3
-	mov	%i5, %o0
 	ld	[%l3], %o1
+	mov	%i5, %o0
+	mov	%i4, %o3
 /*end bb 107*/
 	call	number, 0
 	 mov	%l6, %o4
 /*start bb 108, raw*/
-	mov	%o0, %i5
 	add	%l3, 4, %l3
+	mov	%o0, %i5
 /*end bb 108*/
 	b	.L94
 	 ldub	[%i0+1], %o5
@@ -902,10 +902,10 @@ ee_printf:
 	ble	.L230
 	 add	%i4, -1, %g1
 /*start bb 122, raw*/
-	mov	32, %o5
 	sub	%i4, %l6, %g1
-	stb	%o5, [%i5]
+	mov	32, %o5
 	add	%i5, %g1, %g1
+	stb	%o5, [%i5]
 /*end bb 122*/
 .L344:
 /*start bb 123, raw*/
@@ -940,9 +940,9 @@ ee_printf:
 /*end bb 128*/
 .L137:
 /*start bb 129, raw*/
-	cmp	%i4, %l6
-	mov	32, %o4
 	sub	%i4, %l6, %g1
+	mov	32, %o4
+	cmp	%i4, %l6
 /*end bb 129*/
 	ble	.L313
 	 add	%i5, %g1, %g1
@@ -966,16 +966,16 @@ ee_printf:
 	 or	%o5, 1, %o5
 .L141:
 /*start bb 133, raw*/
-	mov	%i4, %o3
-	mov	16, %o2
-	mov	%i5, %o0
 	ld	[%l3], %o1
+	mov	%i5, %o0
+	mov	16, %o2
+	mov	%i4, %o3
 /*end bb 133*/
 	call	number, 0
 	 mov	%l6, %o4
 /*start bb 134, raw*/
-	mov	%o0, %i5
 	add	%l3, 4, %l3
+	mov	%o0, %i5
 /*end bb 134*/
 	b	.L94
 	 ldub	[%i0+1], %o5
@@ -984,16 +984,16 @@ ee_printf:
 	 mov	8, %o2
 .L119:
 /*start bb 135, raw*/
-	mov	8, %o2
-	add	%fp, -424, %o0
 	mov	%l3, %o1
+	add	%fp, -424, %o0
+	mov	8, %o2
 /*end bb 135*/
 	call	memcpy, 0
 	 st	%o5, [%fp-452]
 /*start bb 136, raw*/
-	ldd	[%fp-424], %f8
 	ld	[%fp-452], %g2
 	add	%l3, 8, %l3
+	ldd	[%fp-424], %f8
 	andcc	%g2, 16, %g0
 /*end bb 136*/
 	bne	.L325
@@ -1028,9 +1028,9 @@ ee_printf:
 .L318:
 /*start bb 141, raw*/
 	ld	[%l3], %i4
+	add	%i0, 2, %g2
 	add	%l3, 4, %l3
 	cmp	%i4, 0
-	add	%i0, 2, %g2
 /*end bb 141*/
 	bge	.L307
 	 ldub	[%i0+2], %g1
@@ -1048,15 +1048,15 @@ ee_printf:
 	nop
 	nop
 	nop
-	or	%i1, %lo(.LC0), %g4
 	sdiv	%g1, 10, %l7
+	or	%i1, %lo(.LC0), %g4
 	add	%fp, %g3, %o0
-	sll	%l7, 3, %o4
-	ldub	[%g4+%l7], %l6
-	add	%l7, %l7, %o1
 	add	%g3, 1, %g3
-	add	%o1, %o4, %l7
+	add	%l7, %l7, %o1
+	ldub	[%g4+%l7], %l6
+	sll	%l7, 3, %o4
 	stb	%l6, [%o0-336]
+	add	%o1, %o4, %l7
 /*end bb 143*/
 	b	.L155
 	 sub	%g1, %l7, %g1
@@ -1067,11 +1067,11 @@ ee_printf:
 .L341:
 /*start bb 145, raw*/
 	add	%i5, 1, %o0
-	stb	%g1, [%i5]
-	cmp	%i4, 1
-	mov	%o0, %g1
-	add	%i5, %i4, %i5
 	add	%l3, 4, %l3
+	cmp	%i4, 1
+	stb	%g1, [%i5]
+	add	%i5, %i4, %i5
+	mov	%o0, %g1
 /*end bb 145*/
 	ble	.L329
 	 mov	32, %l6
@@ -1086,8 +1086,8 @@ ee_printf:
 	bne,a	.L347
 	 stb	%l6, [%g1]
 /*start bb 148, raw*/
-	ldub	[%i0+1], %o5
 	add	%i4, -1, %i4
+	ldub	[%i0+1], %o5
 /*end bb 148*/
 	b	.L94
 	 add	%o0, %i4, %i5
@@ -1144,15 +1144,15 @@ ee_printf:
 	add	%fp, %l6, %g3
 	ldub	[%o2+%g1], %l6
 	add	%g2, 3, %g2
+	add	%g1, 1, %g1
 	stb	%o1, [%g3-336]
 	and	%l6, 0xff, %o0
 	and	%l6, 15, %o4
-	add	%g1, 1, %g1
+	add	%fp, %g2, %g3
+	cmp	%g1, 6
 	srl	%o0, 4, %l7
 	ldub	[%o7+%o4], %o3
-	add	%fp, %g2, %g3
 	ldub	[%o7+%l7], %g4
-	cmp	%g1, 6
 	stb	%o3, [%g3-335]
 	stb	%g4, [%g3-336]
 /*end bb 153*/
@@ -1207,10 +1207,10 @@ ee_printf:
 	ble	.L313
 	 add	%i5, %g1, %i5
 /*start bb 163, raw*/
-	mov	32, %g2
 	sub	%i4, %g1, %g1
-	stb	%g2, [%i5]
+	mov	32, %g2
 	add	%i5, %g1, %g1
+	stb	%g2, [%i5]
 /*end bb 163*/
 .L350:
 /*start bb 164, raw*/
@@ -1224,9 +1224,9 @@ ee_printf:
 .L319:
 /*start bb 165, raw*/
 	ld	[%l3], %l6
+	add	%i0, 2, %g2
 	add	%l3, 4, %l3
 	cmp	%l6, 0
-	add	%i0, 2, %g2
 /*end bb 165*/
 	bge	.L110
 	 ldub	[%i0+2], %g1
@@ -1247,8 +1247,8 @@ ee_printf:
 /*end bb 167*/
 .L336:
 /*start bb 168, raw*/
-	mov	45, %g4
 	add	%i4, -1, %i4
+	mov	45, %g4
 /*end bb 168*/
 .L167:
 /*start bb 169, raw*/
@@ -1258,21 +1258,21 @@ ee_printf:
 	 mov	6, %l6
 .L169:
 /*start bb 170, raw*/
-	add	%fp, -428, %o4
-	add	%fp, -432, %o3
-	mov	%l6, %o2
-	st	%g4, [%fp-448]
-	ldd	[%fp-464], %o0
-	st	%g1, [%fp-444]
 	std	%f8, [%fp-464]
+	st	%g1, [%fp-444]
+	ldd	[%fp-464], %o0
+	st	%g4, [%fp-448]
+	mov	%l6, %o2
+	add	%fp, -432, %o3
+	add	%fp, -428, %o4
 /*end bb 170*/
 	call	fcvtbuf, 0
 	 mov	%l2, %o5
 /*start bb 171, raw*/
 	ld	[%fp-428], %o1
+	add	%fp, -416, %g2
 	ld	[%fp-444], %g1
 	cmp	%o1, 0
-	add	%fp, -416, %g2
 /*end bb 171*/
 	be	.L170
 	 ld	[%fp-448], %g4
@@ -1328,9 +1328,9 @@ ee_printf:
 .L335:
 /*start bb 179, raw*/
 	mov	46, %o2
+	stb	%o7, [%g2]
 	subcc	%g0, %o1, %o1
 	stb	%o2, [%g2+1]
-	stb	%o7, [%g2]
 /*end bb 179*/
 	be	.L264
 	 add	%g2, 2, %g2
@@ -1350,8 +1350,8 @@ ee_printf:
 /*start bb 182, raw*/
 	add	%o0, 1, %o0
 	stb	%o4, [%g2]
-	ldsb	[%o0], %o3
 	add	%g2, 1, %g2
+	ldsb	[%o0], %o3
 	cmp	%o3, 0
 /*end bb 182*/
 	bne	.L264
@@ -1485,8 +1485,8 @@ ee_printf:
 	ble	.L313
 	 mov	32, %g1
 /*start bb 205, raw*/
-	stb	%g1, [%i5]
 	add	%i5, %g3, %g2
+	stb	%g1, [%i5]
 /*end bb 205*/
 .L359:
 /*start bb 206, raw*/
@@ -1544,8 +1544,8 @@ ee_printf:
 /*end bb 214*/
 .L366:
 /*start bb 215, raw*/
-	cmp	%o2, 0
 	mov	%g3, %o5
+	cmp	%o2, 0
 /*end bb 215*/
 	bne	.L189
 	 ldub	[%g3], %o1
@@ -1570,17 +1570,17 @@ ee_printf:
 	 mov	0, %l6
 .L171:
 /*start bb 219, raw*/
-	cmp	%l6, 0
 	mov	48, %o0
+	cmp	%l6, 0
 /*end bb 219*/
 	be	.L179
 	 stb	%o0, [%g2]
 /*start bb 220, raw*/
 	mov	46, %o4
+	mov	48, %o7
 	add	%g2, 2, %o3
 	stb	%o4, [%g2+1]
 	mov	0, %g2
-	mov	48, %o7
 	stb	%o7, [%o3+%g2]
 /*end bb 220*/
 .L360:
@@ -1633,8 +1633,8 @@ ee_printf:
 	 mov	46, %g3
 .L263:
 /*start bb 228, raw*/
-	add	%o5, %o3, %o1
 	ldub	[%o5+%o3], %o2
+	add	%o5, %o3, %o1
 	addcc	%o3, -1, %o3
 /*end bb 228*/
 	bne	.L263

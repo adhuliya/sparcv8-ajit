@@ -1,29 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6240fab7-a2ec-4734-b098-60aab0fb84fd" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/ajit_examples/coremark/set-o2/assembled/opt-assembly/core_main-opt.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/ajit_examples/coremark/set-o2/assembled/opt-assembly/core_main-opt.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/ajit_examples/coremark/set-o2/assembled/opt-assembly/core_main-optbb.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/ajit_examples/coremark/set-o2/assembled/opt-assembly/core_main-optbb.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/ajit_examples/coremark/set-o2/assembled/opt-assembly/core_matrix-opt.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/ajit_examples/coremark/set-o2/assembled/opt-assembly/core_matrix-opt.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/ajit_examples/coremark/set-o2/assembled/opt-assembly/core_matrix-optbb.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/ajit_examples/coremark/set-o2/assembled/opt-assembly/core_matrix-optbb.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/ajit_examples/coremark/set-o2/assembled/opt-assembly/core_state-opt.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/ajit_examples/coremark/set-o2/assembled/opt-assembly/core_state-opt.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/ajit_examples/coremark/set-o2/assembled/opt-assembly/core_state-optbb.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/ajit_examples/coremark/set-o2/assembled/opt-assembly/core_state-optbb.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/ajit_examples/coremark/set-o2/assembled/opt-assembly/core_util-opt.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/ajit_examples/coremark/set-o2/assembled/opt-assembly/core_util-opt.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/ajit_examples/coremark/set-o2/assembled/opt-assembly/core_util-optbb.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/ajit_examples/coremark/set-o2/assembled/opt-assembly/core_util-optbb.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/ajit_examples/coremark/set-o2/assembled/opt-assembly/cvt-opt.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/ajit_examples/coremark/set-o2/assembled/opt-assembly/cvt-opt.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/ajit_examples/coremark/set-o2/assembled/opt-assembly/cvt-optbb.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/ajit_examples/coremark/set-o2/assembled/opt-assembly/cvt-optbb.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/ajit_examples/coremark/set-o2/assembled/opt-assembly/ee_printf-opt.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/ajit_examples/coremark/set-o2/assembled/opt-assembly/ee_printf-opt.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/ajit_examples/coremark/set-o2/assembled/opt-assembly/ee_printf-optbb.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/ajit_examples/coremark/set-o2/assembled/opt-assembly/ee_printf-optbb.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o2/assembled/opt-asmfiles/dhry_1-opt.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o2/assembled/opt-asmfiles/dhry_1-opt.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o2/assembled/opt-asmfiles/dhry_1-optbb.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o2/assembled/opt-asmfiles/dhry_1-optbb.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o2/assembled/opt-asmfiles/dhry_2-opt.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o2/assembled/opt-asmfiles/dhry_2-opt.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o2/assembled/opt-asmfiles/dhry_2-optbb.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o2/assembled/opt-asmfiles/dhry_2-optbb.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o2/assembled/opt-asmfiles/utils-opt.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o2/assembled/opt-asmfiles/utils-opt.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o2/assembled/opt-asmfiles/utils-optbb.s" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o2/assembled/opt-asmfiles/utils-optbb.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/spairo/airo.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/spairo/airo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/spairo/instruction.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/spairo/instruction.py" afterDir="false" />
-    </list>
+    <list default="true" id="6240fab7-a2ec-4734-b098-60aab0fb84fd" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +21,7 @@
     <session id="-1002050406">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="11" />
+          <entry key="project.closed" value="12" />
           <entry key="project.open.time.16" value="1" />
           <entry key="project.open.time.25" value="1" />
           <entry key="project.open.time.26" value="1" />
@@ -146,8 +124,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/spairo/airo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="594">
-              <caret line="135" column="21" lean-forward="true" selection-start-line="135" selection-start-column="21" selection-end-line="135" selection-end-column="21" />
+            <state relative-caret-position="462">
+              <caret line="165" column="46" lean-forward="true" selection-start-line="165" selection-start-column="46" selection-end-line="165" selection-end-column="46" />
               <folding>
                 <element signature="e#149#160#0" expanded="true" />
                 <marker date="1535413284660" expanded="true" signature="4055:4059" ph="..." />
@@ -347,7 +325,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1059" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13874066" />
       <window_info id="Structure" order="1" weight="0.25" />
@@ -449,8 +426,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/spairo/airo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="135" column="21" lean-forward="true" selection-start-line="135" selection-start-column="21" selection-end-line="135" selection-end-column="21" />
+        <state relative-caret-position="462">
+          <caret line="165" column="46" lean-forward="true" selection-start-line="165" selection-start-column="46" selection-end-line="165" selection-end-column="46" />
           <folding>
             <element signature="e#149#160#0" expanded="true" />
             <marker date="1535413284660" expanded="true" signature="4055:4059" ph="..." />

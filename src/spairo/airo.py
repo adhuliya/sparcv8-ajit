@@ -116,7 +116,7 @@ class DependencyGraph():
           nodePred.succ.add(nodeSucc.id)
           nodeSucc.pred.add(nodePred.id)
 
-    self.graph = self.simplifyGraph(graph)
+    self.graph = DependencyGraph.simplifyGraph(graph)
     self.maxHeights = self.maxRawNodeHeights(graph)
 
   def maxRawNodeHeights(self, graph):
@@ -154,14 +154,15 @@ class DependencyGraph():
 
     return theMax
 
-  def simplifyGraph(self, graph):
+  @staticmethod
+  def simplifyGraph(graph):
     """
     Removes redundant dependency edges from the graph.
     Eg. If A -> B -> C and A -> C exists, the edge A -> C is removed.
-    :param graph:
-    :return:
+    :param graph: Dict[Int, InstrNode]
+    :return newGraph:
     """
-    newGraph = self.copyGraph(graph)
+    newGraph = DependencyGraph.copyGraph(graph)
     nodeIds = list(graph.keys())
     nodeIds.sort()  # to traverse in pre-order
     ancestors = dict([(id, set()) for id in nodeIds])
@@ -242,7 +243,9 @@ class DependencyGraph():
 
     return dotGraph
 
-  def copyGraph(self, graph):
+  @staticmethod
+  def copyGraph(graph):
+    """Returns a deep copy of the graph InstrNodes"""
     copiedGraph = dict()
     for nodeid in graph:
       copiedGraph[nodeid] = graph[nodeid].copy()
@@ -263,7 +266,7 @@ class DependencyGraph():
     assert huristic in self.huristicsMap, "Unknow huristic: '{}'".format(huristic)
 
     sources = set()
-    graph = self.copyGraph(self.graph)
+    graph = DependencyGraph.copyGraph(self.graph)
     sortedNodeIds = []
 
     while graph:

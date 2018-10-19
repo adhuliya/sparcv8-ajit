@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 
-# This module imports and processes information from user specified `sparcinfo` module
-# It creates ready to use data-structures from the user data-structures in `sparcinfo`
+# The assembly language specification is specified in `sparcinfo.py` file by the user.
+# This module loads the specification into ready to use data structures.
+# All the modules use this module for specification information.
+
 
 from . import sparcinfo
 import re
@@ -98,7 +100,7 @@ def printInfo():
     print()
     print("NonLabeled Branch Instr  :\n", nonLabeledBranch)
     print()
-    print("BB Bounday Instr         :\n", bbBoundary)
+    print("BB Boundary Instr        :\n", bbBoundary)
     print()
     print("User Sections            :\n", userSections)
     print()

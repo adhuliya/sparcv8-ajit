@@ -3,11 +3,11 @@
 # USER EDITABLE file containing important static information about
 # Sparc(Ajit) architecture and its assembly language.
 # NOTE: Never import this module. The module sparc.py should be used instead.
-# This module is processes by module sparc.py to convert the user
+# This module is processed by module sparc.py to convert the user
 # specified details into a program usable format.
 
 # All the variables are available using same name in the sparc.py module.
-# However the variable data may be processed into a different datatype.
+# However the variable's data may be processed to a different datatype.
 
 # Execution of this module prints useful information.
 
@@ -26,7 +26,8 @@
 
 class Value():
     """
-    Defines user defined convenient constants that reduce the need to type, and makes the information systematic.
+    Defines user defined convenient constants that reduce the need to type,
+    and makes the information systematic.
     """
     hitRatio        = 0.9
     missRatio       = 1 - hitRatio
@@ -48,11 +49,14 @@ class Value():
 
 
 # START : System Resources
-pipeline        = 3
+pipeline        = 3  # length of pipeline
 
 resources = {
   "iu",     # integer unit
   "fpu",    # floating point unit
+  "icc",    # integer condition codes
+  "fcc",    # floating-point condition codes
+  "ccc",    # coprocessor condition codes
 }
 
 # END   : System Resources
@@ -123,6 +127,53 @@ regSynonyms = {
 
 # START : Instructions with Details
 
+# A convenient mnemonics for instruction format specification.
+
+# Pefix '@' to the keys defined here
+# Suffix the keys with a single decimal digit.
+# Each '@<KEY><NUM>' in the format is replaced with '(?P<KEYNUM>.*?)'
+# And the matched text is processed using the regular expression the alphabet
+# is mapped to.
+# The first char should be one of A or E.
+# A = All matches
+# E = Exact match
+# NOTE  : Changing the semantics of these keys may require changes in
+#         sparc.py and instruction.py as well.
+regexMap = {
+
+  # R: Register expression
+  # Extract one (or more) Registers (one by one)
+  "AR"   : r"%\w+",
+
+  # A: Address expression
+  # Extract All Registers
+  # If a single or no register is found, add %r0 as a register being read
+  "AA": r"%\w+",
+
+  # D: Double word register expression
+  # Extract the Register (should be even).
+  # Add the following odd register too.
+  # e.g. if r6 is found add r7 too.
+  "ED"   : r"%\w+\d+",
+
+  # Q: Quad word register expression (e.g. for quad floating point)
+  # Extract the Register (should be divisible by 4).
+  # Add the following three registers too.
+  # e.g. if f4 is found add f5 f6 f7 too.
+  "EQ"   : r"%\w+\d+",
+
+  # Set of registers specially related to the mov,rd,wr instructions
+  "EM"   : r"%y|%asr\d+|%psr|%wim|%tbr(?i)",
+
+  # I: Immediate value expression
+  # Extract Immediate Value
+  "EI"   : r"[-+]?[ \t]*\d+|[-+]?[ \t]*0[xX][0-9a-fA-F]+",
+
+  # L: Label
+  # Extract Label Name
+  "EL"   : r"[.$_a-zA-Z][.$_a-zA-Z0-9]*",
+}
+
 # All sequence of spaces in the instruction is replaced with [ \t]*
 # '^' and '$' is prefixed and suffixed to each format respectively 
 instrData = {
@@ -134,13 +185,13 @@ instrData = {
         (
           r"ldsb \[ @AA1 \] , @AR1",
           {
-            "name"      : "ldsb",
-            "latency"   : Value.latencyA,
-            "reg-read"  : {"AA1"}, #set
-            "reg-mod"   : {"AR1"}, #set
-            "res-used"  : None, #set
-            "destLabel" : None, #set
-            "delaySlot" : False,
+            "name"      : "ldsb",        #instr mnemonic
+            "latency"   : Value.latencyA,#latency in cpu cycles
+            "reg-read"  : {"AA1"}, #set  #registers read
+            "reg-mod"   : {"AR1"}, #set  #registers modified
+            "res-used"  : None, #set     #resource used
+            "destLabel" : None, #set     #if branch instr: store dest. label
+            "delaySlot" : False,         #if branch instr: has delay slot?
           }
         ),
       ],
@@ -5667,50 +5718,6 @@ instrData = {
   },
 }
 
-# Pefix '@' to the keys defined here, and suffix a single decimal digit.
-# It is used in the specification of the instruction format.
-# Each '@<ALPHABETS><NUM>' in the format is replaced with '(?P<ALPHABETSNUM>.*?)'
-# And the matched text is processes using the regular expression the alphabet
-# is mapped to.
-# The first char should be one of A or E.
-# A = All matches
-# E = Exact match
-# NOTE  : Changing the semantics of these keys may require changes in
-#         sparc.py and instruction.py as well.
-regexMap = {
-
-  # R: Register expression
-  # Extract the Registers (one by one)
-  "AR"   : r"%\w+",
-
-  # D: Double word register expression
-  # Extract the Register (should be even).
-  # Add the following odd register too.
-  # e.g. if r6 is found add r7 too.
-  "ED"   : r"%\w+\d+",
-
-  # Q: Quad word register expression (e.g. for quad floating point)
-  # Extract the Register (should be divisible by 4).
-  # Add the following three registers too.
-  # e.g. if f4 is found add f5 f6 f7 too.
-  "EQ"   : r"%\w+\d+",
-
-  # A: Address expression
-  # Extract All Registers
-  # If a single or no register is found, add %r0 as a register being read
-  "AA"   : r"%\w+",
-
-  # Set of registers specially related to the mov,rd,wr instructions
-  "EM"   : r"%y|%asr\d+|%psr|%wim|%tbr(?i)",
-
-  # I: Immediate value expression
-  # Extract Immediate Value
-  "EI"   : r"[-+]?[ \t]*\d+|[-+]?[ \t]*0[xX][0-9a-fA-F]+",
-
-  # L: Label
-  # Extract Label Name
-  "EL"   : r"[.$_a-zA-Z][.$_a-zA-Z0-9]*",
-}
 
 labeledBranch = {
   # Misc instructions

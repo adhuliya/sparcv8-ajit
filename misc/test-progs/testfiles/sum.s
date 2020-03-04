@@ -13,8 +13,9 @@ main:                                   ! @main
 	st %g0, [%fp+-4]
 	ldd [%fp+-16], %i0
 	ldd [%fp+-24], %i2
-	addd %i0, %i2, %i0
-	std %i0, [%fp+-16]
+	addcc %i1, %i3, %i5
+	addxcc %i0, %i2, %i4
+	std %i4, [%fp+-16]
 	add %fp, -16, %i0
 	or %i0, 4, %i0
 	ld [%i0], %i0

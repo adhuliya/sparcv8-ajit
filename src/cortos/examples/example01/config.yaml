@@ -1,0 +1,33 @@
+# yaml configuration file for linker/loader of Co-RTOS
+
+Cores: 1
+ThreadsPerCore: 1
+
+Programs:
+  - dir: /path/to/directory
+    - buildCommand: the_command
+  - dir: /path/to/directory
+    - buildCommand: the_command
+  - dir: /path/to/directory
+    - buildCommand: the_command
+  - dir: /path/to/directory
+    - buildCommand: the_command
+
+MessageQueues:
+  - 4
+  - id: 0
+    len: 16
+    msgLenInBytes: 32
+  - id: 1
+    len: 8
+    msgLenInBytes: 4
+  - id: 2
+    len: 32
+    msgLenInBytes: 8
+  - id: 3
+    len: 16
+    msgLenInBytes: 64
+
+SynchronizationSemaphores: 3
+
+

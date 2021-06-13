@@ -7,9 +7,9 @@ if "spairo" in sys.argv[0]:
     if libpath not in sys.path:
         sys.path.append(libpath)
 
-from spairo.basicblocks import AsmChunkBlocks
-from spairo.parse.asm import AsmModule
-from spairo.airo import DependencyGraph
+from spairo.spairo import AsmChunkBlocks
+from spairo.spairo import AsmModule
+from spairo.spairo import DependencyGraph
 
 usageMsg = """
 SParc Assembly Instruction ReOrdering (SPAIRO)

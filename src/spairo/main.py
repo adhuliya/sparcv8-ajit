@@ -14,10 +14,9 @@ if "spairo" in sys.argv[0]:
   if libPath not in sys.path:
     sys.path.append(libPath)
 
-from spairo.basicblocks import AsmChunkBlocks
-from spairo.parse.asm import AsmModule
-from spairo.airo import DependencyGraph
-from spairo import logger
+from spairo.spairo import AsmChunkBlocks, logger
+from spairo.spairo import AsmModule
+from spairo.spairo import DependencyGraph
 
 logger.initLogger()
 log = logging.getLogger(__name__)

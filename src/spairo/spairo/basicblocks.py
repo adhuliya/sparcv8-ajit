@@ -3,10 +3,7 @@
 # This module divides the list of AsmChunks into Basic Blocks
 
 import sys
-import re
 from . import airo
-from . import sparc
-from textwrap import dedent
 from .parse.asm import AsmChunk
 from .parse.asm import AsmModule
 from io import StringIO

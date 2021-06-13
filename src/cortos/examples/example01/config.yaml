@@ -1,17 +1,35 @@
 # yaml configuration file for linker/loader of Co-RTOS
 
-Cores: 1
-ThreadsPerCore: 1
+Cores: 2
+ThreadsPerCore: 2
 
 Programs:
   - dir: /path/to/directory
-    - buildCommand: the_command
+    buildCommand: the_command
+    linkerFile: the_liker_file_path
+    core: 0
+    thread: 0
+    stackSizeInKB: 1024
   - dir: /path/to/directory
-    - buildCommand: the_command
+    buildCommand: the_command
+    linkerFile: the_liker_file_path
+    core: 0
+    thread: 1
+    stackSizeInKB: 4096
   - dir: /path/to/directory
-    - buildCommand: the_command
+    buildCommand: the_command
+    linkerFile: the_liker_file_path
+    core: 1
+    thread: 0
+    stackSizeInKB: 1024
   - dir: /path/to/directory
-    - buildCommand: the_command
+    buildCommand: the_command
+    linkerFile: the_liker_file_path
+    core: 1
+    thread: 1
+    stackSizeInKB: 2048
+
+SynchronizationSemaphores: 4
 
 MessageQueues:
   - 4
@@ -28,6 +46,5 @@ MessageQueues:
     len: 16
     msgLenInBytes: 64
 
-SynchronizationSemaphores: 3
-
+MallocRegionSizeInKB: 10240
 

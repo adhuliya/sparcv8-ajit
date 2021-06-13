@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# This module defined the Instruction class.
+# This module defines the Instruction class.
 
 import sys
 import re

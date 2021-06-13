@@ -10,9 +10,9 @@ import sys
 import logging
 
 if "spairo" in sys.argv[0]:
-  libpath = "/usr/lib/python3/dist-packages"
-  if libpath not in sys.path:
-    sys.path.append(libpath)
+  libPath = "/usr/lib/python3/dist-packages"
+  if libPath not in sys.path:
+    sys.path.append(libPath)
 
 from spairo.basicblocks import AsmChunkBlocks
 from spairo.parse.asm import AsmModule

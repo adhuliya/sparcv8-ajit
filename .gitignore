@@ -25,3 +25,6 @@ venv/
 *.log
 logs/
 spairo-logs
+
+# pycharm
+.idea/

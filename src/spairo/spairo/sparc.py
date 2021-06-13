@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# The assembly language specification is specified in `sparcinfo.py` file by the user.
+# The assembly language specification is specified in `info.py` file by the user.
 # This module loads the specification into ready to use data structures.
 # All the modules use this module for specification information.
 

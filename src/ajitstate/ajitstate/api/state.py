@@ -1,10 +1,16 @@
 #!/usr/bin/env python3
+
+"""
+This file defines the classes that can be used to specify
+the state of an Ajit Processor.
+"""
+
 from typing import Sequence, Any
 
 TermT = str
 Garbage: TermT = "Garbage"
 
-class System:
+class SystemState:
   """
   Contains all processor check, memory checks, device checks etc.
   """
@@ -12,7 +18,7 @@ class System:
     self.state = kwargs
 
 
-class Processor:
+class ProcessorState:
   """
   Contains all processor checks, core checks.
   """
@@ -20,7 +26,7 @@ class Processor:
     self.state = kwargs
 
 
-class Core:
+class CoreState:
   """
   Contains all core checks, thread checks.
   """
@@ -28,7 +34,7 @@ class Core:
     self.state = kwargs
 
 
-class Thread:
+class ThreadState:
   """
   Contains all thread checks, window checks.
   """
@@ -36,7 +42,7 @@ class Thread:
     self.state = kwargs
 
 
-class Window:
+class WindowState:
   """
   Contains all window register checks.
   """
@@ -44,7 +50,7 @@ class Window:
     self.state = kwargs
 
 
-class Registers:
+class RegisterFileState:
   """
   Contains all register value checks.
   """

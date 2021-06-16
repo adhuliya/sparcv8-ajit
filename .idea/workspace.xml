@@ -2,12 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6240fab7-a2ec-4734-b098-60aab0fb84fd" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/ajitstate/ajitstate/api/ajit.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ajitstate/ajitstate/api/info.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/res/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/res/init.s" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/res/lock_unlock.s" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/res/programLinker.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/res/references/linker_script.lnk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/res/references/lock_unlock.s" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/res/systemLinker.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ajitstate/ajitstate/api/state.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ajitstate/ajitstate/api/state.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ajitstate/ajitstate/examples/basic.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ajitstate/ajitstate/examples/basic.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/spairo/spairo/sparc.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/spairo/spairo/sparc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/examples/example01/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/examples/example01/config.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,7 +173,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="run.code.analysis.last.selected.profile" value="aDefault" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Python" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -217,7 +221,10 @@
       <updated>1531453505608</updated>
       <workItem from="1623580797297" duration="6796000" />
       <workItem from="1623596901449" duration="1135000" />
-      <workItem from="1623604217121" duration="1606000" />
+      <workItem from="1623604217121" duration="2937000" />
+      <workItem from="1623669043751" duration="3035000" />
+      <workItem from="1623742406599" duration="8000" />
+      <workItem from="1623837525224" duration="8546000" />
     </task>
     <servers />
   </component>

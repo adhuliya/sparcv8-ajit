@@ -14,6 +14,13 @@ Programs:
     buildCommand: the_command
     linkerFile: the_liker_file_path
     core: 0
+    thread: 0
+    main: true
+    stackSizeInKB: 1024
+  - dir: /path/to/directory
+    buildCommand: the_command
+    linkerFile: the_liker_file_path
+    core: 0
     thread: 1
     stackSizeInKB: 4096
   - dir: /path/to/directory
@@ -29,7 +36,8 @@ Programs:
     thread: 1
     stackSizeInKB: 2048
 
-SynchronizationSemaphores: 4
+SynchronizationSemaphores: 4  # trap at runtime too
+  - ajit_syncOn(0), syncOn(1) ... syncOn(3)
 
 MessageQueues:
   - 4

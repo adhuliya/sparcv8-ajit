@@ -2,16 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6240fab7-a2ec-4734-b098-60aab0fb84fd" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/cortos/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cortos/res/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cortos/res/init.s" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cortos/res/lock_unlock.s" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cortos/res/programLinker.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cortos/res/references/linker_script.lnk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cortos/res/references/lock_unlock.s" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cortos/res/systemLinker.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SPAN_NOTES.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/examples/example01/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/examples/example01/config.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/res/references/lock_unlock.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/res/references/lock_unlock.s" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -224,7 +218,8 @@
       <workItem from="1623604217121" duration="2937000" />
       <workItem from="1623669043751" duration="3035000" />
       <workItem from="1623742406599" duration="8000" />
-      <workItem from="1623837525224" duration="8546000" />
+      <workItem from="1623837525224" duration="8586000" />
+      <workItem from="1623907590166" duration="6989000" />
     </task>
     <servers />
   </component>

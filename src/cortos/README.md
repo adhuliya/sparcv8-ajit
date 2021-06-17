@@ -2,6 +2,7 @@ Notes
 -------------
 
 ### Components
+0. Read user configuration - yaml file -- DONE
 1. Linking
    1. Linker Script
       * To compile each program into a separate text/data region.
@@ -36,7 +37,10 @@ Objective: To be able to run N programs on N threads without any communication.
 Objective: To be able to run N programs on N threads with a shared lock.
 
 ## Stage 3
-Objective: To be able to run N programs on N threads with a shared queue.  
+Objective: To be able to run N programs on N threads with a fixed shared queue.  
+
+## Stage 3.5
+Objective: To be able to run N programs on N threads with a variable shared queue.
 
 ## Stage 4
 Objective: To be able to run N programs on N threads with M shared queues.

@@ -37,7 +37,6 @@ Programs:
     stackSizeInKB: 2048
 
 SynchronizationSemaphores: 4  # trap at runtime too
-  - ajit_syncOn(0), syncOn(1) ... syncOn(3)
 
 MessageQueues:
   - 4

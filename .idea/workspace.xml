@@ -2,10 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6240fab7-a2ec-4734-b098-60aab0fb84fd" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/SPAN_NOTES.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/config.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/init_check_core_thread_id.s" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/init_core0thread0_setup.s" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/init_footer.s" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/init_header.s" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/init_page_table_mmu_wait.s" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/init_run_thread.s" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/init_thread0_setup.s" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/init_thread1_setup.s" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/util.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cortos/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/res/references/lock_unlock.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/res/references/lock_unlock.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/examples/example01/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/examples/example01/config.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,6 +183,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/cortos" />
       <recent name="$PROJECT_DIR$/src/spairo1" />
       <recent name="$PROJECT_DIR$/src/ajitstate/ajitstate" />
       <recent name="$PROJECT_DIR$/src/spairo" />
@@ -219,7 +232,8 @@
       <workItem from="1623669043751" duration="3035000" />
       <workItem from="1623742406599" duration="8000" />
       <workItem from="1623837525224" duration="8586000" />
-      <workItem from="1623907590166" duration="6989000" />
+      <workItem from="1623907590166" duration="7105000" />
+      <workItem from="1623936160655" duration="3774000" />
     </task>
     <servers />
   </component>

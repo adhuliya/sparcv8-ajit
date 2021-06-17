@@ -3,5 +3,8 @@
 # Author: Anshuman Dhuliya (AD) (anshumandhuliya@gmail.com)
 
 """
-The Ajit CoRTOS project.
+Utility module with project wide components.
 """
+
+
+FileNameT = str

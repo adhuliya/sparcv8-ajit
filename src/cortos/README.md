@@ -36,6 +36,9 @@ Objective: To be able to run N programs on N threads without any communication.
 ## Stage 2
 Objective: To be able to run N programs on N threads with a shared lock.
 
+## Stage 2.5
+Objective: To be able to run N programs on N threads with M shared locks.
+
 ## Stage 3
 Objective: To be able to run N programs on N threads with a fixed shared queue.  
 

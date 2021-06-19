@@ -4,5 +4,7 @@
 
 """
 Functionality to build the project for the Ajit processor.
+
+All the logic to build is present here, or invoked from here.
 """
 

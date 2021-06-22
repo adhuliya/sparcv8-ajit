@@ -6,6 +6,7 @@
 Contains global constants in the project.
 """
 
+CONFIG_FILE_DEFAULT_NAME = "config.yaml"
 
 AJIT_MAX_CORES = 4
 """Maximum Ajit cores possible."""

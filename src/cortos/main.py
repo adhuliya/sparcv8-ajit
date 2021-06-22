@@ -2,20 +2,18 @@
 
 # Author: Anshuman Dhuliya (AD) (anshumandhuliya@gmail.com)
 
-
 """
 Main invocation of the cortos system.
 """
 
-print("Invoking Ajit CoRTOS")
+from cortos.sys import driver
 
-import sys
-import cortos.config as config
-import cortos.build as build
+print("Invoked Ajit CoRTOS Linker/Loader")
 
+# mainentry - when this module is run
 if __name__ == "__main__":
-  # conf = config.readYamlConfig(sys.argv[1])
-  # print(conf.data)
+  parser = driver.getParser()
+  args = parser.parse_args()  # parse command line
+  args.func(args)             # take action
 
-  print(build.genInitFile(2, 2))
 

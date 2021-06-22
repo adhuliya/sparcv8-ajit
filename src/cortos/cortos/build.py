@@ -9,11 +9,26 @@ All the logic to build_sh is present here, or invoked from here.
 """
 import sys
 from io import StringIO
-from typing import List, Tuple, Optional as Opt
+from typing import List, Tuple, Optional as Opt, Any
 import os
 
 from cortos.common import consts
 from cortos.common import util
+from cortos.config import Configuration
+
+
+def buildProject(confObj: Configuration) -> None:
+  print("AjitCoRtos build process called.")
+  res = initBuild(confObj)
+  finalBuild(confObj, res)
+
+
+def initBuild(confObj: Configuration) -> Any:
+  return None
+
+
+def finalBuild(confObj: Configuration, res: Any) -> None:
+  pass
 
 
 def genInitFile(

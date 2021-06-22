@@ -10,7 +10,7 @@ ajit_func_sync_lock_get:
   ! i0 contains an index to the correct locking variable
   save  %sp, -96, %sp       ! func prefix
 
-  set SIMPLE_SYNC_VARS_BASE, %l0
+  set {syncArrayBaseAddr}, %l0
   sll i0, 0x2, i0                   ! * 4
 retry_sync_lock:
   ldstub [%l0+%i0], %l0
@@ -34,7 +34,7 @@ ajit_func_sync_lock_release:
   ! i0 contains an index to the correct locking variable
   save  %sp, -96, %sp       ! func prefix
 
-  set SIMPLE_SYNC_VARS_BASE, %l0
+  set {syncArrayBaseAddr}, %l0
   sll i0, 0x2, i0                   ! * 4
 
   stbar

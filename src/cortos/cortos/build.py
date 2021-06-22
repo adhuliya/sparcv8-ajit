@@ -3,9 +3,9 @@
 # Author: Anshuman Dhuliya (AD) (anshumandhuliya@gmail.com)
 
 """
-Functionality to build the project for the Ajit processor.
+Functionality to build_sh the project for the Ajit processor.
 
-All the logic to build is present here, or invoked from here.
+All the logic to build_sh is present here, or invoked from here.
 """
 import sys
 from io import StringIO
@@ -31,10 +31,13 @@ def genInitFile(
   # STEP 1: Write the init.s header (common to all threads)
   sio.write(genInitFileHeader())
 
+  # STEP 1.5: Add allocation space.
+  addAllocationSpace(sio)
+
   # STEP 2: Generate Thread Setup Steps
   genThreadSetupSteps(sio, coreCount, threadPerCoreCount)
 
-  # STEP 3: Generate Thread Setup Steps
+  # STEP 3: Generate Thread Exec Steps
   genThreadExecSteps(sio, coreCount, threadPerCoreCount)
 
   # STEP 4: Generate MMU and PageTable Setup Content
@@ -216,3 +219,15 @@ def addThreadSpecificSetup(
   else:
     raise ValueError(f"Unknown thread id {threadId}.")
 
+
+def addAllocationSpace(
+    sio: StringIO,
+) -> None:
+  """Adds allocation space content."""
+  content = util.readResFile(consts.INIT_FILE_ALLOCATIONS_PATH)
+  filledContent = content.format(
+    ajitReservedSpaceSize=consts.AJIT_RESERVED_SPACE_SIZE,
+    syncArraySizeInBytes=consts.AJIT_SYNC_ARRAY_SIZE,
+    totalQueueSizeInBytes=consts.AJIT_ALL_QUEUES_SIZE,
+  )
+  sio.write(filledContent)

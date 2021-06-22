@@ -8,7 +8,6 @@ Utility module with project wide components.
 import logging
 _log = logging.getLogger(__name__)
 
-
 import os
 import os.path as osp
 import subprocess as subp
@@ -193,3 +192,20 @@ def commandExists(progName: str) -> bool:
 ################################################
 # BLOCK END  : FileSystem_Related
 ################################################
+
+
+def adjustSizeToAlign(
+    sizeInBytes: int,
+    align: int = 8,
+) -> int:
+  rem = sizeInBytes % align
+  if rem == 0:
+    return sizeInBytes
+  else:
+    return sizeInBytes + (align - rem)
+
+
+def convertKbToBytes(
+    sizeInKb: int,
+) -> int:
+  return sizeInKb * 1024

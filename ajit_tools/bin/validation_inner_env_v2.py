@@ -4,7 +4,7 @@
 # The argument to the script is absolute path of a .vprj file and an option 
 # for processor executable given by gnu parallel. It parses .vprj to get sources
 # (.c/.s), includes and defines and make .results file. It then calls compileToSparc.py 
-# to build the sources of a .vprj, then loads the build on processor 
+# to build_sh the sources of a .vprj, then loads the build_sh on processor
 # model and logs. It creates seperate directories for all .vprj and for log files.
 # It returns 0 as success, 1 as failure.
 

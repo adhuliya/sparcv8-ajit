@@ -43,8 +43,8 @@ if __name__ == "__main__":
     with open("{}/DEBIAN/control".format(debDir), "w") as f:
         f.write(controlFile.format(sys.argv[1]))
 
-    print("dpkg --build {}".format(debDir))
-    cp = subp.run("dpkg --build {}".format(debDir), shell=True)
+    print("dpkg --build_sh {}".format(debDir))
+    cp = subp.run("dpkg --build_sh {}".format(debDir), shell=True)
 
     if cp.returncode == 0:
       newName = finalDebFile.format(version=sys.argv[1])

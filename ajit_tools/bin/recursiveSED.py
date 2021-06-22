@@ -200,7 +200,7 @@ def  compileFiles(CC, SRC_DIRS, OBJ, CFLAGS, INCLUDE_LIST, DEFINES):
     return err_flag
 
     
-# build static library
+# build_sh static library
 def buildArchive(DEST_DIR, LIBNAME, OBJDIRS):
     err_flag = 0
 

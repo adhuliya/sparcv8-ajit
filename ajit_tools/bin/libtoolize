@@ -39,7 +39,7 @@
 #       --nonrecursive  prepare ltdl for non-recursive make
 #   -q, --quiet         work silently
 #       --recursive     prepare ltdl for recursive make
-#       --subproject    prepare ltdl to configure and build independently
+#       --subproject    prepare ltdl to configure and build_sh independently
 #   -v, --verbose       verbosely report processing
 #       --version       print version information and exit
 #   -h, --help          print short or long help message

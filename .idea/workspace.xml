@@ -2,12 +2,57 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6240fab7-a2ec-4734-b098-60aab0fb84fd" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/for_init/init_call_main_xx.s" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/for_init/start_core_thread.s" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/linker_scripts/programLinker00.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/linker_scripts/programLinkerXX.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/elf.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_asms/setup_ajit_tables.s" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_asms/trap_handlers.s" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_allocate.s" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_cortos_body.s" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_cortos_footer_loop.s" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_cortos_footer_stop.s" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_cortos_header.s" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_cortos_header0.s" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_sh/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_sh/build_final0.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_sh/build_finalX.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_sh/build_init0.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_sh/build_initX.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/linker_scripts/LinkerScript.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/examples/example02/00/main.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/examples/example02/01/main.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/examples/example02/config.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/for_init/init_header.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/for_init/init_header.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ajit_tools/bin/Installantlr.py" beforeDir="false" afterPath="$PROJECT_DIR$/ajit_tools/bin/Installantlr.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ajit_tools/bin/buildFPGAmodel.py" beforeDir="false" afterPath="$PROJECT_DIR$/ajit_tools/bin/buildFPGAmodel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ajit_tools/bin/buildHierarchicalModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/ajit_tools/bin/buildHierarchicalModel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ajit_tools/bin/compileToSparc.py" beforeDir="false" afterPath="$PROJECT_DIR$/ajit_tools/bin/compileToSparc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ajit_tools/bin/libtool" beforeDir="false" afterPath="$PROJECT_DIR$/ajit_tools/bin/libtool" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ajit_tools/bin/libtoolize" beforeDir="false" afterPath="$PROJECT_DIR$/ajit_tools/bin/libtoolize" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ajit_tools/bin/recursiveSED.py" beforeDir="false" afterPath="$PROJECT_DIR$/ajit_tools/bin/recursiveSED.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ajit_tools/bin/validation_inner.py" beforeDir="false" afterPath="$PROJECT_DIR$/ajit_tools/bin/validation_inner.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ajit_tools/bin/validation_inner_env_v1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ajit_tools/bin/validation_inner_env_v1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ajit_tools/bin/validation_inner_env_v2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ajit_tools/bin/validation_inner_env_v2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ajit_tools/bin/validation_inner_env_v3.py" beforeDir="false" afterPath="$PROJECT_DIR$/ajit_tools/bin/validation_inner_env_v3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/misc/deb-package/create-deb.py" beforeDir="false" afterPath="$PROJECT_DIR$/misc/deb-package/create-deb.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/build.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/build.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/common/consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/common/consts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/common/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/common/util.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/allocate.s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/for_init/init_call_main_xx.s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/for_init/init_check_core_thread_id.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_check_core_thread_id.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/for_init/init_core0thread0_setup.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_core0thread0_setup.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/for_init/init_footer.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_footer.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/for_init/init_header.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_header.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/for_init/init_page_table_mmu_wait.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_page_table_mmu_wait.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/for_init/init_run_thread.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_thread_run.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/for_init/init_thread0_setup.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_thread0_setup.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/for_init/init_thread1_setup.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_thread1_setup.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/for_init/start_core_thread.s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/linker_scripts/programLinker00.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/linker_scripts/LinkerScript00.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/linker_scripts/programLinkerXX.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/linker_scripts/LinkerScriptXX.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/lock_unlock.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/lock_unlock.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/res/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/res/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,7 +208,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/cortos/cortos/files/linker_scripts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/cortos/examples/example02" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -173,15 +218,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/cortos/examples/example02" />
+      <recent name="$PROJECT_DIR$/src/cortos/cortos/files/build_init" />
+      <recent name="$PROJECT_DIR$/src/cortos/cortos/files/build" />
       <recent name="$PROJECT_DIR$/src/cortos/cortos/files/linker_scripts" />
       <recent name="$PROJECT_DIR$/src/cortos/cortos/files" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/cortos/cortos/files/build" />
       <recent name="$PROJECT_DIR$/src/cortos/cortos/files/for_init" />
       <recent name="$PROJECT_DIR$/src/cortos/cortos/common" />
       <recent name="$PROJECT_DIR$/src/cortos" />
       <recent name="$PROJECT_DIR$/src/spairo1" />
-      <recent name="$PROJECT_DIR$/src/ajitstate/ajitstate" />
     </key>
   </component>
   <component name="RunManager">
@@ -232,7 +280,8 @@
       <workItem from="1624021376383" duration="2127000" />
       <workItem from="1624120315883" duration="2854000" />
       <workItem from="1624164956992" duration="10000" />
-      <workItem from="1624344139941" duration="13302000" />
+      <workItem from="1624344139941" duration="13389000" />
+      <workItem from="1624363820756" duration="14968000" />
     </task>
     <servers />
   </component>

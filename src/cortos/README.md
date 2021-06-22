@@ -64,3 +64,25 @@ Objective: To be able to run N programs on X threads with M shared queues.
 
 
 
+Memory Layout Notes
+-------------------------
+Contents:
+* programs (text, data), and their stack
+* synchronization variables
+* space for queues
+* malloc area
+
+
+    0x00000000  part of init.s starts here      (addr: 0)
+    0x00000000  reserved space (say 256 bytes)  (addr: pre-computed)
+    0x00000000  synchronization variables       (addr: pre-computed)
+    0x00000000  queue space                     (addr: pre-computed)
+    0x00000000  rest of the init.s is here
+    0x00000000  malloc area                     (addr: pre-computed)
+    0x00000000  program0 (text, data)           (addr: pre-computed)
+    0x00000000  program1 (text, data)           (addr: pre-computed)
+    0x00000000  program0 stack                  (addr: pre-computed)
+    0x00000000  program1 stack                  (addr: pre-computed)
+    0x00000000  unused area                     (addr: pre-computed)
+
+

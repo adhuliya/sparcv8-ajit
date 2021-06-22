@@ -14,7 +14,7 @@ print "Installing antlr3C runtime............"
 command = "tar -xzvf libantlr3c-3.4.tar.gz"
 subprocess.call(command.split())
 os.chdir("./libantlr3c-3.4")
-build_dir = working_dir+"build"
+build_dir = working_dir+"build_sh"
 command= "./configure --prefix="+build_dir+" --exec-prefix="+build_dir+" "
 
 #check if this system is 64 bit

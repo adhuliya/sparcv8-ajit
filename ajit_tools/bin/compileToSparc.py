@@ -374,7 +374,7 @@ def main():
     if(elf_file != None):
        ret_status = buildExecutable(work_area, obj_files, linker_script_file, elf_file, hex_file, var_file, mmap_file, objdump_file)
        if(ret_status == 1):
-          print "Error: sparc-executable build failed." 
+          print "Error: sparc-executable build_sh failed."
           return 1
 
     return ret_status

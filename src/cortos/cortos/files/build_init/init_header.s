@@ -1,5 +1,6 @@
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! BLOCK START: common_init_header
+!   Code executed across all threads.
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 !
@@ -8,8 +9,6 @@
 .section .text.ajitstart
 .global _start;
 _start:
-  !!!!!!!!!!!!!!! code executed across all threads !!!!!!!!!!!!!!!!111
-
   ! enable traps, set current window=0
   set 0x10E0, %l0
   wr %l0, %psr
@@ -32,6 +31,9 @@ WIMSET:
   ! trap table. (AD: is this common to all threads? or only to thread0?)
   set	trap_table_base, %l0
   wr	%l0, 0x0, %tbr
+
+  ba SETUP_THREADS
+  nop
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! BLOCK END  : common_init_header

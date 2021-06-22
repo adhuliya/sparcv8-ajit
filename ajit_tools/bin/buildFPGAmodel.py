@@ -15,7 +15,7 @@
 #
 #   The VHDL files are then added to a .prj file. The .prj file is then 
 #	appened with riffa files. The .scr file carries the 
-#	build info.
+#	build_sh info.
 #
 #
 #	Author: Piyush P. Soni

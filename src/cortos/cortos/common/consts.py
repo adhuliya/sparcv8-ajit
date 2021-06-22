@@ -14,15 +14,17 @@ AJIT_MAX_THREADS_PER_CORE = 2
 """Maximum Ajit threads possible per core."""
 
 
-INIT_FILE_HEADER_PATH = "../files/for_init/init_header.s"
-INIT_FILE_FOOTER_PATH = "../files/for_init/init_footer.s"
+INIT_FILE_HEADER_PATH = "../files/build_init/init_header.s"
+INIT_FILE_FOOTER_PATH = "../files/build_init/init_footer.s"
 
-INIT_FILE_PGTABLE_MMU_WAIT_PATH = "../files/for_init/init_page_table_mmu_wait.s"
-INIT_FILE_CHECK_THREAD_ID_PATH = "../files/for_init/init_check_core_thread_id.s"
+INIT_FILE_PGTABLE_MMU_WAIT_PATH = "../files/build_init/init_page_table_mmu_wait.s"
+INIT_FILE_CHECK_THREAD_ID_PATH = "../files/build_init/init_check_core_thread_id.s"
 
-INIT_FILE_CORE0_THREAD0_SETUP_PATH = "../files/for_init/init_core0thread0_setup.s"
-INIT_FILE_THREAD0_SETUP_PATH = "../files/for_init/init_thread0_setup.s"
-INIT_FILE_THREAD1_SETUP_PATH = "../files/for_init/init_thread1_setup.s"
+INIT_FILE_CORE0_THREAD0_SETUP_PATH = "../files/build_init/init_core0thread0_setup.s"
+INIT_FILE_THREAD0_SETUP_PATH = "../files/build_init/init_thread0_setup.s"
+INIT_FILE_THREAD1_SETUP_PATH = "../files/build_init/init_thread1_setup.s"
+
+INIT_FILE_ALLOCATIONS_PATH = "../files/build_init/init_allocate.s"
 
 SETUP_THREADS_LABEL = "SETUP_THREADS"
 THREAD_SETUP_LABEL = "SETUP_THREAD_{core}_{thread}"
@@ -40,3 +42,27 @@ THREAD_ID_TEST_HEX_PATTERN =  "0x50520{core}0{thread}"
 
 HALT_ERROR_LABEL = "AJIT_HALT_ERROR"
 HALT_OKAY_LABEL = "AJIT_HALT_OKAY"
+
+AJIT_RESERVED_SPACE_SIZE = 256
+"""
+This space is reserved for misc use by Ajit in the future.
+"""
+
+AJIT_SYNC_ARRAY_SIZE = 64
+"""
+All synchronization variables sit here.
+
+4 bytes for each sync variable.
+"""
+
+AJIT_ALL_QUEUES_SIZE = 1024
+"""
+All the queues sit here.
+"""
+
+
+DEFAULT_QUEUE_LEN = 4
+DEFAULT_QUEUE_MSG_SIZE = 8  # bytes
+DEFAULT_QUEUE_SIZE = DEFAULT_QUEUE_MSG_SIZE * DEFAULT_QUEUE_LEN # bytes
+DEFAULT_MAX_QUEUES_POSSIBLE = AJIT_ALL_QUEUES_SIZE // DEFAULT_QUEUE_SIZE
+

@@ -2,7 +2,6 @@
 Parameterized content of the files required in the build process.
 """
 
-import util
 
 class File:
   def __init__(self, name: str, comment: str, content: str):

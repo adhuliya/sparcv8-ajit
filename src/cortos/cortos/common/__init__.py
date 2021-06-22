@@ -3,8 +3,5 @@
 # Author: Anshuman Dhuliya (AD) (anshumandhuliya@gmail.com)
 
 """
-Utility module with project wide components.
+Common utilities/resources for the entire project.
 """
-
-
-FileNameT = str

@@ -2,8 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6240fab7-a2ec-4734-b098-60aab0fb84fd" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/common/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/common/consts.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/for_init/init_footer.s" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/lock_unlock.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/lock_unlock.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/build.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/build.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/init_check_core_thread_id.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/for_init/init_check_core_thread_id.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/init_core0thread0_setup.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/for_init/init_core0thread0_setup.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/init_footer.s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/init_header.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/for_init/init_header.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/init_page_table_mmu_wait.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/for_init/init_page_table_mmu_wait.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/init_run_thread.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/for_init/init_run_thread.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/init_thread0_setup.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/for_init/init_thread0_setup.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/init_thread1_setup.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/for_init/init_thread1_setup.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/common/util.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/examples/example01/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/examples/example01/config.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,7 +176,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/cortos/cortos/files" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../codestory-git" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -172,10 +189,11 @@
       <recent name="$PROJECT_DIR$/src/cortos/cortos/files" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/cortos/cortos/files/for_init" />
+      <recent name="$PROJECT_DIR$/src/cortos/cortos/common" />
       <recent name="$PROJECT_DIR$/src/cortos" />
       <recent name="$PROJECT_DIR$/src/spairo1" />
       <recent name="$PROJECT_DIR$/src/ajitstate/ajitstate" />
-      <recent name="$PROJECT_DIR$/src/spairo" />
     </key>
   </component>
   <component name="RunManager">
@@ -224,7 +242,9 @@
       <workItem from="1623907590166" duration="7105000" />
       <workItem from="1623936160655" duration="3843000" />
       <workItem from="1624021376383" duration="2127000" />
-      <workItem from="1624120315883" duration="1594000" />
+      <workItem from="1624120315883" duration="2854000" />
+      <workItem from="1624164956992" duration="10000" />
+      <workItem from="1624344139941" duration="11680000" />
     </task>
     <servers />
   </component>

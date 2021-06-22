@@ -54,7 +54,13 @@ Objective: To be able to run N programs on N threads with M shared queues,
 
 ## Stage 6
 Objective: To be able to run N programs on X threads with M shared queues.
-           (will use co-operative scheduler)
+           (will use co-operative scheduler, where the main function of processes
+           return to the scheduler.)
+
+## Stage 6.5
+Objective: To be able to run N programs on X threads with M shared queues.
+           (will use co-operative scheduler, where processes yield to the
+            scheduler at specific program points)
 
 
 

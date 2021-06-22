@@ -8,7 +8,7 @@ Read user configuration file.
 
 import yaml
 
-import cortos.util as util
+import cortos.common.util as util
 
 
 class Configs:

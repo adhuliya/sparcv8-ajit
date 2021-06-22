@@ -1,9 +1,9 @@
 # yaml configuration file for linker/loader of Co-RTOS
 
-Cores: 2
-ThreadsPerCore: 2
+Cores: 2  # must agree with the processor used
+ThreadsPerCore: 2  # must agree with the processor used
 
-Programs:
+Programs: # name all your programs main.c or specify here.
   - dir: /path/to/directory
     buildCommand: the_command
     linkerFile: the_liker_file_path
@@ -39,19 +39,21 @@ Programs:
 SynchronizationSemaphores: 4  # trap at runtime too
 
 MessageQueues:
-  - 4
-  - id: 0
-    len: 16
-    msgLenInBytes: 32
-  - id: 1
-    len: 8
-    msgLenInBytes: 4
-  - id: 2
-    len: 32
-    msgLenInBytes: 8
-  - id: 3
-    len: 16
-    msgLenInBytes: 64
+  - Total: 4
+    Queues:
+      - id: 0
+        len: 16
+        msgLenInBytes: 32
+      - id: 1
+        len: 8
+        msgLenInBytes: 4
+      - id: 2
+        len: 32
+        msgLenInBytes: 8
+      - id: 3
+        len: 16
+        msgLenInBytes: 64
 
 MallocRegionSizeInKB: 10240
 
+TotalMemoryInKB: 102400

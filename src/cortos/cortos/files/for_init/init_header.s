@@ -5,6 +5,7 @@
 !
 ! Ajit startup initialization code.
 !
+.section .text.ajitstart
 .global _start;
 _start:
   !!!!!!!!!!!!!!! code executed across all threads !!!!!!!!!!!!!!!!111

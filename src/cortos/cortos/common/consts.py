@@ -56,14 +56,14 @@ All synchronization variables sit here.
 4 bytes for each sync variable.
 """
 
-AJIT_ALL_QUEUES_SIZE = 1024
+AJIT_ALL_QUEUES_SIZE = 4096
 """
 All the queues sit here.
 """
 
 
-DEFAULT_QUEUE_LEN = 4
-DEFAULT_QUEUE_MSG_SIZE = 8  # bytes
+DEFAULT_QUEUE_LEN = 8
+DEFAULT_QUEUE_MSG_SIZE = 16  # bytes
 DEFAULT_QUEUE_SIZE = DEFAULT_QUEUE_MSG_SIZE * DEFAULT_QUEUE_LEN # bytes
 DEFAULT_MAX_QUEUES_POSSIBLE = AJIT_ALL_QUEUES_SIZE // DEFAULT_QUEUE_SIZE
 

@@ -78,11 +78,25 @@ Contents:
     0x00000000  synchronization variables       (addr: pre-computed)
     0x00000000  queue space                     (addr: pre-computed)
     0x00000000  rest of the init.s is here
-    0x00000000  malloc area                     (addr: pre-computed)
     0x00000000  program0 (text, data)           (addr: pre-computed)
+    0x00000000  malloc area                     (addr: pre-computed)
     0x00000000  program1 (text, data)           (addr: pre-computed)
     0x00000000  program0 stack                  (addr: pre-computed)
     0x00000000  program1 stack                  (addr: pre-computed)
     0x00000000  unused area                     (addr: pre-computed)
+
+Queries:
+1. Are memory locations zero by default? (Anyway don't assume it to be.)
+2. What if one of the thread halts?
+   If programs are lesser than the no. of threads
+   then should the 'empty' threads loop?
+3. `call main` works but `call 0x2` doesn't work. (PC + (4 * 0x2))
+   Hence, need to hack the binary output as follows:
+   
+          call here_label    ! generates 0x40000002 (which is then modified)
+          nop
+        here_label:
+4. Get size of elf text sections and data sections.
+   
 
 

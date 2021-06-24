@@ -2,18 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6240fab7-a2ec-4734-b098-60aab0fb84fd" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/sys/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/sys/driver.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/build.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/build.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cortos/cortos/common/consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/common/consts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_allocate.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_allocate.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_sh/build_final0.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_sh/build_final0.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_sh/build_finalX.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_sh/build_finalX.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_sh/build_init0.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_sh/build_init0.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_sh/build_initX.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_sh/build_initX.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -242,7 +233,8 @@
       <workItem from="1624120315883" duration="2854000" />
       <workItem from="1624164956992" duration="10000" />
       <workItem from="1624344139941" duration="13389000" />
-      <workItem from="1624363820756" duration="18877000" />
+      <workItem from="1624363820756" duration="19006000" />
+      <workItem from="1624438905297" duration="4196000" />
     </task>
     <servers />
   </component>

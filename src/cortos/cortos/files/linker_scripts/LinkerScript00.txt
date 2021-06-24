@@ -20,7 +20,7 @@ SECTIONS
     KEEP(*(.text.traptablebase))  /* NOTE: in file `trap_handlers.s` */
   }
 
-  . = {ajitStartDataAddrHex}; /* . = 0x40000000; */
+  /* . = 0x40000000; */ /* . = {ajitStartDataAddrHex}; */
   .rodata ALIGN(4) : { * (.rodata) * (.rodata.*) }
   .data   ALIGN(4) : { * (.data) * (.data.*) *(.bss)}
 }

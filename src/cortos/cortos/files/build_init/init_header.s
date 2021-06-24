@@ -8,7 +8,7 @@
 !
 .section .text.ajitstart
 .global _start;
-_start:
+_start: ! always starts at 0x00000000
   ! enable traps, set current window=0
   set 0x10E0, %l0
   wr %l0, %psr

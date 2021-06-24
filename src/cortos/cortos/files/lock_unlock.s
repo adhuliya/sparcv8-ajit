@@ -11,7 +11,7 @@ ajit_func_sync_lock_get:
   save  %sp, -96, %sp       ! func prefix
 
   set {syncArrayBaseAddr}, %l0
-  sll i0, 0x2, i0                   ! * 4
+  sll i0, 0x2, i0                   ! * 4 (jump 4 bytes at a time)
 retry_sync_lock:
   ldstub [%l0+%i0], %l0
   tst %l0
@@ -35,7 +35,7 @@ ajit_func_sync_lock_release:
   save  %sp, -96, %sp       ! func prefix
 
   set {syncArrayBaseAddr}, %l0
-  sll i0, 0x2, i0                   ! * 4
+  sll i0, 0x2, i0                   ! * 4 (jump 4 bytes at a time)
 
   stbar
   stub %g0, [%l0+%i0]

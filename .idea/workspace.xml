@@ -2,9 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6240fab7-a2ec-4734-b098-60aab0fb84fd" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/bget/bget.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/bget/bget.doc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/bget/bget.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/bget/init.s" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/bget/main.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/bget/makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/sys/compute.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cortos/cortos/common/consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/common/consts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_header.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_header.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/linker_scripts/LinkerScript.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/linker_scripts/LinkerScript.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/linker_scripts/LinkerScript00.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/linker_scripts/LinkerScript00.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/linker_scripts/LinkerScriptXX.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/linker_scripts/LinkerScriptXX.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/lock_unlock.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/lock_unlock.s" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,7 +171,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/cortos/examples/example02" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/cortos/cortos/files/bget" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -170,11 +181,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/cortos/cortos/files/bget" />
       <recent name="$PROJECT_DIR$/src/cortos/examples/example02" />
       <recent name="$PROJECT_DIR$/src/cortos/cortos/files/build_init" />
       <recent name="$PROJECT_DIR$/src/cortos/cortos/files/build" />
       <recent name="$PROJECT_DIR$/src/cortos/cortos/files/linker_scripts" />
-      <recent name="$PROJECT_DIR$/src/cortos/cortos/files" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/cortos/cortos/files/build" />
@@ -234,7 +245,9 @@
       <workItem from="1624164956992" duration="10000" />
       <workItem from="1624344139941" duration="13389000" />
       <workItem from="1624363820756" duration="19006000" />
-      <workItem from="1624438905297" duration="4196000" />
+      <workItem from="1624438905297" duration="4446000" />
+      <workItem from="1624516174051" duration="8000" />
+      <workItem from="1624543224708" duration="2067000" />
     </task>
     <servers />
   </component>

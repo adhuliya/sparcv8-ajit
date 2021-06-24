@@ -44,26 +44,31 @@ THREAD_ID_TEST_HEX_PATTERN =  "0x50520{core}0{thread}"
 HALT_ERROR_LABEL = "AJIT_HALT_ERROR"
 HALT_OKAY_LABEL = "AJIT_HALT_OKAY"
 
-AJIT_RESERVED_SPACE_SIZE = 256
+AJIT_INIT_HEADER_SIZE = 4 * 13
+"""
+The size of the init.s header just before the allocation area.
+"""
+
+AJIT_RESERVED_SPACE_SIZE = 256 # bytes
 """
 This space is reserved for misc use by Ajit in the future.
 """
 
-AJIT_SYNC_ARRAY_SIZE = 64
+AJIT_SYNC_ARRAY_SIZE = 64 # bytes
 """
 All synchronization variables sit here.
 
 4 bytes for each sync variable.
 """
 
-AJIT_ALL_QUEUES_SIZE = 4096
+AJIT_ALL_QUEUES_SIZE = 4096 # bytes
 """
 All the queues sit here.
 """
 
 
-DEFAULT_QUEUE_LEN = 8
-DEFAULT_QUEUE_MSG_SIZE = 16  # bytes
+DEFAULT_QUEUE_LEN = 8 # LEN-1 is available to software
+DEFAULT_QUEUE_MSG_SIZE = 16  # bytes (at least 8 bytes)
 DEFAULT_QUEUE_SIZE = DEFAULT_QUEUE_MSG_SIZE * DEFAULT_QUEUE_LEN # bytes
 DEFAULT_MAX_QUEUES_POSSIBLE = AJIT_ALL_QUEUES_SIZE // DEFAULT_QUEUE_SIZE
 

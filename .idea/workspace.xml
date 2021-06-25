@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6240fab7-a2ec-4734-b098-60aab0fb84fd" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_thread_loop.s" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_sh/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_sh/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_sh/build_final0.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_sh/build_final0.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -235,7 +236,8 @@
       <workItem from="1624363820756" duration="19006000" />
       <workItem from="1624438905297" duration="4446000" />
       <workItem from="1624516174051" duration="8000" />
-      <workItem from="1624543224708" duration="2391000" />
+      <workItem from="1624543224708" duration="2928000" />
+      <workItem from="1624586181391" duration="1809000" />
     </task>
     <servers />
   </component>

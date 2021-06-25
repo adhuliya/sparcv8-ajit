@@ -4,7 +4,7 @@ _MAIN="main";
 _VMAP="./vmap.txt":
 _AJIT_INIT="./init0.s";
 _AJIT_PG_TABLES="./setup_ajit_tables.s";
-_AJIT_TRAP_HANDLER="./tram_handlers.s";
+_AJIT_TRAP_HANDLER="./trap_handlers.s";
 _LINKER_SCRIPT="./LinkerScript00.lnk";
 
 

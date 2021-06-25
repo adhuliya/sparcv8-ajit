@@ -1,5 +1,5 @@
 
-// needs linking with ajit_lock_unlock.s
+// needs linking with ajit_q_lock_unlock.s
 
 #include "ajit_msg_queue.h"
 

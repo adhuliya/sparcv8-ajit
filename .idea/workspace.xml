@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6240fab7-a2ec-4734-b098-60aab0fb84fd" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/msg_queue/ajit_msg_queue.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/msg_queue/ajit_msg_queue.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/init_to_zero.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/ajit_lock_unlock.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/ajit_lock_unlock.s" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -236,7 +238,8 @@
       <workItem from="1624516174051" duration="8000" />
       <workItem from="1624543224708" duration="2928000" />
       <workItem from="1624586181391" duration="1948000" />
-      <workItem from="1624616990910" duration="2541000" />
+      <workItem from="1624616990910" duration="2965000" />
+      <workItem from="1624636848971" duration="1714000" />
     </task>
     <servers />
   </component>

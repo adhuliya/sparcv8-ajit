@@ -5,8 +5,9 @@
 
 int initialized = 0;
 
-void main() {
+void ajit_entry_bget() {
   if (initialized == 0) {
+    // this if condition enters only once.
     bpool(AJIT_BGET_MALLOC_BASE, {ajitMallocAreaSize});
     initialized = 1;
   }

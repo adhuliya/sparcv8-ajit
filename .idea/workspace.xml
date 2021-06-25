@@ -2,9 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6240fab7-a2ec-4734-b098-60aab0fb84fd" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/msg_queue/ajit_msg_queue.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/msg_queue/ajit_msg_queue.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/msg_queue/ajit_q_lock_unlock.s" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o1/assembled/assemble_for_ajit.sh" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o1/assembled/assemble_for_ajit.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o1/compiled/compile_for_ajit.sh" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o1/compiled/compile_for_ajit.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o2/assembled/assemble_for_ajit.sh" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o2/assembled/assemble_for_ajit.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o2/compiled/compile_for_ajit.sh" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o2/compiled/compile_for_ajit.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o3/assembled/assemble_for_ajit.sh" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o3/assembled/assemble_for_ajit.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o3/compiled/compile_for_ajit.sh" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o3/compiled/compile_for_ajit.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/misc/test-progs/benchmarks/dhrystone/assembled/assemble_for_ajit.sh" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/benchmarks/dhrystone/assembled/assemble_for_ajit.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/misc/test-progs/benchmarks/dhrystone/compiled/compile_for_ajit.sh" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/benchmarks/dhrystone/compiled/compile_for_ajit.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/bget/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/bget/ajit_entry_bget.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_sh/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_sh/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_sh/build_final0.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_sh/build_final0.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/lock_unlock.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/ajit_lock_unlock.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/examples/example01/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/examples/example01/config.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/examples/example02/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/examples/example02/config.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,7 +174,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/cortos/cortos/files/build_init" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/cortos/cortos/files/msg_queue" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -170,18 +184,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/cortos/cortos/files/msg_queue" />
       <recent name="$PROJECT_DIR$/src/cortos/cortos/files/build_init" />
       <recent name="$PROJECT_DIR$/src/cortos/cortos/files/bget" />
       <recent name="$PROJECT_DIR$/src/cortos/examples/example02" />
       <recent name="$PROJECT_DIR$/src/cortos/cortos/files/build" />
-      <recent name="$PROJECT_DIR$/src/cortos/cortos/files/linker_scripts" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/cortos/cortos/files/msg_queue" />
       <recent name="$PROJECT_DIR$/src/cortos/cortos/files/build" />
       <recent name="$PROJECT_DIR$/src/cortos/cortos/files/for_init" />
       <recent name="$PROJECT_DIR$/src/cortos/cortos/common" />
       <recent name="$PROJECT_DIR$/src/cortos" />
-      <recent name="$PROJECT_DIR$/src/spairo1" />
     </key>
   </component>
   <component name="RunManager">
@@ -237,7 +251,8 @@
       <workItem from="1624438905297" duration="4446000" />
       <workItem from="1624516174051" duration="8000" />
       <workItem from="1624543224708" duration="2928000" />
-      <workItem from="1624586181391" duration="1809000" />
+      <workItem from="1624586181391" duration="1948000" />
+      <workItem from="1624616990910" duration="2371000" />
     </task>
     <servers />
   </component>

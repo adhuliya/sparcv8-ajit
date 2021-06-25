@@ -3,7 +3,7 @@
 Cores: 2  # must agree with the processor used
 ThreadsPerCore: 2  # must agree with the processor used
 
-Programs: # name all your programs main.c or specify here.
+Programs: # name all your programs ajit_entry_bget.c or specify here.
   - dir: /path/to/directory
     buildCommand: the_command
     linkerFile: the_liker_file_path

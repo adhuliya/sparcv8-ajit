@@ -1,6 +1,19 @@
 
-typedef struct _AjitMessage {
-  char arr[{ajitQueueMsgSize}];
+typedef union _AjitMessage32Bytes {
+  char arr[32];
+  struct {
+    int code;
+    char arr[28];
+  };
+  struct {
+    int code;
+    double d1;
+    double d2;
+  };
+  struct {
+    int code;
+    union _AjitMessage32Bytes *ptr;
+  };
 } AjitMessage;
 
 typedef struct _AjitQueueHeader {

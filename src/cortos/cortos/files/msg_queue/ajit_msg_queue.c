@@ -12,7 +12,8 @@
 (_BASE + ((_INDEX) * AJIT_MSG_QUEUE_MSG_SIZE))
 
 #define INCREMENT_INDEX(_INDEX) \
-((((_INDEX)+1) % AJIT_MSG_QUEUE_LEN))
+(((((_INDEX)+1) % AJIT_MSG_QUEUE_LEN)) ? \
+((((_INDEX)+1) % AJIT_MSG_QUEUE_LEN)) : START_INDEX)
 
 /*
 This computes the base address of the queue with id `queueId`.
@@ -45,8 +46,7 @@ int writeAjitMessage(int queueId, AjitMessage *msg) {
     *destMsgPtr = *msg; // WRITE WRITE WRITE, THE MESSAGE HERE
 
     totalMsgs += 1;
-    writeIndex = INCREMENT_INDEX(writeIndex) ?
-      INCREMENT_INDEX(writeIndex) : START_INDEX;
+    writeIndex = INCREMENT_INDEX(writeIndex);
 
     headerPtr->totalMsgs = totalMsgs;
     headerPtr->writeIndex = writeIndex;
@@ -78,8 +78,7 @@ int readAjitMessage(int queueId, AjitMessage *msg) {
     *msg = *destMsgPtr; // READ READ READ, THE MESSAGE HERE
 
     totalMsgs -= 1;
-    readIndex = INCREMENT_INDEX(readIndex) ?
-      INCREMENT_INDEX(readIndex) : START_INDEX;
+    readIndex = INCREMENT_INDEX(readIndex);
 
     headerPtr->totalMsgs = totalMsgs;
     headerPtr->readIndex = readIndex;

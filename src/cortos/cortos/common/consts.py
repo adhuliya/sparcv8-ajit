@@ -68,7 +68,7 @@ All the queues sit here.
 
 
 DEFAULT_QUEUE_LEN = 8 # LEN-1 is available to software
-DEFAULT_QUEUE_MSG_SIZE = 16  # bytes (at least 8 bytes)
+DEFAULT_QUEUE_MSG_SIZE = 32  # bytes (at least 8 bytes)
 DEFAULT_QUEUE_SIZE = DEFAULT_QUEUE_MSG_SIZE * DEFAULT_QUEUE_LEN # bytes
 DEFAULT_MAX_QUEUES_POSSIBLE = AJIT_ALL_QUEUES_SIZE // DEFAULT_QUEUE_SIZE
 

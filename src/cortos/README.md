@@ -100,3 +100,9 @@ Queries:
    
 
 
+
+Using bottle templating system
+---------------------------------
+* <https://bottlepy.org/docs/dev/tutorial.html#tutorial-templates>
+* <https://bottlepy.org/docs/dev/stpl.html>
+

@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6240fab7-a2ec-4734-b098-60aab0fb84fd" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/common/bottle.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/msg_queue/ajit_msg_queue.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/msg_queue/ajit_msg_queue.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/msg_queue/ajit_msg_queue.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/msg_queue/ajit_msg_queue.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,6 +159,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/cortos/cortos/files/msg_queue" />
     <property name="node.js.detected.package.eslint" value="true" />
@@ -243,7 +244,9 @@
       <workItem from="1624649574952" duration="1670000" />
       <workItem from="1624696507701" duration="1262000" />
       <workItem from="1624704229544" duration="2124000" />
-      <workItem from="1624725373192" duration="2063000" />
+      <workItem from="1624725373192" duration="2093000" />
+      <workItem from="1624774172309" duration="11000" />
+      <workItem from="1624774370043" duration="1157000" />
     </task>
     <servers />
   </component>

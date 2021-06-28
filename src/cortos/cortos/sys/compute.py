@@ -25,13 +25,13 @@ def computeReservedSpaceBaseAddr() -> int:
 def computeSyncArrayBaseAddr() -> int:
   """The base address of the synchronization array."""
   resAreaBase = computeReservedSpaceBaseAddr()
-  baseAddr = resAreaBase + consts.AJIT_RESERVED_SPACE_SIZE
+  baseAddr = resAreaBase + consts.AJIT_RESERVED_REGION_SIZE
   return baseAddr
 
 
 def computeQueueBaseAddr(queueId: int) -> int:
   """The base address of the queue array."""
   allQueueBaseAddr = computeSyncArrayBaseAddr() + consts.AJIT_SYNC_ARRAY_SIZE
-  baseAddr = allQueueBaseAddr + (queueId * consts.DEFAULT_QUEUE_SIZE)
+  baseAddr = allQueueBaseAddr + (queueId * consts.DEFAULT_TOTAL_QUEUE_SIZE)
   return baseAddr
 

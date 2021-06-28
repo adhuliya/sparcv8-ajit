@@ -10,9 +10,17 @@ This is invoked by main.py and the test routines.
 import argparse
 
 from cortos.common import consts
-import cortos.config as config
+import cortos.sys.config as config
 import cortos.build as build
 from cortos.common.util import FileNameT
+
+
+#mainentry
+def main():
+  """Call this function to start the driver for CoRTOS."""
+  parser = getParser()
+  args = parser.parse_args()  # parse command line
+  args.func(args)             # take action
 
 
 def printDetail(args: argparse.Namespace) -> None:
@@ -33,7 +41,7 @@ def printConfigFile(configFileName: FileNameT) -> None:
   print(conf.data)
 
   print()
-  conf = config.Configuration(conf.data)
+  conf = config.UserConfig(conf.data)
   print(conf)
 
 
@@ -41,7 +49,7 @@ def buildProject(args: argparse.Namespace) -> None:
   """Builds the project for Ajit Processor/CoRtos."""
   configFileName = args.configFileName
   conf = config.readYamlConfig(configFileName)
-  confObj = config.Configuration(conf.data)
+  confObj = config.UserConfig(conf.data)
   build.buildProject(confObj)
 
 

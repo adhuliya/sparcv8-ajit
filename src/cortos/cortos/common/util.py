@@ -5,13 +5,14 @@
 """
 Utility module with project wide components.
 """
+import io
 import logging
 _log = logging.getLogger(__name__)
 
 import os
 import os.path as osp
 import subprocess as subp
-from typing import List
+from typing import List, Any, Optional as Opt
 
 globalCounter: int = 0
 RelFilePathT = str  # a relative file path (could be absolute too)
@@ -19,6 +20,14 @@ AbsFilePathT = str  # an absolute file path
 TEXT_CHARS = bytearray({7,8,9,10,12,13,27} | set(range(0x20, 0x100)) - {0x7f})
 
 FileNameT = str
+"""A file name or a file path."""
+DirNameT = str
+"""A directory name or a directory path."""
+SizeInBytesT = int
+"""Size of objects in bytes. """
+MemoryAddrT = int
+"""Memory Address"""
+
 
 
 def genLabel(label: str):
@@ -209,3 +218,45 @@ def convertKbToBytes(
     sizeInKb: int,
 ) -> int:
   return sizeInKb * 1024
+
+
+_PRETTY_INDENT=2
+def prettyPrint(
+    obj: Any,
+    indent: int = _PRETTY_INDENT, # multiples of 2
+) -> str:
+  """
+  A recursive function to pretty print a python object.
+  :param obj: a python object
+  :param indent: space indentation quantity needed
+  :return: a pretty string representation of the object
+  """
+  sio = io.StringIO()
+  indent1 = " " * (indent-_PRETTY_INDENT)
+  indent2 = " " * indent
+  if isinstance(obj, dict):
+    sio.write(f"{indent1}{{{os.linesep}")
+    for key, val in obj.items():
+      sio.write(f"{indent2}'{key}':"
+                f" {prettyPrint(val, indent+_PRETTY_INDENT)},{os.linesep}")
+    sio.write(f"{indent1}}}{os.linesep}")
+  elif isinstance(obj, (str, int, float, list, set, tuple)):
+    sio.write(f"{indent2}{obj}")
+  else:
+    # if here, could be a custom user objet
+    sio.write(f"{indent2}{prettyPrint(obj.__dict__)}")
+
+  return sio.getvalue()
+
+
+class PrettyStr:
+  """Pretty string of an object."""
+
+  def __str__(self):
+    return f"{self.__class__.__name__}({prettyPrint(self)})"
+
+
+  def __repr__(self):
+    return str(self)
+
+

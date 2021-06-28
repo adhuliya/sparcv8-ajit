@@ -7,27 +7,25 @@ Functionality to build_sh the project for the Ajit processor.
 
 All the logic to build_sh is present here, or invoked from here.
 """
-import sys
 from io import StringIO
 from typing import List, Tuple, Optional as Opt, Any
-import os
 
 from cortos.common import consts
 from cortos.common import util
-from cortos.config import Configuration
+from cortos.sys.config import UserConfig
 
 
-def buildProject(confObj: Configuration) -> None:
+def buildProject(confObj: UserConfig) -> None:
   print("AjitCoRtos build process called.")
   res = initBuild(confObj)
   finalBuild(confObj, res)
 
 
-def initBuild(confObj: Configuration) -> Any:
+def initBuild(confObj: UserConfig) -> Any:
   return None
 
 
-def finalBuild(confObj: Configuration, res: Any) -> None:
+def finalBuild(confObj: UserConfig, res: Any) -> None:
   pass
 
 
@@ -241,7 +239,7 @@ def addAllocationSpace(
   """Adds allocation space content."""
   content = util.readResFile(consts.INIT_FILE_ALLOCATIONS_PATH)
   filledContent = content.format(
-    ajitReservedSpaceSize=consts.AJIT_RESERVED_SPACE_SIZE,
+    ajitReservedSpaceSize=consts.AJIT_RESERVED_REGION_SIZE,
     syncArraySizeInBytes=consts.AJIT_SYNC_ARRAY_SIZE,
     totalQueueSizeInBytes=consts.AJIT_ALL_QUEUES_SIZE,
   )

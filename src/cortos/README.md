@@ -71,19 +71,28 @@ Contents:
 * synchronization variables
 * space for queues
 * malloc area
+* sync, queue library programs link with each user program.
+* malloc service runs along with one of the user program.
 
 
     0x00000000  part of init.s starts here      (addr: 0)
-    0x00000000  reserved space (say 256 bytes)  (addr: pre-computed)
-    0x00000000  synchronization variables       (addr: pre-computed)
-    0x00000000  queue space                     (addr: pre-computed)
-    0x00000000  rest of the init.s is here
-    0x00000000  program0 (text, data)           (addr: pre-computed)
-    0x00000000  malloc area                     (addr: pre-computed)
-    0x00000000  program1 (text, data)           (addr: pre-computed)
-    0x00000000  program0 stack                  (addr: pre-computed)
-    0x00000000  program1 stack                  (addr: pre-computed)
+    0x00000000  allocation space..............  (addr: pre-computed)
+    0x00000000   data: reserved (~256 bytes)    (addr: pre-computed)
+    0x00000000   data: sync variables           (addr: pre-computed)
+    0x00000000   data: queue                    (addr: pre-computed)
+    0x00000000  rest of the init.s is here      (addr: pre-computed)
+    0x00000000  programs (text, data)           (addr: pre-computed)
+    0x00000000    program: 0 (text, data)       (addr: pre-computed)
+    0x00000000    program: 1 (text, data)       (addr: pre-computed)
+    0x00000000    program: 2 (text, data)       (addr: pre-computed)
+    0x00000000      data: malloc area (data)    (addr: locally-known)
+    0x00000000  stack area                      (addr: pre-computed)
+    0x00000000    stack: program0               (addr: pre-computed)
+    0x00000000    stack: program1               (addr: pre-computed)
+    0x00000000    stack: program2               (addr: pre-computed)
     0x00000000  unused area                     (addr: pre-computed)
+
+There can be some unused gaps in the memory image due to memory alignment etc.
 
 Queries:
 1. Are memory locations zero by default? (Anyway don't assume it to be.)

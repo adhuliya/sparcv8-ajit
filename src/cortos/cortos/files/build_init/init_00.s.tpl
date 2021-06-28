@@ -9,10 +9,23 @@
 
 % include("init_header.s")
 
-% include("init_allocate.s")
+<%
+include(
+  "init_allocate.s",
+  reservedSize=allocRegion.ajitReserved.sizeInBytes,
+  syncArraySize=allocRegion.ajitSyncVars.sizeInBytes,
+  qHeaderArraySize=allocRegion.ajitQueueHeaders.sizeInBytes,
+  qArraySize=allocRegion.ajitQueues.sizeInBytes,
+)
+%>
+
+<%
+include(
+  "init_threads_run.s",
+  threadStartLabels=threadStartLabels,
+)
+%>
 
 % include("init_threads_setup.s")
-
-% include("init_threads_run.s")
 
 % include("init_footer.s")

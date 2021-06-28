@@ -1,5 +1,7 @@
 
-  call {nearestLabel} ! {cortosStartLabel}
+% for label in threadStartLabels:
+  call {{label}} ! {cortosStartLabel}:
   nop
-{nearestLabel}:
+{{label}}:
+% end
 

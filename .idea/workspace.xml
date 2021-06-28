@@ -2,18 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6240fab7-a2ec-4734-b098-60aab0fb84fd" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_00.s.tpl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/sys/instance.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_cortos.s" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/build.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/build.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/common/consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/common/consts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/common/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/common/util.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/sys/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_00.s.tpl" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_00.s.tpl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_allocate.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_allocate.s" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/sys/compute.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/sys/compute.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/sys/driver.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/sys/driver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_cortos_body.s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_cortos_footer_loop.s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_cortos_footer_stop.s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_cortos_header.s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_cortos_header0.s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_thread_loop.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_thread_loop.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_thread_run.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_thread_run.s" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -170,7 +169,7 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/cortos/cortos/common" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_tpl" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -180,18 +179,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_tpl" />
       <recent name="$PROJECT_DIR$/src/cortos/cortos/common" />
       <recent name="$PROJECT_DIR$/src/cortos/cortos/files/msg_queue" />
       <recent name="$PROJECT_DIR$/src/cortos/cortos/files/build_init" />
       <recent name="$PROJECT_DIR$/src/cortos/cortos/files/bget" />
-      <recent name="$PROJECT_DIR$/src/cortos/examples/example02" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/cortos/cortos/files/build_init" />
+      <recent name="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_tpl" />
       <recent name="$PROJECT_DIR$/src/cortos/cortos/sys" />
       <recent name="$PROJECT_DIR$/src/cortos/docs" />
       <recent name="$PROJECT_DIR$/src/cortos/cortos/files/msg_queue" />
-      <recent name="$PROJECT_DIR$/src/cortos/cortos/files/build" />
-      <recent name="$PROJECT_DIR$/src/cortos/cortos/files/for_init" />
     </key>
   </component>
   <component name="RunManager">
@@ -256,7 +255,8 @@
       <workItem from="1624725373192" duration="2093000" />
       <workItem from="1624774172309" duration="11000" />
       <workItem from="1624774370043" duration="1345000" />
-      <workItem from="1624860487131" duration="13480000" />
+      <workItem from="1624860487131" duration="13748000" />
+      <workItem from="1624903664655" duration="2048000" />
     </task>
     <servers />
   </component>

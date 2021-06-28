@@ -1,8 +1,8 @@
 
 ! put a thread into a loop
-{ajitLoopLabel}:
+{{ajitThreadLoopLabel}}:
   nop
   nop
-  ba {ajitLoopLabel}
+  ba {{ajitThreadLoopLabel}}
   nop
 

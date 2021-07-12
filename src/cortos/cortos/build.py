@@ -10,7 +10,7 @@ All the logic to build_sh is present here, or invoked from here.
 from io import StringIO
 from typing import List, Tuple, Optional as Opt, Any
 
-from cortos.common import consts
+from cortos.common import consts, bottle as btl
 from cortos.common import util
 from cortos.sys.config import UserConfig
 
@@ -22,10 +22,17 @@ def buildProject(confObj: UserConfig) -> None:
 
 
 def initBuild(confObj: UserConfig) -> Any:
+  """Do an initial build.
+
+  An initial build helps calculate the sizes of the binaries
+  generated. These sizes and other calculations are returned
+  by this function to be used by a final build.
+  """
   return None
 
 
 def finalBuild(confObj: UserConfig, res: Any) -> None:
+  """Do a final build of the project creating memory map file."""
   pass
 
 
@@ -34,6 +41,7 @@ def genInitFile(
     threadPerCoreCount: int
 ) -> str:
   """Generates the content of `init.s` file."""
+  #TODO: are these assertions in the right place?
   assert coreCount <= consts.AJIT_MAX_CORES, \
     f"Ajit supports at most 4 cores. Given {coreCount}."
   assert threadPerCoreCount <= consts.AJIT_MAX_THREADS_PER_CORE, \
@@ -244,3 +252,21 @@ def addAllocationSpace(
     totalQueueSizeInBytes=consts.AJIT_ALL_QUEUES_SIZE,
   )
   sio.write(filledContent)
+
+
+
+def genInitFileBottle(
+    coreCount: int,
+    threadPerCoreCount: int
+) -> str:
+  """Generates the content of `init.s` file."""
+  #TODO: are these assertions in the right place?
+  assert coreCount <= consts.AJIT_MAX_CORES, \
+    f"Ajit supports at most 4 cores. Given {coreCount}."
+  assert threadPerCoreCount <= consts.AJIT_MAX_THREADS_PER_CORE, \
+    f"Ajit supports at most 2 threads/core. Given {threadPerCoreCount}."
+
+
+  return btl.template("build_init/test")
+
+

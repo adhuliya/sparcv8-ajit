@@ -15,17 +15,17 @@ AJIT_MAX_THREADS_PER_CORE = 2
 """Maximum Ajit threads possible per core."""
 
 
-INIT_FILE_HEADER_PATH = "../files/build_init/init_header.s"
-INIT_FILE_FOOTER_PATH = "../files/build_init/init_footer.s"
+INIT_FILE_HEADER_PATH = "../files/build_init/parts/init_header.s.tpl"
+INIT_FILE_FOOTER_PATH = "../files/build_init/parts/init_footer.s.tpl"
 
-INIT_FILE_PGTABLE_MMU_WAIT_PATH = "../files/build_init/init_page_table_mmu_wait.s"
-INIT_FILE_CHECK_THREAD_ID_PATH = "../files/build_init/init_check_core_thread_id.s"
+INIT_FILE_PGTABLE_MMU_WAIT_PATH = "../files/build_init/parts/init_page_table_mmu_wait.s.tpl"
+INIT_FILE_CHECK_THREAD_ID_PATH = "../files/build_init/parts/init_check_core_thread_id.s.tpl"
 
-INIT_FILE_CORE0_THREAD0_SETUP_PATH = "../files/build_init/init_core0thread0_setup.s"
-INIT_FILE_THREAD0_SETUP_PATH = "../files/build_init/init_thread0_setup.s"
-INIT_FILE_THREAD1_SETUP_PATH = "../files/build_init/init_thread1_setup.s"
+INIT_FILE_CORE0_THREAD0_SETUP_PATH = "../files/build_init/parts/init_core0thread0_setup.s.tpl"
+INIT_FILE_THREAD0_SETUP_PATH = "../files/build_init/parts/init_thread0_setup.s.tpl"
+INIT_FILE_THREAD1_SETUP_PATH = "../files/build_init/parts/init_thread1_setup.s.tpl"
 
-INIT_FILE_ALLOCATIONS_PATH = "../files/build_init/init_allocate.s"
+INIT_FILE_ALLOCATIONS_PATH = "../files/build_init/parts/init_allocate.s.tpl"
 
 SETUP_THREADS_LABEL = "SETUP_THREADS"
 THREAD_SETUP_LABEL = "SETUP_THREAD_{core}_{thread}"

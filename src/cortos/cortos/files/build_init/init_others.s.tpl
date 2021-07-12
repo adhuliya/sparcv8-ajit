@@ -1,8 +1,9 @@
 ! Top level cortos loop file for each thread.
+! This init file links with each program not executing on thread (0,0).
 
 % ################### HEADER
 
-% if notThread00:
+% if not isThread00:
 .section .text.ajitstart
 % end
 

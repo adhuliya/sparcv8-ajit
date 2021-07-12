@@ -9,18 +9,25 @@ This is invoked by main.py and the test routines.
 
 import argparse
 
-from cortos.common import consts
+from cortos.common import consts, util
 import cortos.sys.config as config
 import cortos.build as build
 from cortos.common.util import FileNameT
-
+from cortos.common import bottle as btl
 
 #mainentry
 def main():
   """Call this function to start the driver for CoRTOS."""
+  init() #IMPORTANT
   parser = getParser()
   args = parser.parse_args()  # parse command line
   args.func(args)             # take action
+
+
+def init():
+  """Misc initializations in the project."""
+  templatesPath = util.getAbsolutePathFromScriptRelativeFilePath("../files")
+  btl.TEMPLATE_PATH.append(templatesPath)
 
 
 def printDetail(args: argparse.Namespace) -> None:
@@ -30,7 +37,8 @@ def printDetail(args: argparse.Namespace) -> None:
   if objName == "config":
     printConfigFile(configFileName)
   elif objName == "init":
-    print(build.genInitFile(2, 2))
+    #print(build.genInitFile(2, 2))
+    print(build.genInitFileBottle(2,2))
   else:
     raise ValueError(f"Unknown object to print: {objName}")
 

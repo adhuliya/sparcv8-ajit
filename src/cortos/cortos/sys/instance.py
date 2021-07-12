@@ -76,10 +76,10 @@ class AllocationRegion(MemoryRegion):
                                      AJIT_RESERVED_REGION_SIZE)
 
     startAddr = self.ajitReserved.getNextToLastByteAddr()
-    regionSize = binConfig.totalSyncVars * 4
-    self.ajitSyncVars = MemoryRegion(startAddr, regionSize)
+    regionSize = binConfig.totalLockVars * 4
+    self.ajitLockVars = MemoryRegion(startAddr, regionSize)
 
-    startAddr = self.ajitSyncVars.getNextToLastByteAddr()
+    startAddr = self.ajitLockVars.getNextToLastByteAddr()
     regionSize = binConfig.totalQueueHeadersSize
     self.ajitQueueHeaders = MemoryRegion(startAddr, regionSize)
 
@@ -89,7 +89,7 @@ class AllocationRegion(MemoryRegion):
 
     self.regionSeq = [
       self.ajitReserved,
-      self.ajitSyncVars,
+      self.ajitLockVars,
       self.ajitQueueHeaders,
       self.ajitQueues,
     ]

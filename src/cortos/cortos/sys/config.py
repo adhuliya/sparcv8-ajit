@@ -23,7 +23,7 @@ YML_PROG_CORE = "Core"
 YML_PROG_THREAD = "Thread"
 
 YML_MEM_SIZE_IN_KB = "TotalMemoryInKB"
-YML_TOTAL_SYNC_VARS = "TotalSyncVars"
+YML_TOTAL_SYNC_VARS = "TotalLockVars"
 
 
 class SysConfig:
@@ -48,7 +48,7 @@ class UserConfig:
     self.threadsPerCoreCount = 1
     self.programs = []
     self.memSizeInKB = 1024 * 20
-    self.totalSyncVars = 16
+    self.totalLockVars = 16
 
     self.totalQueues = DEFAULT_TOTAL_QUEUES
     self.totalQueuesSize = DEFAULT_TOTAL_QUEUE_SIZE
@@ -66,7 +66,7 @@ class UserConfig:
       self.programs.append(Program(progData))
 
     self.memSizeInKB = self.data[YML_MEM_SIZE_IN_KB]
-    self.totalSyncVars = (self.data[YML_TOTAL_SYNC_VARS]
+    self.totalLockVars = (self.data[YML_TOTAL_SYNC_VARS]
                           if YML_TOTAL_SYNC_VARS in self.data else 16)
 
 

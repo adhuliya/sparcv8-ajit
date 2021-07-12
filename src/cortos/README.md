@@ -23,10 +23,11 @@ Notes
    * defines an API to use the queue.
    * allocates an array of locking variables (each for one queue).
    * allocates the space for each queue.
-4. Lock/Release (Syncronization) procedures
+4. Lock/Release (Synchronization) procedures
    * allocates an array of locking variables
 6. How to find the size of text and data sections?
    <https://medium.com/analytics-vidhya/exploring-elf-files-using-pyelftools-93bb7665cce3>
+   use the `size` command :)
 8. Read cortos documentation.
 
 

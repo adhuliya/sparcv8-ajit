@@ -8,7 +8,7 @@ AJIT_SETUP_THREADS:
   ! (0,0)=0x50520000, (0,1)=0x50520001, (1,0)=0x50520100, (1,1)=0x50520101, ...
   set {{thread.threadCheckHex}}, %l2
   subcc %l1, %l2, %g0
-  bnz {{thread.nextLabel}}
+  bnz {{thread.nextSetupLabel}}
   nop
 
 % if (thread.cid, thread.tid) == (0, 0):

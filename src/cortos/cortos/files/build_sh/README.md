@@ -13,6 +13,6 @@ this behavior.
 
 The `build/` directory inside each program's directory
 contains the build files of the program.
-The top level folder `build_ajit/` contains the final build
+The top level folder `build_all/` contains the final build
 for the processor, containing the `main.mmap` file which
 can be loaded into the processor memory.

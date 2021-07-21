@@ -39,7 +39,7 @@ def genLabel(label: str):
 # BLOCK START: FileSystem_Related
 ################################################
 
-def createDir(dirPath, existOk=True):
+def createDir(dirPath, existOk=True) -> str:
   """Creates dir. Relative paths use current directory.
 
   Args:
@@ -259,4 +259,21 @@ class PrettyStr:
   def __repr__(self):
     return str(self)
 
+
+def alignAddress(addr: int, align: int = 4096) -> int:
+  """Pad `addr` to comply with some alignment"""
+  rem = addr % align
+  if rem == 0:
+    return addr
+  else:
+    padding = align - rem
+    return addr + padding
+
+
+def runCommand(cmd: str, shell: bool=True) -> int:
+  """Runs the given command without capturing the output."""
+  print("AjitCoRTOS running>", cmd)
+  completed = subp.run(cmd, shell=shell)
+  print("AjitCoRTOS: return Code:", completed.returncode)
+  return completed.returncode
 

@@ -46,10 +46,12 @@ def printDetail(args: argparse.Namespace) -> None:
 def printConfigFile(configFileName: FileNameT) -> None:
   """Prints parsed config file to the output."""
   conf = config.readYamlConfig(configFileName)
+  print("ConfigFileData: Original:")
   print(conf.data)
 
   print()
   conf = config.UserConfig(conf.data)
+  print("ConfigFileData: Processed:")
   print(conf)
 
 

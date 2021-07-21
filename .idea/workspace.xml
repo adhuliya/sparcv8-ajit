@@ -2,33 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6240fab7-a2ec-4734-b098-60aab0fb84fd" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/parts/init_threads_setup.s.tpl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/parts/init_threads_start.s.tpl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/test.tpl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/test1.tpl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cortos/res/references/Ajit_Device_Addresses.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cortos/cortos/build.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/build.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cortos/cortos/common/consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/common/consts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/ajit_lock_unlock.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/ajit_lock_unlock.s.tpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_00.s.tpl" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_00.s.tpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_allocate.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/parts/init_allocate.s.tpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_check_core_thread_id.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/parts/init_check_core_thread_id.s.tpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_core0thread0_setup.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/parts/init_core0thread0_setup.s.tpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_cortos.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_others.s.tpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_footer.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/parts/init_footer.s.tpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_header.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/parts/init_header.s.tpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_page_table_mmu_wait.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/parts/init_page_table_mmu_wait.s.tpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_thread0_setup.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/parts/init_thread0_setup.s.tpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_thread1_setup.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/parts/init_thread1_setup.s.tpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_thread_loop.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/parts/init_thread_loop.s.tpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_thread_run.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/parts/init_thread_run.s.tpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/init_to_zero.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/init_to_zero.s.tpl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/common/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/common/util.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/elf.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/elf.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/parts/init_threads_setup.s.tpl" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/parts/init_threads_setup.s.tpl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_sh/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_sh/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_sh/build_initX.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_sh/build_initX.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cortos/cortos/sys/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/sys/config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cortos/cortos/sys/driver.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/sys/driver.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cortos/cortos/sys/instance.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/sys/instance.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cortos/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -184,8 +169,10 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_tpl" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../research/writeups/mywriteups-git/etaps_2022" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -273,7 +260,10 @@
       <workItem from="1624774370043" duration="1345000" />
       <workItem from="1624860487131" duration="13748000" />
       <workItem from="1624903664655" duration="2166000" />
-      <workItem from="1626065356338" duration="11492000" />
+      <workItem from="1626065356338" duration="24773000" />
+      <workItem from="1626755798580" duration="5000" />
+      <workItem from="1626756536675" duration="1239000" />
+      <workItem from="1626807101378" duration="8141000" />
     </task>
     <servers />
   </component>

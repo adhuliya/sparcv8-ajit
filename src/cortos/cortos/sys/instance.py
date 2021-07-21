@@ -101,6 +101,15 @@ class AllocationRegion(MemoryRegion):
     )
 
 
+class Thread:
+  def __init__(self,
+      cid: int,
+      tid: int,
+  ) -> None:
+    self.cid = cid
+    self.tid = tid
+
+
 class Instance:
   """
   An object of this class holds the information to build
@@ -109,12 +118,10 @@ class Instance:
   """
   def __init__(self,
       userConfig: UserConfig,
-      sysConfig: SysConfig,
   ):
     self.userConfig = userConfig
-    self.sysConfig = sysConfig
 
-    self.binConfig = userConfig.verify(sysConfig)
+    self.binConfig = userConfig.verify()
     """The binary configuration generated from the `UserConfig`.
     
     This object is used to generate the binary image,

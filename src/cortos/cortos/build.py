@@ -3,36 +3,173 @@
 # Author: Anshuman Dhuliya (AD) (anshumandhuliya@gmail.com)
 
 """
-Functionality to build_sh the project for the Ajit processor.
+Functionality to build the project for the Ajit processor.
 
-All the logic to build_sh is present here, or invoked from here.
+All the logic to build is present here, or invoked from here.
 """
 from io import StringIO
+import os
+from os import path as osp
 from typing import List, Tuple, Optional as Opt, Any
 
+from cortos import elf
 from cortos.common import consts, bottle as btl
 from cortos.common import util
-from cortos.sys.config import UserConfig
+import cortos.sys.config as config
 
 
-def buildProject(confObj: UserConfig) -> None:
-  print("AjitCoRtos build process called.")
-  res = initBuild(confObj)
-  finalBuild(confObj, res)
+def buildProject(confObj: config.UserConfig) -> None:
+  print("AjitCoRTOS: build process started...")
+  # STEP 1: do an initial build
+  initBuild(confObj)
+  # STEP 2: do a final build
+  finalBuild(confObj)
 
 
-def initBuild(confObj: UserConfig) -> Any:
+def initBuild(confObj: config.UserConfig) -> None:
   """Do an initial build.
 
-  An initial build helps calculate the sizes of the binaries
-  generated. These sizes and other calculations are returned
-  by this function to be used by a final build.
+  An initial build helps calculate the sizes of the binaries generated.
+  These sizes and other calculations are stored in the
+  `config.Program` object in the `config.UserConfig`
+  object passed to this function.
   """
-  return None
+  for prog in confObj.programs:
+    initBuildProgram(prog, confObj)
 
 
-def finalBuild(confObj: UserConfig, res: Any) -> None:
-  """Do a final build of the project creating memory map file."""
+def initBuildProgram(
+    prog: config.Program,
+    confObj: config.UserConfig
+) -> None:
+  prepareBuildDir(prog, confObj, init=True)
+  buildProgram(prog, init=True)
+  computeProgramSize(prog, init=True)
+
+
+def prepareBuildDir(
+    prog: config.Program,
+    confObj: config.UserConfig,
+    init: bool = False,
+) -> None:
+  """Prepares a build directory for the initial build of a program."""
+  # STEP 1: create the build directory
+  if init:
+    buildDir = osp.join(prog.dir, consts.INIT_BUILD_DIR_NAME)
+  else:
+    buildDir = osp.join(prog.dir, consts.FINAL_BUILD_DIR_NAME)
+  util.createDir(buildDir)
+
+  # STEP 2: copy necessary files
+  copyBuildFiles(prog, confObj, init=init)
+
+
+def copyBuildFiles(
+    prog: config.Program,
+    confObj: config.UserConfig,
+    init: bool = False,
+) -> None:
+  # STEP 1: cd into the build directory
+  cwd = os.getcwd()
+  workDir = prog.initBuildDir if init else prog.finalBuildDir
+  os.chdir(workDir)
+
+  # STEP 2: Copy files
+  if prog.isForCore0Thread0():
+    # core 0, thread 0 files
+    pass
+  else:
+    # for other cores/threads
+    pass
+
+  # copy common files
+
+
+def buildProgram(
+    prog: config.Program,
+    init: bool = False
+) -> None:
+  """Run the `build.sh` script in the build dir."""
+  # STEP 1: cd into the build directory
+  cwd = os.getcwd()
+  workDir = prog.initBuildDir if init else prog.finalBuildDir
+  os.chdir(workDir)
+  print("AjitCoRTOS: CWD:", os.getcwd())
+
+  # STEP 2: execute the `build.sh` script
+  util.runCommand("bash build.sh")
+
+  # STEP 3: return back to the previous directory
+  os.chdir(cwd)
+
+
+def computeProgramSize(
+    prog: config.Program,
+    init: bool = True,
+) -> None:
+  """Computes size of the elf file generated."""
+  # STEP 1: cd into the build directory
+  cwd = os.getcwd()
+  os.chdir(prog.initBuildDir if init else prog.finalBuildDir)
+
+  # STEP 2: compute and save the binary size
+  prog.sizeInBytes = elf.getPtLoadSectionsSize(consts.ELF_FILE_NAME)
+
+  # STEP 3: cd back to the previous directory
+  os.chdir(cwd)
+
+
+def finalBuild(confObj: config.UserConfig) -> None:
+  """Do a final build of the project creating memory map file.
+
+  This memory map file can be directly loaded to the system.
+  """
+  computeFinalLayout(confObj)
+
+  for prog in confObj.programs:
+    finalBuildProgram(prog)
+
+  finalBuildAll(confObj)
+
+
+def computeFinalLayout(confObj: config.UserConfig) -> None:
+  """Computes the start address of the program and its stack."""
+  # STEP 1: Compute start address of each program.
+  prev: Opt[config.Program] = None
+  for prog in confObj.programs:
+    if prev is None:
+      prog.startAddr = 0
+    else:
+      prog.startAddr = util.alignAddress(prev.startAddr + prev.sizeInBytes)
+    prev = prog
+
+  # STEP 2: Compute stack start address of each program.
+  computeStackAddr(confObj)
+
+
+def computeStackAddr(confObj: config.UserConfig) -> None:
+  """Compute the stack starting address of each program."""
+  lastProgram = confObj.programs[-1]
+  lastFreeAddr = lastProgram.startAddr + lastProgram.sizeInBytes
+
+  for prog in confObj.programs:
+    stackSize = prog.stackSizeInBytes if prog.stackSizeInBytes\
+      else consts.DEFAULT_STACK_SIZE
+    lastFreeAddr += stackSize
+    lastFreeAddr = util.alignAddress(lastFreeAddr)
+    prog.stackStartAddr = lastFreeAddr
+
+
+
+def finalBuildProgram(prog: config.Program):
+  createFinalBuildDir(prog)
+  buildProgram(prog)
+  patchMasterLoopCalls(prog)
+
+
+def finalBuildAll(confObj: config.UserConfig) -> None:
+  """Combines the mmap files of each program into one single mmap file."""
+  # simply `cat` the output in the correct sequence?
   pass
 
 
@@ -41,12 +178,6 @@ def genInitFile(
     threadPerCoreCount: int
 ) -> str:
   """Generates the content of `init.s` file."""
-  #TODO: are these assertions in the right place?
-  assert coreCount <= consts.AJIT_MAX_CORES, \
-    f"Ajit supports at most 4 cores. Given {coreCount}."
-  assert threadPerCoreCount <= consts.AJIT_MAX_THREADS_PER_CORE, \
-    f"Ajit supports at most 2 threads/core. Given {threadPerCoreCount}."
-
   sio = StringIO() # place to hold the contents of `init.s` in memory
 
   # STEP 1: Write the init.s header (common to all threads)
@@ -260,13 +391,6 @@ def genInitFileBottle(
     threadPerCoreCount: int
 ) -> str:
   """Generates the content of `init.s` file."""
-  #TODO: are these assertions in the right place?
-  assert coreCount <= consts.AJIT_MAX_CORES, \
-    f"Ajit supports at most 4 cores. Given {coreCount}."
-  assert threadPerCoreCount <= consts.AJIT_MAX_THREADS_PER_CORE, \
-    f"Ajit supports at most 2 threads/core. Given {threadPerCoreCount}."
-
-
   return btl.template("build_init/test")
 
 

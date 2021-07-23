@@ -2,49 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6240fab7-a2ec-4734-b098-60aab0fb84fd" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/ajit_cortos.h.tpl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/files/vmap.txt.tpl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cortos/cortos/sys/copy.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/ajit_examples/coremark/set-o1/assembled/assemble_for_ajit.sh" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/ajit_examples/coremark/set-o1/assembled/assemble_for_ajit.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/ajit_examples/coremark/set-o2/assembled/assemble_for_ajit.sh" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/ajit_examples/coremark/set-o2/assembled/assemble_for_ajit.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/ajit_examples/coremark/set-o3/assembled/assemble_for_ajit.sh" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/ajit_examples/coremark/set-o3/assembled/assemble_for_ajit.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o1/assembled/assemble_for_ajit.sh" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o1/assembled/assemble_for_ajit.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o1/compiled/compile_for_ajit.sh" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o1/compiled/compile_for_ajit.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o2/assembled/assemble_for_ajit.sh" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o2/assembled/assemble_for_ajit.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o2/compiled/compile_for_ajit.sh" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o2/compiled/compile_for_ajit.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o3/assembled/assemble_for_ajit.sh" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o3/assembled/assemble_for_ajit.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o3/compiled/compile_for_ajit.sh" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/ajit_examples/dhrystone/set-o3/compiled/compile_for_ajit.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/benchmarks/dhrystone/assembled/assemble_for_ajit.sh" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/benchmarks/dhrystone/assembled/assemble_for_ajit.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/misc/test-progs/benchmarks/dhrystone/compiled/compile_for_ajit.sh" beforeDir="false" afterPath="$PROJECT_DIR$/misc/test-progs/benchmarks/dhrystone/compiled/compile_for_ajit.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/build.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/sys/build.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/common/consts.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/common/consts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/common/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/common/util.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/elf.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/common/elf.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/ajit_lock_unlock.s.tpl" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/ajit_lock_unlock.s.tpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_asms/setup_ajit_tables.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_asms/setup_page_tables.s.tpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_asms/trap_handlers.s" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_asms/trap_handlers.s.tpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_00.s.tpl" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_00.s.tpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init_others.s.tpl" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/init.s.tpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/parts/init_header.s.tpl" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/parts/init_header.s.tpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/parts/init_threads_setup.s.tpl" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/parts/init_threads_setup.s.tpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/parts/init_threads_start.s.tpl" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_init/parts/init_threads_start.s.tpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_sh/build_init0.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_sh/build.sh.tpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/build_sh/build_initX.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/build_sh/build_init.sh.tpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/linker_scripts/LinkerScript.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/linker_scripts/LinkerScript.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/linker_scripts/LinkerScript00.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/linker_scripts/LinkerScript00.txt.tpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/files/linker_scripts/LinkerScriptXX.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/files/linker_scripts/LinkerScriptXX.txt.tpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/sys/compute.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/sys/compute.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/sys/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/sys/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/sys/driver.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/sys/driver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/cortos/sys/instance.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/cortos/sys/instance.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/examples/example01/config.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/examples/example02/00/main.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/examples/example02/01/main.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/examples/example02/config.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cortos/res/references/examples/multi-thread-core/addd/scr.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/cortos/res/references/examples/multi-thread-core/addd/scr.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -203,7 +161,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/cortos/cortos/files" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../local/downloads/sparcv8-ajit-git" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -295,7 +253,7 @@
       <workItem from="1626755798580" duration="5000" />
       <workItem from="1626756536675" duration="1239000" />
       <workItem from="1626807101378" duration="8704000" />
-      <workItem from="1626954623032" duration="24699000" />
+      <workItem from="1626954623032" duration="26042000" />
     </task>
     <servers />
   </component>

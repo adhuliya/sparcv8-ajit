@@ -2,6 +2,8 @@
 ! BLOCK START: common_init_header
 !   Code executed across all threads, but
 !   only linked to the source of thread (0,0)
+!   NOTE: The size of this header is manually computed
+!         and stored in consts.AJIT_INIT_HEADER_SIZE vairable.
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 !

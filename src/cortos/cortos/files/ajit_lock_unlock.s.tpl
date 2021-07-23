@@ -1,5 +1,9 @@
 ! see the reference file `cortos/res/lock_unlock.s`
 
+% setdefault("lockArrayBaseAddr", "0x00000000")
+
+! lockArrayBaseAddr = {{lockArrayBaseAddr}}
+
 ! Usage Note:
 ! ajit_lock_acquire_buzy(<index: an-integer-index>);
 !   CRITICAL_SECTION_CODE...

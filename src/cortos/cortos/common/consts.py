@@ -5,6 +5,7 @@
 """
 Contains global constants in the project.
 """
+from typing import List
 
 CONFIG_FILE_DEFAULT_NAME = "config.yaml"
 
@@ -29,6 +30,7 @@ INIT_FILE_ALLOCATIONS_PATH = "../files/build_init/parts/init_allocate.s.tpl"
 
 SETUP_THREADS_LABEL = "SETUP_THREADS"
 THREAD_SETUP_LABEL = "SETUP_THREAD_{core}_{thread}"
+THREAD_START_LABEL = "START_THREAD_{core}_{thread}"
 
 EXEC_THREADS_LABEL = "EXECUTE_THREADS"
 THREAD_EXEC_LABEL = "EXECUTE_THREAD_{core}_{thread}"
@@ -54,7 +56,7 @@ AJIT_RESERVED_REGION_SIZE = 256 # bytes
 This space is reserved for misc use by Ajit in the future.
 """
 
-AJIT_SYNC_ARRAY_SIZE = 64 # bytes
+AJIT_LOCK_ARRAY_SIZE = 64 # bytes
 """
 All synchronization variables sit here.
 
@@ -81,6 +83,7 @@ DEFAULT_MEM_SIZE_IN_KB = 100 * 1024
 DEFAULT_LOCK_VARS = 32
 
 DEFAULT_STACK_SIZE = 8192  # bytes
+DEFAULT_PROG_ELF_SIZE = 40960 # bytes
 
 
 INIT_BUILD_DIR_NAME: str = "build_init"
@@ -89,3 +92,23 @@ AJIT_BUILD_DIR_NAME: str = "build_ajit"
 
 
 ELF_FILE_NAME: str = "main.elf"
+TRAP_FILE_NAME: str = "trap_handlers.s"
+PAGE_TABLE_FILE_NAME: str = "setup_page_tables.s"
+VMAP_FILE_NAME: str = "vmap.txt"
+AJIT_HEADER_FILE_NAME: str = "ajit_cortos.h"
+LOCK_FILE_NAME: str = "ajit_lock_unlock.s"
+
+LINKER_SCRIPT_FILE_NAME: str = "LinkerScript.txt"
+LINKER_SCRIPT_00_FILE_NAME: str = "LinkerScript00.txt"
+LINKER_SCRIPT_XX_FILE_NAME: str = "LinkerScriptXX.txt"
+
+INIT_FILE_NAME: str = "init.s"
+INIT_00_FILE_NAME: str = "init_00.s"
+
+
+AJIT_ENTRY_FUNC_REGEX: str = r"void\s+(?P<ajit_entry>ajit_entry_func_\w+)"
+# GREP_COMMAND: List[str] = ["grep", "-R", "'ajit_entry_'"]
+GREP_COMMAND: str = "grep -R 'ajit_entry_func_'"
+
+INIT_BUILD_SH_FILE_NAME: str = "build_init.sh"
+FINAL_BUILD_SH_FILE_NAME: str = "build.sh"

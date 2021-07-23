@@ -11,7 +11,7 @@ import argparse
 
 from cortos.common import consts, util
 import cortos.sys.config as config
-import cortos.build as build
+import cortos.sys.build as build
 from cortos.common.util import FileNameT
 from cortos.common import bottle as btl
 
@@ -27,6 +27,7 @@ def main():
 def init():
   """Misc initializations in the project."""
   templatesPath = util.getAbsolutePathFromScriptRelativeFilePath("../files")
+  btl.TEMPLATE_PATH.clear()
   btl.TEMPLATE_PATH.append(templatesPath)
 
 
@@ -38,7 +39,7 @@ def printDetail(args: argparse.Namespace) -> None:
     printConfigFile(configFileName)
   elif objName == "init":
     #print(build.genInitFile(2, 2))
-    print(build.genInitFileBottle(2,2))
+    print(build.genInitFileBottle(2, 2))
   else:
     raise ValueError(f"Unknown object to print: {objName}")
 
@@ -58,8 +59,7 @@ def printConfigFile(configFileName: FileNameT) -> None:
 def buildProject(args: argparse.Namespace) -> None:
   """Builds the project for Ajit Processor/CoRtos."""
   configFileName = args.configFileName
-  conf = config.readYamlConfig(configFileName)
-  confObj = config.UserConfig(conf.data)
+  confObj = config.readYamlConfig(configFileName)
   build.buildProject(confObj)
 
 

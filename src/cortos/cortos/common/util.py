@@ -12,7 +12,7 @@ _log = logging.getLogger(__name__)
 import os
 import os.path as osp
 import subprocess as subp
-from typing import List, Any, Optional as Opt
+from typing import List, Any, Optional as Opt, Tuple
 
 globalCounter: int = 0
 RelFilePathT = str  # a relative file path (could be absolute too)
@@ -272,8 +272,18 @@ def alignAddress(addr: int, align: int = 4096) -> int:
 
 def runCommand(cmd: str, shell: bool=True) -> int:
   """Runs the given command without capturing the output."""
-  print("AjitCoRTOS running>", cmd)
+  print(f"AjitCoRTOS: command: {cmd}")
   completed = subp.run(cmd, shell=shell)
-  print("AjitCoRTOS: return Code:", completed.returncode)
+  print(f"AjitCoRTOS: {'OK' if not completed.returncode else 'ERROR'}:"
+        f" command return code {completed.returncode}")
   return completed.returncode
+
+
+def runCommandGetOutput(cmd: str) -> str:
+  """Runs the given command without capturing the output."""
+  print(f"AjitCoRTOS: command: {cmd}")
+  status, output = subp.getstatusoutput(cmd)
+  print(f"AjitCoRTOS: {'OK' if not status else 'ERROR'}:"
+        f" command return code {status}")
+  return output
 

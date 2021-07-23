@@ -14,7 +14,7 @@ from typing import List
 
 from cortos.common.consts import AJIT_INIT_HEADER_SIZE, AJIT_RESERVED_REGION_SIZE
 from cortos.common.util import FileNameT, SizeInBytesT, MemoryAddrT, DirNameT, prettyPrint, PrettyStr
-from cortos.sys.config import UserConfig, SysConfig
+from cortos.sys.config import UserConfig
 
 
 class Program:

@@ -1,20 +1,25 @@
 
-! % setdefault()
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! BLOCK START: threads_setup
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 AJIT_SETUP_THREADS:
 !!!!!  setting up stacks in each thread....
 
-% for thread in allThreads:
+% for prog in confObj.programs:
+
+{{prog.thread.genLabel(forSetup=True)}}:
 
   ! (0,0)=0x50520000, (0,1)=0x50520001, (1,0)=0x50520100, (1,1)=0x50520101, ...
-  set {{thread.threadCheckHex}}, %l2
+  set {{prog.thread.genIdHex()}}, %l2
   subcc %l1, %l2, %g0
-  bnz {{thread.nextSetupLabel}}
+  bnz {{confObj.genNextThreadLabel(prog.thread, forSetup=True)}}
   nop
 
-% if (thread.cid, thread.tid) == (0, 0):
+% if prog.isThread00():
 
   !!!!!!!!!!!!!!!!!!!   START: thread (0,0) setup section !!!!!!!!!!!!!!!!!!
-  set 0x0, %sp
+  set {{hex(prog.stackStartAddr)}}, %sp  ! set stack address
   clr %fp
 
   !
@@ -39,30 +44,35 @@ AJIT_SETUP_THREADS:
 
 % end
 
-% if thread.tid == 0:
+% if prog.thread.tid == 0 and not prog.isThread00():
 
-  !!!!!!!!!!!!   START: thread ({{thread.cid}},0) setup section !!!!!!!!!!!!!!!!!!
-  set {thread.stackStart}, %sp  ! set -8192, %sp
+  !!!!!!!!!!!!   START: thread ({{prog.thread.cid}},0) setup section !!!!!!!
+  set {{hex(prog.stackStartAddr)}}, %sp  ! set stack address
   clr %fp
 
-  !  Thread ({{thread.cid}},0) jumps to AFTER_PTABLE_SETUP.
+  !  Thread ({{prog.thread.cid}},0) jumps to AFTER_PTABLE_SETUP.
   ba AFTER_PTABLE_SETUP
   nop
-  !!!!!!!!!!!!   END  : thread ({{thread.cid}},0) setup section !!!!!!!!!!!!!!!!!!
+  !!!!!!!!!!!!   END  : thread ({{prog.thread.cid}},0) setup section !!!!!!!
 
 % end
 
-% if thread.tid == 1:
+% if prog.thread.tid == 1:
 
-  !!!!!!!!!!!!   START: thread ({{thread.cid}},1) setup section !!!!!!!!!!!!!!!!!!
-  set {thread.stackStart}, %sp  ! set -4096, %sp
+  !!!!!!!!!!!!   START: thread ({{prog.thread.cid}},1) setup section !!!!!!!
+  set {{hex(prog.stackStartAddr)}}, %sp  ! set stack address
   clr %fp
 
-  !  Thread ({{thread.cid}},1) jumps to wait for mmu..
+  !  Thread ({{prog.thread.cid}},1) jumps to wait for mmu..
   ba WAIT_UNTIL_MMU_IS_ENABLED
   nop
-  !!!!!!!!!!!!   END  : thread ({{thread.cid}},1) setup section !!!!!!!!!!!!!!!!!!
+  !!!!!!!!!!!!   END  : thread ({{prog.thread.cid}},1) setup section !!!!!!!
 
 % end
 
 % end
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! BLOCK END  : threads_setup
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+

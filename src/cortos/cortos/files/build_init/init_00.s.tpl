@@ -1,11 +1,4 @@
-<%
-# We are using bottle's simple templating system to generate files.
-# Please refer to the following sources for the documentation:
-#
-# * <https://bottlepy.org/docs/dev/tutorial.html#tutorial-templates>
-# * <https://bottlepy.org/docs/dev/stpl.html>
-#
-%>
+! init_00.s for linking with thread 0,0 only
 
 % include("build_init/parts/init_header.s")
 
@@ -19,12 +12,9 @@ include(
 )
 %>
 
-<%
-include(
-  "build_init/parts/init_threads_setup.s",
-  threadStartLabels=threadStartLabels,
-)
-%>
+% include("build_init/parts/init_threads_setup.s")
+
+% include("build_init/parts/init_page_table_mmu_wait.s")
 
 % include("build_init/parts/init_threads_start.s")
 

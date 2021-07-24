@@ -22,9 +22,9 @@ def buildProject(confObj: config.UserConfig) -> None:
   print("AjitCoRTOS: build process started...")
 
   # STEP 1: do an initial build
-  print("\nAjitCoRTOS: START: initial_build.")
+  print("\nAjitCoRTOS: START: initial_build all_programs.")
   initBuild(confObj)
-  print("AjitCoRTOS: END  : initial_build.")
+  print("AjitCoRTOS: END  : initial_build all_programs.")
 
   # STEP 2: do a final build
   print("\nAjitCoRTOS: START: final_build.")
@@ -35,6 +35,8 @@ def buildProject(confObj: config.UserConfig) -> None:
   print("\nAjitCoRTOS: START: cortos_build.")
   finalBuildAll(confObj)
   print("AjitCoRTOS: END  : cortos_build.")
+
+  print("AjitCoRTOS: FINISHED_OKAY.")
 
 
 def initBuild(confObj: config.UserConfig) -> None:
@@ -53,9 +55,11 @@ def initBuildProgram(
     prog: config.Program,
     confObj: config.UserConfig
 ) -> None:
+  print(f"\nAjitCoRTOS: START: initial_build Program: {prog.dir}")
   prepareBuildDir(prog, confObj, init=True)
   buildProgram(prog, init=True)
   computeProgramSize(prog, init=True)
+  print(f"\nAjitCoRTOS: END  : initial_build Program: {prog.dir}")
 
 
 def prepareBuildDir(
@@ -134,6 +138,7 @@ def computeProgramSize(
   # STEP 2: compute and save the binary size
   try:
     prog.sizeInBytes = elf.getPtLoadSectionsSize(consts.ELF_FILE_NAME)
+    print(f"AjitCoRTOS: PROG_SIZE: {prog.sizeInBytes} bytes. ({prog.dir})")
   except FileNotFoundError as e:
     prog.sizeInBytes = consts.DEFAULT_PROG_ELF_SIZE
     print(f"AjitCoRTOS: ERROR: {consts.ELF_FILE_NAME} not generated.")
@@ -185,9 +190,11 @@ def finalBuildProgram(
     prog: config.Program,
     confObj: config.UserConfig,
 ) -> None:
+  print(f"\nAjitCoRTOS: START: final_build Program: {prog.dir}")
   prepareBuildDir(prog, confObj, init=False)
   buildProgram(prog, init=False)
   patchMasterLoopCalls(prog, confObj)
+  print(f"\nAjitCoRTOS: END  : final_build Program: {prog.dir}")
 
 
 def patchMasterLoopCalls(

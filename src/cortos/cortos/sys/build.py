@@ -9,6 +9,7 @@ All the logic to build is present here, or invoked from here.
 """
 from io import StringIO
 import os
+import os.path as osp
 from typing import List, Tuple, Optional as Opt
 
 from cortos.common import consts, bottle as btl, elf
@@ -29,6 +30,11 @@ def buildProject(confObj: config.UserConfig) -> None:
   print("\nAjitCoRTOS: START: final_build.")
   finalBuild(confObj)
   print("AjitCoRTOS: END  : final_build.")
+
+  # STEP 3: combined build
+  print("\nAjitCoRTOS: START: cortos_build.")
+  finalBuildAll(confObj)
+  print("AjitCoRTOS: END  : cortos_build.")
 
 
 def initBuild(confObj: config.UserConfig) -> None:
@@ -146,8 +152,6 @@ def finalBuild(confObj: config.UserConfig) -> None:
   for prog in confObj.programs:
     finalBuildProgram(prog, confObj)
 
-  finalBuildAll(confObj)
-
 
 def computeFinalLayout(confObj: config.UserConfig) -> None:
   """Computes the start address of the program and its stack."""
@@ -196,220 +200,161 @@ def patchMasterLoopCalls(
 def finalBuildAll(confObj: config.UserConfig) -> None:
   """Combines the mmap files of each program into one single mmap file."""
   # simply `cat` the output in the correct sequence?
-  pass
+  # STEP 1: Create the cortos build dir.
+  prepareCortosBuildDir(confObj)
+
+  # STEP 3: Concatenate all the mmap files.
+  concatenateMmapFiles(confObj)
+
+  # STEP 4: Patch the call from init_00 to cortos in each thread
+  patchCortosCalls(confObj)
 
 
-def genInitFile(
-    coreCount: int,
-    threadPerCoreCount: int
-) -> str:
-  """Generates the content of `init.s` file."""
-  sio = StringIO() # place to hold the contents of `init.s` in memory
+def prepareCortosBuildDir(confObj: config.UserConfig):
+  cwd = os.getcwd()
+  util.createDir(consts.CORTOS_BUILD_DIR_NAME)
+  os.chdir(consts.CORTOS_BUILD_DIR_NAME)
 
-  # STEP 1: Write the init.s header (common to all threads)
-  sio.write(genInitFileHeader())
+  cpy.copyRunCModelFile(confObj)
+  cpy.copyResultsFile(confObj)
 
-  # STEP 1.5: Add allocation space.
-  addAllocationSpace(sio)
-
-  # STEP 2: Generate Thread Setup Steps
-  genThreadSetupSteps(sio, coreCount, threadPerCoreCount)
-
-  # STEP 3: Generate Thread Exec Steps
-  genThreadExecSteps(sio, coreCount, threadPerCoreCount)
-
-  # STEP 4: Generate MMU and PageTable Setup Content
-  genCommonWait(sio)
-
-  # STEP LAST: Write the init.s footer (common to all threads)
-  sio.write(genInitFileFooter())
-
-  return sio.getvalue()
+  os.chdir(cwd)
 
 
-def genInitFileHeader():
-  """Generates the header of the init.s file."""
-  return util.readResFile(consts.INIT_FILE_HEADER_PATH)
+def patchCortosCalls(confObj: config.UserConfig):
+  # STEP 1: cd into the cortos build directory
+  cwd = os.getcwd()
+  os.chdir(consts.CORTOS_BUILD_DIR_NAME)
+  print("AjitCoRTOS: CWD:", os.getcwd())
+
+  # STEP 2: create an empty mmap file
+  newFileLines = []
+  count, status, capturedLines, = 1, 0, []
+  with open(consts.MMAP_FILE_NAME) as f:
+    for line in f:
+      if not line.strip():
+        continue # neglect empty lines
+      status = captureLine(line, capturedLines, status)
+      if status == 0: # not captured
+        newFileLines.append(line)
+      elif status == 1: # partially captured
+        pass
+      elif status == 2: # flush partially captured lines to file
+        newFileLines.extend(capturedLines)
+        capturedLines.clear()
+      elif status == 3: # patch fully captured lines
+        print(f"AjitCoRTOS: PatchingCall: Original Lines: {capturedLines}")
+        patchedLines = patchLines(capturedLines, count, confObj)
+        print(f"AjitCoRTOS: PatchingCall: Patched Lines : {patchedLines}")
+        newFileLines.extend(patchedLines)
+        capturedLines.clear()
+
+  # STEP 3: write the modified file
+  with open(consts.MMAP_FILE_NAME, "w") as f:
+    f.write("".join(newFileLines))
+
+  # STEP 4: revert cwd
+  os.chdir(cwd)
+  print("AjitCoRTOS: CWD:", os.getcwd())
 
 
-def genThreadSetupSteps(
-    sio: StringIO,
-    coreCount: int,
-    threadPerCoreCount: int
-) -> None:
-  """Generates logic to setup each thread: e.g. stack, MMU, page tables."""
+def captureLine(
+    line: str,
+    capturedLines: List[str],
+    status: int,
+) -> int:
+  """This modifies `capturedLines` parameter."""
+  match = consts.MMAP_LINE_REGEX_COMPILED.search(line)
+  if not match:
+    return 2 # i.e. put captured lines back
 
-  # STEP 1: Label the entry point.
-  sio.write(util.genLabel(consts.SETUP_THREADS_LABEL))
+  byteValue = int(f"0x{match.group('byte')}", 16)
 
-  # STEP 2: Add setup for each thread.
-  for c in range(coreCount):
-    for t in range(threadPerCoreCount):
-      # STEP 2.1: Add thread appropriate label.
-      label = genThreadLabel(c, t, forSetup=True)
-      sio.write(util.genLabel(label))
+  if len(capturedLines) == 0:
+    if byteValue == 0x40:
+      capturedLines.append(line)
+      return 1 # partially captured line sequence
+  elif len(capturedLines) == 1:
+    if byteValue == 0x0:
+      capturedLines.append(line)
+      return 1 # partially captured line sequence
+  elif len(capturedLines) == 2:
+    if byteValue == 0x0:
+      capturedLines.append(line)
+      return 1 # partially captured line sequence
+  elif len(capturedLines) == 3:
+    if byteValue == 0x2:
+      capturedLines.append(line)
+      return 3 # fully captured line sequence
 
-      # STEP 2.2: Add thread id check and jump to next label.
-      checkString = getThreadIdCheckContent(c, t)
-      threadCheckHex = genTheadIdHex(c, t)
-      nextLabel = genNextThreadSetupLabel(
-        c, t, coreCount, threadPerCoreCount, forSetup=True)
-
-      sio.write(checkString.format(hexString=threadCheckHex,
-                                   nextLabel=nextLabel))
-
-      # STEP 2.3: Add thread specific setup code.
-      addThreadSpecificSetup(sio, c, t)
-
-
-def genThreadExecSteps(
-    sio: StringIO,
-    coreCount: int,
-    threadPerCoreCount: int
-) -> None:
-  pass
+  return 0 if len(capturedLines) == 0 else 2
 
 
-def genInitFileFooter():
-  """Generates the footer of the init.s file."""
-  return util.readResFile(consts.INIT_FILE_FOOTER_PATH)
-
-
-def genLabelSeq(
-    coreCount: int,
-    threadPerCoreCount: int,
-    forSetup: bool = True, # forExec if False
+def patchLines(
+    capturedLines: List[str],
+    count: int,
+    confObj: config.UserConfig,
 ) -> List[str]:
-  """Generates the sequence of thread labels."""
+  patchedLines = []
 
-  labelList = []
-  for c in range(0, coreCount):
-    for t in range(0, threadPerCoreCount):
-      labelList.append(genThreadLabel(c, t, forSetup=forSetup))
+  prog = confObj.programs[count]
 
-  return labelList
+  match = consts.MMAP_LINE_REGEX_COMPILED.search(capturedLines[0])
+  callInsnAddr = int(f"0x{match.group('address')}", 16)
 
+  relativeProgAddr = prog.startAddr - callInsnAddr
+  print(f"AjitCoRTOS: PatchingCall: AbsProgAddr = {prog.startAddr},"
+        f" CallInsnAddr: {callInsnAddr}, RelProgAddr = {relativeProgAddr}.")
 
-def genThreadLabel(
-    coreId: int,
-    threadId: int,
-    forSetup: bool = True, # forExec if False
-) -> str:
-  """Generates an appropriate jump label for a thread."""
+  hexBytes = breakAddrIntoFourHexBytes(relativeProgAddr)
+  print(f"AjitCoRTOS: PatchingCall: RelProgAddrHex: {hexBytes}")
 
-  labelPattern = consts.THREAD_SETUP_LABEL \
-    if forSetup else consts.THREAD_EXEC_LABEL
+  for hexByte in hexBytes:
+    match = consts.MMAP_LINE_REGEX_COMPILED.search(capturedLines[0])
+    address: str = match.group("address")
+    patchedLines.append(f"{address}\t{hexByte}\n")
 
-  label = labelPattern.format(core=coreId, thread=threadId)
-  return label
+  return patchedLines
 
 
-def genTheadIdHex(
-    coreId: int,
-    threadId: int,
-) -> str:
-  return consts.THREAD_ID_TEST_HEX_PATTERN.format(core=coreId, thread=threadId)
+def breakAddrIntoFourHexBytes(
+    relativeProgAddr: int
+) -> List[str]:
+  """Returns 4 hex byte strings for the call instruction."""
+  bytes = []
+  correctedAddr = relativeProgAddr >> 2  # since addr aligned to 4 byte boundary
+
+  addr = correctedAddr
+  for i in range(4):
+    bytes.append(addr & 0xFF)
+    addr = addr >> 8
+  bytes.reverse()
+
+  bytes[0] = bytes[0] | 0x40  # call instruction opcode
+  bytesHexStr = [f"{hex(b)[2:]}" for b in bytes]
+  return bytesHexStr
 
 
-def nextThreadExists(
-    coreCount: int,
-    threadCount: int,
-    coreId: int,
-    threadId: int,
-) -> bool:
-  """Given a coreid and threadid, it returns True if there is another
-  thread in the sequence.
+def concatenateMmapFiles(confObj: config.UserConfig):
+  """concatenate the final mmap files for each program."""
+  # STEP 1: cd into the cortos build directory
+  cwd = os.getcwd()
+  os.chdir(consts.CORTOS_BUILD_DIR_NAME)
+  print("AjitCoRTOS: CWD:", os.getcwd())
 
-  For example in a 2x2 system,
+  # STEP 2: create an empty mmap file
+  with open(consts.MMAP_FILE_NAME, "w") as f:
+    f.truncate(0)
 
-  * for (0,0), (0,1), (1,0) it returns True
-  * and for (1,1) it return False
-  """
-  if coreId == coreCount - 1 and threadId == threadCount - 1:
-    return False
-  else:
-    return True
+  # STEP 3: concatenate
+  for prog in confObj.programs:
+    progMmapFile = osp.join(prog.finalBuildDir, consts.MMAP_FILE_NAME)
+    with open(consts.MMAP_FILE_NAME, "a") as f:
+      f.write(util.readFromFile(progMmapFile))
 
-
-def willThreadSetupCore(
-    coreId: int, # for future use
-    threadId: int,
-) -> bool:
-  """Returns True if the thread has the responsibility to setup the core.
-
-  Right now the logic is very simple.
-  """
-  return threadId == 0
-
-
-def genCommonWait(sio: StringIO) -> None:
-  """Generate MMU and PageTable Setup Content."""
-  sio.write(util.readResFile(consts.INIT_FILE_PGTABLE_MMU_WAIT_PATH))
-
-
-def getThreadIdCheckContent(coreId: int, threadId: int) -> str:
-  return util.readResFile(consts.INIT_FILE_CHECK_THREAD_ID_PATH)
-
-
-def genNextThreadId(
-    coreId: int,
-    threadId: int,
-    coreCount: int,
-    threadPerCoreCount: int
-) -> Opt[Tuple[int, int]]:
-  tid = (threadId + 1) % threadPerCoreCount
-  if tid != 0:
-    return coreId, tid # next thread in the same core
-  else:
-    cid = (coreId + 1) % coreCount
-    if cid != 0:
-      return cid, 0 # thread 0 in the next higher core
-  return None
-
-
-def genNextThreadSetupLabel(
-    coreId: int,
-    threadId: int,
-    coreCount: int,
-    threadPerCoreCount: int,
-    forSetup: bool = True,
-) -> str:
-  """Returns the next thread label to jump to or the `consts.HALT_LABEL`."""
-  ctid = genNextThreadId(coreId, threadId, coreCount, threadPerCoreCount)
-  if ctid:
-    return genThreadLabel(ctid[0], ctid[1], forSetup=forSetup)
-  else:
-    return consts.HALT_ERROR_LABEL
-
-
-def addThreadSpecificSetup(
-    sio: StringIO,
-    coreId: int,
-    threadId: int
-) -> None:
-  """Adds setup code for the given thread."""
-  if (coreId, threadId) == (0, 0):
-    sio.write(util.readResFile(consts.INIT_FILE_CORE0_THREAD0_SETUP_PATH))
-  elif threadId == 0:
-    sio.write(util.readResFile(consts.INIT_FILE_THREAD0_SETUP_PATH))
-  elif threadId == 1:
-    sio.write(util.readResFile(consts.INIT_FILE_THREAD1_SETUP_PATH))
-  else:
-    raise ValueError(f"Unknown thread id {threadId}.")
-
-
-def addAllocationSpace(
-    sio: StringIO,
-) -> None:
-  """Adds allocation space content."""
-  content = util.readResFile(consts.INIT_FILE_ALLOCATIONS_PATH)
-  filledContent = content.format(
-    ajitReservedSpaceSize=consts.AJIT_RESERVED_REGION_SIZE,
-    syncArraySizeInBytes=consts.AJIT_LOCK_ARRAY_SIZE,
-    totalQueueSizeInBytes=consts.AJIT_ALL_QUEUES_SIZE,
-  )
-  sio.write(filledContent)
-
+  # STEP 4: revert cwd
+  os.chdir(cwd)
+  print("AjitCoRTOS: CWD:", os.getcwd())
 
 
 def genInitFileBottle(

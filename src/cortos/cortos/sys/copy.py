@@ -8,6 +8,8 @@ Routines to copy various files.
 All the routines assume that the current directory is the destination.
 """
 
+import os.path as osp
+
 import cortos.sys.config as config
 from cortos.common import bottle as btl
 
@@ -85,7 +87,7 @@ def copyProgramFiles(
   # copy all .c files
   util.runCommand(f"cp {prog.dir}/*.c .")
   # copy all .h files
-  util.runCommand(f"cp {prog.dir}/*.h .")
+  util.runCommand(f"cp {prog.dir}/*.h .", suppressError=True)
 
 
 def copyInitFile(
@@ -120,3 +122,17 @@ def copyBuildshFile(
       f.write(btl.template(f"build_sh/{consts.FINAL_BUILD_SH_FILE_NAME}",
                            prog=prog))
 
+
+def copyRunCModelFile(confObj: config.UserConfig) -> None:
+  with open(consts.RUN_CMODEL_FILE_NAME, "w") as f:
+    f.write(btl.template(f"{consts.RUN_CMODEL_FILE_NAME}", confObj=confObj))
+  util.runCommand(f"chmod +x {consts.RUN_CMODEL_FILE_NAME}")
+
+
+def copyResultsFile(confObj: config.UserConfig) -> None:
+  resFilePath = osp.join(confObj.rootDir, consts.RESULTS_FILE_NAME)
+  if osp.exists(resFilePath):
+    util.runCommand(f"cp {resFilePath} .")
+  else:
+    with open(consts.RESULTS_FILE_NAME, "w") as f:
+      f.write("")

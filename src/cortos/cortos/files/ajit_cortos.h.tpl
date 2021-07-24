@@ -10,23 +10,23 @@ typedef union _AjitMessage32Bytes {
   char arr[32];
 
   struct {
-    int code;
-    char arr[28];
+    int code_a;
+    char arr_a[28];
   };
 
   struct {
-    int code;
+    int code_b;
     double d1;
     double d2;
   };
 
   struct {
-    int code;
+    int code_c;
     union _AjitMessage32Bytes *ptr;
   };
 
   struct {
-    int code;
+    int code_d;
     int val[7];
   };
 

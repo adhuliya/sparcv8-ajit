@@ -3,6 +3,8 @@
 ! BLOCK START: threads_user_logic
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+AJIT_START_THREADS:
+
 % for prog in confObj.programs:
 
 {{prog.thread.genLabel(forSetup=False)}}:
@@ -24,7 +26,7 @@
 
   wr 0xa, %asr16
 
-  ba HALT
+  ba AJIT_HALT_OKAY
   nop
 
 % end

@@ -22,7 +22,7 @@ AFTER_PTABLE_SETUP:
   sta %o0, [%g0] 0x4
 
   ! jump to run threads.
-  ba RUN_THREADS
+  ba AJIT_START_THREADS
   nop
 
 WAIT_UNTIL_MMU_IS_ENABLED:

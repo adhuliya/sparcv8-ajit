@@ -5,6 +5,7 @@
 """
 Contains global constants in the project.
 """
+import re
 from typing import List
 
 CONFIG_FILE_DEFAULT_NAME = "config.yaml"
@@ -16,18 +17,6 @@ AJIT_MAX_THREADS_PER_CORE = 2
 """Maximum Ajit threads possible per core."""
 
 
-INIT_FILE_HEADER_PATH = "../files/build_init/parts/init_header.s.tpl"
-INIT_FILE_FOOTER_PATH = "../files/build_init/parts/init_footer.s.tpl"
-
-INIT_FILE_PGTABLE_MMU_WAIT_PATH = "../files/build_init/parts/init_page_table_mmu_wait.s.tpl"
-INIT_FILE_CHECK_THREAD_ID_PATH = "../files/build_init/parts/init_check_core_thread_id.s.tpl"
-
-INIT_FILE_CORE0_THREAD0_SETUP_PATH = "../files/build_init/parts/init_core0thread0_setup.s.tpl"
-INIT_FILE_THREAD0_SETUP_PATH = "../files/build_init/parts/init_thread0_setup.s.tpl"
-INIT_FILE_THREAD1_SETUP_PATH = "../files/build_init/parts/init_thread1_setup.s.tpl"
-
-INIT_FILE_ALLOCATIONS_PATH = "../files/build_init/parts/init_allocate.s.tpl"
-
 SETUP_THREADS_LABEL = "SETUP_THREADS"
 THREAD_SETUP_LABEL = "SETUP_THREAD_{core}_{thread}"
 THREAD_START_LABEL = "START_THREAD_{core}_{thread}"
@@ -35,7 +24,7 @@ THREAD_START_LABEL = "START_THREAD_{core}_{thread}"
 EXEC_THREADS_LABEL = "EXECUTE_THREADS"
 THREAD_EXEC_LABEL = "EXECUTE_THREAD_{core}_{thread}"
 
-THREAD_ID_TEST_HEX_PATTERN =  "0x50520{core}0{thread}"
+THREAD_ID_TEST_HEX_PATTERN = "0x50520{core}0{thread}"
 """
 0x50520000 for core 0, thread 0
 0x50520001 for core 0, thread 1
@@ -88,10 +77,12 @@ DEFAULT_PROG_ELF_SIZE = 40960 # bytes
 
 INIT_BUILD_DIR_NAME: str = "build_init"
 FINAL_BUILD_DIR_NAME: str = "build_final"
-AJIT_BUILD_DIR_NAME: str = "build_ajit"
+CORTOS_BUILD_DIR_NAME: str = "build_cortos"
 
 
 ELF_FILE_NAME: str = "main.elf"
+MMAP_FILE_NAME: str = "main.mmap"
+
 TRAP_FILE_NAME: str = "trap_handlers.s"
 PAGE_TABLE_FILE_NAME: str = "setup_page_tables.s"
 VMAP_FILE_NAME: str = "vmap.txt"
@@ -112,3 +103,9 @@ GREP_COMMAND: str = "grep -R 'ajit_entry_func_'"
 
 INIT_BUILD_SH_FILE_NAME: str = "build_init.sh"
 FINAL_BUILD_SH_FILE_NAME: str = "build.sh"
+
+RUN_CMODEL_FILE_NAME: str = "run_cmodel.sh"
+RESULTS_FILE_NAME: str = "main.results"
+
+MMAP_LINE_REGEX: str = r"(?P<address>\w+)\s+(?P<byte>\w+)"
+MMAP_LINE_REGEX_COMPILED = re.compile(MMAP_LINE_REGEX)

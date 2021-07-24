@@ -77,7 +77,7 @@ def getPtLoadSectionsSize(elfFile: str):
     loadSecs.extend([sec for sec in sections
                      if loadSegs[1].section_in_segment(sec)])
 
-  totalSize = 0, 0, 0
+  totalSize = 0
   for sec in loadSecs:
     totalSize += sec.data_size
 

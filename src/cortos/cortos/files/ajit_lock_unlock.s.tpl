@@ -15,12 +15,16 @@
 !   ajit_lock_release(<index: an-integer-index>);
 ! }
 
+.global ajit_lock_acquire_buzy
+.global ajit_lock_acquire
+.global ajit_lock_release
+
 ajit_lock_acquire_buzy:
   ! i0 contains an index to the correct locking variable
   save  %sp, -96, %sp       ! func prefix
 
   set {{lockArrayBaseAddr}}, %l0
-  sll i0, 0x2, i0                   ! * 4 (jump 4 bytes at a time)
+  sll %i0, 0x2, %i0                   ! * 4 (jump 4 bytes at a time)
 try_to_lock:
   ldstub [%l0+%i0], %l1
   tst %l1
@@ -47,7 +51,7 @@ ajit_lock_acquire:
   save  %sp, -96, %sp       ! func prefix
 
   set {{lockArrayBaseAddr}}, %l0
-  sll i0, 0x2, i0                   ! * 4 (jump 4 bytes at a time)
+  sll %i0, 0x2, %i0                   ! * 4 (jump 4 bytes at a time)
 
 
 try_to_lock_once:
@@ -76,7 +80,7 @@ ajit_lock_release:
   save  %sp, -96, %sp       ! func prefix
 
   set {{lockArrayBaseAddr}}, %l0
-  sll i0, 0x2, i0                   ! * 4 (jump 4 bytes at a time)
+  sll %i0, 0x2, %i0                   ! * 4 (jump 4 bytes at a time)
 
   stbar
   stub %g0, [%l0+%i0]

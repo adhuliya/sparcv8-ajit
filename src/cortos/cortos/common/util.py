@@ -270,12 +270,17 @@ def alignAddress(addr: int, align: int = 4096) -> int:
     return addr + padding
 
 
-def runCommand(cmd: str, shell: bool=True) -> int:
+def runCommand(
+    cmd: str,
+    shell: bool = True,
+    suppressError: bool = False,
+) -> int:
   """Runs the given command without capturing the output."""
   print(f"AjitCoRTOS: command: {cmd}")
   completed = subp.run(cmd, shell=shell)
-  print(f"AjitCoRTOS: {'OK' if not completed.returncode else 'ERROR'}:"
-        f" command return code {completed.returncode}")
+  if not suppressError:
+    print(f"AjitCoRTOS: {'OK' if not completed.returncode else 'ERROR'}:"
+          f" command return code {completed.returncode}")
   return completed.returncode
 
 

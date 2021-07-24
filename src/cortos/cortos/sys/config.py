@@ -6,7 +6,7 @@
 Read user configuration file.
 """
 from typing import List, Optional as Opt
-
+import os
 import yaml
 
 import cortos.common.util as util
@@ -79,6 +79,7 @@ class UserConfig:
   """Configuration specified by the user (like a yaml file)."""
   def __init__(self, data):
     self.data = data
+    self.rootDir = os.getcwd()
     self.coreCount = 1
     self.threadsPerCoreCount = 1
     self.programs: List[Program] = []

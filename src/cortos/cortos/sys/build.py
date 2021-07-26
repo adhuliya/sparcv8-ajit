@@ -22,8 +22,8 @@ def buildProject(confObj: config.UserConfig) -> None:
   print("AjitCoRTOS: build process started...")
 
   print(f"\nAjitCoRTOS: START: cortos_build.")
-  prepareBuildDir(confObj)
   computeStackAddr(confObj) # FIXME: call it from some other place?
+  prepareBuildDir(confObj)
   runBuildScript(confObj)
   print(f"AjitCoRTOS: END  : cortos_build.")
 
@@ -55,6 +55,8 @@ def copyBuildFiles(
   cpy.copyVmapFile(confObj)
   cpy.copyLinkerScriptFile(confObj)
   cpy.copyBuildshFile(confObj)
+  cpy.copyRunCModelFile(confObj)
+  cpy.copyResultsFile(confObj)
 
   # copy cortos library support
   cpy.copyAjitHeaderFile(confObj)

@@ -24,7 +24,8 @@ YML_PROG_DIR = "Dir"
 YML_PROG_CORE = "Core"
 YML_PROG_THREAD = "Thread"
 YML_PROG_STACK_SIZE = "StackSizeInBytes"
-YML_PROG_CALL_SEQ = "CortosLoopCallSeq"
+YML_PROG_CALL_SEQ = "CortosCallSeq"
+YML_PROG_LOOP = "CortosLoop"
 
 YML_MEM_SIZE_IN_KB = "TotalMemoryInKB"
 YML_TOTAL_LOCK_VARS = "TotalLockVars"
@@ -91,7 +92,8 @@ class UserConfig:
 
     self.rootDir = os.getcwd()
     self.buildDir = osp.join(self.rootDir, consts.CORTOS_BUILD_DIR_NAME)
-    self.cFileNames = []
+    self.cFileNames: List[str] = []
+    self.resultsFile: str = consts.DEFAULT_RESULTS_FILE_NAME
 
     self.coreCount = 1
     self.threadsPerCoreCount = 1
@@ -132,15 +134,18 @@ class UserConfig:
                           if YML_TOTAL_LOCK_VARS in self.data
                           else consts.DEFAULT_LOCK_VARS)
 
-    self.initCFileNames()
+    self.readProjectFiles()
 
     # TODO: add queue related configuration.
 
 
-  def initCFileNames(self):
+  def readProjectFiles(self):
     files = os.listdir(self.rootDir)
-    self.cFileNames = [fName for fName in files
-                       if osp.isfile(fName) and fName.endswith(".c")]
+    for fName in files:
+      if fName.endswith(".c") and osp.isfile(fName):
+        self.cFileNames.append(fName)
+      elif fName.endswith(".results"):
+        self.resultsFile = fName
 
 
   def verify(self) -> 'UserConfig':
@@ -232,6 +237,7 @@ class ProgramThread:
     self.data = data
     self.thread = thread
     self.callSeq = []
+    self.cortosLoop = True
 
     self.stackSizeInBytes = 0
     self.stackStartAddr = 0
@@ -245,6 +251,8 @@ class ProgramThread:
       if YML_PROG_STACK_SIZE in self.data else consts.DEFAULT_STACK_SIZE
 
     self.callSeq = self.data[YML_PROG_CALL_SEQ]
+    self.cortosLoop = self.data[YML_PROG_LOOP] \
+      if YML_PROG_LOOP in self.data else True
 
 
   def isThread00(self) -> bool:
@@ -254,8 +262,9 @@ class ProgramThread:
 
   def __str__(self):
     return f"(Program (CallSeq: {self.callSeq}" \
-           f", {YML_PROG_THREAD}: {self.thread}," \
-           f", {YML_PROG_STACK_SIZE}: {self.stackSizeInBytes}))"
+           f", {YML_PROG_THREAD}: {self.thread}" \
+           f", {YML_PROG_STACK_SIZE}: {self.stackSizeInBytes})" \
+           f", {YML_PROG_LOOP}: {self.cortosLoop})"
 
 
   def __repr__(self):

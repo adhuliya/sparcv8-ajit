@@ -106,7 +106,7 @@ INIT_BUILD_SH_FILE_NAME: str = "build_init.sh"
 FINAL_BUILD_SH_FILE_NAME: str = "build.sh"
 
 RUN_CMODEL_FILE_NAME: str = "run_cmodel.sh"
-RESULTS_FILE_NAME: str = "main.results"
+DEFAULT_RESULTS_FILE_NAME: str = "main.results"
 
 MMAP_LINE_REGEX: str = r"(?P<address>\w+)\s+(?P<byte>\w+)"
 MMAP_LINE_REGEX_COMPILED = re.compile(MMAP_LINE_REGEX)

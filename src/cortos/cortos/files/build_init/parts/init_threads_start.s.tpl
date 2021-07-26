@@ -22,8 +22,13 @@ AJIT_START_THREADS:
   nop
 % end
 
+% if prog.cortosLoop:
   ba {{prog.thread.genLabelForCortosLoop()}}
   nop
+% else:
+  ba AJIT_HALT_OKAY
+  nop
+% end
 
 % end
 

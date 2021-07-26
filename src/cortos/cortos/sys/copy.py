@@ -70,6 +70,9 @@ def copyProjectFiles(
   util.runCommand(f"cp {confObj.rootDir}/*.c .")
   # copy all .h files
   util.runCommand(f"cp {confObj.rootDir}/*.h .", suppressError=True)
+  # copy results file
+  if confObj.resultsFile:
+    util.runCommand(f"cp {confObj.rootDir}/{confObj.resultsFile} .")
 
 
 def copyInitFile(
@@ -103,9 +106,9 @@ def copyRunCModelFile(confObj: config.UserConfig) -> None:
 
 
 def copyResultsFile(confObj: config.UserConfig) -> None:
-  resFilePath = osp.join(confObj.rootDir, consts.RESULTS_FILE_NAME)
+  resFilePath = osp.join(confObj.rootDir, confObj.resultsFile)
   if osp.exists(resFilePath):
     util.runCommand(f"cp {resFilePath} .")
   else:
-    with open(consts.RESULTS_FILE_NAME, "w") as f:
+    with open(consts.DEFAULT_RESULTS_FILE_NAME, "w") as f:
       f.write("")

@@ -8,5 +8,5 @@ ajit_C_system_model \
   -m ${_MAIN}.mmap \
   -w ${_MAIN}.wtrace \
   -d \
-  -r ${_MAIN}.results \
+  -r {{confObj.resultsFile}} \
   -l ${_MAIN}.log;

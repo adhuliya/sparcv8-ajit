@@ -1,3 +1,6 @@
+% qHdrs = confObj.reservedMem.ajitQueueHeaders
+% qQ = confObj.reservedMem.ajitQueues
+
 #ifndef AJIT_CORTOS_H
 #define AJIT_CORTOS_H
 
@@ -8,6 +11,7 @@ void ajit_lock_release(int index);
 
 typedef union _AjitMessage32Bytes {
   char arr[32];
+  int intArr[8];
 
   struct {
     int code_a;
@@ -40,6 +44,13 @@ typedef union _AjitMessage32Bytes {
 } AjitMessage;
 
 
+typedef struct _AjitQueueHeader {
+  int totalMsgs; // current total messages
+  int readIndex;
+  int writeIndex;
+  int __;
+} AjitQueueHeader;
+
 /*
 Sends an AjitMessage.
   - Returns zero if the queue is full.
@@ -53,6 +64,41 @@ Gets an AjitMessage.
   - Returns non-zero if the msg was put into the *msg location.
 */
 int readAjitMessage(int queueId, AjitMessage *msg);
+
+
+int ajit_q_lock_acquire_buzy(int index);
+int ajit_q_lock_acquire(int index);
+void ajit_q_lock_release(int index);
+
+
+#define Q_START_INDEX 0
+#define AJIT_Q_BASE {{qQ.startAddr}}
+#define AJIT_Q_LEN {{ajitQueueLength}}
+#define AJIT_Q_MSG_SIZE {{ajitQueueMsgSize}}
+
+#define AJIT_Q_HEADER_BASE {{qHdrs.startAddr}}
+#define AJIT_Q_HEADER_SIZE {{ajitQueueHeaderSize}}
+
+#define GET_MSG_ADDR(_BASE, _INDEX) \
+((_BASE) + ((_INDEX) * (AJIT_Q_MSG_SIZE)))
+
+#define INCREMENT_INDEX(_INDEX) \
+(((((_INDEX)+1) % AJIT_Q_LEN)) ? \
+((((_INDEX)+1) % AJIT_Q_LEN)) : Q_START_INDEX)
+
+/*
+This computes the base address of the queue with id `queueId`.
+*/
+#define GET_Q_ADDR(_Q_ID) \
+((AJIT_Q_BASE) + \
+((AJIT_Q_MSG_SIZE) * (AJIT_Q_LEN) * (_Q_ID)));
+
+/*
+This computes the base address of the queue header with id `queueId`.
+*/
+#define GET_Q_HEADER_ADDR(_Q_ID) \
+((AJIT_Q_HEADER_BASE) + \
+((AJIT_Q_HEADER_SIZE) * (_Q_ID)));
 
 
 ////////////////////////////////////////////////////////////////////////////////

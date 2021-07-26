@@ -60,6 +60,7 @@ def copyBuildFiles(
 
   # copy cortos library support
   cpy.copyAjitHeaderFile(confObj)
+  cpy.copyAjitQueueFiles(confObj)
   cpy.copyLockFile(confObj)
   # cpy.copyQueueFiles(prog, confObj, init)
 
@@ -69,8 +70,6 @@ def copyBuildFiles(
 
 def runBuildScript(confObj: config.UserConfig) -> None:
   """Run the `build.sh` script in the build dir."""
-  computeStackAddr(confObj)
-
   # STEP 1: cd into the build directory
   cwd = os.getcwd()
   os.chdir(confObj.buildDir)
@@ -83,24 +82,24 @@ def runBuildScript(confObj: config.UserConfig) -> None:
   os.chdir(cwd)
 
 
-def computeProgramSize(
-    confObj: config.UserConfig,
-) -> None:
-  """Computes size of the elf file generated."""
-  # STEP 1: cd into the build directory
-  cwd = os.getcwd()
-  os.chdir(confObj.buildDir)
-
-  # STEP 2: compute and save the binary size
-  try:
-    sizeInBytes = elf.getPtLoadSectionsSize(consts.ELF_FILE_NAME)
-    print(f"AjitCoRTOS: PROG_SIZE: {sizeInBytes} bytes.")
-  except FileNotFoundError as e:
-    sizeInBytes = consts.DEFAULT_PROG_ELF_SIZE
-    print(f"AjitCoRTOS: ERROR: {consts.ELF_FILE_NAME} not generated.")
-
-  # STEP 3: cd back to the previous directory
-  os.chdir(cwd)
+# def computeProgramSize(
+#     confObj: config.UserConfig,
+# ) -> None:
+#   """Computes size of the elf file generated."""
+#   # STEP 1: cd into the build directory
+#   cwd = os.getcwd()
+#   os.chdir(confObj.buildDir)
+#
+#   # STEP 2: compute and save the binary size
+#   try:
+#     sizeInBytes = elf.getPtLoadSectionsSize(consts.ELF_FILE_NAME)
+#     print(f"AjitCoRTOS: PROG_SIZE: {sizeInBytes} bytes.")
+#   except FileNotFoundError as e:
+#     sizeInBytes = consts.DEFAULT_PROG_ELF_SIZE
+#     print(f"AjitCoRTOS: ERROR: {consts.ELF_FILE_NAME} not generated.")
+#
+#   # STEP 3: cd back to the previous directory
+#   os.chdir(cwd)
 
 
 def computeStackAddr(confObj: config.UserConfig) -> None:

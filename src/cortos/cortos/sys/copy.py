@@ -41,7 +41,12 @@ def copyAjitHeaderFile(
     confObj: config.UserConfig,
 ) -> None:
   with open(consts.AJIT_HEADER_FILE_NAME, "w") as f:
-    f.write(btl.template(f"{consts.AJIT_HEADER_FILE_NAME}", confObj=confObj))
+    f.write(btl.template(f"{consts.AJIT_HEADER_FILE_NAME}",
+                         confObj=confObj,
+                         ajitQueueLength=consts.DEFAULT_QUEUE_LEN,
+                         ajitQueueMsgSize=consts.DEFAULT_QUEUE_MSG_SIZE,
+                         ajitQueueHeaderSize=consts.QUEUE_HEADER_SIZE,
+                         ))
 
 
 def copyLockFile(
@@ -104,3 +109,11 @@ def copyResultsFile(confObj: config.UserConfig) -> None:
   else:
     with open(consts.DEFAULT_RESULTS_FILE_NAME, "w") as f:
       f.write("")
+
+
+def copyAjitQueueFiles(confObj: config.UserConfig) -> None:
+  with open(consts.QUEUE_C_FILE, "w") as f:
+    f.write(btl.template(f"queue/{consts.QUEUE_C_FILE}", confObj=confObj))
+
+  with open(consts.QUEUE_LOCK_FILE, "w") as f:
+    f.write(btl.template(f"queue/{consts.QUEUE_LOCK_FILE}", confObj=confObj))

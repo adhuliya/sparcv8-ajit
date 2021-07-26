@@ -10,11 +10,11 @@ import os
 import yaml
 
 import cortos.common.util as util
-import copy
 import os.path as osp
 
 # Yaml key names
 import cortos.common.consts as consts
+import cortos.sys.compute as compute
 
 YML_CORES = "Cores"
 YML_THREADS = "ThreadsPerCore"
@@ -105,6 +105,9 @@ class UserConfig:
     self.totalQueuesSize = consts.DEFAULT_TOTAL_QUEUE_SIZE
     self.totalQueueHeadersSize = self.totalQueues * consts.QUEUE_HEADER_SIZE
 
+    self.totalSharedIntVars = consts.AJIT_TOTAL_SHARED_INT_VARS
+    self.reservedMem: Opt[ReservedMemoryRegions] = None
+
     self.initialize()
     print("AjitCoRTOS: Initialized user configuration details.")
     self.verify()
@@ -133,6 +136,8 @@ class UserConfig:
     self.totalLockVars = (self.data[YML_TOTAL_LOCK_VARS]
                           if YML_TOTAL_LOCK_VARS in self.data
                           else consts.DEFAULT_LOCK_VARS)
+
+    self.reservedMem = ReservedMemoryRegions(self)
 
     self.readProjectFiles()
 
@@ -269,6 +274,65 @@ class ProgramThread:
 
   def __repr__(self):
     return str(self)
+
+
+class MemoryRegion(util.PrettyStr):
+  def __init__(self,
+      startAddr: util.MemoryAddrT = 0,
+      sizeInBytes: util.SizeInBytesT = 0,
+      name: str = "UnnamedRegion",
+  ):
+    self.startAddr = startAddr
+    self.sizeInBytes = sizeInBytes
+    self.name = name
+
+
+  def getNextToLastByteAddr(self):
+    return self.startAddr + self.sizeInBytes
+
+
+class ReservedMemoryRegions:
+  def __init__(self,
+      confObj: UserConfig,
+  ) -> None:
+    """The initializations here are used in `init_allocate.s` file.
+
+    Note: `init_allocate.s` is generated from `init_allocate.s.tpl` file.
+
+    NOTE: All sizes must be a multiple of 8.
+    """
+    self.sizeInBytes = 0
+
+    self.ajitReserved = MemoryRegion(
+      util.alignAddress(compute.computeInitHeaderSizeInBytes(), 8),
+      consts.AJIT_RESERVED_REGION_SIZE
+    )
+    self.sizeInBytes += self.ajitReserved.sizeInBytes
+
+    startAddr = self.ajitReserved.getNextToLastByteAddr()
+    regionSize = confObj.totalSharedIntVars * 4
+    self.ajitSharedIntVars = MemoryRegion(startAddr, regionSize)
+    self.sizeInBytes += self.ajitSharedIntVars.sizeInBytes
+
+    startAddr = self.ajitSharedIntVars.getNextToLastByteAddr()
+    regionSize = confObj.totalLockVars * 4
+    self.ajitLockVars = MemoryRegion(startAddr, regionSize)
+    self.sizeInBytes += self.ajitLockVars.sizeInBytes
+
+    startAddr = self.ajitLockVars.getNextToLastByteAddr()
+    regionSize = confObj.totalQueuesSize * 4
+    self.ajitQueueLockVars = MemoryRegion(startAddr, regionSize)
+    self.sizeInBytes += self.ajitQueueLockVars.sizeInBytes
+
+    startAddr = self.ajitQueueLockVars.getNextToLastByteAddr()
+    regionSize = confObj.totalQueueHeadersSize
+    self.ajitQueueHeaders = MemoryRegion(startAddr, regionSize)
+    self.sizeInBytes += self.ajitQueueHeaders.sizeInBytes
+
+    startAddr = self.ajitQueueHeaders.getNextToLastByteAddr()
+    regionSize = confObj.totalQueuesSize
+    self.ajitQueues = MemoryRegion(startAddr, regionSize)
+    self.sizeInBytes += self.ajitQueues.sizeInBytes
 
 
 def readYamlConfig(yamlFileName: util.FileNameT) -> UserConfig:

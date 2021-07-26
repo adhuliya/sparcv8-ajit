@@ -2,15 +2,7 @@
 
 % include("build_init/parts/init_header.s")
 
-<%
-include(
-  "build_init/parts/init_allocate.s",
-  reservedSize=allocRegion.ajitReserved.sizeInBytes,
-  lockArraySize=allocRegion.ajitLockVars.sizeInBytes,
-  qHeaderArraySize=allocRegion.ajitQueueHeaders.sizeInBytes,
-  qArraySize=allocRegion.ajitQueues.sizeInBytes,
-)
-%>
+% include("build_init/parts/init_allocate.s")
 
 % include("build_init/parts/init_threads_setup.s")
 

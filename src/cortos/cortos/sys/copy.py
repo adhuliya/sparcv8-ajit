@@ -14,7 +14,6 @@ import cortos.sys.config as config
 from cortos.common import bottle as btl
 
 from cortos.common import consts, util
-from cortos.sys import compute, instance
 
 
 def copyTrapFile(
@@ -42,7 +41,7 @@ def copyAjitHeaderFile(
     confObj: config.UserConfig,
 ) -> None:
   with open(consts.AJIT_HEADER_FILE_NAME, "w") as f:
-    f.write(btl.template(f"{consts.AJIT_HEADER_FILE_NAME}"))
+    f.write(btl.template(f"{consts.AJIT_HEADER_FILE_NAME}", confObj=confObj))
 
 
 def copyLockFile(
@@ -51,7 +50,7 @@ def copyLockFile(
   with open(consts.LOCK_FILE_NAME, "w") as f:
     f.write(
       btl.template(f"{consts.LOCK_FILE_NAME}",
-                   lockArrayBaseAddr=hex(compute.computeLockArrayBaseAddr())
+                   lockArrayBaseAddr=hex(confObj.reservedMem.ajitLockVars.startAddr)
       )
     )
 
@@ -78,17 +77,10 @@ def copyProjectFiles(
 def copyInitFile(
     confObj: config.UserConfig,
 ) -> None:
-  allocRegion = instance.AllocationRegion(confObj)
-  print(f"AjitCoRTOS: AllocRegionSize: {allocRegion.sizeInBytes} bytes.")
+  print(f"AjitCoRTOS: AllocRegionSize: {confObj.reservedMem.sizeInBytes} bytes.")
   with open(consts.INIT_00_FILE_NAME, "w") as f:
     f.write(btl.template(f"build_init/{consts.INIT_00_FILE_NAME}",
-                         allocRegion=allocRegion,
                          confObj=confObj))
-
-  # funcNames = compute.getEntryFuncNames()
-  # with open(consts.INIT_FILE_NAME, "w") as f:
-  #   f.write(btl.template(f"build_init/{consts.INIT_FILE_NAME}",
-  #                        funcNames=funcNames))
 
 
 def copyBuildshFile(

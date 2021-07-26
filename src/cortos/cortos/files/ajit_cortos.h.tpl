@@ -55,4 +55,16 @@ Gets an AjitMessage.
 int readAjitMessage(int queueId, AjitMessage *msg);
 
 
+////////////////////////////////////////////////////////////////////////////////
+% count = 0
+% intVarsMemRegion = confObj.reservedMem.ajitSharedIntVars
+% for i in range(intVarsMemRegion.sizeInBytes):
+% if i % 4 == 0:
+% addr = intVarsMemRegion.startAddr + i
+#define SHARED_INT_ADDR_{{count}} {{addr}}
+% count += 1
+% end
+% end
+////////////////////////////////////////////////////////////////////////////////
+
 #endif

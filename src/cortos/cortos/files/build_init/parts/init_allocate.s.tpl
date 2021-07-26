@@ -4,20 +4,28 @@
 ! BLOCK START: allocate_memory_for_queue_lockvars_etc
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+% r = confObj.reservedMem
+
 .align 8
 AJIT_INIT_TO_ZERO_START:
 
 .align 8
-AJIT_RESERVED_SPACE: .skip {{reservedSize}} ! size in multiples of 8
+AJIT_RESERVED_SPACE: .skip {{r.ajitReserved.sizeInBytes}} ! size in multiples of 8
 
 .align 8
-AJIT_LOCK_VARS_BASE: .skip {{lockArraySize}} ! size in multiples of 8
+AJIT_INT_ARRAY_BASE: .skip {{r.ajitSharedIntVars.sizeInBytes}} ! size in multiples of 8
 
 .align 8
-AJIT_QUEUE_HEADERS_BASE: .skip {{qHeaderArraySize}} ! size in multiples of 8
+AJIT_LOCK_VARS_BASE: .skip {{r.ajitLockVars.sizeInBytes}} ! size in multiples of 8
 
 .align 8
-AJIT_QUEUES_BASE: .skip {{qArraySize}} ! size in multiples of 8
+AJIT_QUEUE_LOCK_VARS_BASE: .skip {{r.ajitQueueLockVars.sizeInBytes}} ! size in multiples of 8
+
+.align 8
+AJIT_QUEUE_HEADERS_BASE: .skip {{r.ajitQueueHeaders.sizeInBytes}} ! size in multiples of 8
+
+.align 8
+AJIT_QUEUES_BASE: .skip {{r.ajitQueues.sizeInBytes}} ! size in multiples of 8
 
 .align 8
 AJIT_INIT_TO_ZERO_END:

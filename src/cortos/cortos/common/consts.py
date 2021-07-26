@@ -58,6 +58,9 @@ AJIT_ALL_QUEUES_SIZE = 4096 # bytes
 All the queues sit here.
 """
 
+AJIT_TOTAL_SHARED_INT_VARS = 256 # n integers
+"""Array of shared integers accessible to each thread."""
+
 
 DEFAULT_TOTAL_QUEUES = 32
 DEFAULT_QUEUE_LEN = 32

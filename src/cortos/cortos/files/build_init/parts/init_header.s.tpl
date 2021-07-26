@@ -35,7 +35,7 @@ WIMSET:
   set	trap_table_base, %l0
   wr	%l0, 0x0, %tbr
 
-  ba AJIT_SETUP_THREADS
+  ba INIT_AJIT_ALLOCATE_AREA_TO_ZERO
   nop
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

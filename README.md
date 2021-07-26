@@ -1,4 +1,4 @@
-SPAIRO (SParcV8 Assembly Insruction ReOrdering optimization)
+SPAIRO (SParcV8 Assembly Instruction ReOrdering optimization)
 ===========================================================
 
 Maintained by Anshuman Dhuliya

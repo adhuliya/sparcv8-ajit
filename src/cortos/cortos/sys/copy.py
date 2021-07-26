@@ -97,6 +97,7 @@ def copyInitFile(
 ) -> None:
   if prog.isThread00():
     allocRegion = instance.AllocationRegion(confObj)
+    print(f"AjitCoRTOS: AllocRegionSize: {allocRegion.sizeInBytes} bytes.")
     with open(consts.INIT_00_FILE_NAME, "w") as f:
       f.write(btl.template(f"build_init/{consts.INIT_00_FILE_NAME}",
                            allocRegion=allocRegion,

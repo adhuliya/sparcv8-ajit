@@ -5,7 +5,7 @@
 """
 Read user configuration file.
 """
-from typing import List, Optional as Opt
+from typing import List, Optional as Opt, Any
 import os
 import yaml
 
@@ -18,18 +18,20 @@ import cortos.common.consts as consts
 
 YML_CORES = "Cores"
 YML_THREADS = "ThreadsPerCore"
-YML_PROGRAMS = "Programs"
+YML_PROG_THREADS = "ProgramThreads"
 
 YML_PROG_DIR = "Dir"
 YML_PROG_CORE = "Core"
 YML_PROG_THREAD = "Thread"
 YML_PROG_STACK_SIZE = "StackSizeInBytes"
+YML_PROG_CALL_SEQ = "CortosLoopCallSeq"
 
 YML_MEM_SIZE_IN_KB = "TotalMemoryInKB"
 YML_TOTAL_LOCK_VARS = "TotalLockVars"
 
 
-class Thread:
+
+class AjitThread:
   def __init__(self,
       cid: int,
       tid: int,
@@ -60,12 +62,19 @@ class Thread:
     return label
 
 
+  def genLabelForCortosLoop(self) -> str:
+    label = consts.THREAD_CORTOS_LOOP_LABEL.format(
+      core=self.cid, thread=self.tid)
+
+    return label
+
+
   def genIdHex(self) -> str:
     return consts.THREAD_ID_TEST_HEX_PATTERN.format(core=self.cid, thread=self.tid)
 
 
   def __lt__(self, other):
-    if not isinstance(other, Thread):
+    if not isinstance(other, AjitThread):
       raise ValueError(f"{other}")
 
     return self.cid <= other.cid and self.tid <= other.tid
@@ -79,10 +88,14 @@ class UserConfig:
   """Configuration specified by the user (like a yaml file)."""
   def __init__(self, data):
     self.data = data
+
     self.rootDir = os.getcwd()
+    self.buildDir = osp.join(self.rootDir, consts.CORTOS_BUILD_DIR_NAME)
+    self.cFileNames = []
+
     self.coreCount = 1
     self.threadsPerCoreCount = 1
-    self.programs: List[Program] = []
+    self.programs: List[ProgramThread] = []
     self.memSizeInKB = consts.DEFAULT_MEM_SIZE_IN_KB
     self.totalLockVars = consts.DEFAULT_LOCK_VARS
 
@@ -103,12 +116,12 @@ class UserConfig:
       if YML_THREADS in self.data else 1
 
     self.programs = []
-    thread: Opt[Thread] = Thread(0,0)
-    for progData in self.data[YML_PROGRAMS]:
+    thread: Opt[AjitThread] = AjitThread(0, 0)
+    for progData in self.data[YML_PROG_THREADS]:
       if thread is None:
         print(f"AjitCoRTOS: ERROR: programs are more than available h/w threads.")
         exit(1)
-      self.programs.append(Program(progData, thread))
+      self.programs.append(ProgramThread(progData, thread))
       thread = self.getNextThread(thread)
     self.programs = sorted(self.programs, key=lambda x: x.thread)
 
@@ -119,11 +132,19 @@ class UserConfig:
                           if YML_TOTAL_LOCK_VARS in self.data
                           else consts.DEFAULT_LOCK_VARS)
 
+    self.initCFileNames()
+
     # TODO: add queue related configuration.
 
 
+  def initCFileNames(self):
+    files = os.listdir(self.rootDir)
+    self.cFileNames = [fName for fName in files
+                       if osp.isfile(fName) and fName.endswith(".c")]
+
+
   def verify(self) -> 'UserConfig':
-    """Verify this object's values, and return a deep copy."""
+    """Verify this object's values"""
     assert self.coreCount <= consts.AJIT_MAX_CORES, \
       f"Ajit supports at most 4 cores. Given {self.coreCount}."
     assert self.threadsPerCoreCount <= consts.AJIT_MAX_THREADS_PER_CORE, \
@@ -134,7 +155,11 @@ class UserConfig:
             f" User Programs: {len(self.programs)}. (Must be equal)")
       exit(1)
 
-    return copy.deepcopy(self)
+    if len(self.cFileNames) == 0:
+      print(f"AjitCoRTOS: ERROR: No C files present in the project.")
+      exit(1)
+
+    return self
 
 
   def totalThreads(self):
@@ -142,7 +167,7 @@ class UserConfig:
 
 
   def nextThreadExists(self,
-      thread: Thread,
+      thread: AjitThread,
   ) -> bool:
     """Given a `Thread` object, it returns True if there is another
     thread in the sequence.
@@ -160,20 +185,20 @@ class UserConfig:
 
 
   def getNextThread(self,
-      thread: Thread,
-  ) -> Opt[Thread]:
+      thread: AjitThread,
+  ) -> Opt[AjitThread]:
     tid = (thread.tid + 1) % self.threadsPerCoreCount
     if tid != 0:
-      return Thread(thread.cid, tid) # next thread in the same core
+      return AjitThread(thread.cid, tid) # next thread in the same core
     else:
       cid = (thread.cid + 1) % self.coreCount
       if cid != 0:
-        return Thread(cid, 0) # thread 0 in the next higher core
+        return AjitThread(cid, 0) # thread 0 in the next higher core
     return None
 
 
   def genNextThreadLabel(self,
-      thread: Thread,
+      thread: AjitThread,
       forSetup: bool = True,
   ) -> str:
     """Returns the next thread label to jump to or the `consts.HALT_LABEL`."""
@@ -189,7 +214,7 @@ class UserConfig:
       f"UserConfiguration:\n"
       f"  {YML_CORES}: {self.coreCount}\n"
       f"  {YML_THREADS}: {self.threadsPerCoreCount}\n"
-      f"  {YML_PROGRAMS}: {self.programs}\n"
+      f"  {YML_PROG_THREADS}: {self.programs}\n"
       f"  {YML_MEM_SIZE_IN_KB}: {self.memSizeInKB}\n"
       f"  {YML_TOTAL_LOCK_VARS}: {self.totalLockVars}\n"
     )
@@ -199,32 +224,27 @@ class UserConfig:
     return str(self)
 
 
-class Program:
-  def __init__(self, data, thread: Thread):
+class ProgramThread:
+  def __init__(self,
+      data: Any,
+      thread: AjitThread,
+  ):
     self.data = data
-    self.dir: str = ""
     self.thread = thread
+    self.callSeq = []
 
-    self.startAddr = 0
-    self.sizeInBytes = 0
     self.stackSizeInBytes = 0
     self.stackStartAddr = 0
-
-    self.initBuildDir = ""
-    self.finalBuildDir = ""
 
     self.initialize()
 
 
   def initialize(self):
-    self.dir = self.data[YML_PROG_DIR]
     # self.thread = Thread(self.data[YML_PROG_CORE], self.data[YML_PROG_THREAD])
     self.stackSizeInBytes = self.data[YML_PROG_STACK_SIZE] \
       if YML_PROG_STACK_SIZE in self.data else consts.DEFAULT_STACK_SIZE
 
-    self.dir = osp.abspath(self.dir)
-    self.initBuildDir = osp.join(self.dir, consts.INIT_BUILD_DIR_NAME)
-    self.finalBuildDir = osp.join(self.dir, consts.FINAL_BUILD_DIR_NAME)
+    self.callSeq = self.data[YML_PROG_CALL_SEQ]
 
 
   def isThread00(self) -> bool:
@@ -233,8 +253,9 @@ class Program:
 
 
   def __str__(self):
-    return f"(Program ({YML_PROG_DIR}: {self.dir}" \
-           f", {YML_PROG_THREAD}: {self.thread}))"
+    return f"(Program (CallSeq: {self.callSeq}" \
+           f", {YML_PROG_THREAD}: {self.thread}," \
+           f", {YML_PROG_STACK_SIZE}: {self.stackSizeInBytes}))"
 
 
   def __repr__(self):

@@ -20,6 +20,7 @@ AJIT_MAX_THREADS_PER_CORE = 2
 SETUP_THREADS_LABEL = "SETUP_THREADS"
 THREAD_SETUP_LABEL = "SETUP_THREAD_{core}_{thread}"
 THREAD_START_LABEL = "START_THREAD_{core}_{thread}"
+THREAD_CORTOS_LOOP_LABEL = "START_THREAD_{core}_{thread}_LOOP"
 
 EXEC_THREADS_LABEL = "EXECUTE_THREADS"
 THREAD_EXEC_LABEL = "EXECUTE_THREAD_{core}_{thread}"
@@ -77,7 +78,7 @@ DEFAULT_PROG_ELF_SIZE = 40960 # bytes
 
 INIT_BUILD_DIR_NAME: str = "build_init"
 FINAL_BUILD_DIR_NAME: str = "build_final"
-CORTOS_BUILD_DIR_NAME: str = "build_cortos"
+CORTOS_BUILD_DIR_NAME: str = "cortos_build"
 
 
 ELF_FILE_NAME: str = "main.elf"
@@ -109,3 +110,5 @@ RESULTS_FILE_NAME: str = "main.results"
 
 MMAP_LINE_REGEX: str = r"(?P<address>\w+)\s+(?P<byte>\w+)"
 MMAP_LINE_REGEX_COMPILED = re.compile(MMAP_LINE_REGEX)
+
+LOWER_STACK_BOUNDARY_ADDR: int = 0xF0000000

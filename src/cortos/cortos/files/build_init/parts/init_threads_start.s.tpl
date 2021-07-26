@@ -15,18 +15,14 @@ AJIT_START_THREADS:
   bnz {{confObj.genNextThreadLabel(prog.thread, forSetup=False)}}
   nop
 
-% if prog.isThread00():
-  call AJIT_CORTOS_THREAD_LOOP
+{{prog.thread.genLabelForCortosLoop()}}:
+
+% for calleeName in prog.callSeq:
+  call {{calleeName}}
   nop
-% else:
-  call {{prog.thread.genLabel(forStart=True)}}
-  nop
-{{prog.thread.genLabel(forStart=True)}}:
 % end
 
-  wr 0xa, %asr16
-
-  ba AJIT_HALT_OKAY
+  ba {{prog.thread.genLabelForCortosLoop()}}
   nop
 
 % end

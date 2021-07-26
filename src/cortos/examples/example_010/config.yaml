@@ -3,10 +3,10 @@
 Cores: 1  # must agree with the processor used
 ThreadsPerCore: 1  # must agree with the processor used
 
-Programs: # name all your programs
-  - Dir: .
-    Core: 0
-    Thread: 0
+Threads: # name all your programs
+  - Functions:
+      - ajit_cortos_entry_func_001
+      - ajit_cortos_entry_func_010
     StackSizeInKB: 1024
 
 

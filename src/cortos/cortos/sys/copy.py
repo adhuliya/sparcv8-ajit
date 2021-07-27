@@ -49,15 +49,14 @@ def copyAjitHeaderFile(
                          ))
 
 
-def copyLockFile(
+def copyLockFiles(
     confObj: config.UserConfig,
 ) -> None:
   with open(consts.LOCK_FILE_NAME, "w") as f:
-    f.write(
-      btl.template(f"{consts.LOCK_FILE_NAME}",
-                   lockArrayBaseAddr=hex(confObj.reservedMem.ajitLockVars.startAddr)
-      )
-    )
+    f.write(btl.template(f"{consts.LOCK_FILE_NAME}", confObj=confObj))
+
+  with open(consts.RES_LOCK_FILE_NAME, "w") as f:
+    f.write(btl.template(f"{consts.RES_LOCK_FILE_NAME}", confObj=confObj))
 
 
 def copyLinkerScriptFile(
@@ -117,3 +116,17 @@ def copyAjitQueueFiles(confObj: config.UserConfig) -> None:
 
   with open(consts.QUEUE_LOCK_FILE, "w") as f:
     f.write(btl.template(f"queue/{consts.QUEUE_LOCK_FILE}", confObj=confObj))
+
+
+def copyAjitBgetFiles(confObj: config.UserConfig) -> None:
+  with open(consts.AJIT_BGET_C_FILE, "w") as f:
+    f.write(btl.template(f"bget/{consts.AJIT_BGET_C_FILE}",
+                         confObj=confObj,
+                         bgetLockIndex=consts.BGET_RES_LOCK_INDEX))
+
+  with open(consts.BGET_C_FILE, "w") as f:
+    f.write(btl.template(f"bget/{consts.BGET_C_FILE}", confObj=confObj))
+
+  with open(consts.BGET_H_FILE, "w") as f:
+    f.write(btl.template(f"bget/{consts.BGET_H_FILE}", confObj=confObj))
+

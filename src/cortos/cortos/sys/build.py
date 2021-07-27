@@ -61,7 +61,9 @@ def copyBuildFiles(
   # copy cortos library support
   cpy.copyAjitHeaderFile(confObj)
   cpy.copyAjitQueueFiles(confObj)
-  cpy.copyLockFile(confObj)
+  cpy.copyLockFiles(confObj)
+  if confObj.addBget:
+    cpy.copyAjitBgetFiles(confObj)
   # cpy.copyQueueFiles(prog, confObj, init)
 
   # STEP 3: return back to the previous directory

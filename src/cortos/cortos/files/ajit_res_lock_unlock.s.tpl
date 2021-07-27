@@ -1,25 +1,26 @@
 ! see the reference file `cortos/res/lock_unlock.s`
+! lock unlock on reserved locking variables (used internally by AjitCoRTOS)
 
 % setdefault("lockArrayBaseAddr", "0x00000000")
 
-! lockArrayBaseAddr = {{confObj.reservedMem.ajitLockVars.startAddr}}
+! lockArrayBaseAddr = {{confObj.reservedMem.ajitResLockVars.startAddr}}
 
 ! Usage Note:
-! ajit_lock_acquire_buzy(<index: an-integer-index>);
+! ajit_res_lock_acquire_buzy(<index: an-integer-index>);
 !   CRITICAL_SECTION_CODE...
-! ajit_lock_release(<index: an-integer-index>);
+! ajit_res_lock_release(<index: an-integer-index>);
 ! ----or-------or--------
-! status = ajit_lock_acquire(<index: an-integer-index>);
+! status = ajit_res_lock_acquire(<index: an-integer-index>);
 ! if (status == 1) {
 !   CRITICAL_SECTION_CODE...
-!   ajit_lock_release(<index: an-integer-index>);
+!   ajit_res_lock_release(<index: an-integer-index>);
 ! }
 
-.global ajit_lock_acquire_buzy
-.global ajit_lock_acquire
-.global ajit_lock_release
+.global ajit_res_lock_acquire_buzy
+.global ajit_res_lock_acquire
+.global ajit_res_lock_release
 
-ajit_lock_acquire_buzy:
+ajit_res_lock_acquire_buzy:
   ! i0 contains an index to the correct locking variable
   save  %sp, -96, %sp       ! func prefix
 
@@ -44,7 +45,7 @@ out:
   nop                       ! func suffix
 
 
-ajit_lock_acquire:
+ajit_res_lock_acquire:
   ! Try to acquire the given lock id.
   ! if lock couldn't be acquired, it returns 0 (else 1)
   ! i0 contains an index to the correct locking variable
@@ -74,7 +75,7 @@ exit_ajit_lock_acquire:
   nop                       ! func suffix
 
 
-ajit_lock_release:
+ajit_res_lock_release:
   ! Release the given lock.
   ! i0 contains an index to the correct locking variable
   save  %sp, -96, %sp       ! func prefix

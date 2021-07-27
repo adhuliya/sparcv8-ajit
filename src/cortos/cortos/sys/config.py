@@ -29,7 +29,7 @@ YML_PROG_LOOP = "CortosLoop"
 
 YML_MEM_SIZE_IN_KB = "TotalMemoryInKB"
 YML_TOTAL_LOCK_VARS = "TotalLockVars"
-
+YML_ADD_BGET = "AddBget"
 
 
 class AjitThread:
@@ -100,13 +100,17 @@ class UserConfig:
     self.programs: List[ProgramThread] = []
     self.memSizeInKB = consts.DEFAULT_MEM_SIZE_IN_KB
     self.totalLockVars = consts.DEFAULT_LOCK_VARS
+    self.totalResLockVars = consts.DEFAULT_RES_LOCK_VARS
 
     self.totalQueues = consts.DEFAULT_TOTAL_QUEUES
     self.totalQueuesSize = consts.DEFAULT_TOTAL_QUEUE_SIZE
     self.totalQueueHeadersSize = self.totalQueues * consts.QUEUE_HEADER_SIZE
 
+    self.bgetMemSizeInBytes = consts.DEFAULT_BGET_MEM_SIZE_IN_BYTES
     self.totalSharedIntVars = consts.AJIT_TOTAL_SHARED_INT_VARS
-    self.reservedMem: Opt[ReservedMemoryRegions] = None
+    self.reservedMem: Opt[DataMemoryRegions] = None
+
+    self.addBget: bool = False
 
     self.initialize()
     print("AjitCoRTOS: Initialized user configuration details.")
@@ -137,9 +141,11 @@ class UserConfig:
                           if YML_TOTAL_LOCK_VARS in self.data
                           else consts.DEFAULT_LOCK_VARS)
 
-    self.reservedMem = ReservedMemoryRegions(self)
+    self.reservedMem = DataMemoryRegions(self)
 
     self.readProjectFiles()
+
+    self.addBget = True if YML_ADD_BGET in self.data else False
 
     # TODO: add queue related configuration.
 
@@ -291,7 +297,7 @@ class MemoryRegion(util.PrettyStr):
     return self.startAddr + self.sizeInBytes
 
 
-class ReservedMemoryRegions:
+class DataMemoryRegions:
   def __init__(self,
       confObj: UserConfig,
   ) -> None:
@@ -315,6 +321,11 @@ class ReservedMemoryRegions:
     self.sizeInBytes += self.ajitSharedIntVars.sizeInBytes
 
     startAddr = self.ajitSharedIntVars.getNextToLastByteAddr()
+    regionSize = confObj.totalResLockVars * 4
+    self.ajitResLockVars = MemoryRegion(startAddr, regionSize)
+    self.sizeInBytes += self.ajitResLockVars.sizeInBytes
+
+    startAddr = self.ajitResLockVars.getNextToLastByteAddr()
     regionSize = confObj.totalLockVars * 4
     self.ajitLockVars = MemoryRegion(startAddr, regionSize)
     self.sizeInBytes += self.ajitLockVars.sizeInBytes
@@ -333,6 +344,12 @@ class ReservedMemoryRegions:
     regionSize = confObj.totalQueuesSize
     self.ajitQueues = MemoryRegion(startAddr, regionSize)
     self.sizeInBytes += self.ajitQueues.sizeInBytes
+
+    # a separate bget area
+    startAddr = self.ajitQueues.getNextToLastByteAddr()
+    regionSize = confObj.bgetMemSizeInBytes
+    self.ajitBgetMemory = MemoryRegion(startAddr, regionSize)
+    self.sizeInBytes += self.ajitBgetMemory.sizeInBytes
 
 
 def readYamlConfig(yamlFileName: util.FileNameT) -> UserConfig:

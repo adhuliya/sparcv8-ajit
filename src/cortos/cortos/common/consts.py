@@ -74,6 +74,7 @@ DEFAULT_MAX_QUEUES_POSSIBLE = AJIT_ALL_QUEUES_SIZE // DEFAULT_TOTAL_QUEUE_SIZE
 
 DEFAULT_MEM_SIZE_IN_KB = 100 * 1024
 DEFAULT_LOCK_VARS = 32
+DEFAULT_RES_LOCK_VARS = 32
 
 DEFAULT_STACK_SIZE = 8192  # bytes
 DEFAULT_PROG_ELF_SIZE = 40960 # bytes
@@ -92,14 +93,13 @@ PAGE_TABLE_FILE_NAME: str = "setup_page_tables.s"
 VMAP_FILE_NAME: str = "vmap.txt"
 AJIT_HEADER_FILE_NAME: str = "ajit_cortos.h"
 LOCK_FILE_NAME: str = "ajit_lock_unlock.s"
+RES_LOCK_FILE_NAME: str = "ajit_res_lock_unlock.s"
 
 LINKER_SCRIPT_FILE_NAME: str = "LinkerScript.txt"
 LINKER_SCRIPT_00_FILE_NAME: str = "LinkerScript00.txt"
 LINKER_SCRIPT_XX_FILE_NAME: str = "LinkerScriptXX.txt"
 
-INIT_FILE_NAME: str = "init.s"
 INIT_00_FILE_NAME: str = "init_00.s"
-
 
 AJIT_ENTRY_FUNC_REGEX: str = r"void\s+(?P<ajit_entry>ajit_entry_func_\w+)"
 # GREP_COMMAND: List[str] = ["grep", "-R", "'ajit_entry_'"]
@@ -119,3 +119,12 @@ LOWER_STACK_BOUNDARY_ADDR: int = 0xF0000000
 
 QUEUE_C_FILE: str = "ajit_msg_queue.c"
 QUEUE_LOCK_FILE: str = "ajit_q_lock_unlock.s"
+
+AJIT_BGET_C_FILE: str = "ajit_bget.c"
+BGET_C_FILE: str = "bget.c"
+BGET_H_FILE: str = "bget.h"
+
+
+DEFAULT_BGET_MEM_SIZE_IN_BYTES: int = 1024 * 100   # bytes
+
+BGET_RES_LOCK_INDEX: int = 0

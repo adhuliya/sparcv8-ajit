@@ -15,6 +15,12 @@ AJIT_START_THREADS:
   bnz {{confObj.genNextThreadLabel(prog.thread, forSetup=False)}}
   nop
 
+% if prog.isThread00() and confObj.addBget:
+  ! acquire memory for bget just once
+  call __ajit_bpool
+  nop
+% end
+
 {{prog.thread.genLabelForCortosLoop()}}:
 
 % for calleeName in prog.callSeq:

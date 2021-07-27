@@ -16,6 +16,9 @@ AJIT_RESERVED_SPACE: .skip {{r.ajitReserved.sizeInBytes}} ! size in multiples of
 AJIT_INT_ARRAY_BASE: .skip {{r.ajitSharedIntVars.sizeInBytes}} ! size in multiples of 8
 
 .align 8
+AJIT_RES_LOCK_VARS_BASE: .skip {{r.ajitLockVars.sizeInBytes}} ! size in multiples of 8
+
+.align 8
 AJIT_LOCK_VARS_BASE: .skip {{r.ajitLockVars.sizeInBytes}} ! size in multiples of 8
 
 .align 8
@@ -33,6 +36,23 @@ AJIT_INIT_TO_ZERO_END:
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! BLOCK END  : allocate_memory_for_queue_lockvars_etc
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+% if confObj.addBget:
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! BLOCK START: ajit_bget_memory_area
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+.align 8
+AJIT_BGET_MEM_BASE: .skip {{r.ajitBgetMemory.sizeInBytes}} ! size in multiples of 8
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! BLOCK START: ajit_bget_memory_area
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+%end
+
+
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! BLOCK START: init_allocated_memory_to_zero

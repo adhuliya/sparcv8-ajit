@@ -1,8 +1,9 @@
+# building bget (just for reference)
 
 CC = cc
 COPTS = -O
 
-bget:	bget.c bget.h
+bget:	bget.c.tpl bget.h.tpl
 	$(CC) $(COPTS) bget.c -o bget -lm
 	rm -f core
 

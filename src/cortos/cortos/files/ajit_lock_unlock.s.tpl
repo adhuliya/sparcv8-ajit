@@ -1,8 +1,6 @@
 ! see the reference file `cortos/res/lock_unlock.s`
 
-% setdefault("lockArrayBaseAddr", "0x00000000")
-
-! lockArrayBaseAddr = {{confObj.reservedMem.ajitLockVars.startAddr}}
+% lockArrayBaseAddr = confObj.reservedMem.ajitLockVars.startAddr
 
 ! Usage Note:
 ! ajit_lock_acquire_buzy(<index: an-integer-index>);

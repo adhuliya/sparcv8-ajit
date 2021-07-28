@@ -35,7 +35,8 @@ WIMSET:
   set	trap_table_base, %l0
   wr	%l0, 0x0, %tbr
 
-  ba INIT_AJIT_ALLOCATE_AREA_TO_ZERO
+  ! jump to skip data area ahead
+  call INIT_AJIT_ALLOCATE_AREA_TO_ZERO
   nop
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

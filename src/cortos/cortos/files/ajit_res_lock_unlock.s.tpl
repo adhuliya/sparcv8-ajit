@@ -1,9 +1,7 @@
 ! see the reference file `cortos/res/lock_unlock.s`
 ! lock unlock on reserved locking variables (used internally by AjitCoRTOS)
 
-% setdefault("lockArrayBaseAddr", "0x00000000")
-
-! lockArrayBaseAddr = {{confObj.reservedMem.ajitResLockVars.startAddr}}
+% lockArrayBaseAddr = confObj.reservedMem.ajitResLockVars.startAddr
 
 ! Usage Note:
 ! ajit_res_lock_acquire_buzy(<index: an-integer-index>);

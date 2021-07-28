@@ -50,7 +50,7 @@ AJIT_BGET_MEM_BASE: .skip {{r.ajitBgetMemory.sizeInBytes}} ! size in multiples o
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! BLOCK START: ajit_bget_memory_area
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-%end
+% end
 
 
 
@@ -70,11 +70,11 @@ nop
 
   ! set the base address
   sethi %hi(AJIT_INIT_TO_ZERO_START}), %l0
-  or %g0, %lo(AJIT_INIT_TO_ZERO_START), %l0
+  or %l0, %lo(AJIT_INIT_TO_ZERO_START), %l0
 
   ! set the first illegal address
   sethi %hi(AJIT_INIT_TO_ZERO_END), %l2
-  or %g0, %lo(AJIT_INIT_TO_ZERO_END), %l2
+  or %l2, %lo(AJIT_INIT_TO_ZERO_END), %l2
   sub %l2, 0x4, %l2         ! address of last valid word location
 
 ! loop to store zeros word by word (assumes size is at least 4 bytes)

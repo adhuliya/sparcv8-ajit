@@ -134,6 +134,7 @@ typedef long ajit_bufsize;
 void __ajit_bpool(void);
 
 // get/allocate a memory of `size` bytes
+// Note: Some internal space is wasted to make size align to 2^3 boundary.
 void *ajit_bget(ajit_bufsize size);
 
 // release/free an allocated memory

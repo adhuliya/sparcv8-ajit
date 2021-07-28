@@ -28,35 +28,34 @@ void ajit_res_lock_release(int index);
 ////////////////////////////////////////////////////////////////////////////////
 
 typedef union _AjitMessage32Bytes {
-  char arr[32];
+  char charArr[32];
   int intArr[8];
+  float floatArr[8];
+  double doubleArr[4];
 
   struct {
-    int code_a;
-    char arr_a[28];
+    int a_code;
+    void *a_ptr; // pointer to a location
+    int *a_size; // in bytes
+    int a_intArr[5];
   };
 
   struct {
-    int code_b;
-    double d1;
-    double d2;
+    int b_code;
+    int b_intArr[7];
   };
 
   struct {
-    int code_c;
-    union _AjitMessage32Bytes *ptr;
+    int c_code;
+    char c_charArr[28];
   };
 
   struct {
-    int code_d;
-    int val[7];
-  };
-
-  struct { // for Ajit's Queue Header
-    int syncLock;
-    int totalMsgs;
-    int readIndex;
-    int writeIndex;
+    int d_code;
+    int d_val1;
+    double d_d1;
+    double d_d2;
+    double d_d3;
   };
 
 } AjitMessage;
@@ -66,7 +65,7 @@ typedef struct _AjitQueueHeader {
   int totalMsgs; // current total messages
   int readIndex;
   int writeIndex;
-  int __;
+  int __; // to pad 4 bytes to make it 16 bytes.
 } AjitQueueHeader;
 
 /*

@@ -64,6 +64,10 @@ Objective: To be able to run N programs on X threads with M shared queues.
             scheduler at specific program points)
 
 
+Update:
+Reached Stage 6 (by skipping stage 3.5)
+Stage 6.5 is for a later stage. For now stage 6 suffices for our work.
+
 
 Memory Layout Notes
 -------------------------

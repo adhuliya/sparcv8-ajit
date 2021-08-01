@@ -21,20 +21,30 @@ AJIT_START_THREADS:
   nop
 % end
 
+!!!!!!! BLOCK START: Call_functions_sequentially.
+% for calleeName in prog.initCallSeq:
+  call {{calleeName}}
+  nop
+% end
+!!!!!!! BLOCK END  : Call_functions_sequentially.
+
+
+!!!!!!! BLOCK START: Call_functions_in_a_loop.
 {{prog.thread.genLabelForCortosLoop()}}:
 
-% for calleeName in prog.callSeq:
+% for calleeName in prog.loopCallSeq:
   call {{calleeName}}
   nop
 % end
 
-% if prog.cortosLoop:
+% if len(prog.loopCallSeq) > 0:
   ba {{prog.thread.genLabelForCortosLoop()}}
   nop
-% else:
-  ba AJIT_HALT_OKAY
-  nop
 % end
+!!!!!!! BLOCK END  : Call_functions_in_a_loop.
+
+  ba AJIT_HALT_OKAY  ! in case of cortos loop, this is unreachable
+  nop
 
 % end
 

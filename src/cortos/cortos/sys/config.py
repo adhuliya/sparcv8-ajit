@@ -24,8 +24,8 @@ YML_PROG_DIR = "Dir"
 YML_PROG_CORE = "Core"
 YML_PROG_THREAD = "Thread"
 YML_PROG_STACK_SIZE = "StackSizeInBytes"
-YML_PROG_CALL_SEQ = "CortosCallSeq"
-YML_PROG_LOOP = "CortosLoop"
+YML_PROG_INIT_CALL_SEQ = "CortosInitCalls"
+YML_PROG_LOOP_CALL_SEQ = "CortosLoopCalls"
 
 YML_MEM_SIZE_IN_KB = "TotalMemoryInKB"
 YML_TOTAL_LOCK_VARS = "TotalLockVars"
@@ -247,8 +247,8 @@ class ProgramThread:
   ):
     self.data = data
     self.thread = thread
-    self.callSeq = []
-    self.cortosLoop = True
+    self.initCallSeq = []
+    self.loopCallSeq = []
 
     self.stackSizeInBytes = 0
     self.stackStartAddr = 0
@@ -261,9 +261,15 @@ class ProgramThread:
     self.stackSizeInBytes = self.data[YML_PROG_STACK_SIZE] \
       if YML_PROG_STACK_SIZE in self.data else consts.DEFAULT_STACK_SIZE
 
-    self.callSeq = self.data[YML_PROG_CALL_SEQ]
-    self.cortosLoop = self.data[YML_PROG_LOOP] \
-      if YML_PROG_LOOP in self.data else True
+    self.initCallSeq = self.data[YML_PROG_INIT_CALL_SEQ] \
+      if YML_PROG_INIT_CALL_SEQ in self.data else []
+
+    self.loopCallSeq = self.data[YML_PROG_LOOP_CALL_SEQ] \
+      if YML_PROG_LOOP_CALL_SEQ in self.data else []
+
+    if not self.initCallSeq and not self.loopCallSeq:
+      print("AjitCoRTOS: ERROR: No function to call.")
+      exit(1)
 
 
   def isThread00(self) -> bool:

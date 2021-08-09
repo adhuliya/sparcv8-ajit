@@ -5,7 +5,7 @@
 """
 Routines to copy various files.
 
-All the routines assume that the current directory is the destination.
+All the routines assume that the current working directory is the destination.
 """
 
 import os.path as osp

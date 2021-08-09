@@ -6,6 +6,7 @@
 Contains global constants in the project.
 """
 import re
+from enum import Enum
 from typing import List
 
 CONFIG_FILE_DEFAULT_NAME = "config.yaml"
@@ -128,3 +129,15 @@ BGET_H_FILE: str = "bget.h"
 DEFAULT_BGET_MEM_SIZE_IN_BYTES: int = 1024 * 100   # bytes
 
 BGET_RES_LOCK_INDEX: int = 0
+
+
+# TRACE < DEBUG < INFO < ERROR < CRITICAL
+class LogLevel(Enum):
+  TRACE = "TRACE"
+  DEBUG = "DEBUG"
+  INFO = "INFO"
+  ERROR = "ERROR"
+  CRITICAL = "CRITICAL"
+
+DEFAULT_LOG_LEVEL: LogLevel = LogLevel.INFO
+

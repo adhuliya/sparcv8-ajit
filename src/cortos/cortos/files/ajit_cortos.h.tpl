@@ -153,7 +153,7 @@ void ajit_brel(void *buf);
 % for i in range(intVarsMemRegion.sizeInBytes):
 % if i % 4 == 0:
 % addr = intVarsMemRegion.startAddr + i
-#define SHARED_INT_ADDR_{{count}} {{addr}}
+#define SHARED_INT_ADDR_{{count}} {{hex(addr)}}  // Decimal: {{addr}}
 % count += 1
 % end
 % end
@@ -161,4 +161,18 @@ void ajit_brel(void *buf);
 // BLOCK END  : ajit_shared_integers_addresses
 ////////////////////////////////////////////////////////////////////////////////
 
+////////////////////////////////////////////////////////////////////////////////
+// BLOCK START: ajit_debug_routines
+////////////////////////////////////////////////////////////////////////////////
+
+// exits after putting code into asr16.
+// Any non-zero code is considered error.
+// Any error code >= 4096 is reserved for CoRTOS.
+void ajit_exit(unsigned int error_code);
+
+// TODO: add debug macros here.
+
+////////////////////////////////////////////////////////////////////////////////
+// BLOCK END  : ajit_debug_routines
+////////////////////////////////////////////////////////////////////////////////
 #endif

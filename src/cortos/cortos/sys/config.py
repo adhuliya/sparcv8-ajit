@@ -31,6 +31,8 @@ YML_MEM_SIZE_IN_KB = "TotalMemoryInKB"
 YML_TOTAL_LOCK_VARS = "TotalLockVars"
 YML_ADD_BGET = "AddBget"
 
+YML_LOG_LEVEL = "LogLevel"
+
 
 class AjitThread:
   def __init__(self,
@@ -111,6 +113,7 @@ class UserConfig:
     self.reservedMem: Opt[DataMemoryRegions] = None
 
     self.addBget: bool = False
+    self.logLevel: consts.LogLevel = consts.DEFAULT_LOG_LEVEL
 
     self.initialize()
     print("AjitCoRTOS: Initialized user configuration details.")
@@ -146,6 +149,11 @@ class UserConfig:
     self.readProjectFiles()
 
     self.addBget = True if YML_ADD_BGET in self.data else False
+
+    logLevelStr: Opt[str] = self.data[YML_LOG_LEVEL] \
+      if YML_LOG_LEVEL in self.data else None
+    self.logLevel = consts.LogLevel[logLevelStr.upper()] \
+      if logLevelStr else consts.DEFAULT_LOG_LEVEL
 
     # TODO: add queue related configuration.
 

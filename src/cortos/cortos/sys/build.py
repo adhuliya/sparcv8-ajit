@@ -112,7 +112,7 @@ def computeStackAddr(confObj: config.UserConfig) -> None:
     stackSize = prog.stackSizeInBytes if prog.stackSizeInBytes\
       else consts.DEFAULT_STACK_SIZE
     lastFreeAddr += stackSize
-    lastFreeAddr = util.alignAddress(lastFreeAddr)
+    lastFreeAddr = util.alignAddress(lastFreeAddr, align=4096)
     prog.stackStartAddr = lastFreeAddr
 
 

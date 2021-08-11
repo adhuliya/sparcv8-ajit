@@ -1,8 +1,8 @@
 % qHdrs = confObj.reservedMem.ajitQueueHeaders
 % qQ = confObj.reservedMem.ajitQueues
 
-#ifndef AJIT_CORTOS_H
-#define AJIT_CORTOS_H
+#ifndef CORTOS_H
+#define CORTOS_H
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -20,33 +20,33 @@
 #define CORTOS_LOG_LEVEL {{confObj.logLevel.value}}
 
 % if LogLevel.TRACE.value >= confObj.logLevel.value:
-#define CORTOS_TRACE(X) cortos_printf("CoRTOS:LOG: TRACE: " X)
+#define CORTOS_TRACE(X) cortos_printf("CoRTOS:LOG: TRACE: " X);
 % else:
-#define CORTOS_TRACE(X)
+#define CORTOS_TRACE(X)     /*blank*/
 %
 
 % if LogLevel.DEBUG.value >= confObj.logLevel.value:
-#define CORTOS_DEBUG(X) cortos_printf("CoRTOS:LOG: DEBUG: " X)
+#define CORTOS_DEBUG(X) cortos_printf("CoRTOS:LOG: DEBUG: " X);
 % else:
-#define CORTOS_DEBUG(X)
+#define CORTOS_DEBUG(X)     /*blank*/
 %
 
 % if LogLevel.INFO.value >= confObj.logLevel.value:
-#define CORTOS_INFO(X) cortos_printf("CoRTOS:LOG: INFO: " X)
+#define CORTOS_INFO(X) cortos_printf("CoRTOS:LOG: INFO: " X);
 % else:
-#define CORTOS_INFO(X)
+#define CORTOS_INFO(X)      /*blank*/
 %
 
 % if LogLevel.ERROR.value >= confObj.logLevel.value:
-#define CORTOS_ERROR(X) cortos_printf("CoRTOS:LOG: ERROR: " X)
+#define CORTOS_ERROR(X) cortos_printf("CoRTOS:LOG: ERROR: " X);
 % else:
-#define CORTOS_ERROR(X)
+#define CORTOS_ERROR(X)     /*blank*/
 %
 
 % if LogLevel.CRITICAL.value >= confObj.logLevel.value:
-#define CORTOS_CRITICAL(X) cortos_printf("CoRTOS:LOG: CRITICAL: " X)
+#define CORTOS_CRITICAL(X) cortos_printf("CoRTOS:LOG: CRITICAL: " X);
 % else:
-#define CORTOS_CRITICAL(X)
+#define CORTOS_CRITICAL(X)  /*blank*/
 %
 
 ////////////////////////////////////////////////////////////////////////////////

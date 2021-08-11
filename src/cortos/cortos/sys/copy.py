@@ -103,12 +103,19 @@ def copyRunCModelFile(confObj: config.UserConfig) -> None:
 
 
 def copyResultsFile(confObj: config.UserConfig) -> None:
+  # Get user defined results
+  userResults = ""
   resFilePath = osp.join(confObj.rootDir, confObj.resultsFile)
   if osp.exists(resFilePath):
-    util.runCommand(f"cp {resFilePath} .")
-  else:
-    with open(consts.DEFAULT_RESULTS_FILE_NAME, "w") as f:
-      f.write("")
+    userResults = f"{util.readFromFile(resFilePath).strip()}\n"
+
+  # Add results to append
+  appendResults = btl.template(f"{consts.DEFAULT_RESULTS_FILE_NAME}",
+                               confObj=confObj)
+
+  with open(consts.DEFAULT_RESULTS_FILE_NAME, "w") as f:
+    f.write(userResults)
+    f.write(appendResults)
 
 
 def copyCortosQueueFiles(confObj: config.UserConfig) -> None:

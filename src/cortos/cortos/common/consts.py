@@ -155,4 +155,3 @@ def getLogLevel(level: int) -> LogLevel:
     return LogLevel(LogLevel.CRITICAL.value)
   else:
     return LogLevel(level10)
-

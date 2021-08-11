@@ -12,11 +12,17 @@ Install the elftools package:
     pip3 install pyelftools;
 
 """
-
+import os
+from typing import Tuple
 
 from elftools.elf.elffile import ELFFile
 import sys
 from io import StringIO
+from cortos.common import util, consts
+
+
+# compute size of an elf file
+CMD_ELF_SIZE: str = "sparc-linux-size {name}"
 
 
 def getPtLoadSectionsNames(elfFile: str):
@@ -83,6 +89,24 @@ def getPtLoadSectionsSize(elfFile: str):
 
   f.close() # at END only
   return totalSize
+
+
+def getTextAndDataSize(elfFileName: str) -> Tuple[int, int]:
+  """Returns number of bytes in text and data section of the elf.
+  This function uses `size` command.
+  Example output of the size command.
+
+      size a.out;
+        text    data     bss     dec     hex filename
+        1623     600       8    2231     8b7 a.out
+  """
+  output = util.runCommandGetOutput(CMD_ELF_SIZE.format(name=elfFileName))
+  secondLine = output.split(os.linesep)[1]
+
+  words = secondLine.split()
+  #                        text      ,    data       +     bss
+  textSize, dataSize = int(words[0]), int(words[1]) + int(words[2])
+  return textSize, dataSize # in bytes
 
 
 # def getPtLoadSectionsSize(elfFile: str):

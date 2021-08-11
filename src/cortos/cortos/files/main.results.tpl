@@ -1,2 +1,4 @@
-asr29=0x50520000 core 0 thread 0
-asr16=0x0        core 0 thread 0
+% for prog in confObj.programs:
+asr29={{prog.thread.getIdHex()}} core {{prog.thread.cid}} thread {{prog.thread.tid}}
+asr16=0x0        core {{prog.thread.cid}} thread {{prog.thread.tid}}
+% end

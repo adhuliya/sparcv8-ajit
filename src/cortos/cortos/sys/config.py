@@ -34,7 +34,7 @@ YML_ADD_BGET = "AddBget"
 YML_LOG_LEVEL = "LogLevel"
 
 
-class AjitThread:
+class CortosThread:
   def __init__(self,
       cid: int,
       tid: int,
@@ -77,7 +77,7 @@ class AjitThread:
 
 
   def __lt__(self, other):
-    if not isinstance(other, AjitThread):
+    if not isinstance(other, CortosThread):
       raise ValueError(f"{other}")
 
     return self.cid <= other.cid and self.tid <= other.tid
@@ -129,7 +129,7 @@ class UserConfig:
       if YML_THREADS in self.data else 1
 
     self.programs = []
-    thread: Opt[AjitThread] = AjitThread(0, 0)
+    thread: Opt[CortosThread] = CortosThread(0, 0)
     for progData in self.data[YML_PROG_THREADS]:
       if thread is None:
         print(f"CoRTOS: ERROR: programs are more than available h/w threads.")
@@ -192,7 +192,7 @@ class UserConfig:
 
 
   def nextThreadExists(self,
-      thread: AjitThread,
+      thread: CortosThread,
   ) -> bool:
     """Given a `Thread` object, it returns True if there is another
     thread in the sequence.
@@ -210,20 +210,20 @@ class UserConfig:
 
 
   def getNextThread(self,
-      thread: AjitThread,
-  ) -> Opt[AjitThread]:
+      thread: CortosThread,
+  ) -> Opt[CortosThread]:
     tid = (thread.tid + 1) % self.threadsPerCoreCount
     if tid != 0:
-      return AjitThread(thread.cid, tid) # next thread in the same core
+      return CortosThread(thread.cid, tid) # next thread in the same core
     else:
       cid = (thread.cid + 1) % self.coreCount
       if cid != 0:
-        return AjitThread(cid, 0) # thread 0 in the next higher core
+        return CortosThread(cid, 0) # thread 0 in the next higher core
     return None
 
 
   def genNextThreadLabel(self,
-      thread: AjitThread,
+      thread: CortosThread,
       forSetup: bool = True,
   ) -> str:
     """Returns the next thread label to jump to or the `consts.HALT_LABEL`."""
@@ -252,7 +252,7 @@ class UserConfig:
 class ProgramThread:
   def __init__(self,
       data: Any,
-      thread: AjitThread,
+      thread: CortosThread,
   ):
     self.data = data
     self.thread = thread
@@ -287,10 +287,12 @@ class ProgramThread:
 
 
   def __str__(self):
-    return f"(Program (CallSeq: {self.callSeq}" \
-           f", {YML_PROG_THREAD}: {self.thread}" \
+    return f"(Program (" \
+           f"{YML_PROG_THREAD}: {self.thread}" \
            f", {YML_PROG_STACK_SIZE}: {self.stackSizeInBytes})" \
-           f", {YML_PROG_LOOP}: {self.cortosLoop})"
+           f", stackStartAddr: {self.stackStartAddr})" \
+           f", {YML_PROG_INIT_CALL_SEQ}: {self.initCallSeq})" \
+           f", {YML_PROG_LOOP_CALL_SEQ}: {self.loopCallSeq})"
 
 
   def __repr__(self):

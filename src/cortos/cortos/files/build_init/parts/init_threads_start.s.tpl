@@ -3,7 +3,7 @@
 ! BLOCK START: threads_user_logic
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-AJIT_START_THREADS:
+CORTOS_START_THREADS:
 
 % for prog in confObj.programs:
 
@@ -17,7 +17,7 @@ AJIT_START_THREADS:
 
 % if prog.isThread00() and confObj.addBget:
   ! acquire memory for bget just once
-  call __ajit_bpool
+  call __cortos_bpool
   nop
 % end
 
@@ -43,7 +43,7 @@ AJIT_START_THREADS:
 % end
 !!!!!!! BLOCK END  : Call_functions_in_a_loop.
 
-  ba AJIT_HALT_OKAY  ! in case of cortos loop, this is unreachable
+  ba CORTOS_HALT_OKAY  ! in case of cortos loop, this is unreachable
   nop
 
 % end

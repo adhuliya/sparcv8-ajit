@@ -9,14 +9,14 @@
 
 int __mem_allocated = 0;
 
-void __ajit_bpool() {
+void __cortos_bpool() {
   if (__mem_allocated == 0) {
     // this if condition enters only once.
-    ajit_res_lock_acquire_buzy({{bgetLockIndex}});
+    cortos_res_lock_acquire_buzy(RES_LOCK_INDEX_BGET);
 
     bpool({{baseAddr}}, {{memSize}});
 
-    ajit_res_lock_release({{bgetLockIndex}});
+    cortos_res_lock_release(RES_LOCK_INDEX_BGET);
 
     __mem_allocated = 1;
   }
@@ -24,24 +24,24 @@ void __ajit_bpool() {
 
 
 // get/allocate a memory of `size` bytes
-void *ajit_bget(ajit_bufsize size) {
+void *cortos_bget(ajit_bufsize size) {
   void *base = 0;
-  ajit_res_lock_acquire_buzy({{bgetLockIndex}});
+  cortos_res_lock_acquire_buzy(RES_LOCK_INDEX_BGET);
 
   base = bget(size);
 
-  ajit_res_lock_release({{bgetLockIndex}});
+  cortos_res_lock_release(RES_LOCK_INDEX_BGET);
 
   return base;
 }
 
 
 // release/free an allocated memory chunk
-void ajit_brel(void *buf) {
-  ajit_res_lock_acquire_buzy({{bgetLockIndex}});
+void cortos_brel(void *buf) {
+  cortos_res_lock_acquire_buzy(RES_LOCK_INDEX_BGET);
 
   brel(buf);
 
-  ajit_res_lock_release({{bgetLockIndex}});
+  cortos_res_lock_release(RES_LOCK_INDEX_BGET);
 }
 

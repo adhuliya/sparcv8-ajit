@@ -5,12 +5,12 @@
 
 .section .text.ajitstart.cortosloop
 
-.global AJIT_CORTOS_THREAD_LOOP
+.global CORTOS_THREAD_LOOP
 
 
 ! start label of the cortos routine
-! this starts at an an address decided by AjitCoRtos
-AJIT_CORTOS_THREAD_LOOP:
+! this starts at an an address decided by CoRtos
+CORTOS_THREAD_LOOP:
 
   ! call next function to execute
   call ajit_entry_func_001
@@ -24,7 +24,7 @@ AJIT_CORTOS_THREAD_LOOP:
 
 
   ! loop to the start
-  ba AJIT_CORTOS_THREAD_LOOP
+  ba CORTOS_THREAD_LOOP
   nop
 
 

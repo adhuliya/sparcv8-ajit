@@ -1,7 +1,7 @@
 Contains build scripts to build
 user's `main.c` file.
 
-AjitCoRtos builds the user program twice.
+CoRtos builds the user program twice.
 The first static build is to check the size of
 the generated elf. Using the size of the elf
 generated in the first build, it is rebuilt

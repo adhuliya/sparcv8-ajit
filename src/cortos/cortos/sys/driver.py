@@ -57,7 +57,7 @@ def printConfigFile(configFileName: FileNameT) -> None:
 
 
 def buildProject(args: argparse.Namespace) -> None:
-  """Builds the project for Ajit Processor/CoRtos."""
+  """Builds the project for Ajit Processor/CoRTOS."""
   configFileName = args.configFileName
   confObj = config.readYamlConfig(configFileName)
   build.buildProject(confObj)
@@ -65,7 +65,7 @@ def buildProject(args: argparse.Namespace) -> None:
 
 def getParser() -> argparse.ArgumentParser:
   # process the command line arguments
-  parser = argparse.ArgumentParser(description="AjitCoRtos")
+  parser = argparse.ArgumentParser(description="CoRTOS")
   subParser = parser.add_subparsers(title="subcommands", dest="subcommand",
                                     help="use ... <subcommand> -h     for more help")
   subParser.required = True
@@ -80,7 +80,7 @@ def getParser() -> argparse.ArgumentParser:
                       help="Config file path.")
 
   # subcommand: print
-  subpar = subParser.add_parser("print", help="Print a specific detail")
+  subpar = subParser.add_parser("show", help="Show a specific detail")
   subpar.set_defaults(func=printDetail)
   # subpar.add_argument('-l', '--logging', action='count', default=0)
   subpar.add_argument("object",

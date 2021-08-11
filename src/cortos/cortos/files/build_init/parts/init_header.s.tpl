@@ -3,7 +3,7 @@
 !   Code executed across all threads, but
 !   only linked to the source of thread (0,0)
 !   NOTE: The size of this header is manually computed
-!         and stored in consts.AJIT_INIT_HEADER_SIZE vairable.
+!         and stored in consts.INIT_HEADER_SIZE vairable.
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 !
@@ -36,7 +36,7 @@ WIMSET:
   wr	%l0, 0x0, %tbr
 
   ! jump to skip data area ahead
-  call INIT_AJIT_ALLOCATE_AREA_TO_ZERO
+  call INIT_CORTOS_ALLOCATE_AREA_TO_ZERO
   nop
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

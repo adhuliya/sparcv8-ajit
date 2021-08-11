@@ -3,12 +3,12 @@
 ! BLOCK START: common_init_footer
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-AJIT_HALT_ERROR:
+CORTOS_HALT_ERROR:
   ! write some value into asr15 to close.
   wr 0xd, %asr15
   ta 0
 
-AJIT_HALT_OKAY:
+CORTOS_HALT_OKAY:
   ! write some value into asr15 to close.
   wr 0xa, %asr15
   ta 0

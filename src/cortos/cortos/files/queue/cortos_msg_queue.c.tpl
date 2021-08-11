@@ -1,18 +1,18 @@
 
-// needs linking with ajit_q_lock_unlock.s
+// needs linking with cortos_q_lock_unlock.s
 
 #include "ajit_cortos.h"
 
 
-int writeAjitMessage(int queueId, AjitMessage *msg) {
+int writeCortosMessage(int queueId, CortosMessage *msg) {
   int status = 0; // 1 = msg written
-  AjitQueueHeader *header = 0;
-  AjitMessage *dest = 0;
+  CortosQueueHeader *header = 0;
+  CortosMessage *dest = 0;
 
   header = GET_Q_HEADER_ADDR(queueId);
-  dest = GET_Q_ADDR(queueId);
+  dest = GET_Q_ADDR(queueId)ajit;
 
-  ajit_q_lock_acquire_buzy(queueId);
+  cortos_q_lock_acquire_buzy(queueId);
 
   // critical section
   int totalMsgs = header->totalMsgs;
@@ -32,20 +32,20 @@ int writeAjitMessage(int queueId, AjitMessage *msg) {
     status = 1;
   }
 
-  ajit_q_lock_release(queueId);
+  cortos_q_lock_release(queueId);
   return status;
 }
 
 
-int readAjitMessage(int queueId, AjitMessage *msg) {
+int readCortosMessage(int queueId, CortosMessage *msg) {
   int status = 0; // 1 = msg written
-  AjitQueueHeader *header = 0;
-  AjitMessage *dest = 0;
+  CortosQueueHeader *header = 0;
+  CortosMessage *dest = 0;
 
   header = GET_Q_HEADER_ADDR(queueId);
   dest = GET_Q_ADDR(queueId);
 
-  ajit_q_lock_acquire_buzy(queueId);
+  cortos_q_lock_acquire_buzy(queueId);
 
   // critical section
   int totalMsgs = header->totalMsgs;
@@ -65,7 +65,7 @@ int readAjitMessage(int queueId, AjitMessage *msg) {
     status = 1;
   }
 
-  ajit_q_lock_release(queueId);
+  cortos_q_lock_release(queueId);
   return status;
 }
 

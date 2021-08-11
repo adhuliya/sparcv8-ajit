@@ -109,16 +109,17 @@ class UserConfig:
     self.totalQueueHeadersSize = self.totalQueues * consts.QUEUE_HEADER_SIZE
 
     self.bgetMemSizeInBytes = consts.DEFAULT_BGET_MEM_SIZE_IN_BYTES
-    self.totalSharedIntVars = consts.AJIT_TOTAL_SHARED_INT_VARS
+    self.totalSharedIntVars = consts.TOTAL_SHARED_INT_VARS
     self.reservedMem: Opt[DataMemoryRegions] = None
 
     self.addBget: bool = False
     self.logLevel: consts.LogLevel = consts.DEFAULT_LOG_LEVEL
+    self.enableSerial: bool = consts.DEFAULT_ENABLE_SERIAL_DEVICE
 
     self.initialize()
-    print("AjitCoRTOS: Initialized user configuration details.")
+    print("CoRTOS: Initialized user configuration details.")
     self.verify()
-    print("AjitCoRTOS: Verified user configuration details.")
+    print("CoRTOS: Verified user configuration details.")
 
 
   def initialize(self):
@@ -131,7 +132,7 @@ class UserConfig:
     thread: Opt[AjitThread] = AjitThread(0, 0)
     for progData in self.data[YML_PROG_THREADS]:
       if thread is None:
-        print(f"AjitCoRTOS: ERROR: programs are more than available h/w threads.")
+        print(f"CoRTOS: ERROR: programs are more than available h/w threads.")
         exit(1)
       self.programs.append(ProgramThread(progData, thread))
       thread = self.getNextThread(thread)
@@ -169,18 +170,18 @@ class UserConfig:
 
   def verify(self) -> 'UserConfig':
     """Verify this object's values"""
-    assert self.coreCount <= consts.AJIT_MAX_CORES, \
+    assert self.coreCount <= consts.MAX_CORES, \
       f"Ajit supports at most 4 cores. Given {self.coreCount}."
-    assert self.threadsPerCoreCount <= consts.AJIT_MAX_THREADS_PER_CORE, \
+    assert self.threadsPerCoreCount <= consts.MAX_THREADS_PER_CORE, \
       f"Ajit supports at most 2 threads/core. Given {self.threadsPerCoreCount}."
 
     if len(self.programs) != self.totalThreads():
-      print(f"AjitCoRTOS: ERROR: H/W Threads: {self.totalThreads()},"
+      print(f"CoRTOS: ERROR: H/W Threads: {self.totalThreads()},"
             f" User Programs: {len(self.programs)}. (Must be equal)")
       exit(1)
 
     if len(self.cFileNames) == 0:
-      print(f"AjitCoRTOS: ERROR: No C files present in the project.")
+      print(f"CoRTOS: ERROR: No C files present in the project.")
       exit(1)
 
     return self
@@ -276,7 +277,7 @@ class ProgramThread:
       if YML_PROG_LOOP_CALL_SEQ in self.data else []
 
     if not self.initCallSeq and not self.loopCallSeq:
-      print("AjitCoRTOS: ERROR: No function to call.")
+      print("CoRTOS: ERROR: No function to call.")
       exit(1)
 
 
@@ -325,7 +326,7 @@ class DataMemoryRegions:
 
     self.ajitReserved = MemoryRegion(
       util.alignAddress(compute.computeInitHeaderSizeInBytes(), 8),
-      consts.AJIT_RESERVED_REGION_SIZE
+      consts.RESERVED_REGION_SIZE
     )
     self.sizeInBytes += self.ajitReserved.sizeInBytes
 
@@ -366,10 +367,13 @@ class DataMemoryRegions:
     self.sizeInBytes += self.ajitBgetMemory.sizeInBytes
 
 
-def readYamlConfig(yamlFileName: util.FileNameT) -> UserConfig:
+def readYamlConfig(
+    yamlFileName: util.FileNameT,
+    cmdLineLogLevel: consts.LogLevel = consts.LogLevel.NONE,
+) -> UserConfig:
   """Reads the given yaml configuration file."""
   with open(yamlFileName) as f:
     conf = yaml.load(f)
-    return UserConfig(conf)
+    return UserConfig(conf, cmdLineLogLevel)
 
 

@@ -276,19 +276,19 @@ def runCommand(
     suppressError: bool = False,
 ) -> int:
   """Runs the given command without capturing the output."""
-  print(f"AjitCoRTOS: command: {cmd}")
+  print(f"CoRTOS: command: {cmd}")
   completed = subp.run(cmd, shell=shell)
   if not suppressError:
-    print(f"AjitCoRTOS: {'OK' if not completed.returncode else 'ERROR'}:"
+    print(f"CoRTOS: {'OK' if not completed.returncode else 'ERROR'}:"
           f" command return code {completed.returncode}")
   return completed.returncode
 
 
 def runCommandGetOutput(cmd: str) -> str:
   """Runs the given command without capturing the output."""
-  print(f"AjitCoRTOS: command: {cmd}")
+  print(f"CoRTOS: command: {cmd}")
   status, output = subp.getstatusoutput(cmd)
-  print(f"AjitCoRTOS: {'OK' if not status else 'ERROR'}:"
+  print(f"CoRTOS: {'OK' if not status else 'ERROR'}:"
         f" command return code {status}")
   return output
 

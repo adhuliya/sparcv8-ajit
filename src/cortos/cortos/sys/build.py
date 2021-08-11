@@ -19,13 +19,13 @@ import cortos.sys.copy as cpy
 
 
 def buildProject(confObj: config.UserConfig) -> None:
-  print("AjitCoRTOS: build process started...")
+  print("CoRTOS: build process started...")
 
-  print(f"\nAjitCoRTOS: START: cortos_build.")
+  print(f"\nCoRTOS: START: cortos_build.")
   computeStackAddr(confObj) # FIXME: call it from some other place?
   prepareBuildDir(confObj)
   runBuildScript(confObj)
-  print(f"AjitCoRTOS: END  : cortos_build.")
+  print(f"CoRTOS: END  : cortos_build.")
 
 
 def prepareBuildDir(
@@ -59,11 +59,11 @@ def copyBuildFiles(
   cpy.copyResultsFile(confObj)
 
   # copy cortos library support
-  cpy.copyAjitHeaderFile(confObj)
-  cpy.copyAjitQueueFiles(confObj)
+  cpy.copyCortosHeaderFile(confObj)
+  cpy.copyCortosQueueFiles(confObj)
   cpy.copyLockFiles(confObj)
   if confObj.addBget:
-    cpy.copyAjitBgetFiles(confObj)
+    cpy.copyCortosBgetFiles(confObj)
   # cpy.copyQueueFiles(prog, confObj, init)
 
   # STEP 3: return back to the previous directory
@@ -75,7 +75,7 @@ def runBuildScript(confObj: config.UserConfig) -> None:
   # STEP 1: cd into the build directory
   cwd = os.getcwd()
   os.chdir(confObj.buildDir)
-  print("AjitCoRTOS: CWD:", os.getcwd())
+  print("CoRTOS: CWD:", os.getcwd())
 
   # STEP 2: execute the `build.sh` script
   util.runCommand(f"bash {consts.FINAL_BUILD_SH_FILE_NAME}")
@@ -95,10 +95,10 @@ def runBuildScript(confObj: config.UserConfig) -> None:
 #   # STEP 2: compute and save the binary size
 #   try:
 #     sizeInBytes = elf.getPtLoadSectionsSize(consts.ELF_FILE_NAME)
-#     print(f"AjitCoRTOS: PROG_SIZE: {sizeInBytes} bytes.")
+#     print(f"CoRTOS: PROG_SIZE: {sizeInBytes} bytes.")
 #   except FileNotFoundError as e:
 #     sizeInBytes = consts.DEFAULT_PROG_ELF_SIZE
-#     print(f"AjitCoRTOS: ERROR: {consts.ELF_FILE_NAME} not generated.")
+#     print(f"CoRTOS: ERROR: {consts.ELF_FILE_NAME} not generated.")
 #
 #   # STEP 3: cd back to the previous directory
 #   os.chdir(cwd)
@@ -120,7 +120,7 @@ def computeStackAddr(confObj: config.UserConfig) -> None:
 #   # STEP 1: cd into the cortos build directory
 #   cwd = os.getcwd()
 #   os.chdir(consts.CORTOS_BUILD_DIR_NAME)
-#   print("AjitCoRTOS: CWD:", os.getcwd())
+#   print("CoRTOS: CWD:", os.getcwd())
 #
 #   # STEP 2: create an empty mmap file
 #   newFileLines = []
@@ -138,9 +138,9 @@ def computeStackAddr(confObj: config.UserConfig) -> None:
 #         newFileLines.extend(capturedLines)
 #         capturedLines.clear()
 #       elif status == 3: # patch fully captured lines
-#         print(f"AjitCoRTOS: PatchingCall: Original Lines: {capturedLines}")
+#         print(f"CoRTOS: PatchingCall: Original Lines: {capturedLines}")
 #         patchedLines = patchLines(capturedLines, count, confObj)
-#         print(f"AjitCoRTOS: PatchingCall: Patched Lines : {patchedLines}")
+#         print(f"CoRTOS: PatchingCall: Patched Lines : {patchedLines}")
 #         newFileLines.extend(patchedLines)
 #         capturedLines.clear()
 #
@@ -150,7 +150,7 @@ def computeStackAddr(confObj: config.UserConfig) -> None:
 #
 #   # STEP 4: revert cwd
 #   os.chdir(cwd)
-#   print("AjitCoRTOS: CWD:", os.getcwd())
+#   print("CoRTOS: CWD:", os.getcwd())
 #
 #
 # def captureLine(
@@ -198,11 +198,11 @@ def computeStackAddr(confObj: config.UserConfig) -> None:
 #   callInsnAddr = int(f"0x{match.group('address')}", 16)
 #
 #   relativeProgAddr = prog.startAddr - callInsnAddr
-#   print(f"AjitCoRTOS: PatchingCall: AbsProgAddr = {prog.startAddr},"
+#   print(f"CoRTOS: PatchingCall: AbsProgAddr = {prog.startAddr},"
 #         f" CallInsnAddr: {callInsnAddr}, RelProgAddr = {relativeProgAddr}.")
 #
 #   hexBytes = breakAddrIntoFourHexBytes(relativeProgAddr)
-#   print(f"AjitCoRTOS: PatchingCall: RelProgAddrHex: {hexBytes}")
+#   print(f"CoRTOS: PatchingCall: RelProgAddrHex: {hexBytes}")
 #
 #   for hexByte in hexBytes:
 #     match = consts.MMAP_LINE_REGEX_COMPILED.search(capturedLines[0])
@@ -235,7 +235,7 @@ def computeStackAddr(confObj: config.UserConfig) -> None:
 #   # STEP 1: cd into the cortos build directory
 #   cwd = os.getcwd()
 #   os.chdir(consts.CORTOS_BUILD_DIR_NAME)
-#   print("AjitCoRTOS: CWD:", os.getcwd())
+#   print("CoRTOS: CWD:", os.getcwd())
 #
 #   # STEP 2: create an empty mmap file
 #   with open(consts.MMAP_FILE_NAME, "w") as f:
@@ -249,5 +249,5 @@ def computeStackAddr(confObj: config.UserConfig) -> None:
 #
 #   # STEP 4: revert cwd
 #   os.chdir(cwd)
-#   print("AjitCoRTOS: CWD:", os.getcwd())
+#   print("CoRTOS: CWD:", os.getcwd())
 

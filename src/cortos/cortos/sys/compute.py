@@ -12,7 +12,7 @@ from cortos.common import consts, util
 
 
 def computeInitHeaderSizeInBytes() -> int:
-  return consts.AJIT_INIT_HEADER_SIZE
+  return consts.INIT_HEADER_SIZE
 
 
 def computeAllocationAreaBaseAddr() -> int:

@@ -1,29 +1,28 @@
 ! see the reference file `cortos/res/lock_unlock.s`
+! lock unlock on reserved locking variables (used internally by AjitCoRTOS)
 
-% qLock = confObj.reservedMem.ajitQueueLockVars
-
-! qLock.startAddr = {{qLock.startAddr}}
+% lockArrayBaseAddr = confObj.reservedMem.ajitResLockVars.startAddr
 
 ! Usage Note:
-! ajit_q_lock_acquire_buzy(<index: an-integer-index>);
+! cortos_res_lock_acquire_buzy(<index: an-integer-index>);
 !   CRITICAL_SECTION_CODE...
-! ajit_q_lock_release(<index: an-integer-index>);
+! cortos_res_lock_release(<index: an-integer-index>);
 ! ----or-------or--------
-! status = ajit_q_lock_acquire(<index: an-integer-index>);
+! status = cortos_res_lock_acquire(<index: an-integer-index>);
 ! if (status == 1) {
 !   CRITICAL_SECTION_CODE...
-!   ajit_q_lock_release(<index: an-integer-index>);
+!   cortos_res_lock_release(<index: an-integer-index>);
 ! }
 
-.global ajit_q_lock_acquire_buzy
-.global ajit_q_lock_acquire
-.global ajit_q_lock_release
+.global cortos_res_lock_acquire_buzy
+.global cortos_res_lock_acquire
+.global cortos_res_lock_release
 
-ajit_q_lock_acquire_buzy:
+cortos_res_lock_acquire_buzy:
   ! i0 contains an index to the correct locking variable
   save  %sp, -96, %sp       ! func prefix
 
-  set {{qLock.startAddr}}, %l0
+  set {{lockArrayBaseAddr}}, %l0
   sll %i0, 0x2, %i0                   ! * 4 (jump 4 bytes at a time)
 try_to_lock:
   ldstub [%l0+%i0], %l1
@@ -44,13 +43,13 @@ out:
   nop                       ! func suffix
 
 
-ajit_q_lock_acquire:
+cortos_res_lock_acquire:
   ! Try to acquire the given lock id.
   ! if lock couldn't be acquired, it returns 0 (else 1)
   ! i0 contains an index to the correct locking variable
   save  %sp, -96, %sp       ! func prefix
 
-  set {{qLock.startAddr}}, %l0
+  set {{lockArrayBaseAddr}}, %l0
   sll %i0, 0x2, %i0                   ! * 4 (jump 4 bytes at a time)
 
 
@@ -62,24 +61,24 @@ try_to_lock_once:
   ba,a lock_not_acquired
 
 lock_acquired:
-  ba exit_ajit_lock_acquire
+  ba exit_cortos_lock_acquire
   or %g0, 0x1, %i0          ! return 1 on success
 
 lock_not_acquired:
   or %g0, %g0, %i0          ! return 0 on failure
 
-exit_ajit_lock_acquire:
+exit_cortos_lock_acquire:
   restore                   ! func suffix
   jmp %o7+8                 ! func suffix
   nop                       ! func suffix
 
 
-ajit_q_lock_release:
+cortos_res_lock_release:
   ! Release the given lock.
   ! i0 contains an index to the correct locking variable
   save  %sp, -96, %sp       ! func prefix
 
-  set {{qLock.startAddr}}, %l0
+  set {{lockArrayBaseAddr}}, %l0
   sll %i0, 0x2, %i0                   ! * 4 (jump 4 bytes at a time)
 
   stbar

@@ -11,11 +11,11 @@ from typing import List
 
 CONFIG_FILE_DEFAULT_NAME = "config.yaml"
 
-AJIT_MAX_CORES = 4
-"""Maximum Ajit cores possible."""
+MAX_CORES = 4
+"""Maximum cores possible."""
 
-AJIT_MAX_THREADS_PER_CORE = 2
-"""Maximum Ajit threads possible per core."""
+MAX_THREADS_PER_CORE = 2
+"""Maximum threads possible per core."""
 
 
 SETUP_THREADS_LABEL = "SETUP_THREADS"
@@ -34,32 +34,32 @@ THREAD_ID_TEST_HEX_PATTERN = "0x50520{core}0{thread}"
 0x50520101 for core 1, thread 1, etc..
 """
 
-HALT_ERROR_LABEL = "AJIT_HALT_ERROR"
-HALT_OKAY_LABEL = "AJIT_HALT_OKAY"
+HALT_ERROR_LABEL = "CORTOS_HALT_ERROR"
+HALT_OKAY_LABEL = "CORTOS_HALT_OKAY"
 
-AJIT_INIT_HEADER_SIZE = 4 * 13
+INIT_HEADER_SIZE = 4 * 13
 """
 The size of the init.s header just before the allocation area.
 """
 
-AJIT_RESERVED_REGION_SIZE = 256 # bytes
+RESERVED_REGION_SIZE = 256 # bytes
 """
 This space is reserved for misc use by Ajit in the future.
 """
 
-AJIT_LOCK_ARRAY_SIZE = 64 # bytes
+LOCK_ARRAY_SIZE = 64 # bytes
 """
 All synchronization variables sit here.
 
 4 bytes for each sync variable.
 """
 
-AJIT_ALL_QUEUES_SIZE = 4096 # bytes
+ALL_QUEUES_SIZE = 4096 # bytes
 """
 All the queues sit here.
 """
 
-AJIT_TOTAL_SHARED_INT_VARS = 256 # n integers
+TOTAL_SHARED_INT_VARS = 256 # n integers
 """Array of shared integers accessible to each thread."""
 
 
@@ -70,7 +70,7 @@ QUEUE_HEADER_SIZE = 16  # bytes
 DEFAULT_ALL_QUEUE_SIZE = (DEFAULT_TOTAL_QUEUES
                           * DEFAULT_QUEUE_LEN * DEFAULT_QUEUE_MSG_SIZE)
 DEFAULT_TOTAL_QUEUE_SIZE = DEFAULT_QUEUE_MSG_SIZE * DEFAULT_QUEUE_LEN # bytes
-DEFAULT_MAX_QUEUES_POSSIBLE = AJIT_ALL_QUEUES_SIZE // DEFAULT_TOTAL_QUEUE_SIZE
+DEFAULT_MAX_QUEUES_POSSIBLE = ALL_QUEUES_SIZE // DEFAULT_TOTAL_QUEUE_SIZE
 
 
 DEFAULT_MEM_SIZE_IN_KB = 100 * 1024
@@ -92,9 +92,9 @@ MMAP_FILE_NAME: str = "main.mmap"
 TRAP_FILE_NAME: str = "trap_handlers.s"
 PAGE_TABLE_FILE_NAME: str = "setup_page_tables.s"
 VMAP_FILE_NAME: str = "vmap.txt"
-AJIT_HEADER_FILE_NAME: str = "ajit_cortos.h"
-LOCK_FILE_NAME: str = "ajit_lock_unlock.s"
-RES_LOCK_FILE_NAME: str = "ajit_res_lock_unlock.s"
+CORTOS_HEADER_FILE_NAME: str = "cortos.h"
+LOCK_FILE_NAME: str = "cortos_lock_unlock.s"
+RES_LOCK_FILE_NAME: str = "cortos_res_lock_unlock.s"
 
 LINKER_SCRIPT_FILE_NAME: str = "LinkerScript.txt"
 LINKER_SCRIPT_00_FILE_NAME: str = "LinkerScript00.txt"
@@ -102,9 +102,10 @@ LINKER_SCRIPT_XX_FILE_NAME: str = "LinkerScriptXX.txt"
 
 INIT_00_FILE_NAME: str = "init_00.s"
 
-AJIT_ENTRY_FUNC_REGEX: str = r"void\s+(?P<ajit_entry>ajit_entry_func_\w+)"
-# GREP_COMMAND: List[str] = ["grep", "-R", "'ajit_entry_'"]
-GREP_COMMAND: str = "grep -R 'ajit_entry_func_'"
+# # unused
+# AJIT_ENTRY_FUNC_REGEX: str = r"void\s+(?P<ajit_entry>ajit_entry_func_\w+)"
+# # GREP_COMMAND: List[str] = ["grep", "-R", "'ajit_entry_'"]
+# GREP_COMMAND: str = "grep -R 'ajit_entry_func_'"
 
 INIT_BUILD_SH_FILE_NAME: str = "build_init.sh"
 FINAL_BUILD_SH_FILE_NAME: str = "build.sh"
@@ -118,10 +119,10 @@ MMAP_LINE_REGEX_COMPILED = re.compile(MMAP_LINE_REGEX)
 LOWER_STACK_BOUNDARY_ADDR: int = 0xF0000000
 
 
-QUEUE_C_FILE: str = "ajit_msg_queue.c"
-QUEUE_LOCK_FILE: str = "ajit_q_lock_unlock.s"
+QUEUE_C_FILE: str = "cortos_msg_queue.c"
+QUEUE_LOCK_FILE: str = "cortos_q_lock_unlock.s"
 
-AJIT_BGET_C_FILE: str = "ajit_bget.c"
+CORTOS_BGET_C_FILE: str = "cortos_bget.c"
 BGET_C_FILE: str = "bget.c"
 BGET_H_FILE: str = "bget.h"
 
@@ -130,14 +131,28 @@ DEFAULT_BGET_MEM_SIZE_IN_BYTES: int = 1024 * 100   # bytes
 
 BGET_RES_LOCK_INDEX: int = 0
 
+DEFAULT_ENABLE_SERIAL_DEVICE: bool = True
 
-# TRACE < DEBUG < INFO < ERROR < CRITICAL
+# ALL < TRACE < DEBUG < INFO < ERROR < CRITICAL < NONE
 class LogLevel(Enum):
-  TRACE = "TRACE"
-  DEBUG = "DEBUG"
-  INFO = "INFO"
-  ERROR = "ERROR"
-  CRITICAL = "CRITICAL"
+  ALL = 10
+  TRACE = 20
+  DEBUG = 30
+  INFO = 40
+  ERROR = 50
+  CRITICAL = 60
+  NONE = 100 # stop all logging
+
 
 DEFAULT_LOG_LEVEL: LogLevel = LogLevel.INFO
+
+
+def getLogLevel(level: int) -> LogLevel:
+  level10 = level * 10
+  if level10 == 0:
+    return LogLevel.NONE
+  elif level10 >= LogLevel.CRITICAL.value:
+    return LogLevel(LogLevel.CRITICAL.value)
+  else:
+    return LogLevel(level10)
 

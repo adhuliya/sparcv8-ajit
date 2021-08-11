@@ -37,12 +37,13 @@ def copyVmapFile(
     f.write(btl.template(f"{consts.VMAP_FILE_NAME}"))
 
 
-def copyAjitHeaderFile(
+def copyCortosHeaderFile(
     confObj: config.UserConfig,
 ) -> None:
-  with open(consts.AJIT_HEADER_FILE_NAME, "w") as f:
-    f.write(btl.template(f"{consts.AJIT_HEADER_FILE_NAME}",
+  with open(consts.CORTOS_HEADER_FILE_NAME, "w") as f:
+    f.write(btl.template(f"{consts.CORTOS_HEADER_FILE_NAME}",
                          confObj=confObj,
+                         LogLevel=consts.LogLevel,
                          ajitQueueLength=consts.DEFAULT_QUEUE_LEN,
                          ajitQueueMsgSize=consts.DEFAULT_QUEUE_MSG_SIZE,
                          ajitQueueHeaderSize=consts.QUEUE_HEADER_SIZE,
@@ -81,7 +82,7 @@ def copyProjectFiles(
 def copyInitFile(
     confObj: config.UserConfig,
 ) -> None:
-  print(f"AjitCoRTOS: AllocRegionSize: {confObj.reservedMem.sizeInBytes} bytes.")
+  print(f"CoRTOS: AllocRegionSize: {confObj.reservedMem.sizeInBytes} bytes.")
   with open(consts.INIT_00_FILE_NAME, "w") as f:
     f.write(btl.template(f"build_init/{consts.INIT_00_FILE_NAME}",
                          confObj=confObj))
@@ -110,7 +111,7 @@ def copyResultsFile(confObj: config.UserConfig) -> None:
       f.write("")
 
 
-def copyAjitQueueFiles(confObj: config.UserConfig) -> None:
+def copyCortosQueueFiles(confObj: config.UserConfig) -> None:
   with open(consts.QUEUE_C_FILE, "w") as f:
     f.write(btl.template(f"queue/{consts.QUEUE_C_FILE}", confObj=confObj))
 
@@ -118,7 +119,7 @@ def copyAjitQueueFiles(confObj: config.UserConfig) -> None:
     f.write(btl.template(f"queue/{consts.QUEUE_LOCK_FILE}", confObj=confObj))
 
 
-def copyAjitBgetFiles(confObj: config.UserConfig) -> None:
+def copyCortosBgetFiles(confObj: config.UserConfig) -> None:
   with open(consts.AJIT_BGET_C_FILE, "w") as f:
     f.write(btl.template(f"bget/{consts.AJIT_BGET_C_FILE}",
                          confObj=confObj,

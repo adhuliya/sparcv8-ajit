@@ -37,6 +37,11 @@ AJIT_SETUP_THREADS:
   mov 1, %l7
   st %l7, [%l6]
 
+% if confObj.enableSerial:
+  call cortos_enable_serial
+  nop
+% end
+
   !  Thread (0,0) jumps to AFTER_PTABLE_SETUP.
   ba AFTER_PTABLE_SETUP
   nop

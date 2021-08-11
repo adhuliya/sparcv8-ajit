@@ -4,30 +4,94 @@
 #ifndef AJIT_CORTOS_H
 #define AJIT_CORTOS_H
 
+
 ////////////////////////////////////////////////////////////////////////////////
-// BLOCK START: ajit_locking_declarations
+// BLOCK START: cortos_logging_declarations
 ////////////////////////////////////////////////////////////////////////////////
 
-int ajit_lock_acquire_buzy(int index);
-int ajit_lock_acquire(int index);
-void ajit_lock_release(int index);
+#define LOG_LEVEL_ALL       10
+#define LOG_LEVEL_TRACE     20
+#define LOG_LEVEL_DEBUG     30
+#define LOG_LEVEL_INFO      40
+#define LOG_LEVEL_ERROR     50
+#define LOG_LEVEL_CRITICAL  60
+#define LOG_LEVEL_NONE      100
+
+#define CORTOS_LOG_LEVEL {{confObj.logLevel.value}}
+
+% if LogLevel.TRACE.value >= confObj.logLevel.value:
+#define CORTOS_TRACE(X) cortos_printf("CoRTOS:LOG: TRACE: " X)
+% else:
+#define CORTOS_TRACE(X)
+%
+
+% if LogLevel.DEBUG.value >= confObj.logLevel.value:
+#define CORTOS_DEBUG(X) cortos_printf("CoRTOS:LOG: DEBUG: " X)
+% else:
+#define CORTOS_DEBUG(X)
+%
+
+% if LogLevel.INFO.value >= confObj.logLevel.value:
+#define CORTOS_INFO(X) cortos_printf("CoRTOS:LOG: INFO: " X)
+% else:
+#define CORTOS_INFO(X)
+%
+
+% if LogLevel.ERROR.value >= confObj.logLevel.value:
+#define CORTOS_ERROR(X) cortos_printf("CoRTOS:LOG: ERROR: " X)
+% else:
+#define CORTOS_ERROR(X)
+%
+
+% if LogLevel.CRITICAL.value >= confObj.logLevel.value:
+#define CORTOS_CRITICAL(X) cortos_printf("CoRTOS:LOG: CRITICAL: " X)
+% else:
+#define CORTOS_CRITICAL(X)
+%
+
+////////////////////////////////////////////////////////////////////////////////
+// BLOCK END  : cortos_logging_declarations
+////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////////////////////
+// BLOCK START: cortos_locking_declarations
+////////////////////////////////////////////////////////////////////////////////
+
+int cortos_lock_acquire_buzy(int index);
+int cortos_lock_acquire(int index);
+void cortos_lock_release(int index);
 
 // Only for AjitCoRTOS internal use (reserved: hence `_res_` in name.)
-int ajit_res_lock_acquire_buzy(int index);
-int ajit_res_lock_acquire(int index);
-void ajit_res_lock_release(int index);
+int cortos_res_lock_acquire_buzy(int index);
+int cortos_res_lock_acquire(int index);
+void cortos_res_lock_release(int index);
+
+#define RES_LOCK_INDEX_BGET 0
+#define RES_LOCK_INDEX_PRINTF 1
 
 ////////////////////////////////////////////////////////////////////////////////
-// BLOCK END  : ajit_locking_declarations
+// BLOCK END  : cortos_locking_declarations
 ////////////////////////////////////////////////////////////////////////////////
 
 
+////////////////////////////////////////////////////////////////////////////////
+// BLOCK START: cortos_misc_routines
+////////////////////////////////////////////////////////////////////////////////
+
+// Enable serial device to use printf
+void cortos_enable_serial();
 
 ////////////////////////////////////////////////////////////////////////////////
-// BLOCK START: ajit_message_queues_declarations
+// BLOCK END  : cortos_misc_routines
 ////////////////////////////////////////////////////////////////////////////////
 
-typedef union _AjitMessage32Bytes {
+
+////////////////////////////////////////////////////////////////////////////////
+// BLOCK START: cortos_message_queues_declarations
+////////////////////////////////////////////////////////////////////////////////
+
+typedef union _CortosMessage32Bytes {
   char charArr[32];
   int intArr[8];
   float floatArr[8];
@@ -58,34 +122,34 @@ typedef union _AjitMessage32Bytes {
     double d_d3;
   };
 
-} AjitMessage;
+} CortosMessage;
 
 
-typedef struct _AjitQueueHeader {
+typedef struct _CortosQueueHeader {
   int totalMsgs; // current total messages
   int readIndex;
   int writeIndex;
   int __; // to pad 4 bytes to make it 16 bytes.
-} AjitQueueHeader;
+} CortosQueueHeader;
 
 /*
-Sends an AjitMessage.
+Sends an CortosMessage.
   - Returns zero if the queue is full.
   - Returns non-zero if the msg was added.
 */
-int writeAjitMessage(int queueId, AjitMessage *msg);
+int writeCortosMessage(int queueId, CortosMessage *msg);
 
 /*
-Gets an AjitMessage.
+Gets an CortosMessage.
   - Returns zero if the queue is empty.
   - Returns non-zero if the msg was put into the *msg location.
 */
-int readAjitMessage(int queueId, AjitMessage *msg);
+int readCortosMessage(int queueId, CortosMessage *msg);
 
 
-int ajit_q_lock_acquire_buzy(int index);
-int ajit_q_lock_acquire(int index);
-void ajit_q_lock_release(int index);
+int cortos_q_lock_acquire_buzy(int index);
+int cortos_q_lock_acquire(int index);
+void cortos_q_lock_release(int index);
 
 
 #define Q_START_INDEX 0
@@ -118,35 +182,35 @@ This computes the base address of the queue header with id `queueId`.
 ((AJIT_Q_HEADER_SIZE) * (_Q_ID)));
 
 ////////////////////////////////////////////////////////////////////////////////
-// BLOCK END  : ajit_message_queues_declarations
+// BLOCK END  : cortos_message_queues_declarations
 ////////////////////////////////////////////////////////////////////////////////
 
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// BLOCK START: ajit_bget_declarations
+// BLOCK START: cortos_bget_declarations
 ////////////////////////////////////////////////////////////////////////////////
 
-typedef long ajit_bufsize;
+typedef long cortos_bufsize;
 
 // This function is called only once by AjitCoRTOS.
-void __ajit_bpool(void);
+void __cortos_bpool(void);
 
 // get/allocate a memory of `size` bytes
 // Note: Some internal space is wasted to make size align to 2^3 boundary.
-void *ajit_bget(ajit_bufsize size);
+void *cortos_bget(cortos_bufsize size);
 
 // release/free an allocated memory
-void ajit_brel(void *buf);
+void cortos_brel(void *buf);
 
 ////////////////////////////////////////////////////////////////////////////////
-// BLOCK END  : ajit_bget_declarations
+// BLOCK END  : cortos_bget_declarations
 ////////////////////////////////////////////////////////////////////////////////
 
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// BLOCK START: ajit_shared_integers_addresses
+// BLOCK START: cortos_shared_integers_addresses
 ////////////////////////////////////////////////////////////////////////////////
 % count = 0
 % intVarsMemRegion = confObj.reservedMem.ajitSharedIntVars
@@ -158,21 +222,21 @@ void ajit_brel(void *buf);
 % end
 % end
 ////////////////////////////////////////////////////////////////////////////////
-// BLOCK END  : ajit_shared_integers_addresses
+// BLOCK END  : cortos_shared_integers_addresses
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
-// BLOCK START: ajit_debug_routines
+// BLOCK START: cortos_debug_routines
 ////////////////////////////////////////////////////////////////////////////////
 
 // exits after putting code into asr16.
 // Any non-zero code is considered error.
 // Any error code >= 4096 is reserved for CoRTOS.
-void ajit_exit(unsigned int error_code);
+void cortos_exit(unsigned int error_code);
 
 // TODO: add debug macros here.
 
 ////////////////////////////////////////////////////////////////////////////////
-// BLOCK END  : ajit_debug_routines
+// BLOCK END  : cortos_debug_routines
 ////////////////////////////////////////////////////////////////////////////////
 #endif

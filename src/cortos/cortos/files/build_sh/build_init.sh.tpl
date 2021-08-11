@@ -1,42 +1,53 @@
 #!/bin/sh
 
 _MAIN="main";
-_VMAP="vmap.txt";
-_AJIT_LOCK_UNLOCK="./ajit_lock_unlock.s";
-_AJIT_RES_LOCK_UNLOCK="./ajit_res_lock_unlock.s";
-_AJIT_Q_LOCK_UNLOCK="./ajit_q_lock_unlock.s";
-_AJIT_MSG_QUEUE="./ajit_msg_queue.c";
-_AJIT_INIT_00="./init_00.s";
-_AJIT_PG_TABLES="./setup_page_tables.s";
-_AJIT_TRAP_HANDLER="./trap_handlers.s";
+_CORTOS_VMAP="vmap.txt";
+_CORTOS_LOCK_UNLOCK="./cortos_lock_unlock.s";
+_CORTOS_RES_LOCK_UNLOCK="./cortos_res_lock_unlock.s";
+_CORTOS_Q_LOCK_UNLOCK="./cortos_q_lock_unlock.s";
+_CORTOS_MSG_QUEUE="./cortos_msg_queue.c";
+_CORTOS_INIT_00="./init_00.s";
+_CORTOS_PG_TABLES="./setup_page_tables.s";
+_CORTOS_TRAP_HANDLER="./trap_handlers.s";
 _LINKER_SCRIPT="./LinkerScript.txt";
 
+_PT="$AJIT_MINIMAL_PRINTF_TIMER";
+_AAR_MT="$AJIT_PROJECT_HOME/tools/ajit_access_routines_mt";
+_AAR="$AJIT_ACCESS_ROUTINES";
+
 % if confObj.addBget:
-_AJIT_BGET="./ajit_bget.c";
+_CORTOS_BGET="./ajit_bget.c";
 _BGET="./bget.c";
 % end
 
 
-# STEP 1: setup page tables.
-genVmapAsm ${_VMAP} ${_AJIT_PG_TABLES};
+# genVmapAsm ${_CORTOS_VMAP} ${_CORTOS_PG_TABLES};
+#  -s $_CORTOS_PG_TABLES \
 
-# STEP 2: compile to generate elf file.
 # NOTE: the use of `-U` to enable uclibc
 compileToSparcUclibc.py \
+% if confObj.debugBuild:
+  -g \
+% end
+  -V $_CORTOS_VMAP \
   -I $AJIT_UCLIBC_HEADERS_DIR \
+  -I $AJIT_LIBGCC_INSTALL_DIR/include \
   -I . \
-  -s $_AJIT_INIT_00 \
-  -s $_AJIT_PG_TABLES \
-  -s $_AJIT_TRAP_HANDLER \
-  -s $_AJIT_LOCK_UNLOCK \
-  -s $_AJIT_RES_LOCK_UNLOCK \
-  -s $_AJIT_Q_LOCK_UNLOCK \
+  -I $_AAR/include \
+  -I $_PT/include \
+  -s $_CORTOS_INIT_00 \
+  -s $_CORTOS_TRAP_HANDLER \
+  -s $_CORTOS_LOCK_UNLOCK \
+  -s $_CORTOS_RES_LOCK_UNLOCK \
+  -s $_CORTOS_Q_LOCK_UNLOCK \
 % for fileName in confObj.cFileNames:
   -c {{fileName}} \
 % end
-  -c ${_AJIT_MSG_QUEUE} \
+  -c ${_CORTOS_MSG_QUEUE} \
+  -C $_AAR/src \
+  -C $_PT/src \
 % if confObj.addBget:
-  -c ${_AJIT_BGET} \
+  -c ${_CORTOS_BGET} \
   -c ${_BGET} \
 % end
   -N ${_MAIN} \

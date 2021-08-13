@@ -10,25 +10,25 @@
 CORTOS_INIT_TO_ZERO_START:
 
 .align 8
-CORTOS_RESERVED_SPACE: .skip {{r.ajitReserved.sizeInBytes}} ! size in multiples of 8
+CORTOS_RESERVED_SPACE: .skip {{r.cortosReserved.sizeInBytes}} ! size in multiples of 8
 
 .align 8
-CORTOS_INT_ARRAY_BASE: .skip {{r.ajitSharedIntVars.sizeInBytes}} ! size in multiples of 8
+CORTOS_INT_ARRAY_BASE: .skip {{r.cortosSharedIntVars.sizeInBytes}} ! size in multiples of 8
 
 .align 8
-CORTOS_RES_LOCK_VARS_BASE: .skip {{r.ajitLockVars.sizeInBytes}} ! size in multiples of 8
+CORTOS_RES_LOCK_VARS_BASE: .skip {{r.cortosLockVars.sizeInBytes}} ! size in multiples of 8
 
 .align 8
-CORTOS_LOCK_VARS_BASE: .skip {{r.ajitLockVars.sizeInBytes}} ! size in multiples of 8
+CORTOS_LOCK_VARS_BASE: .skip {{r.cortosLockVars.sizeInBytes}} ! size in multiples of 8
 
 .align 8
-CORTOS_QUEUE_LOCK_VARS_BASE: .skip {{r.ajitQueueLockVars.sizeInBytes}} ! size in multiples of 8
+CORTOS_QUEUE_LOCK_VARS_BASE: .skip {{r.cortosQueueLockVars.sizeInBytes}} ! size in multiples of 8
 
 .align 8
-CORTOS_QUEUE_HEADERS_BASE: .skip {{r.ajitQueueHeaders.sizeInBytes}} ! size in multiples of 8
+CORTOS_QUEUE_HEADERS_BASE: .skip {{r.cortosQueueHeaders.sizeInBytes}} ! size in multiples of 8
 
 .align 8
-CORTOS_QUEUES_BASE: .skip {{r.ajitQueues.sizeInBytes}} ! size in multiples of 8
+CORTOS_QUEUES_BASE: .skip {{r.cortosQueues.sizeInBytes}} ! size in multiples of 8
 
 .align 8
 CORTOS_INIT_TO_ZERO_END:
@@ -41,14 +41,14 @@ CORTOS_INIT_TO_ZERO_END:
 
 % if confObj.addBget:
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-! BLOCK START: ajit_bget_memory_area
+! BLOCK START: cortos_bget_memory_area
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 .align 8
-CORTOS_BGET_MEM_BASE: .skip {{r.ajitBgetMemory.sizeInBytes}} ! size in multiples of 8
+CORTOS_BGET_MEM_BASE: .skip {{r.cortosBgetMemory.sizeInBytes}} ! size in multiples of 8
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-! BLOCK START: ajit_bget_memory_area
+! BLOCK START: cortos_bget_memory_area
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 % end
 
@@ -78,10 +78,10 @@ nop
   sub %l2, 0x4, %l2         ! address of last valid word location
 
 ! loop to store zeros word by word (assumes size is at least 4 bytes)
-zero_init_ajit_allocate_area:
+zero_init_cortos_allocate_area:
   st %g0, [%l0]             ! zero stored here
   subcc %l0, %l2, %g0
-  bne zero_init_ajit_allocate_area
+  bne zero_init_cortos_allocate_area
   add %l0, 0x4, %l0         ! get address of next word
 
 ! if here, then the region is initialized to zeros

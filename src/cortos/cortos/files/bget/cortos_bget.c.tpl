@@ -1,11 +1,11 @@
 // Main function to manage bget library.
 // It provides a msg queue based communication to the bget library.
 
-% baseAddr = confObj.reservedMem.ajitBgetMemory.startAddr
-% memSize = confObj.reservedMem.ajitBgetMemory.sizeInBytes
+% baseAddr = confObj.reservedMem.cortosBgetMemory.startAddr
+% memSize = confObj.reservedMem.cortosBgetMemory.sizeInBytes
 
 #include "bget.h"
-#include "ajit_cortos.h"
+#include "cortos.h"
 
 int __mem_allocated = 0;
 
@@ -24,7 +24,7 @@ void __cortos_bpool() {
 
 
 // get/allocate a memory of `size` bytes
-void *cortos_bget(ajit_bufsize size) {
+void *cortos_bget(cortos_bufsize size) {
   void *base = 0;
   cortos_res_lock_acquire_buzy(RES_LOCK_INDEX_BGET);
 

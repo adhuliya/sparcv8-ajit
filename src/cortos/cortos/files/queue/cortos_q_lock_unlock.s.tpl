@@ -1,6 +1,6 @@
 ! see the reference file `cortos/res/lock_unlock.s`
 
-% qLock = confObj.reservedMem.ajitQueueLockVars
+% qLock = confObj.reservedMem.cortosQueueLockVars
 
 ! qLock.startAddr = {{qLock.startAddr}}
 

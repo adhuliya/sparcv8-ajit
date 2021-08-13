@@ -1,6 +1,6 @@
 ! see the reference file `cortos/res/lock_unlock.s`
 
-% lockArrayBaseAddr = confObj.reservedMem.ajitLockVars.startAddr
+% lockArrayBaseAddr = confObj.reservedMem.cortosLockVars.startAddr
 
 ! Usage Note:
 ! cortos_lock_acquire_buzy(<index: an-integer-index>);

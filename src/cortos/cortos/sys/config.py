@@ -328,47 +328,47 @@ class DataMemoryRegions:
     """
     self.sizeInBytes = 0
 
-    self.ajitReserved = MemoryRegion(
+    self.cortosReserved = MemoryRegion(
       util.alignAddress(compute.computeInitHeaderSizeInBytes(), 8),
       consts.RESERVED_REGION_SIZE
     )
-    self.sizeInBytes += self.ajitReserved.sizeInBytes
+    self.sizeInBytes += self.cortosReserved.sizeInBytes
 
-    startAddr = self.ajitReserved.getNextToLastByteAddr()
+    startAddr = self.cortosReserved.getNextToLastByteAddr()
     regionSize = confObj.totalSharedIntVars * 4
-    self.ajitSharedIntVars = MemoryRegion(startAddr, regionSize)
-    self.sizeInBytes += self.ajitSharedIntVars.sizeInBytes
+    self.cortosSharedIntVars = MemoryRegion(startAddr, regionSize)
+    self.sizeInBytes += self.cortosSharedIntVars.sizeInBytes
 
-    startAddr = self.ajitSharedIntVars.getNextToLastByteAddr()
+    startAddr = self.cortosSharedIntVars.getNextToLastByteAddr()
     regionSize = confObj.totalResLockVars * 4
-    self.ajitResLockVars = MemoryRegion(startAddr, regionSize)
-    self.sizeInBytes += self.ajitResLockVars.sizeInBytes
+    self.cortosResLockVars = MemoryRegion(startAddr, regionSize)
+    self.sizeInBytes += self.cortosResLockVars.sizeInBytes
 
-    startAddr = self.ajitResLockVars.getNextToLastByteAddr()
+    startAddr = self.cortosResLockVars.getNextToLastByteAddr()
     regionSize = confObj.totalLockVars * 4
-    self.ajitLockVars = MemoryRegion(startAddr, regionSize)
-    self.sizeInBytes += self.ajitLockVars.sizeInBytes
+    self.cortosLockVars = MemoryRegion(startAddr, regionSize)
+    self.sizeInBytes += self.cortosLockVars.sizeInBytes
 
-    startAddr = self.ajitLockVars.getNextToLastByteAddr()
+    startAddr = self.cortosLockVars.getNextToLastByteAddr()
     regionSize = confObj.totalQueuesSize * 4
-    self.ajitQueueLockVars = MemoryRegion(startAddr, regionSize)
-    self.sizeInBytes += self.ajitQueueLockVars.sizeInBytes
+    self.cortosQueueLockVars = MemoryRegion(startAddr, regionSize)
+    self.sizeInBytes += self.cortosQueueLockVars.sizeInBytes
 
-    startAddr = self.ajitQueueLockVars.getNextToLastByteAddr()
+    startAddr = self.cortosQueueLockVars.getNextToLastByteAddr()
     regionSize = confObj.totalQueueHeadersSize
-    self.ajitQueueHeaders = MemoryRegion(startAddr, regionSize)
-    self.sizeInBytes += self.ajitQueueHeaders.sizeInBytes
+    self.cortosQueueHeaders = MemoryRegion(startAddr, regionSize)
+    self.sizeInBytes += self.cortosQueueHeaders.sizeInBytes
 
-    startAddr = self.ajitQueueHeaders.getNextToLastByteAddr()
+    startAddr = self.cortosQueueHeaders.getNextToLastByteAddr()
     regionSize = confObj.totalQueuesSize
-    self.ajitQueues = MemoryRegion(startAddr, regionSize)
-    self.sizeInBytes += self.ajitQueues.sizeInBytes
+    self.cortosQueues = MemoryRegion(startAddr, regionSize)
+    self.sizeInBytes += self.cortosQueues.sizeInBytes
 
     # a separate bget area
-    startAddr = self.ajitQueues.getNextToLastByteAddr()
+    startAddr = self.cortosQueues.getNextToLastByteAddr()
     regionSize = confObj.bgetMemSizeInBytes
-    self.ajitBgetMemory = MemoryRegion(startAddr, regionSize)
-    self.sizeInBytes += self.ajitBgetMemory.sizeInBytes
+    self.cortosBgetMemory = MemoryRegion(startAddr, regionSize)
+    self.sizeInBytes += self.cortosBgetMemory.sizeInBytes
 
 
 def readYamlConfig(

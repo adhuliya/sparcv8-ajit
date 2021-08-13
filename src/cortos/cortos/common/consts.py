@@ -144,8 +144,9 @@ class LogLevel(Enum):
   NONE = 100 # stop all logging
 
 
-DEFAULT_LOG_LEVEL: LogLevel = LogLevel.NONE
+DEFAULT_LOG_LEVEL: LogLevel = LogLevel.ALL
 
+LEVEL_ORDER = sorted([v for _, v in LogLevel.__members__.items()], key=lambda x: x.value)
 
 def getLogLevel(level: int) -> LogLevel:
   level10 = level * 10
@@ -159,6 +160,6 @@ def getLogLevel(level: int) -> LogLevel:
 
 DEFAULT_DEBUG_BUILD: bool = True
 
-CORTOS_ASM_FILE_NAME: str = "cortos.s"
+CORTOS_ASM_FILE_NAME: str = "cortos_asm.s"
 CORTOS_C_FILE_NAME: str = "cortos.c"
 CORTOS_PRINTF_FILE_NAME: str = "cortos_printf.c"

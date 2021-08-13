@@ -1,7 +1,7 @@
 ! see the reference file `cortos/res/lock_unlock.s`
 ! lock unlock on reserved locking variables (used internally by AjitCoRTOS)
 
-% lockArrayBaseAddr = confObj.reservedMem.ajitResLockVars.startAddr
+% lockArrayBaseAddr = confObj.reservedMem.cortosResLockVars.startAddr
 
 ! Usage Note:
 ! cortos_res_lock_acquire_buzy(<index: an-integer-index>);

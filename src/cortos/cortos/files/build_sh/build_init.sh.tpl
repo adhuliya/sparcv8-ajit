@@ -2,7 +2,7 @@
 
 _MAIN="main";
 _CORTOS_VMAP="vmap.txt";
-_CORTOS_ASM="cortos.s";
+_CORTOS_ASM="cortos_asm.s";
 _CORTOS_C="cortos.c";
 _CORTOS_PRINTF="cortos_printf.c";
 _CORTOS_LOCK_UNLOCK="./cortos_lock_unlock.s";
@@ -19,7 +19,7 @@ _AAR_MT="$AJIT_PROJECT_HOME/tools/ajit_access_routines_mt";
 _AAR="$AJIT_ACCESS_ROUTINES";
 
 % if confObj.addBget:
-_CORTOS_BGET="./ajit_bget.c";
+_CORTOS_BGET="./cortos_bget.c";
 _BGET="./bget.c";
 % end
 

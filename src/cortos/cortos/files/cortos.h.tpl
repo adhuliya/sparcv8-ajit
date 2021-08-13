@@ -1,5 +1,5 @@
-% qHdrs = confObj.reservedMem.ajitQueueHeaders
-% qQ = confObj.reservedMem.ajitQueues
+% qHdrs = confObj.reservedMem.cortosQueueHeaders
+% qQ = confObj.reservedMem.cortosQueues
 
 #ifndef CORTOS_H
 #define CORTOS_H
@@ -92,11 +92,11 @@ void cortos_q_lock_release(int index);
 
 #define Q_START_INDEX 0
 #define AJIT_Q_BASE {{qQ.startAddr}}
-#define AJIT_Q_LEN {{ajitQueueLength}}
-#define AJIT_Q_MSG_SIZE {{ajitQueueMsgSize}}
+#define AJIT_Q_LEN {{cortosQueueLength}}
+#define AJIT_Q_MSG_SIZE {{cortosQueueMsgSize}}
 
 #define AJIT_Q_HEADER_BASE {{qHdrs.startAddr}}
-#define AJIT_Q_HEADER_SIZE {{ajitQueueHeaderSize}}
+#define AJIT_Q_HEADER_SIZE {{cortosQueueHeaderSize}}
 
 #define GET_MSG_ADDR(_BASE, _INDEX) \
 ((_BASE) + ((_INDEX) * (AJIT_Q_MSG_SIZE)))
@@ -151,7 +151,7 @@ void cortos_brel(void *buf);
 // BLOCK START: cortos_shared_integers_addresses
 ////////////////////////////////////////////////////////////////////////////////
 % count = 0
-% intVarsMemRegion = confObj.reservedMem.ajitSharedIntVars
+% intVarsMemRegion = confObj.reservedMem.cortosSharedIntVars
 % for i in range(intVarsMemRegion.sizeInBytes):
 % if i % 4 == 0:
 % addr = intVarsMemRegion.startAddr + i
@@ -179,6 +179,10 @@ void cortos_enable_serial();
 // printf routine offered by Cortos
 int cortos_printf(const char *fmt, ...);
 
+// specially defined for logging purposes
+int cortos_log_printf(const char *level, const char *fileName,
+  const char *funcName, int lineNum, const char *fmt, ...);
+
 ////////////////////////////////////////////////////////////////////////////////
 // BLOCK END  : cortos_debug_routines
 ////////////////////////////////////////////////////////////////////////////////
@@ -197,36 +201,17 @@ int cortos_printf(const char *fmt, ...);
 #define LOG_LEVEL_NONE      100
 
 #define CORTOS_LOG_LEVEL {{confObj.logLevel.value}}
+#define CORTOS_LOG_LEVEL_NAME "{{confObj.logLevel.name}}"
 
-% if LogLevel.TRACE.value >= confObj.logLevel.value:
-#define CORTOS_TRACE(X) cortos_printf("CoRTOS:LOG: TRACE: " X);
+% for level in consts.LEVEL_ORDER:
+% if level.value >= confObj.logLevel.value:
+#define CORTOS_{{level.name}}(...) \
+cortos_log_printf("{{level.name}}", __FILE__, __func__, __LINE__, __VA_ARGS__);
 % else:
-#define CORTOS_TRACE(X)     /*blank*/
+#define CORTOS_{{level.name}}(...)     /*blank*/
+% end
 % end
 
-% if LogLevel.DEBUG.value >= confObj.logLevel.value:
-#define CORTOS_DEBUG(X) cortos_printf("CoRTOS:LOG: DEBUG: " X);
-% else:
-#define CORTOS_DEBUG(X)     /*blank*/
-% end
-
-% if LogLevel.INFO.value >= confObj.logLevel.value:
-#define CORTOS_INFO(X) cortos_printf("CoRTOS:LOG: INFO: " X);
-% else:
-#define CORTOS_INFO(X)      /*blank*/
-% end
-
-% if LogLevel.ERROR.value >= confObj.logLevel.value:
-#define CORTOS_ERROR(X) cortos_printf("CoRTOS:LOG: ERROR: " X);
-% else:
-#define CORTOS_ERROR(X)     /*blank*/
-% end
-
-% if LogLevel.CRITICAL.value >= confObj.logLevel.value:
-#define CORTOS_CRITICAL(X) cortos_printf("CoRTOS:LOG: CRITICAL: " X);
-% else:
-#define CORTOS_CRITICAL(X)  /*blank*/
-% end
 
 ////////////////////////////////////////////////////////////////////////////////
 // BLOCK END  : cortos_logging_declarations

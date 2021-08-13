@@ -43,10 +43,11 @@ def copyCortosHeaderFile(
   with open(consts.CORTOS_HEADER_FILE_NAME, "w") as f:
     f.write(btl.template(f"{consts.CORTOS_HEADER_FILE_NAME}",
                          confObj=confObj,
+                         consts=consts,
                          LogLevel=consts.LogLevel,
-                         ajitQueueLength=consts.DEFAULT_QUEUE_LEN,
-                         ajitQueueMsgSize=consts.DEFAULT_QUEUE_MSG_SIZE,
-                         ajitQueueHeaderSize=consts.QUEUE_HEADER_SIZE,
+                         cortosQueueLength=consts.DEFAULT_QUEUE_LEN,
+                         cortosQueueMsgSize=consts.DEFAULT_QUEUE_MSG_SIZE,
+                         cortosQueueHeaderSize=consts.QUEUE_HEADER_SIZE,
                          ))
 
 
@@ -151,8 +152,8 @@ def copyCortosQueueFiles(confObj: config.UserConfig) -> None:
 
 
 def copyCortosBgetFiles(confObj: config.UserConfig) -> None:
-  with open(consts.AJIT_BGET_C_FILE, "w") as f:
-    f.write(btl.template(f"bget/{consts.AJIT_BGET_C_FILE}",
+  with open(consts.CORTOS_BGET_C_FILE, "w") as f:
+    f.write(btl.template(f"bget/{consts.CORTOS_BGET_C_FILE}",
                          confObj=confObj,
                          bgetLockIndex=consts.BGET_RES_LOCK_INDEX))
 

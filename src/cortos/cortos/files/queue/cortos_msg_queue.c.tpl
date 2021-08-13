@@ -1,7 +1,7 @@
 
 // needs linking with cortos_q_lock_unlock.s
 
-#include "ajit_cortos.h"
+#include "cortos.h"
 
 
 int writeCortosMessage(int queueId, CortosMessage *msg) {
@@ -10,7 +10,7 @@ int writeCortosMessage(int queueId, CortosMessage *msg) {
   CortosMessage *dest = 0;
 
   header = GET_Q_HEADER_ADDR(queueId);
-  dest = GET_Q_ADDR(queueId)ajit;
+  dest = GET_Q_ADDR(queueId);
 
   cortos_q_lock_acquire_buzy(queueId);
 

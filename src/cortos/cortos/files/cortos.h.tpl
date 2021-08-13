@@ -4,56 +4,6 @@
 #ifndef CORTOS_H
 #define CORTOS_H
 
-
-////////////////////////////////////////////////////////////////////////////////
-// BLOCK START: cortos_logging_declarations
-////////////////////////////////////////////////////////////////////////////////
-
-#define LOG_LEVEL_ALL       10
-#define LOG_LEVEL_TRACE     20
-#define LOG_LEVEL_DEBUG     30
-#define LOG_LEVEL_INFO      40
-#define LOG_LEVEL_ERROR     50
-#define LOG_LEVEL_CRITICAL  60
-#define LOG_LEVEL_NONE      100
-
-#define CORTOS_LOG_LEVEL {{confObj.logLevel.value}}
-
-% if LogLevel.TRACE.value >= confObj.logLevel.value:
-#define CORTOS_TRACE(X) cortos_printf("CoRTOS:LOG: TRACE: " X);
-% else:
-#define CORTOS_TRACE(X)     /*blank*/
-%
-
-% if LogLevel.DEBUG.value >= confObj.logLevel.value:
-#define CORTOS_DEBUG(X) cortos_printf("CoRTOS:LOG: DEBUG: " X);
-% else:
-#define CORTOS_DEBUG(X)     /*blank*/
-%
-
-% if LogLevel.INFO.value >= confObj.logLevel.value:
-#define CORTOS_INFO(X) cortos_printf("CoRTOS:LOG: INFO: " X);
-% else:
-#define CORTOS_INFO(X)      /*blank*/
-%
-
-% if LogLevel.ERROR.value >= confObj.logLevel.value:
-#define CORTOS_ERROR(X) cortos_printf("CoRTOS:LOG: ERROR: " X);
-% else:
-#define CORTOS_ERROR(X)     /*blank*/
-%
-
-% if LogLevel.CRITICAL.value >= confObj.logLevel.value:
-#define CORTOS_CRITICAL(X) cortos_printf("CoRTOS:LOG: CRITICAL: " X);
-% else:
-#define CORTOS_CRITICAL(X)  /*blank*/
-%
-
-////////////////////////////////////////////////////////////////////////////////
-// BLOCK END  : cortos_logging_declarations
-////////////////////////////////////////////////////////////////////////////////
-
-
 ////////////////////////////////////////////////////////////////////////////////
 // BLOCK START: cortos_locking_declarations
 ////////////////////////////////////////////////////////////////////////////////
@@ -72,18 +22,6 @@ void cortos_res_lock_release(int index);
 
 ////////////////////////////////////////////////////////////////////////////////
 // BLOCK END  : cortos_locking_declarations
-////////////////////////////////////////////////////////////////////////////////
-
-
-////////////////////////////////////////////////////////////////////////////////
-// BLOCK START: cortos_misc_routines
-////////////////////////////////////////////////////////////////////////////////
-
-// Enable serial device to use printf
-void cortos_enable_serial();
-
-////////////////////////////////////////////////////////////////////////////////
-// BLOCK END  : cortos_misc_routines
 ////////////////////////////////////////////////////////////////////////////////
 
 
@@ -133,14 +71,14 @@ typedef struct _CortosQueueHeader {
 } CortosQueueHeader;
 
 /*
-Sends an CortosMessage.
+Sends a CortosMessage.
   - Returns zero if the queue is full.
   - Returns non-zero if the msg was added.
 */
 int writeCortosMessage(int queueId, CortosMessage *msg);
 
 /*
-Gets an CortosMessage.
+Gets a CortosMessage.
   - Returns zero if the queue is empty.
   - Returns non-zero if the msg was put into the *msg location.
 */
@@ -225,6 +163,7 @@ void cortos_brel(void *buf);
 // BLOCK END  : cortos_shared_integers_addresses
 ////////////////////////////////////////////////////////////////////////////////
 
+
 ////////////////////////////////////////////////////////////////////////////////
 // BLOCK START: cortos_debug_routines
 ////////////////////////////////////////////////////////////////////////////////
@@ -234,9 +173,64 @@ void cortos_brel(void *buf);
 // Any error code >= 4096 is reserved for CoRTOS.
 void cortos_exit(unsigned int error_code);
 
-// TODO: add debug macros here.
+// Enable serial device to use printf
+void cortos_enable_serial();
+
+// printf routine offered by Cortos
+int cortos_printf(const char *fmt, ...);
 
 ////////////////////////////////////////////////////////////////////////////////
 // BLOCK END  : cortos_debug_routines
 ////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////////////////////
+// BLOCK START: cortos_logging_declarations
+////////////////////////////////////////////////////////////////////////////////
+
+#define LOG_LEVEL_ALL       10
+#define LOG_LEVEL_TRACE     20
+#define LOG_LEVEL_DEBUG     30
+#define LOG_LEVEL_INFO      40
+#define LOG_LEVEL_ERROR     50
+#define LOG_LEVEL_CRITICAL  60
+#define LOG_LEVEL_NONE      100
+
+#define CORTOS_LOG_LEVEL {{confObj.logLevel.value}}
+
+% if LogLevel.TRACE.value >= confObj.logLevel.value:
+#define CORTOS_TRACE(X) cortos_printf("CoRTOS:LOG: TRACE: " X);
+% else:
+#define CORTOS_TRACE(X)     /*blank*/
+% end
+
+% if LogLevel.DEBUG.value >= confObj.logLevel.value:
+#define CORTOS_DEBUG(X) cortos_printf("CoRTOS:LOG: DEBUG: " X);
+% else:
+#define CORTOS_DEBUG(X)     /*blank*/
+% end
+
+% if LogLevel.INFO.value >= confObj.logLevel.value:
+#define CORTOS_INFO(X) cortos_printf("CoRTOS:LOG: INFO: " X);
+% else:
+#define CORTOS_INFO(X)      /*blank*/
+% end
+
+% if LogLevel.ERROR.value >= confObj.logLevel.value:
+#define CORTOS_ERROR(X) cortos_printf("CoRTOS:LOG: ERROR: " X);
+% else:
+#define CORTOS_ERROR(X)     /*blank*/
+% end
+
+% if LogLevel.CRITICAL.value >= confObj.logLevel.value:
+#define CORTOS_CRITICAL(X) cortos_printf("CoRTOS:LOG: CRITICAL: " X);
+% else:
+#define CORTOS_CRITICAL(X)  /*blank*/
+% end
+
+////////////////////////////////////////////////////////////////////////////////
+// BLOCK END  : cortos_logging_declarations
+////////////////////////////////////////////////////////////////////////////////
+
+
 #endif

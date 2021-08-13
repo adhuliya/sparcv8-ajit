@@ -1,6 +1,12 @@
+#include "stdint.h"
+#include "stdarg.h"
+
 #include "cortos.h"
 #include "ajit_access_routines.h"
 #include "core_portme.h"
+
+// defined in cortos_printf.c
+int ee_vsprintf(char *buf, const char *fmt, va_list args);
 
 
 // enables the serial device (UART)

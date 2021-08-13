@@ -25,6 +25,9 @@ def buildProject(confObj: config.UserConfig) -> None:
   computeStackAddr(confObj) # FIXME: call it from some other place?
   prepareBuildDir(confObj)
   runBuildScript(confObj)
+  # computeElfSize(confObj)
+  # prepareFinalBuildDir(confObj)
+  # runBuildScript(confObj)
   print(f"CoRTOS: END  : cortos_build.")
 
 
@@ -60,6 +63,9 @@ def copyBuildFiles(
 
   # copy cortos library support
   cpy.copyCortosHeaderFile(confObj)
+  cpy.copyCortosAsmFile(confObj)
+  cpy.copyCortosCFile(confObj)
+  cpy.copyCortosPrintfFile(confObj)
   cpy.copyCortosQueueFiles(confObj)
   cpy.copyLockFiles(confObj)
   if confObj.addBget:

@@ -116,6 +116,8 @@ class UserConfig:
     self.logLevel: consts.LogLevel = consts.DEFAULT_LOG_LEVEL
     self.enableSerial: bool = consts.DEFAULT_ENABLE_SERIAL_DEVICE
 
+    self.debugBuild: bool = consts.DEFAULT_DEBUG_BUILD
+
     self.initialize()
     print("CoRTOS: Initialized user configuration details.")
     self.verify()
@@ -376,6 +378,6 @@ def readYamlConfig(
   """Reads the given yaml configuration file."""
   with open(yamlFileName) as f:
     conf = yaml.load(f)
-    return UserConfig(conf, cmdLineLogLevel)
+    return UserConfig(conf)
 
 

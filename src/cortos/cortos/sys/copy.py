@@ -50,6 +50,30 @@ def copyCortosHeaderFile(
                          ))
 
 
+def copyCortosAsmFile(
+    confObj: config.UserConfig,
+) -> None:
+  with open(consts.CORTOS_ASM_FILE_NAME, "w") as f:
+    f.write(btl.template(f"build_asms/{consts.CORTOS_ASM_FILE_NAME}",
+                         confObj=confObj))
+
+
+def copyCortosCFile(
+    confObj: config.UserConfig,
+) -> None:
+  with open(consts.CORTOS_C_FILE_NAME, "w") as f:
+    f.write(btl.template(f"{consts.CORTOS_C_FILE_NAME}",
+                         confObj=confObj))
+
+
+def copyCortosPrintfFile(
+    confObj: config.UserConfig,
+) -> None:
+  with open(consts.CORTOS_PRINTF_FILE_NAME, "w") as f:
+    f.write(btl.template(f"{consts.CORTOS_PRINTF_FILE_NAME}",
+                         confObj=confObj))
+
+
 def copyLockFiles(
     confObj: config.UserConfig,
 ) -> None:

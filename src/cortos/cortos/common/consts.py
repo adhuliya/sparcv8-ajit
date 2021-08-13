@@ -144,7 +144,7 @@ class LogLevel(Enum):
   NONE = 100 # stop all logging
 
 
-DEFAULT_LOG_LEVEL: LogLevel = LogLevel.INFO
+DEFAULT_LOG_LEVEL: LogLevel = LogLevel.NONE
 
 
 def getLogLevel(level: int) -> LogLevel:
@@ -155,3 +155,10 @@ def getLogLevel(level: int) -> LogLevel:
     return LogLevel(LogLevel.CRITICAL.value)
   else:
     return LogLevel(level10)
+
+
+DEFAULT_DEBUG_BUILD: bool = True
+
+CORTOS_ASM_FILE_NAME: str = "cortos.s"
+CORTOS_C_FILE_NAME: str = "cortos.c"
+CORTOS_PRINTF_FILE_NAME: str = "cortos_printf.c"

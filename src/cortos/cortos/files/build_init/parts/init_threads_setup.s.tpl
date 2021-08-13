@@ -3,7 +3,7 @@
 ! BLOCK START: threads_setup
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-AJIT_SETUP_THREADS:
+CORTOS_SETUP_THREADS:
 !!!!!  setting up stacks in each thread....
 
 % for prog in confObj.programs:

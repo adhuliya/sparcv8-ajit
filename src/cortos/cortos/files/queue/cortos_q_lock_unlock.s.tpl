@@ -5,21 +5,21 @@
 ! qLock.startAddr = {{qLock.startAddr}}
 
 ! Usage Note:
-! cortos_q_lock_acquire_buzy(<index: an-integer-index>);
+! __cortos_q_lock_acquire_buzy(<index: an-integer-index>);
 !   CRITICAL_SECTION_CODE...
-! cortos_q_lock_release(<index: an-integer-index>);
+! __cortos_q_lock_release(<index: an-integer-index>);
 ! ----or-------or--------
-! status = cortos_q_lock_acquire(<index: an-integer-index>);
+! status = __cortos_q_lock_acquire(<index: an-integer-index>);
 ! if (status == 1) {
 !   CRITICAL_SECTION_CODE...
-!   cortos_q_lock_release(<index: an-integer-index>);
+!   __cortos_q_lock_release(<index: an-integer-index>);
 ! }
 
-.global cortos_q_lock_acquire_buzy
-.global cortos_q_lock_acquire
-.global cortos_q_lock_release
+.global __cortos_q_lock_acquire_buzy
+.global __cortos_q_lock_acquire
+.global __cortos_q_lock_release
 
-cortos_q_lock_acquire_buzy:
+__cortos_q_lock_acquire_buzy:
   ! i0 contains an index to the correct locking variable
   save  %sp, -96, %sp       ! func prefix
 
@@ -44,7 +44,7 @@ out:
   nop                       ! func suffix
 
 
-cortos_q_lock_acquire:
+__cortos_q_lock_acquire:
   ! Try to acquire the given lock id.
   ! if lock couldn't be acquired, it returns 0 (else 1)
   ! i0 contains an index to the correct locking variable
@@ -74,7 +74,7 @@ exit_cortos_lock_acquire:
   nop                       ! func suffix
 
 
-cortos_q_lock_release:
+__cortos_q_lock_release:
   ! Release the given lock.
   ! i0 contains an index to the correct locking variable
   save  %sp, -96, %sp       ! func prefix

@@ -10,7 +10,7 @@ int ee_vsprintf(char *buf, const char *fmt, va_list args);
 
 
 // enables the serial device (UART)
-void cortos_enable_serial() {
+void __cortos_enable_serial() {
   __ajit_write_serial_control_register__(TX_ENABLE);
 }
 
@@ -23,7 +23,7 @@ int cortos_printf(const char *fmt, ...) {
   va_list args;
   int n=0;
 
-  cortos_res_lock_acquire_buzy(RES_LOCK_INDEX_PRINTF);
+  __cortos_lock_acquire_buzy(__RES_LOCK_INDEX_PRINTF);
 
   va_start(args, fmt);
   ee_vsprintf(buf, fmt, args);
@@ -35,7 +35,7 @@ int cortos_printf(const char *fmt, ...) {
     p++;
   }
 
-  cortos_res_lock_release(RES_LOCK_INDEX_PRINTF);
+  __cortos_lock_release(__RES_LOCK_INDEX_PRINTF);
 
   return n;
 }
@@ -44,7 +44,7 @@ int cortos_printf(const char *fmt, ...) {
 // Thread Safe.
 // Prints and returns the number of characters printed.
 // Logic taken from ee_printf() in `minimal_printf_timer/src/ee_printf.c`
-int cortos_log_printf(
+int __cortos_log_printf(
     const char* levelName,
     const char *fileName,
     const char *funcName,
@@ -65,7 +65,7 @@ int cortos_log_printf(
   :"%l1"
   );
 
-  cortos_res_lock_acquire_buzy(RES_LOCK_INDEX_PRINTF);
+  __cortoslock_acquire_buzy(__RES_LOCK_INDEX_PRINTF);
 
   n += ee_printf(
    "CoRTOS: LOG: %s: Thread (%d,%d), File: %s, Func: %s, Line: %d. ",
@@ -83,7 +83,7 @@ int cortos_log_printf(
 
   n += ee_printf("\n");
 
-  cortos_res_lock_release(RES_LOCK_INDEX_PRINTF);
+  __cortos_lock_release(__RES_LOCK_INDEX_PRINTF);
 
   return n;
 }

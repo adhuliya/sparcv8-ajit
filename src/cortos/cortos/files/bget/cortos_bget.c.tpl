@@ -12,11 +12,11 @@ int __mem_allocated = 0;
 void __cortos_bpool() {
   if (__mem_allocated == 0) {
     // this if condition enters only once.
-    cortos_res_lock_acquire_buzy(RES_LOCK_INDEX_BGET);
+    __cortos_lock_acquire_buzy(__RES_LOCK_INDEX_BGET);
 
     bpool({{baseAddr}}, {{memSize}});
 
-    cortos_res_lock_release(RES_LOCK_INDEX_BGET);
+    __cortos_lock_release(__RES_LOCK_INDEX_BGET);
 
     __mem_allocated = 1;
   }
@@ -26,11 +26,11 @@ void __cortos_bpool() {
 // get/allocate a memory of `size` bytes
 void *cortos_bget(cortos_bufsize size) {
   void *base = 0;
-  cortos_res_lock_acquire_buzy(RES_LOCK_INDEX_BGET);
+  __cortos_lock_acquire_buzy(__RES_LOCK_INDEX_BGET);
 
   base = bget(size);
 
-  cortos_res_lock_release(RES_LOCK_INDEX_BGET);
+  __cortos_lock_release(__RES_LOCK_INDEX_BGET);
 
   return base;
 }
@@ -38,10 +38,10 @@ void *cortos_bget(cortos_bufsize size) {
 
 // release/free an allocated memory chunk
 void cortos_brel(void *buf) {
-  cortos_res_lock_acquire_buzy(RES_LOCK_INDEX_BGET);
+  __cortos_lock_acquire_buzy(__RES_LOCK_INDEX_BGET);
 
   brel(buf);
 
-  cortos_res_lock_release(RES_LOCK_INDEX_BGET);
+  __cortos_lock_release(__RES_LOCK_INDEX_BGET);
 }
 

@@ -1,5 +1,3 @@
-% qHdrs = confObj.reservedMem.cortosQueueHeaders
-% qQ = confObj.reservedMem.cortosQueues
 
 // NOTE:
 // All symbols for cortos' internal use are prefixed with `__`,
@@ -186,7 +184,7 @@ int cortos_printf(const char *fmt, ...);
 % for level in consts.LEVEL_ORDER:
 % if level.value >= confObj.logLevel.value:
 #define CORTOS_{{level.name}}(...) \
-cortos_log_printf("{{level.name}}", __FILE__, __func__, __LINE__, __VA_ARGS__);
+__cortos_log_printf("{{level.name}}", __FILE__, __func__, __LINE__, __VA_ARGS__);
 % else:
 #define CORTOS_{{level.name}}(...)     /*blank*/
 % end

@@ -84,7 +84,7 @@ DEFAULT_PROG_ELF_SIZE = 40960 # bytes
 INIT_BUILD_DIR_NAME: str = "build_init"
 FINAL_BUILD_DIR_NAME: str = "build_final"
 CORTOS_BUILD_DIR_NAME: str = "cortos_build"
-CORTOS_SRC_DIR_NAME: str = "cortos"
+CORTOS_SRC_DIR_NAME: str = "cortos_src"
 
 
 ELF_FILE_NAME: str = "main.elf"
@@ -94,6 +94,7 @@ TRAP_FILE_NAME: str = "trap_handlers.s"
 PAGE_TABLE_FILE_NAME: str = "setup_page_tables.s"
 VMAP_FILE_NAME: str = "vmap.txt"
 CORTOS_HEADER_FILE_NAME: str = "cortos.h"
+CORTOS_INTERNAL_HEADER_FILE_NAME: str = "__cortos.h"
 LOCK_FILE_NAME: str = "cortos_lock_unlock.s"
 RES_LOCK_FILE_NAME: str = "__cortos_lock_unlock.s"
 
@@ -110,6 +111,7 @@ INIT_00_FILE_NAME: str = "init_00.s"
 
 INIT_BUILD_SH_FILE_NAME: str = "build_init.sh"
 FINAL_BUILD_SH_FILE_NAME: str = "build.sh"
+CLEAN_SH_FILE_NAME: str = "clean.sh"
 
 RUN_CMODEL_FILE_NAME: str = "run_cmodel.sh"
 DEFAULT_RESULTS_FILE_NAME: str = "main.results"

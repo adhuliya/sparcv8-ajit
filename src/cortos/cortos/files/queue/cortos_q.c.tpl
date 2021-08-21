@@ -2,6 +2,7 @@
 // needs linking with cortos_q_lock_unlock.s
 
 #include "cortos.h"
+#include "__cortos.h"
 
 
 int writeCortosMessage(int queueId, CortosMessage *msg) {

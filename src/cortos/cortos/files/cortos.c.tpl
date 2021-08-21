@@ -2,6 +2,7 @@
 #include "stdarg.h"
 
 #include "cortos.h"
+#include "__cortos.h"
 #include "ajit_access_routines.h"
 #include "core_portme.h"
 
@@ -65,7 +66,7 @@ int __cortos_log_printf(
   :"%l1"
   );
 
-  __cortoslock_acquire_buzy(__RES_LOCK_INDEX_PRINTF);
+  __cortos_lock_acquire_buzy(__RES_LOCK_INDEX_PRINTF);
 
   n += ee_printf(
    "CoRTOS: LOG: %s: Thread (%d,%d), File: %s, Func: %s, Line: %d. ",

@@ -37,6 +37,7 @@ def prepareBuildDir(
   """Prepares a build directory for the initial build of a program."""
   # STEP 1: create the build directory
   util.createDir(confObj.buildDir)
+  util.createDir(confObj.cortosSrcDir)
 
   # STEP 2: copy necessary files
   copyBuildFiles(confObj)
@@ -56,6 +57,7 @@ def copyBuildFiles(
   cpy.copyCortosHeaderFile(confObj)
   cpy.copyResultsFile(confObj)
   cpy.copyBuildshFile(confObj)
+  cpy.copyCleanshFile(confObj)
   cpy.copyRunCModelFile(confObj)
 
   # STEP 3: Copy files that the user might not need to look into.
@@ -64,6 +66,7 @@ def copyBuildFiles(
   cpy.copyPageTableFile(confObj)
   cpy.copyVmapFile(confObj)
   cpy.copyLinkerScriptFile(confObj)
+  cpy.copyCortosInternalHeaderFile(confObj)
 
   # copy cortos library support
   cpy.copyCortosAsmFile(confObj)

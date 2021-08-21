@@ -94,6 +94,7 @@ class UserConfig:
 
     self.rootDir = os.getcwd()
     self.buildDir = osp.join(self.rootDir, consts.CORTOS_BUILD_DIR_NAME)
+    self.cortosSrcDir = osp.join(self.buildDir, consts.CORTOS_SRC_DIR_NAME)
     self.cFileNames: List[str] = []
     self.resultsFile: str = consts.DEFAULT_RESULTS_FILE_NAME
 

@@ -84,6 +84,7 @@ DEFAULT_PROG_ELF_SIZE = 40960 # bytes
 INIT_BUILD_DIR_NAME: str = "build_init"
 FINAL_BUILD_DIR_NAME: str = "build_final"
 CORTOS_BUILD_DIR_NAME: str = "cortos_build"
+CORTOS_SRC_DIR_NAME: str = "cortos"
 
 
 ELF_FILE_NAME: str = "main.elf"
@@ -94,7 +95,7 @@ PAGE_TABLE_FILE_NAME: str = "setup_page_tables.s"
 VMAP_FILE_NAME: str = "vmap.txt"
 CORTOS_HEADER_FILE_NAME: str = "cortos.h"
 LOCK_FILE_NAME: str = "cortos_lock_unlock.s"
-RES_LOCK_FILE_NAME: str = "cortos_res_lock_unlock.s"
+RES_LOCK_FILE_NAME: str = "__cortos_lock_unlock.s"
 
 LINKER_SCRIPT_FILE_NAME: str = "LinkerScript.txt"
 LINKER_SCRIPT_00_FILE_NAME: str = "LinkerScript00.txt"
@@ -119,12 +120,12 @@ MMAP_LINE_REGEX_COMPILED = re.compile(MMAP_LINE_REGEX)
 LOWER_STACK_BOUNDARY_ADDR: int = 0xF0000000
 
 
-QUEUE_C_FILE: str = "cortos_msg_queue.c"
-QUEUE_LOCK_FILE: str = "cortos_q_lock_unlock.s"
+QUEUE_C_FILE: str = "cortos_q.c"
+QUEUE_LOCK_FILE: str = "__cortos_q_lock_unlock.s"
 
 CORTOS_BGET_C_FILE: str = "cortos_bget.c"
-BGET_C_FILE: str = "bget.c"
-BGET_H_FILE: str = "bget.h"
+BGET_C_FILE: str = "__bget.c"
+BGET_H_FILE: str = "__bget.h"
 
 
 DEFAULT_BGET_MEM_SIZE_IN_BYTES: int = 1024 * 100   # bytes
@@ -162,4 +163,5 @@ DEFAULT_DEBUG_BUILD: bool = True
 
 CORTOS_ASM_FILE_NAME: str = "cortos_asm.s"
 CORTOS_C_FILE_NAME: str = "cortos.c"
-CORTOS_PRINTF_FILE_NAME: str = "cortos_printf.c"
+CORTOS_PRINTF_FILE_NAME: str = "__cortos_ee_printf.c"
+

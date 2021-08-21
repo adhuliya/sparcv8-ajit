@@ -4,8 +4,8 @@
 % baseAddr = confObj.reservedMem.cortosBgetMemory.startAddr
 % memSize = confObj.reservedMem.cortosBgetMemory.sizeInBytes
 
-#include "bget.h"
-#include "cortos.h"
+#include "__bget.h"
+#include "__cortos.h"
 
 int __mem_allocated = 0;
 

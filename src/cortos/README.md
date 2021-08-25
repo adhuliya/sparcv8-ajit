@@ -1,6 +1,8 @@
 Notes
 -------------
 
+For user documentation see `./examples/README.md` file.
+
 ### Components
 0. Read user configuration - yaml file -- DONE
 1. Linking

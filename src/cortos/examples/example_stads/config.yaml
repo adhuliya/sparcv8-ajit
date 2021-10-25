@@ -23,3 +23,5 @@ ProgramThreads:
 #     - main
     StackSizeInBytes: 8192
 
+# All stacks should not go lower than this address.
+LeastValidStackAddr: 0xFF000000

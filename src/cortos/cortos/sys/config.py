@@ -28,6 +28,7 @@ YML_PROG_INIT_CALL_SEQ = "CortosInitCalls"
 YML_PROG_LOOP_CALL_SEQ = "CortosLoopCalls"
 
 YML_MEM_SIZE_IN_KB = "TotalMemoryInKB"
+YML_STACK_MIN_ADDR = "LeastValidStackAddr"
 YML_TOTAL_LOCK_VARS = "TotalLockVars"
 YML_ADD_BGET = "AddBget"
 
@@ -112,6 +113,7 @@ class UserConfig:
     self.totalQueueHeadersSize = (self.totalQueues
                                   * consts.QUEUE_HEADER_SIZE_IN_BYTES)
 
+    self.leastValidStackAddr = consts.LOWER_STACK_BOUNDARY_ADDR_4MB
     self.bgetMemSizeInBytes = consts.DEFAULT_BGET_MEM_SIZE_IN_BYTES
     self.totalSharedIntVars = consts.TOTAL_SHARED_INT_VARS
     self.reservedMem: Opt[DataMemoryRegions] = None
@@ -121,6 +123,7 @@ class UserConfig:
     self.enableSerial: bool = consts.DEFAULT_ENABLE_SERIAL_DEVICE
 
     self.debugBuild: bool = consts.DEFAULT_DEBUG_BUILD
+    self.optLevel: int = consts.DEFAULT_OPT_LEVEL  # 0, 1 or 2
     # the starting debug port sequence (one for each thread)
     self.startingDebugPort: int = consts.DEFAULT_DEBUG_PORT
 
@@ -152,6 +155,10 @@ class UserConfig:
     self.totalLockVars = (self.data[YML_TOTAL_LOCK_VARS]
                           if YML_TOTAL_LOCK_VARS in self.data
                           else consts.DEFAULT_LOCK_VARS)
+
+    self.leastValidStackAddr = (self.data[YML_STACK_MIN_ADDR]
+                                if YML_STACK_MIN_ADDR in self.data
+                                else consts.LOWER_STACK_BOUNDARY_ADDR_4MB)
 
     self.reservedMem = DataMemoryRegions(self)
 
@@ -248,6 +255,17 @@ class UserConfig:
   ):
     self.debugBuild = debug
     self.startingDebugPort = port
+
+
+  def addOptLevel(self,
+      optLevel0: bool = False,
+      optLevel1: bool = False,
+      optLevel2: bool = False,
+  ) -> None:
+    self.optLevel = 0 if optLevel0 else self.optLevel
+    self.optLevel = 1 if optLevel1 else self.optLevel
+    self.optLevel = 2 if optLevel2 else self.optLevel
+
 
   def __str__(self):
     return (

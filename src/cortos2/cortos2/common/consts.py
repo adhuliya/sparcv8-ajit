@@ -77,7 +77,8 @@ DEFAULT_QUEUE_REGION_SIZE_IN_BYTES = DEFAULT_ALL_QUEUE_SIZE_IN_BYTES +\
                                      (QUEUE_HEADER_SIZE_IN_BYTES * DEFAULT_TOTAL_QUEUES)
 
 
-DEFAULT_MEM_START_ADDR = 0xF1000000 # after 16MB
+# DEFAULT_MEM_START_ADDR = 0xF1000000 # after 16MB
+DEFAULT_MEM_START_ADDR = 0x0
 DEFAULT_MEM_SIZE_IN_KB = 100 * 1024
 DEFAULT_MEM_COPY_SIZE_IN_BYTES = 16 * 1024 * 1024 # 16 MB
 
@@ -148,7 +149,8 @@ CORTOS_PRINTF_FILE_NAME: str = "__cortos_ee_printf.c"
 CORTOS_PRINTF_CVT_FILE_NAME: str = "__cvt.c"
 
 
-DEFAULT_BGET_MEM_SIZE_IN_BYTES: int = 1024 * 100   # bytes
+DEFAULT_BGET_ENABLE: bool = False
+DEFAULT_BGET_MEM_SIZE_IN_KB: int = 100   # KB
 
 BGET_RES_LOCK_INDEX: int = 0
 
@@ -202,12 +204,19 @@ DEFAULT_DEBUG_BUILD: bool = False
 DEFAULT_OPT_LEVEL: int = 2
 DEFAULT_FIRST_DEBUG_PORT: int   = 8888
 
+class PageTableLevel(Enum):
+  LEVEL0 = 0 # 4GB
+  LEVEL1 = 1 # 256MB
+  LEVEL2 = 2 # 16MB
+  LEVEL3 = 3 # 4KB
+
+DEFAULT_PAGE_LEVEL: PageTableLevel = PageTableLevel.LEVEL3
 
 PAGE_TABLE_LEVELS_TO_PAGE_SIZE = {
-  0: 2**32,  #   4 GB (in bytes)
-  1: 2**28,  # 256 MB (in bytes)
-  2: 2**24,  #  16 MB (in bytes)
-  3: 2**12,  #   4 KB (in bytes)
+  PageTableLevel.LEVEL0: 2**32,  #   4 GB (in bytes)
+  PageTableLevel.LEVEL1: 2**28,  # 256 MB (in bytes)
+  PageTableLevel.LEVEL2: 2**24,  #  16 MB (in bytes)
+  PageTableLevel.LEVEL3: 2**12,  #   4 KB (in bytes)
 }
 """Page table level to page size in bytes map."""
 
@@ -250,9 +259,11 @@ YML_PROG_INIT_CALL_SEQ = "CortosInitCalls"
 YML_PROG_LOOP_CALL_SEQ = "CortosLoopCalls"
 
 YML_MEM_SIZE_IN_KB = "TotalMemoryInKB"
+YML_MEM_START_ADDR = "MemroyStartAddr"
 YML_STACK_MIN_ADDR = "LeastValidStackAddr"
 YML_TOTAL_LOCK_VARS = "TotalLockVars"
-YML_ADD_BGET = "AddBget"
+# YML_ADD_BGET = "AddBget"
+YML_BGET_MEM_SIZE_IN_KB = "BgetMemSizeInKB"
 
 YML_LOG_LEVEL = "LogLevel"
 ################################################################

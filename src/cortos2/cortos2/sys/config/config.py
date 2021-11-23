@@ -16,7 +16,7 @@ import os.path as osp
 # Yaml key names
 import cortos2.common.consts as consts
 import cortos2.sys.compute as compute
-from cortos2.sys.config import cpu, build, files, program
+from cortos2.sys.config import cpu, build, files, program, memory, queue, lock, bget
 from cortos2.sys.config.cpu import CoreThread
 
 YML_CORES = "Cores"
@@ -48,6 +48,10 @@ class SystemConfig:
 
     self.cpu: Opt[cpu.CPU] = None
     self.program: Opt[program.Program] = None
+    self.queueSeq: Opt[queue.QueueSeq] = None
+    self.locks: Opt[lock.Locks] = None
+    self.bget: Opt[bget.Bget] = None
+    self.memory: Opt[memory.Memory] = None
     self.build = build.Build()
 
     self.programs: List[ProgramThread] = []
@@ -94,34 +98,21 @@ class SystemConfig:
   def initialize(self):
     # STEP 1: Initialize the CPU parameters (cores, threads per core, etc.).
     self.cpu = cpu.initConfig(self.userProvidedConfig)
-    self.build = build.Build()
+    self.program = program.initConfig(self.userProvidedConfig, self.cpu)
+    self.queueSeq = queue.initConfig(self.userProvidedConfig)
+    self.locks = lock.initConfig(self.userProvidedConfig)
+    self.bget = bget.initConfig(self.userProvidedConfig)
+    self.build = build.initConfig(self.userProvidedConfig)
 
-    self.programs = []
-    thread: Opt[CoreThread] = CoreThread(0, 0)
-    for progData in self.userProvidedConfig[YML_PROG_THREADS]:
-      if thread is None:
-        print(f"CoRTOS: ERROR: programs are more than available h/w threads.")
-        exit(1)
-      self.programs.append(ProgramThread(progData, thread))
-      thread = self.getNextThread(thread)
-    self.programs = sorted(self.programs, key=lambda x: x.thread)
+    self.memory = memory.initConfig(
+      userProvidedConfig=self.userProvidedConfig,
+      program=self.program,
+      queueSeq=self.queueSeq,
+      locks=self.locks,
+      bget=self.bget,
+      build=self.build,
+    )
 
-    self.memSizeInKB = (self.userProvidedConfig[YML_MEM_SIZE_IN_KB]
-                        if YML_MEM_SIZE_IN_KB in self.userProvidedConfig
-                        else consts.DEFAULT_MEM_SIZE_IN_KB)
-    self.totalLockVars = (self.userProvidedConfig[YML_TOTAL_LOCK_VARS]
-                          if YML_TOTAL_LOCK_VARS in self.userProvidedConfig
-                          else consts.DEFAULT_LOCK_VARS)
-
-    self.leastValidStackAddr = (self.userProvidedConfig[YML_STACK_MIN_ADDR]
-                                if YML_STACK_MIN_ADDR in self.userProvidedConfig
-                                else consts.LOWER_STACK_BOUNDARY_ADDR_4MB)
-
-    self.memoryLayout = MemoryLayout(self)
-
-    self.readProjectFiles()
-
-    self.addBget = True if YML_ADD_BGET in self.userProvidedConfig else False
 
     logLevelStr: Opt[str] = self.userProvidedConfig[YML_LOG_LEVEL] \
       if YML_LOG_LEVEL in self.userProvidedConfig else "NONE"
@@ -129,15 +120,6 @@ class SystemConfig:
       if logLevelStr else consts.DEFAULT_LOG_LEVEL
 
     # TODO: add queue related configuration.
-
-
-  def readProjectFiles(self):
-    files = os.listdir(self.rootDir)
-    for fName in files:
-      if fName.endswith(".c") and osp.isfile(fName):
-        self.cFileNames.append(fName)
-      elif fName.endswith(".results"):
-        self.resultsFile = fName
 
 
   def verify(self) -> 'SystemConfig':
@@ -159,32 +141,14 @@ class SystemConfig:
     return self
 
 
-  def addDebugSupport(self,
-      debug: bool = consts.DEFAULT_DEBUG_BUILD,
-      port: int = consts.DEFAULT_FIRST_DEBUG_PORT,
-  ):
-    self.debugBuild = debug
-    self.startingDebugPort = port
-
-
-  def addOptLevel(self,
-      optLevel0: bool = False,
-      optLevel1: bool = False,
-      optLevel2: bool = False,
-  ) -> None:
-    self.optLevel = 0 if optLevel0 else self.optLevel
-    self.optLevel = 1 if optLevel1 else self.optLevel
-    self.optLevel = 2 if optLevel2 else self.optLevel
-
-
   def __str__(self):
     return (
       f"UserConfiguration:\n"
-      f"  {YML_CORES}: {self.coreCount}\n"
-      f"  {YML_THREADS}: {self.threadsPerCoreCount}\n"
-      f"  {YML_PROG_THREADS}: {self.programs}\n"
-      f"  {YML_MEM_SIZE_IN_KB}: {self.memSizeInKB}\n"
-      f"  {YML_TOTAL_LOCK_VARS}: {self.totalLockVars}\n"
+      f"  {consts.YML_CORES}: {self.cpu.coreCount}\n"
+      f"  {consts.YML_THREADS}: {self.cpu.threadsPerCoreCount}\n"
+      f"  {consts.YML_PROG_THREADS}: {self.programs}\n"
+      f"  {consts.YML_MEM_SIZE_IN_KB}: {self.memSizeInKB}\n"
+      f"  {consts.YML_TOTAL_LOCK_VARS}: {self.totalLockVars}\n"
     )
 
 

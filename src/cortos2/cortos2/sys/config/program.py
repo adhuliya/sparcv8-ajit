@@ -1,20 +1,23 @@
 """Details related to the user programs."""
-from typing import List
+from typing import List, Dict
 
+from cortos2.common import consts
 from cortos2.sys.config import config
+from cortos2.sys.config import cpu
 
 
 class ProgramThread:
   def __init__(self,
-      data: Any,
-      thread: CoreThread,
+      coreThread: cpu.CoreThread,
+      stackSizeInBytes: int,
+      initCallSeq: List[str],
+      loopCallSeq: List[str],
   ):
-    self.data = data
-    self.thread = thread
-    self.initCallSeq = []
-    self.loopCallSeq = []
+    self.coreThread = coreThread
+    self.initCallSeq = initCallSeq
+    self.loopCallSeq = loopCallSeq
 
-    self.stackSizeInBytes = 0
+    self.stackSizeInBytes = stackSizeInBytes
     self.stackStartAddr = 0
 
     self.initialize()
@@ -38,16 +41,16 @@ class ProgramThread:
 
   def isThread00(self) -> bool:
     """Returns True if this program is running on Core 0, Thread 0."""
-    return self.thread.isThread00()
+    return self.coreThread.isThread00()
 
 
   def __str__(self):
     return f"(Program (" \
-           f"{YML_PROG_THREAD}: {self.thread}" \
-           f", {YML_PROG_STACK_SIZE}: {self.stackSizeInBytes})" \
+           f"{consts.YML_PROG_THREAD}: {self.coreThread}" \
+           f", {consts.YML_PROG_STACK_SIZE}: {self.stackSizeInBytes})" \
            f", stackStartAddr: {self.stackStartAddr})" \
-           f", {YML_PROG_INIT_CALL_SEQ}: {self.initCallSeq})" \
-           f", {YML_PROG_LOOP_CALL_SEQ}: {self.loopCallSeq})"
+           f", {consts.YML_PROG_INIT_CALL_SEQ}: {self.initCallSeq})" \
+           f", {consts.YML_PROG_LOOP_CALL_SEQ}: {self.loopCallSeq})"
 
 
   def __repr__(self):
@@ -67,16 +70,38 @@ class Program:
 def initConfig(
     userProvidedConfig: Dict,
     cpu: config.cpu.CPU,
-) -> AllPrograms:
+) -> Program:
   """Takes a user given configuration and extracts the relevant bits."""
-  allPrograms: List[ProgramThread] = []
+  programThreads: List[ProgramThread] = []
 
-  thread: Opt[CoreThread] = CoreThread(0, 0)
-  for progData in self.userProvidedConfig[YML_PROG_THREADS]:
-    if thread is None:
+  coreThread = cpu.getThreadZero()
+  for progData in userProvidedConfig[consts.YML_PROG_THREADS]:
+    if coreThread is None:
       print(f"CoRTOS: ERROR: programs are more than available h/w threads.")
       exit(1)
-    self.programs.append(ProgramThread(progData, thread))
-    thread = self.getNextThread(thread)
-  self.programs = sorted(self.programs, key=lambda x: x.thread)
+
+    stackSizeInBytes = progData[consts.YML_PROG_STACK_SIZE] \
+      if consts.YML_PROG_STACK_SIZE in progData else consts.DEFAULT_STACK_SIZE
+    initCallSeq = progData[consts.YML_PROG_INIT_CALL_SEQ] \
+      if consts.YML_PROG_INIT_CALL_SEQ in progData else []
+    loopCallSeq = progData[consts.YML_PROG_LOOP_CALL_SEQ] \
+      if consts.YML_PROG_LOOP_CALL_SEQ in progData else []
+
+    programThreads.append(
+      ProgramThread(
+        coreThread=coreThread,
+        stackSizeInBytes=stackSizeInBytes,
+        initCallSeq=initCallSeq,
+        loopCallSeq=loopCallSeq,
+      )
+    )
+
+    coreThread = cpu.getNextThread(coreThread)
+
+  # sorting not needed currently. Kept this line for reference.
+  programThreads = sorted(programThreads, key=lambda x: x.coreThread)
+
+  program = Program(programThreads)
+  return program
+
 

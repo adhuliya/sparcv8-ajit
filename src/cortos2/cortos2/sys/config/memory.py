@@ -1,6 +1,6 @@
 """The configuration and layout of the system memory."""
 import os
-from typing import List, Optional as Opt
+from typing import List, Optional as Opt, Dict, Tuple
 
 from cortos2.common import util, consts
 
@@ -15,7 +15,6 @@ class MemoryRegion(util.PrettyStr):
       context: int = 0,
       virtualAddr: int = 0,  # the start address
       physicalAddr: int = 0,
-      pageTableLevel: int = 0,  # in {0, 1, 2, 3}
       cacheable: bool = True,
       permissions: int = 0x1,  # read,write for data
   ):
@@ -25,9 +24,32 @@ class MemoryRegion(util.PrettyStr):
     self.context = context
     self.virtualAddr = virtualAddr
     self.physicalAddr = physicalAddr
-    self.pageTableLevel = pageTableLevel
+    self.pageTableLevels: List[Tuple[consts.PageTableLevel, int]] = []
     self.cacheable = cacheable
     self.permissions = permissions
+
+    self.initPageTableLevels()
+
+
+  def initPageTableLevels(self):
+    """Determine the number of pages and their levels needed for this region.
+    It tries to minimize space wastage and also minimize the number of
+    page table entries.
+    """
+    self.pageTableLevels = []
+
+    sizeInBytes = self.sizeInBytes
+    for level in sorted((x for x in consts.PageTableLevel), key=lambda x: x.value):
+      pageSizeInBytes = consts.PAGE_TABLE_LEVELS_TO_PAGE_SIZE[consts.PageTableLevel.LEVEL0]
+      numOfPages = self.sizeInBytes // pageSizeInBytes
+      self.pageTableLevels.append((consts.PageTableLevel.LEVEL0, numOfPages))
+      sizeInBytes -= numOfPages * pageSizeInBytes
+
+    # fit the size left in a 4KB page
+    if sizeInBytes > 0:
+      assert sizeInBytes < consts.PAGE_TABLE_LEVELS_TO_PAGE_SIZE[consts.PageTableLevel.LEVEL3], \
+             f"{sizeInBytes} should be lower than 4KB."
+      self.pageTableLevels.append((consts.PageTableLevel.LEVEL3, 1))
 
 
   def getFirstByteAddr(self, useVirtualAddr: bool = True) -> int:
@@ -35,7 +57,7 @@ class MemoryRegion(util.PrettyStr):
 
 
   def getLastByteAddr(self, useVirtualAddr: bool = True):
-    return self.getNextToLastByteAddrOfPage(useVirtualAddr=useVirtualAddr) - 1
+    return self.getNextToLastByteAddr(useVirtualAddr=useVirtualAddr) - 1
 
 
   def getSizeInBytes(self):
@@ -44,21 +66,27 @@ class MemoryRegion(util.PrettyStr):
 
   def totalPagesUsed(self) -> int:
     """Returns the number of pages used."""
-    page_size = consts.PAGE_TABLE_LEVELS_TO_PAGE_SIZE[self.pageTableLevel]
-    count = self.sizeInBytes / page_size
-    rem = self.sizeInBytes % page_size
-    count += 1 if rem else 0
-    return count
+    totalPages = 0
+    for level, count in self.pageTableLevels:
+      totalPages += count
+    return totalPages
 
 
-  def getNextToLastByteAddrOfPage(self,
+  def pagedSizeInBytes(self) -> int:
+    """Returns the size occupied by all the pages."""
+    pagedSizeInBytes = 0
+    for level, count in self.pageTableLevels:
+      pageSize = consts.PAGE_TABLE_LEVELS_TO_PAGE_SIZE[level]
+      pagedSizeInBytes += pageSize * count
+    return pagedSizeInBytes
+
+
+  def getNextToLastByteAddr(self,
       useVirtualAddr: bool = True,  # set False to use physical address
   ) -> int:
     """Returns the address of the first byte just after the allocated space."""
-    page_size = consts.PAGE_TABLE_LEVELS_TO_PAGE_SIZE[self.pageTableLevel]
-    totalPagedMemory = page_size * self.totalPagesUsed()
     baseAddr = self.virtualAddr if useVirtualAddr else self.physicalAddr
-    nextToLastByteAddr = baseAddr + totalPagedMemory
+    nextToLastByteAddr = baseAddr + self.pagedSizeInBytes()
     return nextToLastByteAddr
 
 
@@ -80,18 +108,24 @@ class MemoryRegion(util.PrettyStr):
     """Returns the entry lines to be put in a vmap file."""
     entryLines: List[str] = []
     entryLines.append(f"!{self.name}: {self.oneLineDescription}{os.linesep}")
-    page_size = consts.PAGE_TABLE_LEVELS_TO_PAGE_SIZE[self.pageTableLevel]
-    for i in range(self.totalPagesUsed()):
-      entryLines.append(
-        self.getVmapFileEntryLine(
-          context=self.context,
-          virtualAddr=self.virtualAddr + page_size * i,
-          physicalAddr=self.physicalAddr + page_size * i,
-          pageTableLevel=self.pageTableLevel,
-          cacheable=self.cacheable,
-          permissions=self.permissions,
+
+    virtualAddr = self.virtualAddr
+    physicalAddr = self.physicalAddr
+    for level, count in self.pageTableLevels:
+      page_size = consts.PAGE_TABLE_LEVELS_TO_PAGE_SIZE[level]
+      for i in range(count):
+        entryLines.append(
+          self.getVmapFileEntryLine(
+            context=self.context,
+            virtualAddr=virtualAddr + page_size * i,
+            physicalAddr=physicalAddr + page_size * i,
+            pageTableLevel=level.value,
+            cacheable=self.cacheable,
+            permissions=self.permissions,
+          )
         )
-      )
+      virtualAddr += page_size * count
+      physicalAddr += page_size * count
     return entryLines
 
 
@@ -125,8 +159,8 @@ class MemoryLayout:
       name="DataSection",
       oneLineDescription="All .data/.bss sections of the code.",
       sizeInBytes=confObj.dataSecSizeInBytes,
-      virtualAddr=region.getNextToLastByteAddrOfPage(useVirtualAddr=True),
-      physicalAddr=region.getNextToLastByteAddrOfPage(useVirtualAddr=False),
+      virtualAddr=region.getNextToLastByteAddr(useVirtualAddr=True),
+      physicalAddr=region.getNextToLastByteAddr(useVirtualAddr=False),
       permissions=consts.PagePermissions.SU_RW.value,
     )
     self.regionSeq.append(region)
@@ -136,8 +170,8 @@ class MemoryLayout:
       name="ReservedSpace",
       oneLineDescription="Some reserved space.",
       sizeInBytes=consts.RESERVED_REGION_SIZE,
-      virtualAddr=region.getNextToLastByteAddrOfPage(useVirtualAddr=True),
-      physicalAddr=region.getNextToLastByteAddrOfPage(useVirtualAddr=False),
+      virtualAddr=region.getNextToLastByteAddr(useVirtualAddr=True),
+      physicalAddr=region.getNextToLastByteAddr(useVirtualAddr=False),
       permissions=consts.PagePermissions.SU_RW.value,
     )
     self.regionSeq.append(region)
@@ -147,8 +181,8 @@ class MemoryLayout:
       name="ScratchPadRegion",
       oneLineDescription="A small shared data area that any thread can access.",
       sizeInBytes=consts.SCRATCHPAD_MEMORY_REGION_SIZE_IN_BYTES,
-      virtualAddr=region.getNextToLastByteAddrOfPage(useVirtualAddr=True),
-      physicalAddr=region.getNextToLastByteAddrOfPage(useVirtualAddr=False),
+      virtualAddr=region.getNextToLastByteAddr(useVirtualAddr=True),
+      physicalAddr=region.getNextToLastByteAddr(useVirtualAddr=False),
       permissions=consts.PagePermissions.SU_RW.value,
     )
     self.regionSeq.append(region)
@@ -158,8 +192,8 @@ class MemoryLayout:
       name="CacheableLocks",
       oneLineDescription="An exclusively area to store cacheable locks.",
       sizeInBytes=consts.CACHED_LOCKS_REGION_SIZE_IN_BYTES,
-      virtualAddr=region.getNextToLastByteAddrOfPage(useVirtualAddr=True),
-      physicalAddr=region.getNextToLastByteAddrOfPage(useVirtualAddr=False),
+      virtualAddr=region.getNextToLastByteAddr(useVirtualAddr=True),
+      physicalAddr=region.getNextToLastByteAddr(useVirtualAddr=False),
       permissions=consts.PagePermissions.SU_RW.value,
     )
     self.regionSeq.append(region)
@@ -169,8 +203,8 @@ class MemoryLayout:
       name="NonCacheableLocks",
       oneLineDescription="An exclusively area to store non-cacheable locks.",
       sizeInBytes=consts.NON_CACHED_LOCKS_REGION_SIZE_IN_BYTES,
-      virtualAddr=region.getNextToLastByteAddrOfPage(useVirtualAddr=True),
-      physicalAddr=region.getNextToLastByteAddrOfPage(useVirtualAddr=False),
+      virtualAddr=region.getNextToLastByteAddr(useVirtualAddr=True),
+      physicalAddr=region.getNextToLastByteAddr(useVirtualAddr=False),
       cacheable=False,
       permissions=consts.PagePermissions.SU_RW.value,
     )
@@ -184,7 +218,7 @@ class MemoryLayout:
       addr + confObj.totalLockVars
     addr = self.cortosQueueLockVarsStartAddr = \
       addr + confObj.totalResLockVars
-    assert addr < self.nonCacheableLocks.getNextToLastByteAddrOfPage(useVirtualAddr=True)
+    assert addr < self.nonCacheableLocks.getNextToLastByteAddr(useVirtualAddr=True)
 
     # startAddr = self.cortosSharedIntVars.getNextToLastByteAddr()
     # regionSize = confObj.totalResLockVars * 4
@@ -205,8 +239,8 @@ class MemoryLayout:
       name="MessageQueues",
       oneLineDescription="All queues reside here.",
       sizeInBytes=consts.DEFAULT_QUEUE_REGION_SIZE_IN_BYTES,
-      virtualAddr=region.getNextToLastByteAddrOfPage(useVirtualAddr=True),
-      physicalAddr=region.getNextToLastByteAddrOfPage(useVirtualAddr=False),
+      virtualAddr=region.getNextToLastByteAddr(useVirtualAddr=True),
+      physicalAddr=region.getNextToLastByteAddr(useVirtualAddr=False),
       permissions=consts.PagePermissions.SU_RW.value,
     )
     self.regionSeq.append(region)
@@ -214,7 +248,7 @@ class MemoryLayout:
     self.queueHeadersStartAddr = self.queues.getFirstByteAddr(useVirtualAddr=True)
     self.queuesStartAddr = self.queueHeadersStartAddr + confObj.totalQueueHeadersSize
     assert self.queuesStartAddr + confObj.totalQueues * consts.DEFAULT_QUEUE_SIZE_IN_BYTES < \
-           self.queues.getNextToLastByteAddrOfPage(useVirtualAddr=True), f"Memory Layout Overflow!"
+           self.queues.getNextToLastByteAddr(useVirtualAddr=True), f"Memory Layout Overflow!"
 
     # startAddr = self.cortosQueueHeaders.getNextToLastByteAddr()
     # regionSize = confObj.queueSizeInBytes * confObj.totalQueues
@@ -231,8 +265,8 @@ class MemoryLayout:
       name="MemoryAllocArea",
       oneLineDescription="Dynamic memory is allocated from here.",
       sizeInBytes=confObj.bgetMemSizeInBytes,
-      virtualAddr=region.getNextToLastByteAddrOfPage(useVirtualAddr=True),
-      physicalAddr=region.getNextToLastByteAddrOfPage(useVirtualAddr=False),
+      virtualAddr=region.getNextToLastByteAddr(useVirtualAddr=True),
+      physicalAddr=region.getNextToLastByteAddr(useVirtualAddr=False),
       permissions=consts.PagePermissions.SU_RW.value,
     )
     self.regionSeq.append(region)
@@ -243,8 +277,8 @@ class MemoryLayout:
       name="StackGuard",
       oneLineDescription="A guard page to check against stack underflow/overflow.",
       sizeInBytes=2 ** 12,  # 4KB
-      virtualAddr=region.getNextToLastByteAddrOfPage(useVirtualAddr=True),
-      physicalAddr=region.getNextToLastByteAddrOfPage(useVirtualAddr=False),
+      virtualAddr=region.getNextToLastByteAddr(useVirtualAddr=True),
+      physicalAddr=region.getNextToLastByteAddr(useVirtualAddr=False),
       permissions=consts.PagePermissions.SU_X.value,
     )
     self.regionSeq.append(region)
@@ -255,8 +289,8 @@ class MemoryLayout:
         name=f"ProgramStack_{i}",
         oneLineDescription="Program Stack Area.",
         sizeInBytes=prog.stackSizeInBytes,
-        virtualAddr=region.getNextToLastByteAddrOfPage(useVirtualAddr=True),
-        physicalAddr=region.getNextToLastByteAddrOfPage(useVirtualAddr=False),
+        virtualAddr=region.getNextToLastByteAddr(useVirtualAddr=True),
+        physicalAddr=region.getNextToLastByteAddr(useVirtualAddr=False),
         permissions=consts.PagePermissions.SU_RW.value,
       )
       self.regionSeq.append(region)
@@ -266,16 +300,16 @@ class MemoryLayout:
         name=f"StackGuard_{i}",
         oneLineDescription="A guard page to check against stack underflow/overflow.",
         sizeInBytes=2 ** 12,  # 4KB
-        virtualAddr=region.getNextToLastByteAddrOfPage(useVirtualAddr=True),
-        physicalAddr=region.getNextToLastByteAddrOfPage(useVirtualAddr=False),
+        virtualAddr=region.getNextToLastByteAddr(useVirtualAddr=True),
+        physicalAddr=region.getNextToLastByteAddr(useVirtualAddr=False),
         permissions=consts.PagePermissions.SU_X.value,
       )
       self.regionSeq.append(region)
 
     # check if the memory is over-allocated
     self.checkInvariant(
-      region.getNextToLastByteAddrOfPage(useVirtualAddr=True),
-      region.getNextToLastByteAddrOfPage(useVirtualAddr=False)
+      region.getNextToLastByteAddr(useVirtualAddr=True),
+      region.getNextToLastByteAddr(useVirtualAddr=False)
     )
 
     region = MemoryRegion(
@@ -301,4 +335,39 @@ class Memory:
     # To be populated later w.r.t. the SystemConfig data.
     self.memoryLayout: Opt[MemoryLayout] = None
 
+
+def initConfig(
+    userProvidedConfig: Dict,
+    program,
+    queueSeq,
+    locks,
+    bget,
+    build,
+) -> Memory:
+  """Takes a user given configuration and extracts the relevant bits.
+  :param userProvidedConfig:
+  :param program:
+  :param queueSeq:
+  :param locks:
+  :param bget:
+  :param build:
+
+  :return memory:
+  """
+
+  memSizeInKB = (userProvidedConfig[consts.YML_MEM_SIZE_IN_KB]
+                 if consts.YML_MEM_SIZE_IN_KB in userProvidedConfig
+                 else consts.DEFAULT_MEM_SIZE_IN_KB)
+  memSizeInBytes = memSizeInKB * 1024
+
+  memStartAddr = (userProvidedConfig[consts.YML_MEM_START_ADDR]
+                 if consts.YML_MEM_START_ADDR in userProvidedConfig
+                 else consts.DEFAULT_MEM_START_ADDR)
+
+  memory = Memory(
+    sizeInBytes=memSizeInBytes,
+    startAddr=memStartAddr
+  )
+
+  return memory
 

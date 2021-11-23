@@ -2,10 +2,10 @@
 
 # Searches for all vivado_implement direcories present in current working directory 
 # (eg:/processor/Aa_v2/) and runs on vivado, implement.tcl present in them, which 
-# synthesizes the design and generates post synth vhd files and dcp files.
+# synthesizes the design and generates post synth vhd xfiles and dcp xfiles.
 #
 # The script then implements the entire processor model by using top level dcp file, 
-# or cpu and aggregator ngc files along with riffa 2.2.0 and generates the bit file.
+# or cpu and aggregator ngc xfiles along with riffa 2.2.0 and generates the bit file.
 #
 # Use vivado 2014.4 with this script
 #
@@ -17,7 +17,7 @@
 #	and implement_processor directory except for the chnl_tester.v file
 #	
 #	-x : to use xst synthesis results (results of xilinx_synth.py - cpu and aggregator 
-#	ngc files) for implementation and bit file generation, default is vivado synthesis 
+#	ngc xfiles) for implementation and bit file generation, default is vivado synthesis
 #	result (this script - sys dcp file). If this option is selected then synthesis using 
 #	implement.tcl is bypassed and directly implementation starts, so run xilinx_synth.py 
 #	before using this option. Use xilinx 14.2 with xilinx_synth.py.
@@ -206,13 +206,13 @@ def array (files_path):
 def display_usage():
 	print "------------------------------------------------------------------------------------------------------------------------"
 	print "\nInfo:"
-	print "-> Searches for all vivado_implement direcories present in current working directory (eg:/processor/Aa_v2/) and runs on vivado, implement.tcl present in them, which synthesizes the design and generates post synth vhd files and dcp files.\n"
-	print "-> The script then implements the entire processor model by using top level dcp file or cpu and aggregator ngc files, along with riffa 2.2.0 and generates the bit file\n" 
+	print "-> Searches for all vivado_implement direcories present in current working directory (eg:/processor/Aa_v2/) and runs on vivado, implement.tcl present in them, which synthesizes the design and generates post synth vhd xfiles and dcp xfiles.\n"
+	print "-> The script then implements the entire processor model by using top level dcp file or cpu and aggregator ngc xfiles, along with riffa 2.2.0 and generates the bit file\n"
 	print "-> Results of this implementation are stored in /processor/FPGA/vc709/vc709_test_example_piyush/vivado_tcl/implement_processor/\n"
 	print "------------------------------------------------------------------------------------------------------------------------"
 	print "Options:"
 	print "-c : to clean vivado_implement directories except for the implement.tcl file and implement_processor directory except for the chnl_tester.v file\n"
-	print "-x : to use xst synthesis results (results of xilinx_synth.py - cpu and aggregator ngc files) for implementation and bit file generation, default is vivado synthesis result (this script - sys dcp file). If this option is selected then synthesis using implement.tcl is bypassed and directly implementation starts, so run xilinx_synth.py before using this option. Use xilinx 14.2 with xilinx_synth.py.\n"
+	print "-x : to use xst synthesis results (results of xilinx_synth.py - cpu and aggregator ngc xfiles) for implementation and bit file generation, default is vivado synthesis result (this script - sys dcp file). If this option is selected then synthesis using implement.tcl is bypassed and directly implementation starts, so run xilinx_synth.py before using this option. Use xilinx 14.2 with xilinx_synth.py.\n"
 	print "-x -c: to clean xst_synthesis directories except for the buildXST.sh file and implement_processor directory except for the chnl_tester.v file\n"
 	print "-p: to generate bit file along with peripherals (cache, MMU, memory)\n"
 	print "------------------------------------------------------------------------------------------------------------------------"

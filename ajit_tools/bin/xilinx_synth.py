@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # Searches for all xst_synthesis direcories present in current working directory 
-# and runs buildXST.sh present in them, which generates ngc, post synth vhd files and ngd files (if selected).
+# and runs buildXST.sh present in them, which generates ngc, post synth vhd xfiles and ngd xfiles (if selected).
 # The script also cleans the xst_synthesis directories except the buildXST.sh file.
 # Use xilinx 14.2 with this script.
 #
@@ -53,8 +53,8 @@ def array (files_path, flag):
 	return
 
 def display_usage():
-	print "\n Searches for all xst_synthesis direcories present in current working directory and runs buildXST.sh present in them, which generates ngc, post synth vhd files and ngd files (if selected). Use xilinx 14.2 with this script.\n"
-	print "-N : To generate ngd files at non-leaf nodes\n"
+	print "\n Searches for all xst_synthesis direcories present in current working directory and runs buildXST.sh present in them, which generates ngc, post synth vhd xfiles and ngd xfiles (if selected). Use xilinx 14.2 with this script.\n"
+	print "-N : To generate ngd xfiles at non-leaf nodes\n"
 	print "-c : to clean xst_synthesis directory except buildXST.sh\n"
 	sys.exit(0)
 

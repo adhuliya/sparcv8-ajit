@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Generates the .tcl files necessary for Design Compiler synthesis tool
+# Generates the .tcl xfiles necessary for Design Compiler synthesis tool
 # Written by : Ch V kalyani
 # Date : 06/08/2016
 

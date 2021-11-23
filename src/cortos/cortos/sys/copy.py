@@ -3,7 +3,7 @@
 # Author: Anshuman Dhuliya (AD) (anshumandhuliya@gmail.com)
 
 """
-Routines to copy various files.
+Routines to copy various xfiles.
 
 All the routines assume that the current working directory is the destination.
 """
@@ -113,9 +113,9 @@ def copyLinkerScriptFile(
 def copyProjectFiles(
     confObj: config.UserConfig,
 ) -> None:
-  # copy all .c files
+  # copy all .c xfiles
   util.runCommand(f"cp {confObj.rootDir}/*.c .")
-  # copy all .h files
+  # copy all .h xfiles
   util.runCommand(f"cp {confObj.rootDir}/*.h .", suppressError=True)
   # copy results file
   if confObj.resultsFile:

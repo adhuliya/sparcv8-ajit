@@ -202,7 +202,7 @@ def makeC2Llvm(c_src_dirs, c_include_dirs,define_list):
         logError("Error: in converting C to LLVM for")
 
 
-    logInfo("optimizing LLVM object files")
+    logInfo("optimizing LLVM object xfiles")
     for objfile in os.listdir(obj_dir):
 	objname,extn = os.path.splitext(objfile)
         if(extn == ".o"):
@@ -590,7 +590,7 @@ def parseOptions(opts):
 # Author: Madhav Desai 
 #
 # Brief Description:
-#   Specify C source-files, Aa source-files and AHIR function libraries.
+#   Specify C source-xfiles, Aa source-xfiles and AHIR function libraries.
 #   Also the top-level modules.
 #   The script then generates the corresponding VHDL.
 #

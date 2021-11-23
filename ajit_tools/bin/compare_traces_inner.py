@@ -44,7 +44,7 @@ def parseOptions(opts):
 # Author: Madhav Desai 
 #
 # Brief Description:
-#   Specify two trace files to compare.  The script compares
+#   Specify two trace xfiles to compare.  The script compares
 #   them and returns the number of failures observed.
 #
 #

@@ -26,7 +26,7 @@ def main():
 
 def init():
   """Misc initializations in the project."""
-  templatesPath = util.getAbsolutePathFromScriptRelativeFilePath("../files")
+  templatesPath = util.getAbsolutePathFromScriptRelativeFilePath("../xfiles")
   btl.TEMPLATE_PATH.clear()
   btl.TEMPLATE_PATH.append(templatesPath)
 

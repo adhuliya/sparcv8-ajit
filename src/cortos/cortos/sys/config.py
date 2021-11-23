@@ -74,6 +74,8 @@ class CortosThread:
 
 
   def genIdHex(self) -> str:
+    """Returns the hex code string representing the value
+    of the register identifying the current core and thread id."""
     return consts.THREAD_ID_TEST_HEX_PATTERN.format(core=self.cid, thread=self.tid)
 
 
@@ -81,7 +83,8 @@ class CortosThread:
     if not isinstance(other, CortosThread):
       raise ValueError(f"{other}")
 
-    return self.cid <= other.cid and self.tid <= other.tid
+    return (self.cid <= other.cid
+            or (self.cid == other.cid and self.tid <= other.tid))
 
 
   def __str__(self):
@@ -125,7 +128,7 @@ class UserConfig:
     self.debugBuild: bool = consts.DEFAULT_DEBUG_BUILD
     self.optLevel: int = consts.DEFAULT_OPT_LEVEL  # 0, 1 or 2
     # the starting debug port sequence (one for each thread)
-    self.startingDebugPort: int = consts.DEFAULT_DEBUG_PORT
+    self.startingDebugPort: int = consts.DEFAULT_FIRST_DEBUG_PORT
 
     self.initialize()
     print("CoRTOS: Initialized user configuration details.")
@@ -251,7 +254,7 @@ class UserConfig:
 
   def addDebugSupport(self,
       debug: bool = consts.DEFAULT_DEBUG_BUILD,
-      port: int = consts.DEFAULT_DEBUG_PORT,
+      port: int = consts.DEFAULT_FIRST_DEBUG_PORT,
   ):
     self.debugBuild = debug
     self.startingDebugPort = port

@@ -13,12 +13,12 @@
 #   If a directory named vhdl/ is encountered:
 #      - it searches for all subdirectories in vhdl/
 #        for each subdirectory (say foo) in vhdl, it
-#        looks for vhdl files (extension .vhdl) and adds
+#        looks for vhdl xfiles (extension .vhdl) and adds
 #        to library "foo".
-#        (if the vhdl files have name *_test_bench.vhdl, then
+#        (if the vhdl xfiles have name *_test_bench.vhdl, then
 #         they are ignored).
 #
-#   The VHDL files are then added to a simdo.do file, which can
+#   The VHDL xfiles are then added to a simdo.do file, which can
 #   then be executed to produce a GHDL model.
 #
 #
@@ -240,7 +240,7 @@ def main():
 
     # as you walk, execute the makefiles that you
     # see.  This will produce aa2c directories 
-    # and also hsys files.
+    # and also hsys xfiles.
     for root, dirs, files in os.walk(work_area, topdown=False, followlinks=True):
         for name in dirs:
            if(name == "vhdl"):
@@ -261,7 +261,7 @@ def main():
     if(len(vhdl_lib_file_pairs) > 0):
         ret_status = printGhdlDoFile(vhdl_lib_file_pairs, tb_vhdl_file, do_file)
     else:
-        logInfo("no VHDL files found.") 
+        logInfo("no VHDL xfiles found.")
 
     command_log_file.close()
     return ret_status

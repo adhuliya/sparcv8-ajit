@@ -2,7 +2,7 @@
 #
 # partitionHierarchicalModel.py is a top-level script which 
 # searches for .hsys info in  a list of directories and 
-# partitions the model into two .hsys files, one for HW, and
+# partitions the model into two .hsys xfiles, one for HW, and
 # one for SW.
 #
 # Borrows lots from IMAGE RC.
@@ -10,7 +10,7 @@
 #
 # Brief Description:
 #   The script walks the directory tree starting from the
-#   working-directory = ./, finds all .hsys files in the
+#   working-directory = ./, finds all .hsys xfiles in the
 #   tree, and partitions it based on the specified options.
 #
 #
@@ -188,7 +188,7 @@ def main():
 
     # as you walk, execute the makefiles that you
     # see.  This will produce aa2c directories 
-    # and also hsys files.
+    # and also hsys xfiles.
     for root, dirs, files in os.walk(work_area, topdown=False):
         for fname in files:
            full_name = os.path.join(root, fname)

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Generates the .tcl files necessary for topographical synthesis using Design Compiler.
+# Generates the .tcl xfiles necessary for topographical synthesis using Design Compiler.
 # Written by : Ch V kalyani
 # Date : 23/04/2017
 

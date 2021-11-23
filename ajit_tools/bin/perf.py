@@ -121,7 +121,7 @@ def execCmd (cmd):
 
 def main ():
 
-	# paths of source  files
+	# paths of source  xfiles
 	pipe_list = performance_analysis_setup + "pipe.list"
 	teu_dot_file = performance_analysis_setup + "teu.dot"
 	iunit_dot_file = performance_analysis_setup + "iunit.dot"
@@ -211,7 +211,7 @@ def main ():
 	os.system("rm ./optimization/transcript")
 	os.system("mv ./optimization/transcript_temp ./optimization/transcript")
     
-	# extract logs of all the pipes in seperate files under dir = PipeList.
+	# extract logs of all the pipes in seperate xfiles under dir = PipeList.
 	# further refine these logs by keeping necessary info under dir = PipeListSorted.
 	with open(pipe_list) as src:
 			for line in src:
@@ -223,7 +223,7 @@ def main ():
 				execCmd (cmd2)
 
 
-	# paths of output files
+	# paths of output xfiles
 	if choice == '-t':
 		dot_file_in = teu_dot_file
  		dot_file_latency = "./optimization/teu_latency.dot"
@@ -286,7 +286,7 @@ def main ():
 					ip_file1 = "./optimization/PipeListSorted/" + words[0] 
 					ip_file2 = "./optimization/PipeListSorted/" + words[2] 
 
-					print "\n Info: comparing events in files " + ip_file1 + ", " + ip_file2
+					print "\n Info: comparing events in xfiles " + ip_file1 + ", " + ip_file2
 					
 					#print ip_file1
 					#print ip_file2
@@ -395,7 +395,7 @@ def main ():
 	execCmd (graph_cmd2)  
 	
 	
-	# generating throughput files for gnuplot
+	# generating throughput xfiles for gnuplot
 	with open(pipe_list) as src:
 		for line in src:
 			pipe_name = line.split("\n")[0]
@@ -423,7 +423,7 @@ def main ():
 	src.close()
 
 
-	# generating latency files for gnuplot for specified input dot file
+	# generating latency xfiles for gnuplot for specified input dot file
 	with open(dot_file_in) as src:
 		for line in src:
 

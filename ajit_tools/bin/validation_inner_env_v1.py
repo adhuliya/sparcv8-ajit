@@ -5,7 +5,7 @@
 # for processor executable given by gnu parallel. It parses .vprj to get sources
 # (.c/.s), includes and defines and make .results file. It then calls compileToSparc.py 
 # to build_sh the sources of a .vprj, then loads the build_sh on processor
-# model and logs. It creates seperate directories for all .vprj and for log files.
+# model and logs. It creates seperate directories for all .vprj and for log xfiles.
 # It returns 0 as success, 1 as failure.
 
 
@@ -51,7 +51,7 @@ current_dir = os.getcwd()
 
 
 
-#some mem_map files contain a save instruction 
+#some mem_map xfiles contain a save instruction
 #at the beginning (0xf0004000).
 #replace this with a nop
 import fileinput
@@ -123,7 +123,7 @@ def validate (fileName, choice, ignore_fpu, single_stepping_enabled, generate_de
 
 	mem_map_file = os.path.join (path_test_file_fold, fileName + "." + "mmap")
 
-	#some mem_map files contain a save instruction at the beginning (0xf0004000).
+	#some mem_map xfiles contain a save instruction at the beginning (0xf0004000).
 	#replace this with a nop
 	replaceSaveInstructionWithNop(mem_map_file)
 
@@ -363,7 +363,7 @@ def main ():
 	# which are stored in joblogfile.
 	# return_val = 0
 	
-	print "Note: vprj %s has test files : %s" %(path_srch_file, test_file)
+	print "Note: vprj %s has test xfiles : %s" %(path_srch_file, test_file)
 	
 	return_val = validate (fileName, choice, ignore_fpu, single_stepping_enabled, generate_detailed_trace, test_file_string, include_string, path_result_file, 
 	path_log_file, path_trace_file, path_test_file_fold, path_srch_file, define_string, generate_trace, path_reg_write_trace_file);

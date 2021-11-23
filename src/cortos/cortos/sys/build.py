@@ -40,20 +40,20 @@ def prepareBuildDir(
   util.createDir(confObj.buildDir)
   util.createDir(confObj.cortosSrcDir)
 
-  # STEP 2: copy necessary files
+  # STEP 2: copy necessary xfiles
   copyBuildFiles(confObj)
 
 
 def copyBuildFiles(
     confObj: config.UserConfig,
 ) -> None:
-  """After directory creations, it copies all the user files."""
+  """After directory creations, it copies all the user xfiles."""
 
   # STEP 1: cd into the build directory
   cwd = os.getcwd()
   os.chdir(confObj.buildDir)
 
-  # STEP 2: Copy files that the user may need to change or look at.
+  # STEP 2: Copy xfiles that the user may need to change or look at.
   cpy.copyProjectFiles(confObj)
   cpy.copyInitFile(confObj)
   cpy.copyTrapFile(confObj)
@@ -63,7 +63,7 @@ def copyBuildFiles(
   cpy.copyRunCModelFile(confObj)
   cpy.copyCleanshFile(confObj)
 
-  # STEP 3: Copy files that the user might not need to look into.
+  # STEP 3: Copy xfiles that the user might not need to look into.
   os.chdir(confObj.cortosSrcDir)
 
   cpy.copyPageTableFile(confObj)
@@ -245,7 +245,7 @@ def computeStackAddr(confObj: config.UserConfig) -> None:
 
 
 # def concatenateMmapFiles(confObj: config.UserConfig):
-#   """concatenate the final mmap files for each program."""
+#   """concatenate the final mmap xfiles for each program."""
 #   # STEP 1: cd into the cortos build directory
 #   cwd = os.getcwd()
 #   os.chdir(consts.CORTOS_BUILD_DIR_NAME)

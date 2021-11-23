@@ -1,4 +1,4 @@
-# ignore ajit dynamically generated files
+# ignore ajit dynamically generated xfiles
 *.hex
 *.log
 *.mmap

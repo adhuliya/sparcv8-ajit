@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Searches for all implement directories generates '.prj' files and synthesizes the vhdl
+# Searches for all implement directories generates '.prj' xfiles and synthesizes the vhdl
 
 
 import os

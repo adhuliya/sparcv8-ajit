@@ -17,19 +17,19 @@
 #      All makefiles encountered in the hierarchy will
 #      be executed as 'make clean'
 #   If the -H option is specified
-#      all the hsys files in the directory tree rooted at working-dir
+#      all the hsys xfiles in the directory tree rooted at working-dir
 #      are assembled and a C model is created in  working-dir/aa2c/
 #   If the -C option is specified.
-#      all source files in aa2c subdirectories in the tree
+#      all source xfiles in aa2c subdirectories in the tree
 #      rooted at working-dir are compiled into objsw/ and
 #      an archive is created in lib/.
 #                and
 #      a top-level VHDL file is created in the vhdl/ directory.
 #   If the -D option is specified
-#      C files will be compiled with the " -gdwarf-2 -g3 " flags.
+#      C xfiles will be compiled with the " -gdwarf-2 -g3 " flags.
 #      (to enable macro info in gdb).
 #   If the -O option is specified
-#      C files will be compiled with the " -O3 " flags.
+#      C xfiles will be compiled with the " -O3 " flags.
 #
 #
 #   Typically, one does 
@@ -230,10 +230,10 @@ def buildArchive(DEST_DIR, LIBNAME, OBJDIRS):
 #      all makefiles in the directory tree rooted at working-dir
 #      are executed.
 #   If the -H option is specified
-#      all the hsys files in the directory tree rooted at working-dir
+#      all the hsys xfiles in the directory tree rooted at working-dir
 #      are assembled and a C model is created in  working-dir/aa2c/
 #   If the -C option is specified.
-#      all source files in aa2c subdirectories in the tree
+#      all source xfiles in aa2c subdirectories in the tree
 #      rooted at working-dir are compiled into objsw/ and
 #      an archive is created in lib/.
 #
@@ -302,13 +302,13 @@ def main():
            logInfo("link to gnu-pth = True.")
         elif option ==  '-H':
            hiersys2c_flag = True
-           logInfo("only hsys files will be expanded")
+           logInfo("only hsys xfiles will be expanded")
         elif option ==  '-C':
            compile_aa2c_files = True
-           logInfo("all aa2c files will be compiled into library")
+           logInfo("all aa2c xfiles will be compiled into library")
         elif option ==  '-M':
            make_flag = True
-           logInfo("all make files in the hierarchy will be executed. ")
+           logInfo("all make xfiles in the hierarchy will be executed. ")
         elif option ==  '-R':
            make_flag = True
            clean_flag = True
@@ -348,7 +348,7 @@ def main():
 
     # as you walk, execute the makefiles that you
     # see.  This will produce aa2c directories 
-    # and also hsys files.
+    # and also hsys xfiles.
     for root, dirs, files in os.walk(work_area, topdown=False, followlinks=True):
         for fname in files:
            full_name = os.path.join(root, fname)
@@ -408,7 +408,7 @@ def main():
             logError("hierSys2C failed in " + root)
             return 1
     elif (hiersys2c_flag):
-        logError("no hsys files found under " + root)
+        logError("no hsys xfiles found under " + root)
 
     if(len(src_list) > 0):
         ret_status = compileFiles("gcc", src_list, "./objsw", cc_flags, c_include_dirs,"") 

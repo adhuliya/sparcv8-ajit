@@ -1,5 +1,5 @@
-# generate final executable files
-# make sure that assembly files are pre-generated
+# generate final executable xfiles
+# make sure that assembly xfiles are pre-generated
 gcc -g -c -DHZ=50 -DDHRYOPT  utils.s
 gcc -g -c -DHZ=50   dhry_1.s
 gcc -g -c  -DHZ=50  dhry_2.s

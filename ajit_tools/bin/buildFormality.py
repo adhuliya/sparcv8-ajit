@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Generates the .tcl files necessary for Formality by Synopsys for formal verification.
+# Generates the .tcl xfiles necessary for Formality by Synopsys for formal verification.
 # It is recommended to run this script after synthesizing the design with topo_pnr.sh script.
 #
 # Written by : Ch V kalyani
@@ -9,7 +9,7 @@
 
 # Assumptions : $design.svf file is present in the present working folder.
 # 	      : $design.ddc file is present in the $design_$period_op_data folder in the current #		folder.
-#	      : All the vhdl files of chip are present in vhdl_files folder in the current folder.
+#	      : All the vhdl xfiles of chip are present in vhdl_files folder in the current folder.
 #
  
 import os

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # The script creates a text file containing list of absolute paths of 
-# all .vprj files in the given root directories. It then calls gnu 
+# all .vprj xfiles in the given root directories. It then calls gnu
 # parallel with validation_inner_env_v2.py and text file and an option for 
 # processor executable as the arguments, to start parallel jobs and 
 # prints total number of failed cases and total time of execution 
@@ -9,7 +9,7 @@
 
 # No. of parallel jobs and timeout of job can be set by user. The script
 # provides help on usage, cleans compiled directory created during normal 
-# execution and gives a list of unattneded but valid .c/.s files. The 
+# execution and gives a list of unattneded but valid .c/.s xfiles. The
 # script also generates terminal log file and jobs log file.
 
 
@@ -125,9 +125,9 @@ def array (temp, dirname, names):
 
 	# write absolute paths of .vprj in a text file
 	# create directories once
-	# compiled/ folder to store compiled files and .results
-	# log/ folder for storing log files
-	# trace_files/ folder for storing trace files
+	# compiled/ folder to store compiled xfiles and .results
+	# log/ folder for storing log xfiles
+	# trace_files/ folder for storing trace xfiles
 
 	
 	srch_file = temp[0]
@@ -202,7 +202,7 @@ def help_sec ():
 	print " ------------------------"
 	print " OPTIONS:"
 	print "      -l : Generate a log of register writes"
-	print "            The files are generated in trace_files/ folder"
+	print "            The xfiles are generated in trace_files/ folder"
 	print "            with extension .C_trace for C model and .Aa_trace for Aa model"
 	print " "
 	print "      -s : Run in single-stepping mode"
@@ -276,7 +276,7 @@ def main ():
 			for topdir in args:
 				if os.path.exists (topdir):
 					os.path.walk (topdir, clean_all, search_file)
-					# trace-files will be cleaned only when clean all
+					# trace-xfiles will be cleaned only when clean all
 					os.path.walk (topdir, clean_trace, search_file)
 				else:
 					print "Error : directory path doesnt exist %s" %topdir
@@ -379,7 +379,7 @@ def main ():
 		
 	# call other script using parallel and test file as
 	# argument, test file have absolute paths of
-	# all .vprj files
+	# all .vprj xfiles
 	# "-j + x" - x is number of jobs
 	# "--timeout x" - x is timeout time in secs, timeout accuracy is 2 secs
 	# for ms enter like 0.2 ms = 0.0002 s

@@ -9,7 +9,7 @@ then
 	exit 0
 fi
 
-echo 'Info : Generating formality script files';
+echo 'Info : Generating formality script xfiles';
 buildFormality.py -d $1 -l $2 -p $3 
 
 echo 'Info : Running formal verification on the design with Formality';

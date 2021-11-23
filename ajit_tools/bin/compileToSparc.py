@@ -3,8 +3,8 @@
 # compileToSparc.py
 #
 # DESCRIPTION :
-#	  a script which takes a list of C files 
-#	  and/or assembly files and produces a linked binary, 
+#	  a script which takes a list of C xfiles
+#	  and/or assembly xfiles and produces a linked binary,
 #	  and optionally a memory map file to 
 #	  initialize memory contents of the processor model
 #
@@ -113,7 +113,7 @@ def logWarning(mesg):
     print "Warning: " + mesg
 
     
-# compile C and assembly files and create objects.
+# compile C and assembly xfiles and create objects.
 def  compileFiles(work_area, src_files,src_dirs,include_dirs,define_strings,assembly_files, assembly_dirs, debug_mode, opt_level):
     
     obj_files  = []
@@ -187,7 +187,7 @@ def buildExecutable(work_area, obj_files, linker_script_file, elf_file, hex_dump
     if(not linker_script_file) :
     	linker_script_file = LINKER_SCRPT_LNK
 
-    # pick up all the object files listed in obj_files.
+    # pick up all the object xfiles listed in obj_files.
     obj_file_string = ""
     for objfile in obj_files:
        obj_file_string += " " +  objfile + " "
@@ -247,10 +247,10 @@ def Usage():
 	       (-O objdump-file)? (name of object dump file to be generated) \n\
                (-I include-dir)* (add include-dir to header search path) \n\
                (-C src_dir)* (add src-dir to list of directories from which C source is to be compiled)\n\
-               (-c src_file)* (add src_file to list of C files to be compiled) \n\
+               (-c src_file)* (add src_file to list of C xfiles to be compiled) \n\
                (-S assembly_dir)* (add assembly-dir to list of directories where assembly code is to assembled)\n\
-               (-s assembly_file)* (add assembly_file to list of assembly files to be assembled to object code) \n\
-               (-D define-string)* (add define-string as a define when compiling C files)\n\
+               (-s assembly_file)* (add assembly_file to list of assembly xfiles to be assembled to object code) \n\
+               (-D define-string)* (add define-string as a define when compiling C xfiles)\n\
                (-g )? (compile with debug -g flag) \n\
                (-o <0/1/2/3>)* (compile with -O0/1/2/3)"
     return 0

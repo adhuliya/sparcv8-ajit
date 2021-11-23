@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Generates the .tcl files necessary for IC Compiler place and route tool
+# Generates the .tcl xfiles necessary for IC Compiler place and route tool
 # Written by : Ch V kalyani
 # Date : 23/04/2017
 

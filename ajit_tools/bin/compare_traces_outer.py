@@ -10,7 +10,7 @@ start_time = time.time()
 
 
 # walk the directory, looking for subdirectories called trace_files.
-# in each, find two files to compare and do the comparison.
+# in each, find two xfiles to compare and do the comparison.
 success = 0
 warning = 0
 result = []
@@ -108,7 +108,7 @@ def find_n_execute():
                 current_execution_path = root + "/trace_files/"
                 ref_file_list = []
     
-                # Looking for reference files (*.C_trace)
+                # Looking for reference xfiles (*.C_trace)
                 ref_file_path_list = glob.glob(current_execution_path + "*.C_trace")
                 for ref_file_path in ref_file_path_list:
                     ref_file_list.append( (os.path.basename(ref_file_path)).split(".")[0] )
@@ -121,7 +121,7 @@ def find_n_execute():
                         print "There is no corresponding trace file for: " + ref_file + " | Directory: " + root
                         error_count += 1
                     else:
-                        # Have trace and reference files ready to call inner script
+                        # Have trace and reference xfiles ready to call inner script
                         trace_file_name     = trace_file_list[0]
                         ref_file_name       = glob.glob(current_execution_path + ref_file + ".C_trace")[0]  
                         result_file_name    = current_execution_path + ref_file + ".report"
@@ -143,7 +143,7 @@ def display_usage():
     print "To walk through and execute recursively form current directory:"
     print "    ",script_name + " -w"
     print ""
-    print "To compare two specific trace files:"
+    print "To compare two specific trace xfiles:"
     print "    ",script_name + " -f -r <refernce-file-name> -t <trace-file-name>"
     print ""
     print "To display help menu (this message):"

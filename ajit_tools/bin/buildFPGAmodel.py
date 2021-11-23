@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# 	buildFPGAModel.py constructs an .prj and .scr files for xilinx xst.
+# 	buildFPGAModel.py constructs an .prj and .scr xfiles for xilinx xst.
 #
 # 	Borrows a lot from buildGhdlSimulationModel.py.
 #
@@ -10,11 +10,11 @@
 #   If a directory named vhdl/ is encountered:
 #      - it searches for all subdirectories in vhdl/
 #        for each subdirectory (say foo) in vhdl, it
-#        looks for vhdl files (extension .vhdl) and adds
+#        looks for vhdl xfiles (extension .vhdl) and adds
 #        to library "foo".
 #
-#   The VHDL files are then added to a .prj file. The .prj file is then 
-#	appened with riffa files. The .scr file carries the 
+#   The VHDL xfiles are then added to a .prj file. The .prj file is then
+#	appened with riffa xfiles. The .scr file carries the
 #	build_sh info.
 #
 #
@@ -182,7 +182,7 @@ def main():
 
 	# as you walk, execute the makefiles that you
 	# see.  This will produce aa2c directories 
-	# and also hsys files.
+	# and also hsys xfiles.
 	for root, dirs, files in os.walk(work_area, topdown=False, followlinks=True):
 		for name in dirs:
 		   if(name == "vhdl"):
@@ -243,7 +243,7 @@ def main():
 		#analyse_report (path_srp_file)
 	
 	else:
-		logInfo("no VHDL files found.") 
+		logInfo("no VHDL xfiles found.")
 		 
 	return ret_status
 

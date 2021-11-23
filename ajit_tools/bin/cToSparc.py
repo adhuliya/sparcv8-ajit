@@ -8,7 +8,7 @@
 #	  compiles it,  links it with sparc_stdio library,
 #	  and generates a memory map from the executable
 #	  that can be read by the C model of the processor.
-#	  The memory map and all intermediate files
+#	  The memory map and all intermediate xfiles
 #	  are created inside an ./output/ folder.
 #
 # USAGE: 
@@ -34,7 +34,7 @@ import compileToSparc
 
 
 # input : name of C file
-# output : executable,memory map file and intermediate files
+# output : executable,memory map file and intermediate xfiles
 #generated inside ./output folder
 def main():
 

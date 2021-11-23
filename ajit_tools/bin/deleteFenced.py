@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# This script accepts text files, read line by line and remove the text 
+# This script accepts text xfiles, read line by line and remove the text
 # between starting and ending of fense (-->>>>> and --<<<<< )
 # Author: Ashfaque Ahammed
 # Date  : 25-Nov-2015

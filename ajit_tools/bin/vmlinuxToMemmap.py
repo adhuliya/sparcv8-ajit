@@ -11,10 +11,10 @@
 #	vmlinuxToMemmap.py [arguments] <bootloader executable> <vmlinux executable>
 #	arguments:
 #		-h, --help 
-#		-o  --output directory where output files will be placed 
+#		-o  --output directory where output xfiles will be placed
 #			(default =./Output)
 # OUTPUT:
-#	creates the following files in specified output directory:
+#	creates the following xfiles in specified output directory:
 #		hex_file.txt : intermediate file for generating mem_map.txt
 #		mem_map.txt  : memory map file used for initializing memory in a processor model
 #		objdump.txt  : assembly object dump for debugging execution
@@ -197,7 +197,7 @@ def generateMemMap(args):
 		print "Error: file ",vmlinux_file," does not exist"
 		return 1
 	
-	#generate hexdump, objdump and vardump files for the bootloader:
+	#generate hexdump, objdump and vardump xfiles for the bootloader:
 	executable_name = bootloader_file
 	bootloader_hexdump_filename = output_dir+ "/bootloader_hex_file.txt"
 	objdump_filename = output_dir+ "/bootloader_objdump.txt"
@@ -205,7 +205,7 @@ def generateMemMap(args):
 	generateHexdump(executable_name, bootloader_hexdump_filename, objdump_filename, vardump_filename)
 
 	
-	#generate hexdump, objdump and vardump files for the kernel:
+	#generate hexdump, objdump and vardump xfiles for the kernel:
 	executable_name = vmlinux_file 
 	kernel_hexdump_filename = output_dir+ "/kernel_hex_file.txt"
 	objdump_filename = output_dir+ "/kernel_objdump.txt"
@@ -213,14 +213,14 @@ def generateMemMap(args):
 	generateHexdump(executable_name, kernel_hexdump_filename, objdump_filename, vardump_filename)
 
 
-	#generate memory map from hexdump files
+	#generate memory map from hexdump xfiles
 	memorymap_file = output_dir+"/mem_map.txt"
 	print "Generating memory map ",memorymap_file
 	
 	hexdump_list = [(bootloader_hexdump_filename, BOOTLOADER_OFFSET) , (kernel_hexdump_filename, KERNEL_OFFSET)]
 	ret_val = generate_memorymap(hexdump_list, memorymap_file)
 	if not (ret_val == 0):
-		print "Error in generaying memory map from hex dump files ",hexdump_list
+		print "Error in generaying memory map from hex dump xfiles ",hexdump_list
 		return 1
 	return 0
 
@@ -237,7 +237,7 @@ def main():
 	parser.add_argument('VMLINUX_FILE', type=str, action='store', 
 	help="name of vmlinux file")
 	parser.add_argument("-o","--output", dest="OUTPUT_DIR", type=str, action='store', default="./Output",\
-	help="directory where output files will be placed (default =./Output)")
+	help="directory where output xfiles will be placed (default =./Output)")
 	args= parser.parse_args()
 	retval=generateMemMap(args)
 	return retval

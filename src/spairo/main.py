@@ -36,7 +36,7 @@ behaviorMsg = """Description:
 It takes asm file (filename.s) as input and
 outputs optimized asm file (filename-opt.s) and also
 outputs another asm file marking the basic blocks detected (filename-bb.s).
-Both the output files are valid asm files if the input is valid.
+Both the output xfiles are valid asm xfiles if the input is valid.
 """
 
 def spairoExit(status):

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # Searches for all dc_synthesis direcories present in current working directory 
-# and runs buildDC.sh present in them, which generates post synth vhd files, timing, area, sdc reports.
+# and runs buildDC.sh present in them, which generates post synth vhd xfiles, timing, area, sdc reports.
 # The script also cleans the work directory, dc_synthesis directories except the buildDC.sh file.
 # 
 #
@@ -83,7 +83,7 @@ def generate_ddc_src_file(destination):
 		sys.exit(1)
 
 def display_usage():
-	print "\n Searches for all dc_synthesis directories present in current working directory and runs buildDC.sh present in them, which generates post synth vhd, timing, area, sdc files. \n"
+	print "\n Searches for all dc_synthesis directories present in current working directory and runs buildDC.sh present in them, which generates post synth vhd, timing, area, sdc xfiles. \n"
 	print "-c : to clean work directory of design compiler and dc_synthesis directory except buildDC.sh\n"
 	sys.exit(0)
 

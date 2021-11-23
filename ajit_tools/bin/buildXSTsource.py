@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Generates the .scr and .prj files necessary for Xilinx synthesis tool
+# Generates the .scr and .prj xfiles necessary for Xilinx synthesis tool
 # Written by : Titto Thomas
 # Date : 4/12/2015
 

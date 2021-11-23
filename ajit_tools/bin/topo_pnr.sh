@@ -22,13 +22,13 @@ if [ ! -d "vhdl_files" ]; then
   mkdir vhdl_files
 fi
 
-echo 'Info : Copying VHDL files';
+echo 'Info : Copying VHDL xfiles';
 cd vhdl_files
 source chip_vhdl_files.sh
 cd ../
 
 
-echo 'Info : Generating DC-topo script files';
+echo 'Info : Generating DC-topo script xfiles';
 buildTOPO.py -d $1 -l $2 -p $3 -g $4 
 
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# This script is written for removing the assert/ report statements in vhdl files.
+# This script is written for removing the assert/ report statements in vhdl xfiles.
 # Author: Ch V Kalyani
 # Date  : 23-Sep-2016
 

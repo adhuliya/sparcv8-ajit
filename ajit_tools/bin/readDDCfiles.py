@@ -12,7 +12,7 @@
 #      -it will add a file path ending dc_synthesis folder and a file whose name is folder name 
 #	above the dc_synthesis folder with .ddc extension.
 #
-#   The ddc files are then added to a *.tcl file, which can
+#   The ddc xfiles are then added to a *.tcl file, which can
 #   then be executed.
 #
 #
@@ -113,7 +113,7 @@ def main():
     if(len(ddc_lib_file) > 0):
         ret_status = printDDCsrcFile(ddc_lib_file, src_file)
     else:
-        logInfo("no .ddc files found.") 
+        logInfo("no .ddc xfiles found.")
 
     command_log_file.close()
     return ret_status

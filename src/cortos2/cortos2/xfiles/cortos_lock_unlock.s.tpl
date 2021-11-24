@@ -1,6 +1,6 @@
 ! see the reference file `cortos/res/lock_unlock.s`
 
-% lockArrayBaseAddr = confObj.memoryLayout.cortosLockVarsStartAddr
+% userLocksStartAddr = confObj.locks.userLocksStartAddr
 
 ! Usage Note:
 ! cortos_lock_acquire_buzy(<index: an-integer-index>);
@@ -22,7 +22,7 @@ cortos_lock_acquire_buzy:
   ! i0 contains an index to the correct locking variable
   save  %sp, -96, %sp       ! func prefix
 
-  set {{lockArrayBaseAddr}}, %l0
+  set {{ userLocksStartAddr }}, %l0
   ! sll %i0, 0x2, %i0                   ! * 4 (jump 4 bytes at a time)
 try_to_lock:
   ldstub [%l0+%i0], %l1
@@ -50,7 +50,7 @@ cortos_lock_acquire:
   ! i0 contains an index to the correct locking variable
   save  %sp, -96, %sp       ! func prefix
 
-  set {{lockArrayBaseAddr}}, %l0
+  set {{ userLocksStartAddr }}, %l0
   ! sll %i0, 0x2, %i0                   ! * 4 (jump 4 bytes at a time)
 
 
@@ -80,7 +80,7 @@ cortos_lock_release:
   ! i0 contains an index to the correct locking variable
   save  %sp, -96, %sp       ! func prefix
 
-  set {{lockArrayBaseAddr}}, %l0
+  set {{ userLocksStartAddr }}, %l0
   ! sll %i0, 0x2, %i0                   ! * 4 (jump 4 bytes at a time)
 
   stbar

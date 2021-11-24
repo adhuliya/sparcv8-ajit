@@ -69,12 +69,12 @@ bnz CORTOS_SETUP_THREADS
 nop
 
   ! set the base address
-  sethi %hi(CORTOS_INIT_TO_ZERO_START}), %l0
-  or %l0, %lo(CORTOS_INIT_TO_ZERO_START), %l0
+  sethi %hi({{ hex(confObj.memoryLayout.initToZeroStartAddr) }}), %l0
+  or %l0, %lo({{ hex(confObj.memoryLayout.initToZeroStartAddr) }}), %l0
 
   ! set the first illegal address
-  sethi %hi(CORTOS_INIT_TO_ZERO_END), %l2
-  or %l2, %lo(CORTOS_INIT_TO_ZERO_END), %l2
+  sethi %hi({{ hex(confObj.memoryLayout.initToZeroNextToEndAddr) }}), %l2
+  or %l2, %lo({{ hex(confObj.memoryLayout.initToZeroNextToEndAddr) }}), %l2
   sub %l2, 0x4, %l2         ! address of last valid word location
 
 ! loop to store zeros word by word (assumes size is at least 4 bytes)

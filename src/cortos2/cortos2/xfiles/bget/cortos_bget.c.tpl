@@ -1,8 +1,8 @@
 // Main function to manage bget library.
 // It provides a msg queue based communication to the bget library.
 
-% baseAddr = confObj.memoryLayout.malloc.getFirstByteAddr(useVirtualAddr=True)
-% memSize = confObj.memoryLayout.malloc.getSizeInBytes()
+% startAddr = confObj.bget.getStartAddr()
+% memSizeInBytes = confObj.bget.getSizeInBytes()
 
 #include "__bget.h"
 #include "__cortos.h"
@@ -14,7 +14,7 @@ void __cortos_bpool() {
     // this if condition enters only once.
     __cortos_lock_acquire_buzy(__RES_LOCK_INDEX_BGET);
 
-    bpool({{baseAddr}}, {{memSize}});
+    bpool({{ startAddr }}, {{ memSizeInBytes }});
 
     __cortos_lock_release(__RES_LOCK_INDEX_BGET);
 

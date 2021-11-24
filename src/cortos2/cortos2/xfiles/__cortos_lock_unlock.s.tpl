@@ -1,7 +1,7 @@
 ! see the reference file `cortos/res/lock_unlock.s`
 ! lock unlock on reserved locking variables (used internally by AjitCoRTOS)
 
-% lockArrayBaseAddr = confObj.memoryLayout.cortosResLockVarsStartAddr
+% resLockStartAddr = confObj.locks.resLocksStartAddr
 
 ! Usage Note:
 ! __cortos_lock_acquire_buzy(<index: an-integer-index>);
@@ -22,7 +22,7 @@ __cortos_lock_acquire_buzy:
   ! i0 contains an index to the correct locking variable
   save  %sp, -96, %sp       ! func prefix
 
-  set {{lockArrayBaseAddr}}, %l0
+  set {{ resLockStartAddr }}, %l0
   ! sll %i0, 0x2, %i0                   ! * 4 (jump 4 bytes at a time)
 try_to_lock:
   ldstub [%l0+%i0], %l1
@@ -49,7 +49,7 @@ __cortos_lock_acquire:
   ! i0 contains an index to the correct locking variable
   save  %sp, -96, %sp       ! func prefix
 
-  set {{lockArrayBaseAddr}}, %l0
+  set {{ resLockStartAddr }}, %l0
   ! sll %i0, 0x2, %i0                   ! * 4 (jump 4 bytes at a time)
 
 
@@ -78,7 +78,7 @@ __cortos_lock_release:
   ! i0 contains an index to the correct locking variable
   save  %sp, -96, %sp       ! func prefix
 
-  set {{lockArrayBaseAddr}}, %l0
+  set {{ resLockStartAddr }}, %l0
   ! sll %i0, 0x2, %i0                   ! * 4 (jump 4 bytes at a time)
 
   stbar

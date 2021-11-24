@@ -5,24 +5,24 @@
 
 CORTOS_START_THREADS:
 
-% for prog in confObj.programs:
+% for progThread in confObj.program.programThreads:
 
-{{prog.thread.genLabel(forSetup=False)}}:
+{{progThread.coreThread.genLabel(forSetup=False)}}:
 
   ! (0,0)=0x50520000, (0,1)=0x50520001, (1,1)=0x50520101, ...
-  set {{prog.thread.genIdHex()}}, %l2
+  set {{progThread.coreThread.genIdHex()}}, %l2
   subcc %l1, %l2, %g0
-  bnz {{confObj.genNextThreadLabel(prog.thread, forSetup=False)}}
+  bnz {{confObj.genNextThreadLabel(progThread.coreThread, forSetup=False)}}
   nop
 
-% if prog.isThread00() and confObj.addBget:
+% if progThread.isThread00() and confObj.addBget:
   ! acquire memory for bget just once
   call __cortos_bpool
   nop
 % end
 
 !!!!!!! BLOCK START: Call_functions_sequentially.
-% for calleeName in prog.initCallSeq:
+% for calleeName in progThread.initCallSeq:
   call {{calleeName}}
   nop
 % end
@@ -30,15 +30,15 @@ CORTOS_START_THREADS:
 
 
 !!!!!!! BLOCK START: Call_functions_in_a_loop.
-{{prog.thread.genLabelForCortosLoop()}}:
+{{progThread.coreThread.genLabelForCortosLoop()}}:
 
-% for calleeName in prog.loopCallSeq:
+% for calleeName in progThread.loopCallSeq:
   call {{calleeName}}
   nop
 % end
 
-% if len(prog.loopCallSeq) > 0:
-  ba {{prog.thread.genLabelForCortosLoop()}}
+% if len(progThread.loopCallSeq) > 0:
+  ba {{progThread.coreThread.genLabelForCortosLoop()}}
   nop
 % end
 !!!!!!! BLOCK END  : Call_functions_in_a_loop.

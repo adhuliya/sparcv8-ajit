@@ -14,8 +14,8 @@ import os.path as osp
 from typing import List, Tuple, Optional as Opt
 
 from cortos2.common import consts, bottle as btl, elf
-from cortos2.common import util
-import cortos2.sys.config as config
+from cortos2.common import util, elf
+from cortos2.sys.config import config
 import cortos2.sys.copy as cpy
 
 
@@ -23,22 +23,34 @@ def buildProject(confObj: config.SystemConfig) -> None:
   print("CoRTOS: build process started...")
 
   print(f"\nCoRTOS: START: cortos_build.")
-  computeStackAddr(confObj) # FIXME: call it from some other place?
+
+  # STEP 1: Prepare the build directory.
   prepareBuildDir(confObj)
+
+  # STEP 2: Run the first build.
   runBuildScript(confObj)
-  # computeElfSize(confObj)
-  # prepareFinalBuildDir(confObj)
-  # runBuildScript(confObj)
+
+  # STEP 3: Compute the size of the .text and .data sections.
+  computeElfSize(confObj)
+
+  # STEP 4: Re-prepare the project.
+  prepareFinalBuildDir(confObj)
+
+  # STEP 5: Do a final build.
+  runBuildScript(confObj)
+
   print(f"CoRTOS: END  : cortos_build.")
 
 
 def prepareBuildDir(
     confObj: config.SystemConfig,
 ) -> None:
-  """Prepares a build directory for the initial build of a program."""
+  """Prepares a build directory for the initial build of a program.
+  The text and data size of the binary is unknown here.
+  """
   # STEP 1: create the build directory
-  util.createDir(confObj.buildDir)
-  util.createDir(confObj.cortosSrcDir)
+  util.createDir(confObj.projectFiles.buildDir)
+  util.createDir(confObj.projectFiles.cortosSrcDir)
 
   # STEP 2: copy necessary xfiles
   copyBuildFiles(confObj)
@@ -51,7 +63,7 @@ def copyBuildFiles(
 
   # STEP 1: cd into the build directory
   cwd = os.getcwd()
-  os.chdir(confObj.buildDir)
+  os.chdir(confObj.projectFiles.buildDir)
 
   # STEP 2: Copy xfiles that the user may need to change or look at.
   cpy.copyProjectFiles(confObj)
@@ -64,7 +76,7 @@ def copyBuildFiles(
   cpy.copyCleanshFile(confObj)
 
   # STEP 3: Copy xfiles that the user might not need to look into.
-  os.chdir(confObj.cortosSrcDir)
+  os.chdir(confObj.projectFiles.cortosSrcDir)
 
   cpy.copyPageTableFile(confObj)
   cpy.copyVmapFile(confObj)
@@ -77,7 +89,7 @@ def copyBuildFiles(
   cpy.copyCortosPrintfFile(confObj)
   cpy.copyCortosQueueFiles(confObj)
   cpy.copyLockFiles(confObj)
-  if confObj.addBget:
+  if confObj.bget.enable:
     cpy.copyCortosBgetFiles(confObj)
 
   # STEP 3: return back to the previous directory
@@ -88,7 +100,7 @@ def runBuildScript(confObj: config.SystemConfig) -> None:
   """Run the `build.sh` script in the build dir."""
   # STEP 1: cd into the build directory
   cwd = os.getcwd()
-  os.chdir(confObj.buildDir)
+  os.chdir(confObj.projectFiles.buildDir)
   print("CoRTOS: CWD:", os.getcwd())
 
   # STEP 2: execute the `build.sh` script
@@ -96,6 +108,11 @@ def runBuildScript(confObj: config.SystemConfig) -> None:
 
   # STEP 3: return back to the previous directory
   os.chdir(cwd)
+
+
+def computeElfSize(confObj: config.SystemConfig):
+  confObj.program.computeBinarySize(confObj.projectFiles.elfFileName)
+  confObj.redoMemoryLayout()
 
 
 # def computeProgramSize(
@@ -116,18 +133,6 @@ def runBuildScript(confObj: config.SystemConfig) -> None:
 #
 #   # STEP 3: cd back to the previous directory
 #   os.chdir(cwd)
-
-
-def computeStackAddr(confObj: config.SystemConfig) -> None:
-  """Compute the stack starting address of each program."""
-  lastFreeAddr = confObj.leastValidStackAddr
-
-  for prog in confObj.programs:
-    stackSize = prog.stackSizeInBytes if prog.stackSizeInBytes\
-      else consts.DEFAULT_STACK_SIZE
-    lastFreeAddr += stackSize
-    lastFreeAddr = util.alignAddress(lastFreeAddr, align=4096)
-    prog.stackStartAddr = lastFreeAddr
 
 
 # def patchCortosCalls(confObj: config.UserConfig):

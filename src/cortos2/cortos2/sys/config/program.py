@@ -1,10 +1,9 @@
 """Details related to the user programs."""
-from typing import List, Dict
+from typing import List, Dict, Optional as Opt
 
-from cortos2.common import consts
-from cortos2.sys.config import config
+from cortos2.common import consts, elf
+from cortos2.sys.config import config, common
 from cortos2.sys.config import cpu
-
 
 class ProgramThread:
   def __init__(self,
@@ -18,25 +17,8 @@ class ProgramThread:
     self.loopCallSeq = loopCallSeq
 
     self.stackSizeInBytes = stackSizeInBytes
-    self.stackStartAddr = 0
 
-    self.initialize()
-
-
-  def initialize(self):
-    # self.thread = Thread(self.data[YML_PROG_CORE], self.data[YML_PROG_THREAD])
-    self.stackSizeInBytes = self.data[YML_PROG_STACK_SIZE] \
-      if YML_PROG_STACK_SIZE in self.data else consts.DEFAULT_STACK_SIZE
-
-    self.initCallSeq = self.data[YML_PROG_INIT_CALL_SEQ] \
-      if YML_PROG_INIT_CALL_SEQ in self.data else []
-
-    self.loopCallSeq = self.data[YML_PROG_LOOP_CALL_SEQ] \
-      if YML_PROG_LOOP_CALL_SEQ in self.data else []
-
-    if not self.initCallSeq and not self.loopCallSeq:
-      print("CoRTOS: ERROR: No function to call.")
-      exit(1)
+    self.stackRegion: Opt[common.MemoryRegion] = None
 
 
   def isThread00(self) -> bool:
@@ -48,13 +30,22 @@ class ProgramThread:
     return f"(Program (" \
            f"{consts.YML_PROG_THREAD}: {self.coreThread}" \
            f", {consts.YML_PROG_STACK_SIZE}: {self.stackSizeInBytes})" \
-           f", stackStartAddr: {self.stackStartAddr})" \
+           f", stackStartAddr: {self.stackRegion.getLastByteAddr(useVirtualAddr=True)})" \
            f", {consts.YML_PROG_INIT_CALL_SEQ}: {self.initCallSeq})" \
            f", {consts.YML_PROG_LOOP_CALL_SEQ}: {self.loopCallSeq})"
 
 
   def __repr__(self):
     return str(self)
+
+
+  def setStackRegion(self, region: common.MemoryRegion):
+    self.stackRegion = region
+
+
+  def getStackStartAddr(self):
+    """Stack starts from high to low."""
+    return self.stackRegion.getLastByteAddr(useVirtualAddr=True)
 
 
 class Program:
@@ -65,6 +56,28 @@ class Program:
   ) -> None:
     self.programThreads = programThreads
 
+    # these are set later after the first build of the binary.
+    self.textSectionSizeInBytes = consts.DEFAULT_TEXT_SECTION_SIZE_IN_BYTES
+    self.dataSectionSizeInBytes = consts.DEFAULT_DATA_SECTION_SIZE_IN_BYTES
+
+    self.textRegion: Opt[common.MemoryRegion] = None
+    self.dataRegion: Opt[common.MemoryRegion] = None
+
+
+  def computeBinarySize(self, elfFileName: str):
+    textSize, dataSize = elf.getTextAndDataSize(elfFileName)
+    self.textSectionSizeInBytes = textSize
+    self.dataSectionSizeInBytes = dataSize
+
+
+  def getSizeOfProgram(self):
+    """The total size of the program is equal to the total bytes
+    till the end of the data region."""
+    return self.dataRegion.getNextToLastByteAddr(useVirtualAddr=True)
+
+
+  def getDataRegionStartAddr(self):
+    return self.dataRegion.getFirstByteAddr(useVirtualAddr=True)
 
 
 def initConfig(

@@ -6,20 +6,20 @@
 CORTOS_SETUP_THREADS:
 !!!!!  setting up stacks in each thread....
 
-% for prog in confObj.programs:
+% for progThread in confObj.program.programThreads:
 
-{{prog.thread.genLabel(forSetup=True)}}:
+{{ progThread.coreThread.genLabel(forSetup=True) }}:
 
   ! (0,0)=0x50520000, (0,1)=0x50520001, (1,0)=0x50520100, (1,1)=0x50520101, ...
-  set {{prog.thread.genIdHex()}}, %l2
+  set {{ progThread.coreThread.genIdHex() }}, %l2
   subcc %l1, %l2, %g0
-  bnz {{confObj.genNextThreadLabel(prog.thread, forSetup=True)}}
+  bnz {{ confObj.cpu.genNextThreadLabel(progThread.coreThread, forSetup=True) }}
   nop
 
-% if prog.isThread00():
+% if progThread.isThread00():
 
   !!!!!!!!!!!!!!!!!!!   START: thread (0,0) setup section !!!!!!!!!!!!!!!!!!
-  set {{hex(prog.stackStartAddr)}}, %sp  ! set stack address
+  set {{ hex(progThread.getStackStartAddr()) }}, %sp  ! set stack address
   clr %fp
 
   !
@@ -33,11 +33,13 @@ CORTOS_SETUP_THREADS:
   !
   !  set PT_FLAG = 1.   This indicates that the page table has been written.
   !
+  set MEM_START_ADDR, %l5
   set PT_FLAG, %l6
+  add %l5, %l6, %l6
   mov 1, %l7
   st %l7, [%l6]
 
-% if confObj.enableSerial:
+% if confObj.build.enableSerial:
   call __cortos_enable_serial
   nop
 % end
@@ -49,29 +51,29 @@ CORTOS_SETUP_THREADS:
 
 % end
 
-% if prog.thread.tid == 0 and not prog.isThread00():
+% if progThread.thread.tid == 0 and not progThread.isThread00():
 
-  !!!!!!!!!!!!   START: thread ({{prog.thread.cid}},0) setup section !!!!!!!
-  set {{hex(prog.stackStartAddr)}}, %sp  ! set stack address
+  !!!!!!!!!!!!   START: thread ({{ progThread.thread.cid }},0) setup section !!!!!!!
+  set {{ hex(progThread.getStackStartAddr()) }}, %sp  ! set stack address
   clr %fp
 
-  !  Thread ({{prog.thread.cid}},0) jumps to AFTER_PTABLE_SETUP.
+  !  Thread ({{ progThread.coreThread.cid }},0) jumps to AFTER_PTABLE_SETUP.
   ba AFTER_PTABLE_SETUP
   nop
-  !!!!!!!!!!!!   END  : thread ({{prog.thread.cid}},0) setup section !!!!!!!
+  !!!!!!!!!!!!   END  : thread ({{ progThread.coreThread.cid }},0) setup section !!!!!!!
 
 % end
 
-% if prog.thread.tid == 1:
+% if progThread.coreThread.tid == 1:
 
-  !!!!!!!!!!!!   START: thread ({{prog.thread.cid}},1) setup section !!!!!!!
-  set {{hex(prog.stackStartAddr)}}, %sp  ! set stack address
+  !!!!!!!!!!!!   START: thread ({{ progThread.coreThread.cid }},1) setup section !!!!!!!
+  set {{ hex(progThread.getStackStartAddr()) }}, %sp  ! set stack address
   clr %fp
 
-  !  Thread ({{prog.thread.cid}},1) jumps to wait for mmu..
+  !  Thread ({{ progThread.coreThread.cid }},1) jumps to wait for mmu..
   ba WAIT_UNTIL_MMU_IS_ENABLED
   nop
-  !!!!!!!!!!!!   END  : thread ({{prog.thread.cid}},1) setup section !!!!!!!
+  !!!!!!!!!!!!   END  : thread ({{ progThread.coreThread.cid }},1) setup section !!!!!!!
 
 % end
 

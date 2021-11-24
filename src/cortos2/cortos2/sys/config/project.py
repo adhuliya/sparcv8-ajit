@@ -15,6 +15,8 @@ class ProjectFiles:
     self.buildDir = osp.join(self.rootDir, consts.CORTOS_BUILD_DIR_NAME)
     self.cortosSrcDir = osp.join(self.buildDir, consts.CORTOS_SRC_DIR_NAME)
 
+    self.elfFileName: str = f"{self.buildDir}/main.elf"
+
     self.cFileNames: List[str] = []
     self.hFileNames: List[str] = []
     self.resultsFile: str = consts.DEFAULT_RESULTS_FILE_NAME

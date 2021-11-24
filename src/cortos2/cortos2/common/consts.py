@@ -42,7 +42,7 @@ INIT_HEADER_SIZE = 4 * 13
 The size of the init.s header just before the allocation area.
 """
 
-RESERVED_REGION_SIZE = 2**12 # i.e. 4KB in bytes
+RESERVED_REGION_SIZE_IN_BYTES = 2 ** 12 # i.e. 4KB in bytes
 """
 This space is reserved for misc use by Ajit in the future.
 """
@@ -240,8 +240,8 @@ CACHED_LOCKS_REGION_SIZE_IN_BYTES: int = 2**12 #4KB
 NON_CACHED_LOCKS_REGION_SIZE_IN_BYTES: int = 2**12 #4KB
 
 
-DEFAULT_TEXT_SECTION_SIZE: int = 1024 * 1024 # 2 MB
-DEFAULT_DATA_SECTION_SIZE: int = 14 * 1024 * 1024 # 14 MB
+DEFAULT_TEXT_SECTION_SIZE_IN_BYTES: int = 1024 * 1024 # 2 MB
+DEFAULT_DATA_SECTION_SIZE_IN_BYTES: int = 14 * 1024 * 1024 # 14 MB
 
 ################################################################
 # BLOCK START: yaml_configuration_related

@@ -8,9 +8,10 @@
 
 .section .bss
 .align 8
-  MEM_START_ADDR: .word {{hex(confObj.memStartAddr)}}
+  MEM_START_ADDR: .word {{ hex(confObj.memoryLayout.memory.startAddr) }}
   PT_FLAG: .word 0x0
   COPIED: .word 0x0
+  INIT_TO_ZERO_DONE: .word 0x0
 
 !
 ! Ajit startup initialization code.
@@ -37,8 +38,8 @@
   nop
 
   add %g0, %g0, %g3         ! start to copy from address 0x0
-  set {{ confObj.memoryCopySizeInBytes }}, %g4  ! number of bytes
-  set {{ confObj.memStartAddr }}, %g5  ! destination start addr
+  set {{ hex(confObj.program.getSizeOfProgram()) }}, %g4  ! number of bytes
+  set {{ hex(confObj.memoryLayout.memory.startAddr) }}, %g5  ! destination start addr
 
 _copy_segment:
   add %g4, %g0, %g4

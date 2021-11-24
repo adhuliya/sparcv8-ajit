@@ -368,7 +368,7 @@ class DataMemoryRegions:
 
     self.cortosReserved = MemoryRegion(
       util.alignAddress(compute.computeInitHeaderSizeInBytes(), 8),
-      consts.RESERVED_REGION_SIZE
+      consts.RESERVED_REGION_SIZE_IN_BYTES
     )
     self.sizeInBytes += self.cortosReserved.sizeInBytes
 

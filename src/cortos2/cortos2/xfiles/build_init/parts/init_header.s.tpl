@@ -10,50 +10,28 @@
 .align 8
   MEM_START_ADDR: .word {{ hex(confObj.memoryLayout.memory.startAddr) }}
   PT_FLAG: .word 0x0
-  COPIED: .word 0x0
+  IMAGE_COPIED: .word 0x0
   INIT_TO_ZERO_DONE: .word 0x0
+
 
 !
 ! Ajit startup initialization code.
 !
 .section .text.ajitstart
 
-!
-! This is a small subroutine which copies
-! memory bytes from one region to another.
-!
-! g3 contains starting source address, g4 contains
-! number of bytes (can be zero) to be copied,
-! g5 contains the starting destination address.
-!
-.global _copy_segment;
-! starts at 0x0
+  set MEM_START_ADDR, %g1
 
-  ! skip copy if copying is already done
-  ! set the value of COPIED once mmu is enabled, otherwise
-  ! setting a value may try to write to flash (if present).
-  set COPIED, %g2
-  ld [%g2], %g2
-  bnz _start
-  nop
+  set PT_FLAG, %g2
+  add %g1, %g2, %g2
+  st %g0, [%g2]  ! initialize to zero
 
-  add %g0, %g0, %g3         ! start to copy from address 0x0
-  set {{ hex(confObj.program.getSizeOfProgram()) }}, %g4  ! number of bytes
-  set {{ hex(confObj.memoryLayout.memory.startAddr) }}, %g5  ! destination start addr
+  set IMAGE_COPIED, %g2
+  add %g1, %g2, %g2
+  st %g0, [%g2]  ! initialize to zero
 
-_copy_segment:
-  add %g4, %g0, %g4
-  bz _copy_segment_completed
-  nop
-  ldub [%g3], %l3
-  stub %l3, [%g5]
-  add  %g3,1, %g3
-  add  %g5,1, %g5
-  subcc %g4, 1, %g4
-  b _copy_segment
-  nop
-_copy_segment_completed:
-  nop
+  set INIT_TO_ZERO_DONE, %g2
+  add %g1, %g2, %g2
+  st %g0, [%g2]  ! initialize to zero
 
 .global _start;
 _start:
@@ -81,9 +59,7 @@ WIMSET:
   set	trap_table_base, %l0
   wr	%l0, 0x0, %tbr
 
-  ! jump to skip data area ahead
-  call INIT_CORTOS_ALLOCATE_AREA_TO_ZERO
-  nop
+
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! BLOCK END  : common_init_header

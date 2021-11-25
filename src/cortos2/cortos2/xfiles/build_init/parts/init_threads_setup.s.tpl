@@ -22,6 +22,12 @@ CORTOS_SETUP_THREADS:
   set {{ hex(progThread.getStackStartAddr()) }}, %sp  ! set stack address
   clr %fp
 
+  call __cortos_copy_program_image
+  nop
+
+  call __cortos_init_region_to_zero
+  nop
+
   !
   ! set up virtual -> physical map.
   !  In this example, the same VA -> PA translation is used by all
@@ -57,6 +63,9 @@ CORTOS_SETUP_THREADS:
   set {{ hex(progThread.getStackStartAddr()) }}, %sp  ! set stack address
   clr %fp
 
+  call __cortos_wait_for_init_1
+  nop
+
   !  Thread ({{ progThread.coreThread.cid }},0) jumps to AFTER_PTABLE_SETUP.
   ba AFTER_PTABLE_SETUP
   nop
@@ -69,6 +78,9 @@ CORTOS_SETUP_THREADS:
   !!!!!!!!!!!!   START: thread ({{ progThread.coreThread.cid }},1) setup section !!!!!!!
   set {{ hex(progThread.getStackStartAddr()) }}, %sp  ! set stack address
   clr %fp
+
+  call __cortos_wait_for_init_1
+  nop
 
   !  Thread ({{ progThread.coreThread.cid }},1) jumps to wait for mmu..
   ba WAIT_UNTIL_MMU_IS_ENABLED

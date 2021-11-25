@@ -6,7 +6,7 @@
 Main invocation of the ajit cortos system.
 """
 
-from cortos.sys import driver
+from cortos2.sys import driver
 
 
 # mainentry - when this module is run

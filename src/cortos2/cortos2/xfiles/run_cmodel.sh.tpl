@@ -3,16 +3,16 @@
 # run AJIT C Model on the generated mmap file
 _MAIN="main";
 ajit_C_system_model \
-  -n {{confObj.coreCount}} \
-  -t {{confObj.threadsPerCoreCount}} \
-% if confObj.debugBuild:
+  -n {{confObj.cpu.coreCount}} \
+  -t {{confObj.cpu.threadsPerCoreCount}} \
+% if confObj.build.debug:
   -g \
 % for i in range(len(confObj.programs)):
-  -p {{confObj.startingDebugPort+i}} \
+  -p {{confObj.build.firstDebugPort+i}} \
 % end
 % end
   -m ${_MAIN}.mmap.remapped \
   -w ${_MAIN}.wtrace \
   -d \
-  -r {{confObj.resultsFile}} \
+  -r {{confObj.projectFiles.resultsFile}} \
   -l ${_MAIN}.log;

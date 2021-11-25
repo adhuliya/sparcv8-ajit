@@ -18,7 +18,7 @@ from typing import Tuple
 from elftools.elf.elffile import ELFFile
 import sys
 from io import StringIO
-from cortos.common import util, consts
+from cortos2.common import util, consts
 
 
 # compute size of an elf file

@@ -27,6 +27,7 @@ class SystemConfig:
     self.userProvidedConfig = userProvidedConfig
 
     self.projectFiles = project.ProjectFiles()
+    self.projectFiles.readProjectFiles()
 
     self.cpu: Opt[cpu.CPU] = None
     self.program: Opt[program.Program] = None

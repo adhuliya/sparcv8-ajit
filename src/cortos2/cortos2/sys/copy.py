@@ -10,7 +10,7 @@ All the routines assume that the current working directory is the destination.
 import os
 import os.path as osp
 
-import cortos2.sys.config as config
+from cortos2.sys.config import config
 from cortos2.common import bottle as btl
 
 from cortos2.common import consts, util
@@ -112,25 +112,25 @@ def copyLinkerScriptFile(
     confObj: config.SystemConfig,
 ) -> None:
   with open(consts.LINKER_SCRIPT_FILE_NAME, "w") as f:
-    f.write(btl.template(f"linker_scripts/{consts.LINKER_SCRIPT_00_FILE_NAME}"))
+    f.write(btl.template(f"linker_scripts/{consts.LINKER_SCRIPT_XX_FILE_NAME}", confObj=confObj))
 
 
 def copyProjectFiles(
     confObj: config.SystemConfig,
 ) -> None:
   # copy all .c xfiles
-  util.runCommand(f"cp {confObj.rootDir}/*.c .")
+  util.runCommand(f"cp {confObj.projectFiles.rootDir}/*.c .")
   # copy all .h xfiles
-  util.runCommand(f"cp {confObj.rootDir}/*.h .", suppressError=True)
+  util.runCommand(f"cp {confObj.projectFiles.rootDir}/*.h .", suppressError=True)
   # copy results file
-  if confObj.resultsFile:
-    util.runCommand(f"cp {confObj.rootDir}/{confObj.resultsFile} .")
+  if confObj.projectFiles.resultsFile:
+    util.runCommand(f"cp {confObj.projectFiles.rootDir}/{confObj.projectFiles.resultsFile} .")
 
 
 def copyInitFile(
     confObj: config.SystemConfig,
 ) -> None:
-  print(f"CoRTOS: AllocRegionSize: {confObj.memoryLayout.sizeInBytes} bytes.")
+  print(f"CoRTOS: AllocRegionSize: {confObj.memoryLayout.memory.sizeInBytes} bytes.")
   with open(consts.INIT_00_FILE_NAME, "w") as f:
     f.write(btl.template(f"build_init/{consts.INIT_00_FILE_NAME}",
                          confObj=confObj))
@@ -161,7 +161,7 @@ def copyRunCModelFile(confObj: config.SystemConfig) -> None:
 def copyResultsFile(confObj: config.SystemConfig) -> None:
   # Get user defined results
   userResults = ""
-  resFilePath = osp.join(confObj.rootDir, confObj.resultsFile)
+  resFilePath = osp.join(confObj.projectFiles.rootDir, confObj.projectFiles.resultsFile)
   if osp.exists(resFilePath):
     userResults = f"{util.readFromFile(resFilePath).strip()}\n"
 

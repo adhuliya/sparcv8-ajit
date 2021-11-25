@@ -89,9 +89,9 @@ class Core:
       thread: CoreThread,
   ) -> Opt[CoreThread]:
     """Returns the next thread with id `thread.tid+1` if it exists."""
-    if thread.tid >= self.threadCount:
+    if thread.tid >= self.threadCount - 1:
       return None
-    return self.threads[thread.tid+1]
+    return self.threads[thread.tid + 1]
 
 
 class CPU:
@@ -129,9 +129,9 @@ class CPU:
       core: Core,
   ) -> Opt[Core]:
     """Returns the next core with id `core.cid+1` if it exists."""
-    if core.cid >= self.coreCount:
+    if core.cid >= self.coreCount - 1:
       return None
-    return self.cores[core.cid+1]
+    return self.cores[core.cid + 1]
 
 
   def getThreadZero(self) -> CoreThread:

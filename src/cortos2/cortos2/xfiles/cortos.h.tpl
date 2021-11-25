@@ -12,70 +12,72 @@
 // is provided by CORTOS or not.
 #define CORTOS
 
-#define CORTOS_THREADS {{len(confObj.programs)}}
+#define CORTOS_THREADS {{len(confObj.program.programThreads)}}
 
 ////////////////////////////////////////////////////////////////////////////////
 // BLOCK START: cortos_memory_layout
 ////////////////////////////////////////////////////////////////////////////////
 
+// All these memory layout macros (without the leading '__')
+// are also defined in the cortos.h header file.
+
 // First Address 0x0:
 // Few instruction to start the bootup initializtion.
 
 // Memory region reserved for cortos' misc internal use.
-#define RESERVED_MEM_START_ADDR {{ confObj.reservedMem.cortosReserved.startAddr }}
-#define RESERVED_MEM_END_ADDR {{ confObj.reservedMem.cortosReserved.getLastByteAddr() }}
+#define RESERVED_MEM_START_ADDR {{ confObj.memoryLayout.reserved.getFirstByteAddr() }}
+#define RESERVED_MEM_END_ADDR {{ confObj.memoryLayout.reserved.getLastByteAddr() }}
 
-// Details related to the user scratch space.
-#define SCRATCH_SPACE_START_ADDR {{ confObj.reservedMem.cortosSharedIntVars.startAddr }}
-#define SCRATCH_SPACE_END_ADDR {{ confObj.reservedMem.cortosSharedIntVars.getLastByteAddr() }}
-#define TOTAL_SCRATCH_SPACE_IN_BYTES {{ confObj.totalSharedIntVars * 4 }}
+// // Details related to the user scratch space.
+// #define SCRATCH_SPACE_START_ADDR
+// #define SCRATCH_SPACE_END_ADDR
+// #define TOTAL_SCRATCH_SPACE_IN_BYTES
 
 // Details of the cortos reserved lock vars (not available to the user)
-#define RES_LOCK_VARS_START_ADDR {{ confObj.reservedMem.cortosResLockVars.startAddr }}
-#define RES_LOCK_VARS_END_ADDR {{ confObj.reservedMem.cortosResLockVars.getLastByteAddr() }}
-#define MAX_RES_LOCK_VARS {{ confObj.totalResLockVars }}
+#define RES_LOCK_VARS_START_ADDR {{ confObj.locks.resLocksStartAddr }}
+#define RES_LOCK_VARS_END_ADDR {{ confObj.locks.resLocksStartAddr + confObj.locks.resLocks - 1 }}
+#define MAX_RES_LOCK_VARS {{ confObj.locks.resLocks }}
 
 // Details of the lock vars available to the user.
-#define LOCK_VARS_START_ADDR {{ confObj.reservedMem.cortosLockVars.startAddr }}
-#define LOCK_VARS_END_ADDR {{ confObj.reservedMem.cortosLockVars.getLastByteAddr() }}
-#define MAX_LOCK_VARS {{ confObj.totalLockVars }}
+#define LOCK_VARS_START_ADDR {{ confObj.locks.userLocksStartAddr }}
+#define LOCK_VARS_END_ADDR {{ confObj.locks.userLocksStartAddr + confObj.locks.userLocks - 1 }}
+#define MAX_LOCK_VARS {{ confObj.locks.userLocks }}
 
 // Details of the lock vars available to the user.
-#define Q_LOCK_VARS_START_ADDR {{ confObj.reservedMem.cortosQueueLockVars.startAddr }}
-#define Q_LOCK_VARS_END_ADDR {{ confObj.reservedMem.cortosQueueLockVars.getLastByteAddr() }}
-#define MAX_Q_LOCK_VARS {{ confObj.totalQueues }}
+#define Q_LOCK_VARS_START_ADDR {{ confObj.locks.queueLocksStartAddr }}
+#define Q_LOCK_VARS_END_ADDR {{ confObj.locks.queueLocksStartAddr + confObj.locks.queueLocks - 1 }}
+#define MAX_Q_LOCK_VARS {{ confObj.locks.queueLocks }}
 
 // Details of the queue header array (one queue header per queue).
-#define Q_HEADERS_START_ADDR {{ confObj.reservedMem.cortosQueueHeaders.startAddr }}
-#define Q_HEADERS_END_ADDR {{ confObj.reservedMem.cortosQueueHeaders.getLastByteAddr() }}
-#define MAX_Q_HEADERS {{ confObj.totalQueues }}
+#define Q_HEADERS_START_ADDR {{ confObj.queueSeq.headersStartAddr }}
+#define Q_HEADERS_END_ADDR {{ confObj.queueSeq.getHeadersEndAddr() }}
+#define MAX_Q_HEADERS {{ confObj.queueSeq.getTotalQueues() }}
 
 // Queues available to the user (all the queues sit here).
-#define QUEUE_START_ADDR {{ confObj.reservedMem.cortosQueues.startAddr }}
-#define QUEUE_END_ADDR {{ confObj.reservedMem.cortosQueues.getLastByteAddr() }}
-#define MAX_QUEUES {{ confObj.totalQueues }}
-#define QUEUE_MSG_SIZE_IN_BYTES {{ confObj.queueMsgSize }}
-#define MAX_ELEMENTS_PER_QUEUE {{ confObj.elementsPerQueue }}
-#define MAX_QUEUE_SIZE_IN_BYTES (MAX_ELEMENTS_PER_QUEUE * QUEUE_MSG_SIZE_IN_BYTES)
+#define QUEUE_START_ADDR {{ confObj.queueSeq.msgStartAddr }}
+#define QUEUE_END_ADDR {{ confObj.queueSeq.getMsgEndAddr() }}
+#define MAX_QUEUES {{ confObj.queueSeq.getTotalQueues() }}
+#define QUEUE_MSG_SIZE_IN_BYTES {{ confObj.queueSeq.queueMsgSizeInBytes }}
+#define MAX_ELEMENTS_PER_QUEUE {{ confObj.queueSeq.elementsPerQueue }}
+#define MAX_QUEUE_SIZE_IN_BYTES {{ confObj.queueSeq.getTotalQueueSizeInBytes() }}
 
 // Total heap space available in bytes.
-#define HEAP_START_ADDR {{ confObj.reservedMem.cortosBgetMemory.startAddr }}
-#define HEAP_END_ADDR {{ confObj.reservedMem.cortosBgetMemory.getLastByteAddr() }}
-#define TOTAL_HEAP_SIZE_IN_BYTES {{ confObj.bgetMemSizeInBytes }}
-
-// ALL INSTRUCTIONS start after {{ confObj.reservedMem.cortosBgetMemory.getLastByteAddr() }}:
-// 1. Logic to start all the threads.
-// 2. All user program instructions sit here.
+% if confObj.bget.enable:
+#define HEAP_START_ADDR {{ confObj.bget.getStartAddr() }}
+#define HEAP_END_ADDR {{ confObj.bget.getEndAddr() }}
+#define TOTAL_HEAP_SIZE_IN_BYTES {{ confObj.bget.sizeInBytes }}
+% end
 
 // All program stacks sit here.
-% for i, prog in enumerate(confObj.programs):
-#define PROG_{{i}}_STACK_START_ADDR {{ prog.stackStartAddr }}
-#define PROG_{{i}}_STACK_SIZE {{ prog.stackSizeInBytes }}
+% for i, progThread in enumerate(confObj.program.programThreads):
+#define PROG_{{i}}_STACK_START_ADDR {{ progThread.getStackStartAddr() }}
+#define PROG_{{i}}_STACK_SIZE {{ progThread.getStackSizeInBytes() }}
 % end
 
 ////////////////////////////////////////////////////////////////////////////////
 // BLOCK END  : cortos_memory_layout
 ////////////////////////////////////////////////////////////////////////////////
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // BLOCK START: cortos_locking_declarations
@@ -244,16 +246,16 @@ int cortos_printf(const char *fmt, ...);
 #define LOG_LEVEL_CRITICAL  60
 #define LOG_LEVEL_NONE      100
 
-#define CORTOS_LOG_LEVEL {{confObj.logLevel.value}}
-#define CORTOS_LOG_LEVEL_NAME "{{confObj.logLevel.name}}"
+#define CORTOS_LOG_LEVEL {{confObj.build.logLevel.value}}
+#define CORTOS_LOG_LEVEL_NAME "{{ confObj.build.logLevel.name }}"
 
 % for level in consts.LEVEL_ORDER:
-% if level.value >= confObj.logLevel.value:
-#define CORTOS_{{level.name}}(...) \
-__cortos_log_printf("{{level.name}}", __FILE__, __func__, __LINE__, __VA_ARGS__);
+% if level.value >= confObj.build.logLevel.value:
+#define CORTOS_{{ level.name }}(...) \
+__cortos_log_printf("{{ level.name }}", __FILE__, __func__, __LINE__, __VA_ARGS__);
 
 % else:
-#define CORTOS_{{level.name}}(...)     /*blank*/
+#define CORTOS_{{ level.name }}(...)     /*blank*/
 
 % end
 % end
@@ -286,30 +288,6 @@ char cortos_get_thread_id();
 
 ////////////////////////////////////////////////////////////////////////////////
 // BLOCK END  : cortos_utility_routines
-////////////////////////////////////////////////////////////////////////////////
-
-
-
-////////////////////////////////////////////////////////////////////////////////
-// BLOCK START: cortos_scratch_pad_area
-////////////////////////////////////////////////////////////////////////////////
-
-// Here is a list of addresses to 4 byte locations that the
-// user can use for any miscellaneous reading, writing,
-// and sharing between the threads.
-
-% count = 0
-% intVarsMemRegion = confObj.reservedMem.cortosSharedIntVars
-% for i in range(intVarsMemRegion.sizeInBytes):
-% if i % 4 == 0:
-% addr = intVarsMemRegion.startAddr + i
-#define SHARED_INT_ADDR_{{count}} {{hex(addr)}}  // Decimal: {{addr}}
-% count += 1
-% end
-% end
-
-////////////////////////////////////////////////////////////////////////////////
-// BLOCK END  : cortos_scratch_pad_area
 ////////////////////////////////////////////////////////////////////////////////
 
 

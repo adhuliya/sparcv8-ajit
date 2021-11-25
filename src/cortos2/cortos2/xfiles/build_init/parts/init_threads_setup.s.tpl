@@ -57,9 +57,9 @@ CORTOS_SETUP_THREADS:
 
 % end
 
-% if progThread.thread.tid == 0 and not progThread.isThread00():
+% if progThread.coreThread.tid == 0 and not progThread.isThread00():
 
-  !!!!!!!!!!!!   START: thread ({{ progThread.thread.cid }},0) setup section !!!!!!!
+  !!!!!!!!!!!!   START: thread ({{ progThread.coreThread.cid }},0) setup section !!!!!!!
   set {{ hex(progThread.getStackStartAddr()) }}, %sp  ! set stack address
   clr %fp
 

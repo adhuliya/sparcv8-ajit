@@ -6,13 +6,11 @@
 /*                                                        */
 /*========================================================*/
 
-% setdefault("startAddress", "0x00000000")
-
 ENTRY(_start)
 __DYNAMIC = 0;
 SECTIONS
 {
-  . = {{ startAddress }}; /* . = 0x00000000; */
+  . = 0x00000000;
   .text ALIGN(4) : {
     KEEP(*(.text.ajitstart.cortosloop))  /* NOTE: in file `init.s` */
     *(.text)

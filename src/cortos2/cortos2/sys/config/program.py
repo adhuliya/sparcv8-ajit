@@ -2,8 +2,7 @@
 from typing import List, Dict, Optional as Opt
 
 from cortos2.common import consts, elf
-from cortos2.sys.config import config, common
-from cortos2.sys.config import cpu
+from cortos2.sys.config import cpu, common
 
 class ProgramThread:
   def __init__(self,
@@ -86,12 +85,12 @@ class Program:
 
 def initConfig(
     userProvidedConfig: Dict,
-    cpu: config.cpu.CPU,
+    ajitCpu: cpu.CPU,
 ) -> Program:
   """Takes a user given configuration and extracts the relevant bits."""
   programThreads: List[ProgramThread] = []
 
-  coreThread = cpu.getThreadZero()
+  coreThread = ajitCpu.getThreadZero()
   for progData in userProvidedConfig[consts.YML_PROG_THREADS]:
     if coreThread is None:
       print(f"CoRTOS: ERROR: programs are more than available h/w threads.")
@@ -113,7 +112,7 @@ def initConfig(
       )
     )
 
-    coreThread = cpu.getNextThread(coreThread)
+    coreThread = ajitCpu.getNextThread(coreThread)
 
   # sorting not needed currently. Kept this line for reference.
   programThreads = sorted(programThreads, key=lambda x: x.coreThread)

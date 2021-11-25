@@ -8,13 +8,10 @@ Functionality to build the project for the Ajit processor.
 All the logic to build is present here, or invoked from here.
 """
 
-from io import StringIO
 import os
-import os.path as osp
-from typing import List, Tuple, Optional as Opt
 
-from cortos2.common import consts, bottle as btl, elf
-from cortos2.common import util, elf
+from cortos2.common import consts
+from cortos2.common import util
 from cortos2.sys.config import config
 import cortos2.sys.copy as cpy
 
@@ -34,7 +31,7 @@ def buildProject(confObj: config.SystemConfig) -> None:
   computeElfSize(confObj)
 
   # STEP 4: Re-prepare the project.
-  prepareFinalBuildDir(confObj)
+  prepareBuildDir(confObj)
 
   # STEP 5: Do a final build.
   runBuildScript(confObj)

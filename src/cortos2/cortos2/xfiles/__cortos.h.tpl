@@ -21,10 +21,10 @@
 #define __RESERVED_MEM_START_ADDR {{ confObj.memoryLayout.reserved.getFirstByteAddr() }}
 #define __RESERVED_MEM_END_ADDR {{ confObj.memoryLayout.reserved.getLastByteAddr() }}
 
-// Details related to the user scratch space.
-#define __SCRATCH_SPACE_START_ADDR {{ confObj.memoryLayout.cortosSharedIntVars.startAddr }}
-#define __SCRATCH_SPACE_END_ADDR {{ confObj.memoryLayout.cortosSharedIntVars.getLastByteAddr() }}
-#define __TOTAL_SCRATCH_SPACE_IN_BYTES {{ confObj.totalSharedIntVars * 4 }}
+// // Details related to the user scratch space.
+// #define __SCRATCH_SPACE_START_ADDR
+// #define __SCRATCH_SPACE_END_ADDR
+// #define __TOTAL_SCRATCH_SPACE_IN_BYTES
 
 // Details of the cortos reserved lock vars (not available to the user)
 #define __RES_LOCK_VARS_START_ADDR {{ confObj.locks.resLocksStartAddr }}
@@ -33,7 +33,7 @@
 
 // Details of the lock vars available to the user.
 #define __LOCK_VARS_START_ADDR {{ confObj.locks.userLocksStartAddr }}
-#define __LOCK_VARS_END_ADDR {{ confObj.locks.userLocksStartAddr + confgObj.locks.userLocks - 1 }}
+#define __LOCK_VARS_END_ADDR {{ confObj.locks.userLocksStartAddr + confObj.locks.userLocks - 1 }}
 #define __MAX_LOCK_VARS {{ confObj.locks.userLocks }}
 
 // Details of the lock vars available to the user.
@@ -42,7 +42,7 @@
 #define __MAX_Q_LOCK_VARS {{ confObj.locks.queueLocks }}
 
 // Details of the queue header array (one queue header per queue).
-#define __Q_HEADERS_START_ADDR {{ qHdrStartAddr }}
+#define __Q_HEADERS_START_ADDR {{ confObj.queueSeq.headersStartAddr }}
 #define __Q_HEADERS_END_ADDR {{ confObj.queueSeq.getHeadersEndAddr() }}
 #define __MAX_Q_HEADERS {{ confObj.queueSeq.getTotalQueues() }}
 
@@ -52,7 +52,7 @@
 #define __MAX_QUEUES {{ confObj.queueSeq.getTotalQueues() }}
 #define __QUEUE_MSG_SIZE_IN_BYTES {{ confObj.queueSeq.queueMsgSizeInBytes }}
 #define __MAX_ELEMENTS_PER_QUEUE {{ confObj.queueSeq.elementsPerQueue }}
-#define __MAX_QUEUE_SIZE_IN_BYTES {{ confObh.queueSeq.getTotalQueueSizeInBytes() }}
+#define __MAX_QUEUE_SIZE_IN_BYTES {{ confObj.queueSeq.getTotalQueueSizeInBytes() }}
 
 // Total heap space available in bytes.
 % if confObj.bget.enable:
@@ -60,10 +60,6 @@
 #define __HEAP_END_ADDR {{ confObj.bget.getEndAddr() }}
 #define __TOTAL_HEAP_SIZE_IN_BYTES {{ confObj.bget.sizeInBytes }}
 % end
-
-// ALL INSTRUCTIONS start after {{ confObj.memoryLayout.cortosBgetMemory.getLastByteAddr() }}:
-// 1. Logic to start all the threads.
-// 2. All user program instructions sit here.
 
 // All program stacks sit here.
 % for i, progThread in enumerate(confObj.program.programThreads):
@@ -112,7 +108,7 @@ typedef struct _CortosQueueHeader {
 } __CortosQueueHeader;
 
 // Details of the queue header array (one queue header per queue).
-#define __Q_HEADERS_START_ADDR {{ qHdrStartAddr }}
+#define __Q_HEADERS_START_ADDR {{ confObj.queueSeq.headersStartAddr }}
 #define __Q_HEADERS_END_ADDR {{ confObj.queueSeq.getHeadersEndAddr() }}
 #define __MAX_Q_HEADERS {{ confObj.queueSeq.getTotalQueues() }}
 
@@ -122,7 +118,7 @@ typedef struct _CortosQueueHeader {
 #define __MAX_QUEUES {{ confObj.queueSeq.getTotalQueues() }}
 #define __QUEUE_MSG_SIZE_IN_BYTES {{ confObj.queueSeq.queueMsgSizeInBytes }}
 #define __MAX_ELEMENTS_PER_QUEUE {{ confObj.queueSeq.elementsPerQueue }}
-#define __MAX_QUEUE_SIZE_IN_BYTES {{ confObh.queueSeq.getTotalQueueSizeInBytes() }}
+#define __MAX_QUEUE_SIZE_IN_BYTES {{ confObj.queueSeq.getTotalQueueSizeInBytes() }}
 
 
 #define __Q_START_INDEX 0
@@ -130,7 +126,7 @@ typedef struct _CortosQueueHeader {
 #define __AJIT_Q_LEN {{ confObj.queueSeq.elementsPerQueue }}
 #define __AJIT_Q_MSG_SIZE {{ confObj.queueSeq.queueMsgSizeInBytes }}
 
-#define __AJIT_Q_HEADER_BASE {{ confObj.queueSeq.headerStartAddr }}
+#define __AJIT_Q_HEADER_BASE {{ confObj.queueSeq.headersStartAddr }}
 #define __AJIT_Q_HEADER_SIZE {{ confObj.queueSeq.queueHeaderSizeInBytes }}
 
 #define __GET_MSG_ADDR(_BASE, _INDEX) \

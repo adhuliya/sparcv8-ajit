@@ -1,4 +1,5 @@
 ! initializes an array of words to zero
+! INPUT: baseAddr and sizeInWords
 
   ! set the base address
   sethi %hi({{baseAddr}}), %l0

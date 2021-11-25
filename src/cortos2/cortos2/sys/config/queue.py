@@ -30,6 +30,7 @@ class QueueSeq:
   ):
     self.queueSeq: List[Queue] = queueSeq
 
+    self.queueHeaderSizeInBytes: int = consts.QUEUE_HEADER_SIZE_IN_BYTES
     self.queueMsgSizeInBytes = consts.DEFAULT_QUEUE_MSG_SIZE_IN_BYTES
     self.elementsPerQueue = consts.DEFAULT_QUEUE_LEN
 

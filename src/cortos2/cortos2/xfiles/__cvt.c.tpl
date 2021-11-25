@@ -1,4 +1,4 @@
-// AD: Needed to enable printing float values in ee_printf
+// AD: Needed to enable printing of float values in ee_printf
 
 #include <stdint.h>
 #define CVTBUFSIZE 80

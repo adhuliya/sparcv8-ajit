@@ -1,6 +1,3 @@
-% qHdrsStartAddr = confObj.queueSeq.headerStartAddr
-% qMsgStartAddr = confObj.queueSeq.msgStartAddr
-
 // NOTE:
 // All symbols for internal cortos' use are prefixed with `__`.
 // The declarations in this header is only for cortos' internal use.
@@ -69,9 +66,9 @@
 // 2. All user program instructions sit here.
 
 // All program stacks sit here.
-% for i, prog in enumerate(confObj.programs):
-#define __PROG_{{i}}_STACK_START_ADDR {{ prog.stackStartAddr }}
-#define __PROG_{{i}}_STACK_SIZE {{ prog.stackSizeInBytes }}
+% for i, progThread in enumerate(confObj.program.programThreads):
+#define __PROG_{{i}}_STACK_START_ADDR {{ progThread.getStackStartAddr() }}
+#define __PROG_{{i}}_STACK_SIZE {{ progThread.getStackSizeInBytes() }}
 % end
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -114,14 +111,27 @@ typedef struct _CortosQueueHeader {
   int __; // to pad 4 bytes to make it 16 bytes.
 } __CortosQueueHeader;
 
+// Details of the queue header array (one queue header per queue).
+#define __Q_HEADERS_START_ADDR {{ qHdrStartAddr }}
+#define __Q_HEADERS_END_ADDR {{ confObj.queueSeq.getHeadersEndAddr() }}
+#define __MAX_Q_HEADERS {{ confObj.queueSeq.getTotalQueues() }}
+
+// Queues available to the user (all the queues sit here).
+#define __QUEUE_START_ADDR {{ confObj.queueSeq.msgStartAddr }}
+#define __QUEUE_END_ADDR {{ confObj.queueSeq.getMsgEndAddr() }}
+#define __MAX_QUEUES {{ confObj.queueSeq.getTotalQueues() }}
+#define __QUEUE_MSG_SIZE_IN_BYTES {{ confObj.queueSeq.queueMsgSizeInBytes }}
+#define __MAX_ELEMENTS_PER_QUEUE {{ confObj.queueSeq.elementsPerQueue }}
+#define __MAX_QUEUE_SIZE_IN_BYTES {{ confObh.queueSeq.getTotalQueueSizeInBytes() }}
+
 
 #define __Q_START_INDEX 0
-#define __AJIT_Q_BASE {{ qMsgStartAddr }}
-#define __AJIT_Q_LEN {{ cortosQueueLength }}
-#define __AJIT_Q_MSG_SIZE {{ cortosQueueMsgSize }}
+#define __AJIT_Q_BASE {{ confObj.queueSeq.msgStartAddr }}
+#define __AJIT_Q_LEN {{ confObj.queueSeq.elementsPerQueue }}
+#define __AJIT_Q_MSG_SIZE {{ confObj.queueSeq.queueMsgSizeInBytes }}
 
-#define __AJIT_Q_HEADER_BASE {{ qHdrsStartAddr }}
-#define __AJIT_Q_HEADER_SIZE {{ cortosQueueHeaderSize }}
+#define __AJIT_Q_HEADER_BASE {{ confObj.queueSeq.headerStartAddr }}
+#define __AJIT_Q_HEADER_SIZE {{ confObj.queueSeq.queueHeaderSizeInBytes }}
 
 #define __GET_MSG_ADDR(_BASE, _INDEX) \
 ((_BASE) + ((_INDEX) * (__AJIT_Q_MSG_SIZE)))

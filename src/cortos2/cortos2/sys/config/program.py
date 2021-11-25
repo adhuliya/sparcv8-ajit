@@ -48,6 +48,10 @@ class ProgramThread:
     return self.stackRegion.getLastByteAddr(useVirtualAddr=True)
 
 
+  def getStackSizeInBytes(self):
+    return self.stackRegion.getSizeInBytes()
+
+
 class Program:
   """All the programs in the system."""
 

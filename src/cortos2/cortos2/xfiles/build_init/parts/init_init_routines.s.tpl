@@ -33,13 +33,13 @@ _copy_segment:
 _copy_segment_completed:
   nop
 
-  set MEM_START_ADDR, %g1
+  set {{ hex(confObj.memoryLayout.memory.startAddr) }}, %g1
   set IMAGE_COPIED, %g2
   add %g1, %g2, %g2
   mov 0x1, %g3
   st %g3, [%g2]  ! set to one
 
-  restore                   ! func suffix
+  ! restore                   ! func suffix
   jmp %o7+8                 ! func suffix
   nop                       ! func suffix
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -81,13 +81,13 @@ zero_init_cortos_allocate_area:
   bne zero_init_cortos_allocate_area
   add %l0, 0x1, %l0         ! get address of next byte
 
-  set MEM_START_ADDR, %g1
+  set {{ hex(confObj.memoryLayout.memory.startAddr) }}, %g1
   set INIT_TO_ZERO_DONE, %g2
   add %g1, %g2, %g2
   mov 0x1, %g3
   st %g3, [%g2]  ! set to one
 
-  restore                   ! func suffix
+  ! restore                   ! func suffix
   jmp %o7+8                 ! func suffix
   nop                       ! func suffix
 
@@ -103,7 +103,7 @@ __cortos_wait_for_init_1:
   ! This routine works before the MMU is set.
   ! all threads except (0,0) which is doing the initialization come here.
 
-  set MEM_START_ADDR, % l5
+  set {{ hex(confObj.memoryLayout.memory.startAddr) }}, % l5
   set IMAGE_COPIED, % l6
   add % l5, % l6, % l6
 _CORTOS_WAIT_FOR_IMAGE_COPY:
@@ -114,7 +114,7 @@ _CORTOS_WAIT_FOR_IMAGE_COPY:
   bnz _CORTOS_WAIT_FOR_IMAGE_COPY
   nop
 
-  set MEM_START_ADDR, % l5
+  set {{ hex(confObj.memoryLayout.memory.startAddr) }}, % l5
   set INIT_TO_ZERO_DONE, % l6
   add % l5, % l6, % l6
 _CORTOS_WAIT_FOR_INIT_TO_ZERO:
@@ -125,7 +125,7 @@ _CORTOS_WAIT_FOR_INIT_TO_ZERO:
   bnz _CORTOS_WAIT_FOR_INIT_TO_ZERO
   nop
 
-  restore                   ! func suffix
+  ! restore                   ! func suffix
   jmp %o7+8                 ! func suffix
   nop                       ! func suffix
 

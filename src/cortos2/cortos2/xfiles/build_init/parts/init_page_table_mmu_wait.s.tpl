@@ -4,7 +4,7 @@
 
 AFTER_PTABLE_SETUP:
   !  threads (0,0), (1,0), ... come here, and check if PT_FLAG is set.
-  set MEM_START_ADDR, %l5
+  set {{ hex(confObj.memoryLayout.memory.startAddr) }}, %l5
   set PT_FLAG, %l6
   add %l5, %l6, %l6
   ld [%l6], %l7

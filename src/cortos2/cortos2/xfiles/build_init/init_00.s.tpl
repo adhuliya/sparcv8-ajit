@@ -1,4 +1,3 @@
-! init_00.s for linking with thread 0,0 only
 
 % include("build_init/parts/init_header.s")
 

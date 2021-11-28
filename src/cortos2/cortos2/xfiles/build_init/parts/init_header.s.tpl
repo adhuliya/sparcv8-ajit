@@ -19,7 +19,10 @@
 !
 .section .text.ajitstart
 
-  set MEM_START_ADDR, %g1
+.global _start;
+_start:
+
+  set {{ hex(confObj.memoryLayout.memory.startAddr) }}, %g1
 
   set PT_FLAG, %g2
   add %g1, %g2, %g2
@@ -32,9 +35,6 @@
   set INIT_TO_ZERO_DONE, %g2
   add %g1, %g2, %g2
   st %g0, [%g2]  ! initialize to zero
-
-.global _start;
-_start:
 
   ! enable traps, set current window=0
   set 0x10E0, %l0

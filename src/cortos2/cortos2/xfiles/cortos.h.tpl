@@ -100,6 +100,11 @@ int cortos_lock_acquire_buzy(int index);
 int cortos_lock_acquire(int index);
 void cortos_lock_release(int index);
 
+// Cacheable locks
+int cortos_lock_acquire_buzy_cacheable(int index);
+int cortos_lock_acquire_cacheable(int index);
+void cortos_lock_release_cacheable(int index);
+
 // Reserve an unused lock variable id from cortos.
 //   It returns the lock variable id of the lock reserved.
 //   If no lock is available it returns -1.

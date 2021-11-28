@@ -22,8 +22,8 @@ CORTOS_SETUP_THREADS:
   set {{ hex(progThread.getStackStartAddr()) }}, %sp  ! set stack address
   clr %fp
 
-  call __cortos_copy_program_image
-  nop
+  !call __cortos_copy_program_image
+  !nop
 
   call __cortos_init_region_to_zero
   nop
@@ -39,7 +39,7 @@ CORTOS_SETUP_THREADS:
   !
   !  set PT_FLAG = 1.   This indicates that the page table has been written.
   !
-  set MEM_START_ADDR, %l5
+  set {{ hex(confObj.memoryLayout.memory.startAddr) }}, %l5
   set PT_FLAG, %l6
   add %l5, %l6, %l6
   mov 1, %l7

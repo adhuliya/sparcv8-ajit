@@ -11,7 +11,7 @@ ajit_C_system_model \
   -p {{confObj.build.firstDebugPort+i}} \
 % end
 % end
-  -m ${_MAIN}.mmap.remapped \
+  -m ${_MAIN}.mmap \
   -w ${_MAIN}.wtrace \
   -d \
   -r {{confObj.projectFiles.resultsFile}} \

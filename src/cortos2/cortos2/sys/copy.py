@@ -38,7 +38,6 @@ def copyVmapFile(
     for region in confObj.memoryLayout.regionSeq:
       for line in region.getVmapFileEntryLines():
         f.write(line)
-      f.write(f"{os.linesep}{os.linesep}")
     #OLD: f.write(btl.template(f"{consts.VMAP_FILE_NAME}"))
 
 
@@ -103,6 +102,9 @@ def copyLockFiles(
 ) -> None:
   with open(consts.LOCK_FILE_NAME, "w") as f:
     f.write(btl.template(f"{consts.LOCK_FILE_NAME}", confObj=confObj))
+
+  with open(consts.CACHEABLE_LOCK_FILE_NAME, "w") as f:
+    f.write(btl.template(f"{consts.CACHEABLE_LOCK_FILE_NAME}", confObj=confObj))
 
   with open(consts.RES_LOCK_FILE_NAME, "w") as f:
     f.write(btl.template(f"{consts.RES_LOCK_FILE_NAME}", confObj=confObj))

@@ -61,7 +61,7 @@ class MemoryLayout:
       sizeInBytes=prog.textSectionSizeInBytes,
       virtualAddr=vAddr,
       physicalAddr=pAddr,
-      permissions=consts.PagePermissions.SU_RX.value,
+      permissions=consts.PagePermissions.S_RX_U_RX.value,
     )
     self.regionSeq.append(region)
     prog.textRegion = region
@@ -72,7 +72,7 @@ class MemoryLayout:
       sizeInBytes=prog.dataSectionSizeInBytes,
       virtualAddr=region.getNextToLastByteAddr(useVirtualAddr=True),
       physicalAddr=region.getNextToLastByteAddr(useVirtualAddr=False),
-      permissions=consts.PagePermissions.SU_RW.value,
+      permissions=consts.PagePermissions.S_RWX_U_RWX.value,
     )
     self.regionSeq.append(region)
     prog.dataRegion = region
@@ -83,7 +83,7 @@ class MemoryLayout:
       sizeInBytes=consts.RESERVED_REGION_SIZE_IN_BYTES,
       virtualAddr=region.getNextToLastByteAddr(useVirtualAddr=True),
       physicalAddr=region.getNextToLastByteAddr(useVirtualAddr=False),
-      permissions=consts.PagePermissions.SU_RW.value,
+      permissions=consts.PagePermissions.S_RWX_U_RWX.value,
     )
     self.regionSeq.append(region)
     self.reserved = region
@@ -95,30 +95,30 @@ class MemoryLayout:
       sizeInBytes=consts.SCRATCHPAD_MEMORY_REGION_SIZE_IN_BYTES,
       virtualAddr=region.getNextToLastByteAddr(useVirtualAddr=True),
       physicalAddr=region.getNextToLastByteAddr(useVirtualAddr=False),
-      permissions=consts.PagePermissions.SU_RW.value,
+      permissions=consts.PagePermissions.S_RWX_U_RWX.value,
     )
     self.regionSeq.append(region)
     self.scratchPad = region
 
     region = common.MemoryRegion(
       name="CacheableLocks",
-      oneLineDescription="An exclusively area to store cacheable locks.",
+      oneLineDescription="An exclusive area to store cacheable locks.",
       sizeInBytes=consts.CACHED_LOCKS_REGION_SIZE_IN_BYTES,
       virtualAddr=region.getNextToLastByteAddr(useVirtualAddr=True),
       physicalAddr=region.getNextToLastByteAddr(useVirtualAddr=False),
-      permissions=consts.PagePermissions.SU_RW.value,
+      permissions=consts.PagePermissions.S_RWX_U_RWX.value,
     )
     self.regionSeq.append(region)
     locks.setMemoryRegion(region, cacheable=True)
 
     region = common.MemoryRegion(
       name="NonCacheableLocks",
-      oneLineDescription="An exclusively area to store non-cacheable locks.",
+      oneLineDescription="An exclusive area to store non-cacheable locks.",
       sizeInBytes=consts.NON_CACHED_LOCKS_REGION_SIZE_IN_BYTES,
       virtualAddr=region.getNextToLastByteAddr(useVirtualAddr=True),
       physicalAddr=region.getNextToLastByteAddr(useVirtualAddr=False),
       cacheable=False,
-      permissions=consts.PagePermissions.SU_RW.value,
+      permissions=consts.PagePermissions.S_RWX_U_RWX.value,
     )
     self.regionSeq.append(region)
     locks.setMemoryRegion(region, cacheable=False)
@@ -129,7 +129,7 @@ class MemoryLayout:
       sizeInBytes=consts.DEFAULT_QUEUE_REGION_SIZE_IN_BYTES,
       virtualAddr=region.getNextToLastByteAddr(useVirtualAddr=True),
       physicalAddr=region.getNextToLastByteAddr(useVirtualAddr=False),
-      permissions=consts.PagePermissions.SU_RW.value,
+      permissions=consts.PagePermissions.S_RWX_U_RWX.value,
     )
     self.regionSeq.append(region)
     queueSeq.setMemoryRegion(region)
@@ -141,7 +141,7 @@ class MemoryLayout:
       sizeInBytes=bget.sizeInBytes,
       virtualAddr=region.getNextToLastByteAddr(useVirtualAddr=True),
       physicalAddr=region.getNextToLastByteAddr(useVirtualAddr=False),
-      permissions=consts.PagePermissions.SU_RW.value,
+      permissions=consts.PagePermissions.S_RWX_U_RWX.value,
     )
     self.regionSeq.append(region)
     bget.setMemoryRegion(region)
@@ -153,7 +153,7 @@ class MemoryLayout:
       sizeInBytes=2 ** 12,  # 4KB
       virtualAddr=region.getNextToLastByteAddr(useVirtualAddr=True),
       physicalAddr=region.getNextToLastByteAddr(useVirtualAddr=False),
-      permissions=consts.PagePermissions.SU_X.value,
+      permissions=consts.PagePermissions.S_X_U_X.value,
     )
     self.regionSeq.append(region)
 
@@ -164,7 +164,7 @@ class MemoryLayout:
         sizeInBytes=progThread.stackSizeInBytes,
         virtualAddr=region.getNextToLastByteAddr(useVirtualAddr=True),
         physicalAddr=region.getNextToLastByteAddr(useVirtualAddr=False),
-        permissions=consts.PagePermissions.SU_RW.value,
+        permissions=consts.PagePermissions.S_RWX_U_RWX.value,
       )
       self.regionSeq.append(region)
       progThread.setStackRegion(region)
@@ -175,7 +175,7 @@ class MemoryLayout:
         sizeInBytes=2 ** 12,  # 4KB
         virtualAddr=region.getNextToLastByteAddr(useVirtualAddr=True),
         physicalAddr=region.getNextToLastByteAddr(useVirtualAddr=False),
-        permissions=consts.PagePermissions.SU_X.value,
+        permissions=consts.PagePermissions.S_X_U_X.value,
       )
       self.regionSeq.append(region)
 
@@ -186,7 +186,7 @@ class MemoryLayout:
       virtualAddr=0xFFFF0000,
       physicalAddr=0xFFFF0000,
       cacheable=False,
-      permissions=consts.PagePermissions.SU_RW.value,
+      permissions=consts.PagePermissions.S_RWX_U_RWX.value,
     )
     self.regionSeq.append(region)
 

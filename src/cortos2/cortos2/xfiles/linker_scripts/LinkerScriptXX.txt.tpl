@@ -12,9 +12,12 @@ SECTIONS
 {
   . = 0x00000000;
   .text ALIGN(4) : {
-    KEEP(*(.text.ajitstart.cortosloop))  /* NOTE: in file `init.s` */
+    KEEP(*(.text.ajitstart))  /* NOTE: in file `init_00.s` */
     *(.text)
     *(.text.*)
+    KEEP(*(.text.pagetablesetup)) /* NOTE: not needed */
+    KEEP(*(.text.traphandlers))  /* NOTE: in file `trap_handlers.s` */
+    KEEP(*(.text.traptablebase))  /* NOTE: in file `trap_handlers.s` */
   }
 
   . = {{ hex(confObj.program.getDataRegionStartAddr()) }};

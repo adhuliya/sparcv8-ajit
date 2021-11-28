@@ -14,6 +14,7 @@ _CORTOS_C="$_CORTOS_SRC_DIR/cortos.c";
 _CORTOS_PRINTF="$_CORTOS_SRC_DIR/__cortos_ee_printf.c";
 _CORTOS_PRINTF_CVT="$_CORTOS_SRC_DIR/__cvt.c";
 _CORTOS_LOCK_UNLOCK="$_CORTOS_SRC_DIR/cortos_lock_unlock.s";
+_CORTOS_LOCK_UNLOCK_CACHEABLE="$_CORTOS_SRC_DIR/cortos_lock_unlock_cacheable.s";
 _CORTOS_RES_LOCK_UNLOCK="$_CORTOS_SRC_DIR/__cortos_lock_unlock.s";
 _CORTOS_Q_LOCK_UNLOCK="$_CORTOS_SRC_DIR/__cortos_q_lock_unlock.s";
 _CORTOS_MSG_QUEUE="$_CORTOS_SRC_DIR/cortos_q.c";
@@ -50,6 +51,7 @@ compileToSparcUclibc.py \
   -s ${_CORTOS_ASM} \
   -s ${_CORTOS_TRAP_HANDLER} \
   -s ${_CORTOS_LOCK_UNLOCK} \
+  -s ${_CORTOS_LOCK_UNLOCK_CACHEABLE} \
   -s ${_CORTOS_RES_LOCK_UNLOCK} \
   -s ${_CORTOS_Q_LOCK_UNLOCK} \
 % for fileName in confObj.projectFiles.cFileNames:

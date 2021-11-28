@@ -107,6 +107,7 @@ VMAP_FILE_NAME: str = "vmap.txt"
 CORTOS_HEADER_FILE_NAME: str = "cortos.h"
 CORTOS_INTERNAL_HEADER_FILE_NAME: str = "__cortos.h"
 LOCK_FILE_NAME: str = "cortos_lock_unlock.s"
+CACHEABLE_LOCK_FILE_NAME: str = "cortos_lock_unlock_cacheable.s"
 RES_LOCK_FILE_NAME: str = "__cortos_lock_unlock.s"
 
 LINKER_SCRIPT_FILE_NAME: str = "LinkerScript.txt"
@@ -214,23 +215,36 @@ DEFAULT_PAGE_LEVEL: PageTableLevel = PageTableLevel.LEVEL3
 
 PAGE_TABLE_LEVELS_TO_PAGE_SIZE = {
   PageTableLevel.LEVEL0: 2**32,  #   4 GB (in bytes)
-  PageTableLevel.LEVEL1: 2**28,  # 256 MB (in bytes)
-  PageTableLevel.LEVEL2: 2**24,  #  16 MB (in bytes)
+  PageTableLevel.LEVEL1: 2**24,  #  16 MB (in bytes)
+  PageTableLevel.LEVEL2: 2**18,  # 256 KB (in bytes)
   PageTableLevel.LEVEL3: 2**12,  #   4 KB (in bytes)
 }
 """Page table level to page size in bytes map."""
 
 class PagePermissions(Enum):
   """
+  S = Supervisor
+  U = User
   R = Read
   W = Write
   X = Execute
+  		acc           supervisor                  user
+              read  write  execute       read   write  execute
+		------------------------------------------------------------
+		0x0        Y      N       N           Y       N       N
+		0x1        N      Y       Y           N       Y       Y
+		0x2        Y      N       Y           Y       N       Y
+		0x3        Y      Y       Y           Y       Y       Y
+		0x4        N      N       Y           N       N       Y
+		0x5        Y      Y       N           Y       N       N
+		0x6        Y      N       Y           N       N       N
+		0x7        Y      Y       Y           N       N       N
   """
-  SU_RW  = 0x1
-  SU_RX  = 0x2
-  SU_X   = 0x4
-  SU_RWX = 0x3
-  SU_R   = 0x0
+  S_RW_U_R    = 0x5
+  S_RX_U_RX   = 0x2
+  S_RWX       = 0x7
+  S_X_U_X     = 0x4
+  S_RWX_U_RWX = 0x3
 
 
 SCRATCHPAD_MEMORY_REGION_SIZE_IN_BYTES: int = 2 ** 12  # 4KB

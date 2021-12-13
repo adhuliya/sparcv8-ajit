@@ -12,7 +12,7 @@ _log = logging.getLogger(__name__)
 import os
 import os.path as osp
 import subprocess as subp
-from typing import List, Any, Optional as Opt, Tuple
+from typing import List, Any, Optional as Opt, Tuple, Dict
 
 globalCounter: int = 0
 RelFilePathT = str  # a relative file path (could be absolute too)
@@ -291,4 +291,26 @@ def runCommandGetOutput(cmd: str) -> str:
   print(f"CoRTOS: {'OK' if not status else 'ERROR'}:"
         f" command return code {status}")
   return output
+
+
+def getConfigurationParameter(data: Dict, keySeq: List, default = None):
+  """Reads a sequence of keys from the dictionary if present, else returns default.
+
+  e.g. if keySeq = ['A','B','C'], then the return is data['A']['B']['C'],
+  if present else default is returned.
+  """
+  if not data or not isinstance(data, dict):
+    return default
+
+  keySeqFound = True
+  for key in keySeq:
+    if key in data:
+      data = data[key]
+    else:
+      keySeqFound = False
+      break
+
+  return data if keySeqFound else default
+
+
 

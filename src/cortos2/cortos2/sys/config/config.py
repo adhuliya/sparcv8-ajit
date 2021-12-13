@@ -16,8 +16,8 @@ import os.path as osp
 # Yaml key names
 import cortos2.common.consts as consts
 import cortos2.sys.compute as compute
-from cortos2.sys.config import cpu, build, project, program, memory, queue, lock, bget
-from cortos2.sys.config.cpu import CoreThread
+from cortos2.sys.config import processor, build, project, program, memory, queue, lock, bget
+from cortos2.sys.config.processor import CoreThread
 
 
 class SystemConfig:
@@ -29,7 +29,7 @@ class SystemConfig:
     self.projectFiles = project.ProjectFiles()
     self.projectFiles.readProjectFiles()
 
-    self.cpu: Opt[cpu.CPU] = None
+    self.cpu: Opt[processor.Processor] = None
     self.program: Opt[program.Program] = None
     self.queueSeq: Opt[queue.QueueSeq] = None
     self.locks: Opt[lock.Locks] = None
@@ -43,7 +43,7 @@ class SystemConfig:
 
   def initialize(self):
     # STEP 1: Initialize the CPU parameters (cores, threads per core, etc.).
-    self.cpu = cpu.initConfig(self.userProvidedConfig)
+    self.cpu = processor.initConfig(self.userProvidedConfig)
     self.program = program.initConfig(self.userProvidedConfig, self.cpu)
     self.queueSeq = queue.initConfig(self.userProvidedConfig)
     self.locks = lock.initConfig(self.userProvidedConfig)

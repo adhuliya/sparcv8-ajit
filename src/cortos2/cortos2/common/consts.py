@@ -285,3 +285,5 @@ YML_LOG_LEVEL = "LogLevel"
 ################################################################
 
 
+# Two memory region types.
+SOFT, HARD = "SOFT", "HARD"

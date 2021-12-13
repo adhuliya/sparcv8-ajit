@@ -10,7 +10,7 @@ ENTRY(_start)
 __DYNAMIC = 0;
 SECTIONS
 {
-  . = 0x00000000;
+  . = {{ hex(confObj.software.program.getTextRegionStartAddr() }};
   .text ALIGN(4) : {
     KEEP(*(.text.ajitstart))  /* NOTE: in file `init_00.s` */
     *(.text)
@@ -20,7 +20,7 @@ SECTIONS
     KEEP(*(.text.traptablebase))  /* NOTE: in file `trap_handlers.s` */
   }
 
-  . = {{ hex(confObj.program.getDataRegionStartAddr()) }};
+  . = {{ hex(confObj.software.program.getDataRegionStartAddr()) }};
   .rodata ALIGN(4) : { * (.rodata) * (.rodata.*) }
   .data   ALIGN(4) : { * (.data) * (.data.*) *(.bss)}
 }

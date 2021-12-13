@@ -2,11 +2,11 @@
 from typing import List, Dict, Optional as Opt
 
 from cortos2.common import consts, elf
-from cortos2.sys.config import cpu, common
+from cortos2.sys.config import processor, common
 
 class ProgramThread:
   def __init__(self,
-      coreThread: cpu.CoreThread,
+      coreThread: processor.CoreThread,
       stackSizeInBytes: int,
       initCallSeq: List[str],
       loopCallSeq: List[str],
@@ -85,7 +85,7 @@ class Program:
 
 def initConfig(
     userProvidedConfig: Dict,
-    ajitCpu: cpu.CPU,
+    ajitCpu: processor.Processor,
 ) -> Program:
   """Takes a user given configuration and extracts the relevant bits."""
   programThreads: List[ProgramThread] = []

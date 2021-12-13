@@ -7,9 +7,10 @@ Hardware:
     # Required: Number of cores and threads per core.
     Cores: 1
     ThreadsPerCore: 1
+    ISA: 32 # 32/64 bit (Default: 32)
 
   Memory:
-    MaxAddrBitWidth: 36
+    MaxPhysicalAddrBitWidth: 36
     Flash:
       StartAddr: 0x0  # physical address
       # EndAddr: ...
@@ -17,29 +18,55 @@ Hardware:
       # SizeInKiloBytes: ...
       SizeInMegaBytes: 16
       Permissions: RXC  # (Read,Write,eXecute,Cacheable)
-    Ram:
+    RAM:
       StartAddr:   0x4FFFFFFF  # physical address
       # EndAddr: ...
       # SizeInBytes: ...
       # SizeInKiloBytes: ...
       SizeInMegaBytes: 128
       Permissions: RWXC
-    MemoryMappedIo:
-      StartAddr:   0xFFFF0000  # physical address
-      # EndAddr: ...
-      # SizeInBytes: ...
-      # SizeInKiloBytes: ...
-      SizeInKiloBytes: 4
-      Permissions: RW
+    MMIO: # Memory Mapped IO
+      MemoryRegion:
+        StartAddr: 0xFFFF0000  # physical address
+        EndAddr:   0xFFFFFFFF
+        # SizeInBytes: ...
+        # SizeInKiloBytes: ...
+        # SizeInKiloBytes: 4
+        Permissions: RW
+      Devices:
+        Timer:
+          StartAddr: 0xFFFF3100
+          SizeInBytes: 256 # 16x16
+          Permissions: RW
+          RegisterAddr:
+            Control: 0xFFFF3100
+        InterruptController:
+          StartAddr: 0xFFFF3000
+          SizeInBytes: 32
+          Permissions: RW
+          RegisterAddr:
+            Control: 0xFFFF3000
+        Serial:
+          StartAddr: 0xFFFF3200
+          SizeInBytes: 64
+          Permissions: RW
+          RegisterAddr:
+            Control: 0xFFFF3200
+            TX: 0xFFFF3204
+            RX: 0xFFFF3208
+        ScratchArea:
+          StartAddr: 0xFFFF2c00
+          SizeInBytes: 1024
+          Permissions: RW
 
 Software:
-  Build:
+  BuildAndExecute:
     # Optional: Specify the log level. Default is NONE.
     # ALL < TRACE < DEBUG < INFO < ERROR < CRITICAL < NONE
     LogLevel: DEBUG
     OptimizationLevel: 2 # i.e. O2 (Accepted values: 0, 1, 2)
-    EnableSerial: Yes
-    Debug: No
+    EnableSerial: Yes # Yes/No (Default: Yes)
+    Debug: No # Yes/No (Default: No)
     FirstDebugPort: 8000
 
   # Required: Which functions execute on each ajit thread.
@@ -48,6 +75,35 @@ Software:
         - main
   # One can also specify an infinite loop on the function:
   #   CortosLoopCalls:
-  #     - main
-      StackSizeInBytes: 8192
+  #     - main1
+      StackSizeInKiloBytes: 8
 
+  Locks: # Locks for synchronization between threads.
+    Cacheable: 32
+    NonCacheable: 32
+
+  DynamicMemory: # Dynamic Memory Configuration.
+    # SizeInBytes: ...
+    SizeInKiloBytes: 100
+    # SizeInMegaBytes: ...
+
+  MessageQueues: # List of queues in the system.
+    - QueueIdStart: 0    # goes to QueueIdStart+NumOfQueues-1
+      NumOfQueues: 32
+      MessageSizeInBytes: 32
+      TotalMessageCapacity: 32 # num. of messages
+
+    - QueueIdStart: 32    # goes to QueueIdStart+NumOfQueues-1
+      NumOfQueues: 16
+      MessageSizeInBytes: 8
+      TotalMessageCapacity: 256 # num. of messages
+
+  InterruptHandler:
+    - Type: 0x4
+      Function: functionName4
+      CoreThreads:
+        - 0x0 # Default: 0x0
+    - Type: 0x5
+      Function: functionName5
+      CoreThreads:
+        - 0x0 # Default: 0x0

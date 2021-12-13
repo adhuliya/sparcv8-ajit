@@ -17,6 +17,7 @@ class MemoryRegion(util.PrettyStr):
       physicalAddr: int = 0,
       cacheable: bool = True,
       permissions: int = 0x1,  # read,write for data
+      regionType: str = consts.SOFT,
   ):
     self.name = name
     self.oneLineDescription = oneLineDescription
@@ -28,6 +29,20 @@ class MemoryRegion(util.PrettyStr):
     self.physicalAddr = physicalAddr
     self.cacheable = cacheable
     self.permissions = permissions
+    self.regionType = regionType
+
+
+  @staticmethod
+  def generateObject(
+      userProvidedConfig: Dict,
+      prevKeySeq: Opt[List] = None,
+  ) -> 'MemoryRegion':
+    """Takes a user given configuration and extracts the data into an object."""
+
+    config: Opt[Dict] = util.getConfigurationParameter(
+      userProvidedConfig,
+      [keyName],
+    )
 
 
   def initPageTableLevels(self):

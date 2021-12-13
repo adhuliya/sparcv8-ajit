@@ -1,6 +1,7 @@
 from typing import List, Dict, Optional as Opt
 
-from cortos2.common import consts
+from cortos2.common import consts, util
+
 
 class CoreThread:
   def __init__(self,
@@ -94,16 +95,18 @@ class Core:
     return self.threads[thread.tid + 1]
 
 
-class CPU:
+class Processor:
   """
-  A CPU has one or more Cores.
+  A processor has one or more Cores.
   """
   def __init__(self,
       coreCount: int = 1,
       threadsPerCoreCount: int = 1,
+      isa: int = 32, # 32 or 64
   ) -> None:
     self.coreCount = coreCount
     self.threadsPerCoreCount = threadsPerCoreCount
+    self.isa = isa
 
     self.cores: List[Core] = []
     for cid in range(self.coreCount):
@@ -165,17 +168,39 @@ class CPU:
     else:
       return consts.HALT_ERROR_LABEL
 
+  @staticmethod
+  def generateObject(
+      userProvidedConfig: Dict,
+      prevKeySeq: Opt[List] = None,
+  ) -> 'Processor':
+    """Takes a user given configuration and extracts the
+     Processor related configuration."""
 
-def initConfig(
-    userProvidedConfig: Dict,
-) -> CPU:
-  """Takes a user given configuration and extracts the CPU related configuration."""
+    keyName = "Processor"
 
-  coreCount = userProvidedConfig[consts.YML_CORES] \
-    if consts.YML_CORES in userProvidedConfig else 1
-  threadsPerCoreCount = userProvidedConfig[consts.YML_THREADS] \
-    if consts.YML_THREADS in userProvidedConfig else 1
+    config: Opt[Dict] = util.getConfigurationParameter(
+      data = userProvidedConfig,
+      keySeq = [keyName],
+    )
 
-  cpu = CPU(coreCount, threadsPerCoreCount)
+    coreCount: int = util.getConfigurationParameter(
+      data = config,
+      keySeq = ["Cores"],
+      default = 1
+    )
 
-  return cpu
+    threadsPerCoreCount: int = util.getConfigurationParameter(
+      data = config,
+      keySeq = ["ThreadsPerCore"],
+      default = 1
+    )
+
+    isa: int = util.getConfigurationParameter(
+      data = config,
+      keySeq = ["ISA"],
+      default = 32
+    )
+
+    cpu = Processor(coreCount, threadsPerCoreCount, isa)
+    return cpu
+

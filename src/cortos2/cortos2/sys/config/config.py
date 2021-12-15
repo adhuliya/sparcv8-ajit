@@ -5,19 +5,14 @@
 """
 Read user configuration file.
 """
-from typing import List, Optional as Opt, Any
-import os
+from typing import Optional as Opt
 import yaml
-import io
 
 import cortos2.common.util as util
-import os.path as osp
 
 # Yaml key names
-import cortos2.common.consts as consts
-import cortos2.sys.compute as compute
-from cortos2.sys.config import processor, build, project, program, memory, queue, lock, bget
-from cortos2.sys.config.processor import CoreThread
+from cortos2.sys.config.soft import bget, build, lock, queue, projectfiles, program
+from cortos2.sys.config.hard import memory, processor
 
 
 class SystemConfig:
@@ -26,7 +21,7 @@ class SystemConfig:
   def __init__(self, userProvidedConfig):
     self.userProvidedConfig = userProvidedConfig
 
-    self.projectFiles = project.ProjectFiles()
+    self.projectFiles = projectfiles.ProjectFiles()
     self.projectFiles.readProjectFiles()
 
     self.cpu: Opt[processor.Processor] = None

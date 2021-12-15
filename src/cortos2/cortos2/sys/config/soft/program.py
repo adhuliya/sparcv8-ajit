@@ -2,7 +2,9 @@
 from typing import List, Dict, Optional as Opt
 
 from cortos2.common import consts, elf
-from cortos2.sys.config import processor, common
+from cortos2.sys.config import common
+from cortos2.sys.config.hard import processor
+
 
 class ProgramThread:
   def __init__(self,

@@ -1,9 +1,9 @@
 """The configuration and layout of the system memory."""
-import os
-from typing import List, Optional as Opt, Dict, Tuple
+from typing import List, Optional as Opt, Dict
 
 from cortos2.common import util, consts
-from cortos2.sys.config import program, queue, lock, bget, common
+from cortos2.sys.config import common
+from cortos2.sys.config.soft import bget, lock, queue, program
 from cortos2.sys.config.common import MemoryRegion
 
 

@@ -181,6 +181,7 @@ class Processor:
     config: Opt[Dict] = util.getConfigurationParameter(
       data = userProvidedConfig,
       keySeq = [keyName],
+      default = None,
     )
 
     coreCount: int = util.getConfigurationParameter(
@@ -192,13 +193,13 @@ class Processor:
     threadsPerCoreCount: int = util.getConfigurationParameter(
       data = config,
       keySeq = ["ThreadsPerCore"],
-      default = 1
+      default = 1,
     )
 
     isa: int = util.getConfigurationParameter(
       data = config,
       keySeq = ["ISA"],
-      default = 32
+      default = 32,
     )
 
     cpu = Processor(coreCount, threadsPerCoreCount, isa)

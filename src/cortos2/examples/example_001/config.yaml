@@ -26,38 +26,42 @@ Hardware:
       SizeInMegaBytes: 128
       Permissions: RWXC
     MMIO: # Memory Mapped IO
+      StartAddr: 0xFFFF0000  # physical address
+      EndAddr:   0xFFFFFFFF
+      # SizeInBytes: ...
+      # SizeInKiloBytes: ...
+      # SizeInKiloBytes: 4
+      Permissions: RW
+
+  Devices:
+    - Name: "Timer"
       MemoryRegion:
-        StartAddr: 0xFFFF0000  # physical address
-        EndAddr:   0xFFFFFFFF
-        # SizeInBytes: ...
-        # SizeInKiloBytes: ...
-        # SizeInKiloBytes: 4
+        StartAddr: 0xFFFF3100 # physical address (in MMIO)
+        SizeInBytes: 256 # 16x16
         Permissions: RW
-      Devices:
-        Timer:
-          StartAddr: 0xFFFF3100
-          SizeInBytes: 256 # 16x16
-          Permissions: RW
-          RegisterAddr:
-            Control: 0xFFFF3100
-        InterruptController:
-          StartAddr: 0xFFFF3000
-          SizeInBytes: 32
-          Permissions: RW
-          RegisterAddr:
-            Control: 0xFFFF3000
-        Serial:
-          StartAddr: 0xFFFF3200
-          SizeInBytes: 64
-          Permissions: RW
-          RegisterAddr:
-            Control: 0xFFFF3200
-            TX: 0xFFFF3204
-            RX: 0xFFFF3208
-        ScratchArea:
-          StartAddr: 0xFFFF2c00
-          SizeInBytes: 1024
-          Permissions: RW
+      NamedRegisters:
+        Control: 0xFFFF3100
+    - Name: "InterruptController"
+      MemoryRegion:
+        StartAddr: 0xFFFF3000
+        SizeInBytes: 32
+        Permissions: RW
+      NamedRegisters:
+        Control: 0xFFFF3000
+    - Name: "Serial"
+      MemoryRegion:
+        StartAddr: 0xFFFF3200
+        SizeInBytes: 64
+        Permissions: RW
+      NamedRegisters:
+        Control: 0xFFFF3200
+        TX: 0xFFFF3204
+        RX: 0xFFFF3208
+    - Name: "ScratchArea"
+      MemoryRegion:
+        StartAddr: 0xFFFF2c00
+        SizeInBytes: 1024
+        Permissions: RW
 
 Software:
   BuildAndExecute:

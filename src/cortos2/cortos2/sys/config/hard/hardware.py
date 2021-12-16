@@ -16,7 +16,7 @@ class Hardware:
   def __init__(self,
       cpu: Processor,
       memory: Memory,
-      devices: List[Device],
+      devices: Dict[str, Device],
   ) -> None:
     self.cpu = cpu
     self.memory = memory
@@ -66,10 +66,11 @@ class Hardware:
     if config: # must be a list
       for index, deviceConfig in enumerate(config):
         prevKeySeq.append(index)
-        Device.generateObject(
+        device = Device.generateObject(
           userProvidedConfig=deviceConfig,
           prevKeySeq=prevKeySeq,
         )
+        data[device.name] = device
         prevKeySeq.pop(index)
 
     prevKeySeq.pop()

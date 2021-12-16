@@ -1,9 +1,10 @@
 """Details related to the user programs."""
 from typing import List, Dict, Optional as Opt
 
-from cortos2.common import consts, elf
+from cortos2.common import consts, elf, util
 from cortos2.sys.config import common
 from cortos2.sys.config.hard import processor
+from cortos2.sys.config.hard.processor import CoreThread, Processor
 
 
 class ProgramThread:
@@ -53,6 +54,44 @@ class ProgramThread:
     return self.stackRegion.getSizeInBytes()
 
 
+  @staticmethod
+  def generateObject(
+      userProvidedConfig: Opt[Dict],
+      coreThread: CoreThread,
+      prevKeySeq: Opt[List] = None,
+  ) -> 'ProgramThread':
+
+    stackSizeConf = util.getConfigurationParameter(
+      data=userProvidedConfig,
+      keySeq=["StackSize"],
+      default=None,
+    )
+    stackSizeInBytes = util.getSizeInBytes(
+      stackSizeConf,
+      default=consts.DEFAULT_STACK_SIZE,
+    )
+
+    initCallSeq = util.getConfigurationParameter(
+      data=userProvidedConfig,
+      keySeq=["CortosInitCalls"],
+      default=["main"]
+    )
+
+    loopCallSeq = util.getConfigurationParameter(
+      data=userProvidedConfig,
+      keySeq=["CortosLoopCalls"],
+      default=["main"]
+    )
+
+    progThread = ProgramThread(
+      coreThread=coreThread,
+      stackSizeInBytes=stackSizeInBytes,
+      initCallSeq=initCallSeq,
+      loopCallSeq=loopCallSeq,
+    )
+    return progThread
+
+
 class Program:
   """All the programs in the system."""
 
@@ -83,6 +122,36 @@ class Program:
 
   def getDataRegionStartAddr(self):
     return self.dataRegion.getFirstByteAddr(useVirtualAddr=True)
+
+
+  @staticmethod
+  def generateObject(
+      userProvidedConfig: Dict,
+      ajitCpu: Processor,
+      prevKeySeq: Opt[List] = None,
+  ) -> 'Program':
+    keyName = "ProgramThreads"
+    prevKeySeq.append(keyName)
+
+    config: Opt[List] = util.getConfigurationParameter(
+      data=userProvidedConfig,
+      keySeq=[keyName],
+      default=None,
+    )
+    assert config, f"At least one Program Thread must be specified."
+
+    progThreads = []
+    coreThread = ajitCpu.getThreadZero()
+    for programThread in config:
+      programThread = ProgramThread.generateObject(
+        programThread, coreThread, prevKeySeq
+      )
+      progThreads.append(programThread)
+      coreThread = ajitCpu.getNextThread(coreThread)
+
+    program = Program(progThreads)
+    prevKeySeq.pop()
+    return program
 
 
 def initConfig(

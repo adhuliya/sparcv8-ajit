@@ -1,13 +1,13 @@
 """Bget dynamic memory allocation configuration."""
-from typing import Dict, Optional as Opt
+from typing import Dict, Optional as Opt, List
 
-from cortos2.common import consts
+from cortos2.common import consts, util
 from cortos2.sys.config import common
 
 
 class Bget:
   def __init__(self,
-      enable: int = consts.DEFAULT_BGET_ENABLE,
+      enable: bool = consts.DEFAULT_BGET_ENABLE,
       sizeInBytes: int = consts.DEFAULT_BGET_MEM_SIZE_IN_KB * 1024,
   ):
     self.enable = enable
@@ -30,6 +30,25 @@ class Bget:
 
   def getEndAddr(self):
     return self.region.getLastByteAddr(useVirtualAddr=True)
+
+
+  @staticmethod
+  def generateObject(
+      userProvidedConfig: Dict,
+      prevKeySeq: Opt[List] = None,
+  ) -> 'Bget':
+    keyName = "DynamicMemory"
+    prevKeySeq.append(keyName)
+
+    config: Opt[List] = util.getConfigurationParameter(
+      data=userProvidedConfig,
+      keySeq=[keyName],
+      default=None,
+    )
+    sizeInBytes = util.getSizeInBytes(config)
+
+    bget = Bget(enable=True, sizeInBytes=sizeInBytes)
+    return bget
 
 
 def initConfig(userProvidedConfig: Dict) -> Bget:

@@ -313,4 +313,32 @@ def getConfigurationParameter(data: Dict, keySeq: List, default = None):
   return data if keySeqFound else default
 
 
+def getSizeInBytes(
+    data: Opt[Dict],
+    startAddr: Opt[int] = None,
+    default: int = 8192, # 8 KB
+) -> Opt[int]:
+  if not data:
+    return default
+
+  sizeInBytes = None
+
+  # read the size in order of preference.
+  if startAddr:
+    endAddr = getConfigurationParameter(data, ["EndAddr"])
+    if isinstance(endAddr, int):
+      sizeInBytes = endAddr - startAddr + 1
+
+  if not sizeInBytes:
+    sizeInBytes = getConfigurationParameter(data, ["SizeInBytes"])
+
+  if not sizeInBytes:
+    sizeInKiloBytes = getConfigurationParameter(data, ["SizeInKiloBytes"])
+    sizeInBytes = sizeInKiloBytes * 1024
+
+  if not sizeInBytes:
+    sizeInMegaBytes = getConfigurationParameter(data, ["SizeInMegaBytes"])
+    sizeInBytes = sizeInMegaBytes * 1024 * 1024
+
+  return sizeInBytes
 

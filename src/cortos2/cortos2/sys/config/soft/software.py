@@ -34,12 +34,20 @@ class Software:
 
     keyName = "Software"
     prevKeySeq.append(keyName)
+
     config: Opt[Dict] = util.getConfigurationParameter(
       data=userProvidedConfig,
       keySeq=[keyName],
       default=None,
     )
 
+    build = Build.generateObject(
+      userProvidedConfig=config,
+      prevKeySeq=prevKeySeq,
+    )
+
     prevKeySeq.pop()
-    software = Software()
+    software = Software(
+      build=build,
+    )
     return software

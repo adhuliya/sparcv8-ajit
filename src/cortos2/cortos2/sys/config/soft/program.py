@@ -12,7 +12,7 @@ class ProgramThread:
       coreThread: processor.CoreThread,
       stackSizeInBytes: int,
       initCallSeq: List[str],
-      loopCallSeq: List[str],
+      loopCallSeq: Opt[List[str]],
   ):
     self.coreThread = coreThread
     self.initCallSeq = initCallSeq
@@ -80,7 +80,7 @@ class ProgramThread:
     loopCallSeq = util.getConfigurationParameter(
       data=userProvidedConfig,
       keySeq=["CortosLoopCalls"],
-      default=["main"]
+      default=None,
     )
 
     progThread = ProgramThread(
@@ -144,7 +144,9 @@ class Program:
     coreThread = ajitCpu.getThreadZero()
     for programThread in config:
       programThread = ProgramThread.generateObject(
-        programThread, coreThread, prevKeySeq
+        userProvidedConfig=programThread,
+        coreThread=coreThread,
+        prevKeySeq=prevKeySeq
       )
       progThreads.append(programThread)
       coreThread = ajitCpu.getNextThread(coreThread)

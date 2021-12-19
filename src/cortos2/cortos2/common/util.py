@@ -293,13 +293,21 @@ def runCommandGetOutput(cmd: str) -> str:
   return output
 
 
-def getConfigurationParameter(data: Dict, keySeq: List, default = None):
+def getConfigurationParameter(
+    data: Dict,
+    keySeq: Opt[List],
+    default = None
+):
   """Reads a sequence of keys from the dictionary if present, else returns default.
 
   e.g. if keySeq = ['A','B','C'], then the return is data['A']['B']['C'],
   if present else default is returned.
   """
-  if not data or not isinstance(data, dict):
+  if (
+    not data
+    or not isinstance(data, dict)
+    or not keySeq
+  ):
     return default
 
   keySeqFound = True

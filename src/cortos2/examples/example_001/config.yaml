@@ -104,7 +104,7 @@ Software:
 #       TotalMessageCapacity: 256 # num. of messages
 #
 #   InterruptHandler:
-#     - Type: 0x4
+#     - TypeCode: 0x4
 #       Function: functionName4
-#     - Type: 0x5
+#     - TypeCode: 0x5
 #       Function: functionName5

@@ -1,5 +1,5 @@
 """The locks used in the system."""
-from typing import Dict, Optional as Opt
+from typing import Dict, Optional as Opt, List
 
 from cortos2.common import consts
 from cortos2.sys.config import common
@@ -65,8 +65,12 @@ class Locks:
       print(f"ERROR: Total locks {self.getSizeInBytes()} exceeds region size {region.sizeInBytes}.")
       exit(1)
 
+  @staticmethod
+  def generateObject(
+      userProvidedConfig: Dict,
+      prevKeySeq: Opt[List] = None,
+  ) -> 'Locks':
+    """Takes a user given configuration and extracts the Lock related configuration."""
+    locks = Locks()
+    return locks
 
-
-def initConfig(userProvidedConfig: Dict) -> Locks:
-  locks = Locks()
-  return locks

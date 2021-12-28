@@ -11,8 +11,10 @@ import yaml
 import cortos2.common.util as util
 
 # Yaml key names
+from cortos2.sys.config.hard.hardware import Hardware
 from cortos2.sys.config.soft import bget, build, lock, queue, projectfiles, program
 from cortos2.sys.config.hard import memory, processor
+from cortos2.sys.config.soft.software import Software
 
 
 class SystemConfig:
@@ -20,17 +22,14 @@ class SystemConfig:
 
   def __init__(self, userProvidedConfig):
     self.userProvidedConfig = userProvidedConfig
+    self.hardware = Hardware.generateObject(userProvidedConfig)
+    self.software = Software.generateObject(
+      userProvidedConfig=userProvidedConfig,
+      hardware=self.hardware,
+      prevKeySeq=[],
+    )
 
-    self.projectFiles = projectfiles.ProjectFiles()
-    self.projectFiles.readProjectFiles()
-
-    self.cpu: Opt[processor.Processor] = None
-    self.program: Opt[program.Program] = None
-    self.queueSeq: Opt[queue.QueueSeq] = None
-    self.locks: Opt[lock.Locks] = None
-    self.bget: Opt[bget.Bget] = None
     self.memoryLayout: Opt[memory.MemoryLayout] = None
-    self.build: Opt[memory.MemoryLayout] = None
 
     self.initialize()
     print("CoRTOS: Initialized user configuration details.")
@@ -38,19 +37,13 @@ class SystemConfig:
 
   def initialize(self):
     # STEP 1: Initialize the CPU parameters (cores, threads per core, etc.).
-    self.cpu = processor.initConfig(self.userProvidedConfig)
-    self.program = program.initConfig(self.userProvidedConfig, self.cpu)
-    self.queueSeq = queue.initConfig(self.userProvidedConfig)
-    self.locks = lock.initConfig(self.userProvidedConfig)
-    self.bget = bget.initConfig(self.userProvidedConfig)
-    self.build = build.initConfig(self.userProvidedConfig)
 
     self.memoryLayout = memory.initConfig(
       userProvidedConfig=self.userProvidedConfig,
-      prog=self.program,
-      queueSeq=self.queueSeq,
-      locks=self.locks,
-      bgetObj=self.bget,
+      prog=self.software.program,
+      queueSeq=self.software.queueSeq,
+      locks=self.software.locks,
+      bgetObj=self.software.bget,
     )
 
 
@@ -58,10 +51,10 @@ class SystemConfig:
     """Call this method after any object has been modified to compute the memory layout."""
     self.memoryLayout = memory.initConfig(
       userProvidedConfig=self.userProvidedConfig,
-      prog=self.program,
-      queueSeq=self.queueSeq,
-      locks=self.locks,
-      bgetObj=self.bget,
+      prog=self.software.program,
+      queueSeq=self.software.queueSeq,
+      locks=self.software.locks,
+      bgetObj=self.software.bget,
     )
 
 

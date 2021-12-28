@@ -1,6 +1,7 @@
 from typing import Dict, List, Optional as Opt
 
 from cortos2.common import util
+from cortos2.sys.config.hard.hardware import Hardware
 from cortos2.sys.config.soft.bget import Bget
 from cortos2.sys.config.soft.build import Build
 from cortos2.sys.config.soft.lock import Locks
@@ -16,18 +17,19 @@ class Software:
       build: Build,
       bget: Bget,
       locks: Locks,
-      queues: QueueSeq,
+      queueSeq: QueueSeq,
   ):
     self.projectFiles = projectFiles
     self.program = program
     self.build = build
     self.bget = bget
     self.locks = locks
-    self.queues = queues
+    self.queueSeq = queueSeq
 
   @staticmethod
   def generateObject(
       userProvidedConfig: Dict,
+      hardware: Hardware,
       prevKeySeq: Opt[List] = None,
   ) -> 'Software':
     """Takes a user given configuration and extracts the CPU related configuration."""
@@ -46,8 +48,37 @@ class Software:
       prevKeySeq=prevKeySeq,
     )
 
+    projectFiles = ProjectFiles()
+    projectFiles.readProjectFiles()
+
+    program = Program.generateObject(
+      userProvidedConfig=config,
+      ajitCpu=hardware.cpu,
+      prevKeySeq=prevKeySeq,
+    )
+
+    bget = Bget.generateObject(
+      userProvidedConfig=config,
+      prevKeySeq=prevKeySeq,
+    )
+
+    locks = Locks.generateObject(
+      userProvidedConfig=config,
+      prevKeySeq=prevKeySeq,
+    )
+
+    queueSeq = QueueSeq.generateObject(
+      userProvidedConfig=config,
+      prevKeySeq=prevKeySeq,
+    )
+
     prevKeySeq.pop()
     software = Software(
+      projectFiles=projectFiles,
+      program=program,
       build=build,
+      bget=bget,
+      locks=locks,
+      queueSeq=queueSeq,
     )
     return software

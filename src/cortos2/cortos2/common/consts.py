@@ -221,7 +221,7 @@ PAGE_TABLE_LEVELS_TO_PAGE_SIZE = {
 }
 """Page table level to page size in bytes map."""
 
-class PagePermissions(Enum):
+class MemoryPermissions(Enum):
   """
   S = Supervisor
   U = User
@@ -240,6 +240,7 @@ class PagePermissions(Enum):
 		0x6        Y      N       Y           N       N       N
 		0x7        Y      Y       Y           N       N       N
   """
+  S_R_U_R     = 0x0
   S_RW_U_R    = 0x5
   S_RX_U_RX   = 0x2
   S_RWX       = 0x7
@@ -257,33 +258,32 @@ NON_CACHED_LOCKS_REGION_SIZE_IN_BYTES: int = 2**12 #4KB
 DEFAULT_TEXT_SECTION_SIZE_IN_BYTES: int = 1024 * 1024 # 2 MB
 DEFAULT_DATA_SECTION_SIZE_IN_BYTES: int = 14 * 1024 * 1024 # 14 MB
 
-################################################################
-# BLOCK START: yaml_configuration_related
-################################################################
-YML_CORES = "Cores"
-YML_THREADS = "ThreadsPerCore"
-
-YML_PROG_THREADS = "ProgramThreads"
-
-YML_PROG_DIR = "Dir"
-YML_PROG_CORE = "Core"
-YML_PROG_THREAD = "Thread"
-YML_PROG_STACK_SIZE = "StackSizeInBytes"
-YML_PROG_INIT_CALL_SEQ = "CortosInitCalls"
-YML_PROG_LOOP_CALL_SEQ = "CortosLoopCalls"
-
-YML_MEM_SIZE_IN_KB = "TotalMemoryInKB"
-YML_MEM_START_ADDR = "MemroyStartAddr"
-YML_STACK_MIN_ADDR = "LeastValidStackAddr"
-YML_TOTAL_LOCK_VARS = "TotalLockVars"
-# YML_ADD_BGET = "AddBget"
-YML_BGET_MEM_SIZE_IN_KB = "BgetMemSizeInKB"
-
-YML_LOG_LEVEL = "LogLevel"
-################################################################
-# BLOCK END  : yaml_configuration_related
-################################################################
-
 
 # Two memory region types.
 SOFT, HARD = "SOFT", "HARD"
+
+
+def getPagePermission(
+    permissions: str,
+) -> MemoryPermissions:
+  """Currently on super user permissions."""
+
+  permissions = permissions.upper()
+  memPermission = MemoryPermissions.S_RWX_U_RWX
+
+  if "R" in permissions:
+    memPermission = MemoryPermissions.S_R_U_R
+    if "W" in permissions:
+      memPermission = MemoryPermissions.S_RW_U_R
+      if "X" in permissions:
+        memPermission = MemoryPermissions.S_RWX_U_RWX
+
+  elif "W" in permissions:
+    memPermission = MemoryPermissions.S_RW_U_R
+    if "X" in permissions:
+      memPermission = MemoryPermissions.S_RWX_U_RWX
+
+  elif "X" in permissions:
+    memPermission = MemoryPermissions.S_X_U_X
+
+  return memPermission

@@ -78,6 +78,16 @@ class QueueSeq:
     return self.msgStartAddr + self.getTotalQueueSizeInBytes() - 1
 
 
+  @staticmethod
+  def generateObject(
+      userProvidedConfig: Dict,
+      prevKeySeq: Opt[List] = None,
+  ) -> 'QueueSeq':
+    """Takes a user given configuration and extracts the Queue related configuration."""
+    # TODO
+    return initConfig(userProvidedConfig)
+
+
 def initConfig(userProvidedConfig: Dict) -> QueueSeq:
   # TODO: add configuration options for queues.
   qSeq: List[Queue] = []

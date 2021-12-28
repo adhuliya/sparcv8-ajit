@@ -1,8 +1,9 @@
 """Some common definitions to circumvent circular dependencies."""
 import os
-from typing import List, Tuple
+from typing import List, Tuple, Dict, Optional as Opt
 
 from cortos2.common import util, consts
+from cortos2.common.consts import MemoryPermissions
 
 
 class MemoryRegion(util.PrettyStr):
@@ -13,10 +14,10 @@ class MemoryRegion(util.PrettyStr):
       oneLineDescription: str = "Unnamed Region",
       sizeInBytes: util.SizeInBytesT = 0,
       context: int = 0,
-      virtualAddr: int = 0,  # the start address
-      physicalAddr: int = 0,
+      virtualStartAddr: int = 0,  # the start address
+      physicalStartAddr: int = 0,
       cacheable: bool = True,
-      permissions: int = 0x1,  # read,write for data
+      permissions: MemoryPermissions = 0x1,  # read,write for data
       regionType: str = consts.SOFT,
   ):
     self.name = name
@@ -25,8 +26,8 @@ class MemoryRegion(util.PrettyStr):
     self.pageTableLevels: List[Tuple[consts.PageTableLevel, int]] = []
     self.initPageTableLevels()
     self.context = context
-    self.virtualAddr = virtualAddr
-    self.physicalAddr = physicalAddr
+    self.virtualStartAddr = virtualStartAddr
+    self.physicalStartAddr = physicalStartAddr
     self.cacheable = cacheable
     self.permissions = permissions
     self.regionType = regionType
@@ -39,10 +40,32 @@ class MemoryRegion(util.PrettyStr):
   ) -> 'MemoryRegion':
     """Takes a user given configuration and extracts the data into an object."""
 
-    config: Opt[Dict] = util.getConfigurationParameter(
-      userProvidedConfig,
-      [keyName],
+    startAddr: int = util.getConfigurationParameter(
+      data=userProvidedConfig,
+      keySeq=["StartAddr"],
+      default=0x0,
     )
+
+    sizeInBytes = util.getSizeInBytes(
+      data=userProvidedConfig,
+      startAddr=startAddr,
+      default=0x0,
+    )
+
+    permissions: str = util.getConfigurationParameter(
+      data=userProvidedConfig,
+      keySeq=["Permissions"],
+      default=0x0,
+    )
+
+    memoryRegion = MemoryRegion(
+      virtualStartAddr=startAddr,
+      physicalStartAddr=startAddr,
+      sizeInBytes=sizeInBytes,
+      cacheable="C" in permissions.upper(),
+      permissions=consts.getPagePermission(permissions),
+    )
+    return memoryRegion
 
 
   def initPageTableLevels(self):
@@ -67,7 +90,7 @@ class MemoryRegion(util.PrettyStr):
 
 
   def getFirstByteAddr(self, useVirtualAddr: bool = True) -> int:
-    return self.virtualAddr if useVirtualAddr else self.physicalAddr
+    return self.virtualStartAddr if useVirtualAddr else self.physicalStartAddr
 
 
   def getLastByteAddr(self, useVirtualAddr: bool = True):
@@ -99,7 +122,7 @@ class MemoryRegion(util.PrettyStr):
       useVirtualAddr: bool = True,  # set False to use physical address
   ) -> int:
     """Returns the address of the first byte just after the allocated space."""
-    baseAddr = self.virtualAddr if useVirtualAddr else self.physicalAddr
+    baseAddr = self.virtualStartAddr if useVirtualAddr else self.physicalStartAddr
     nextToLastByteAddr = baseAddr + self.pagedSizeInBytes()
     return nextToLastByteAddr
 
@@ -123,8 +146,8 @@ class MemoryRegion(util.PrettyStr):
     entryLines: List[str] = []
     entryLines.append(f"!{self.name}: {self.oneLineDescription}{os.linesep}")
 
-    virtualAddr = self.virtualAddr
-    physicalAddr = self.physicalAddr
+    virtualAddr = self.virtualStartAddr
+    physicalAddr = self.physicalStartAddr
     for level, count in self.pageTableLevels:
       page_size = consts.PAGE_TABLE_LEVELS_TO_PAGE_SIZE[level]
       for i in range(count):
@@ -135,7 +158,7 @@ class MemoryRegion(util.PrettyStr):
             physicalAddr=physicalAddr + page_size * i,
             pageTableLevel=level.value,
             cacheable=self.cacheable,
-            permissions=self.permissions,
+            permissions=self.permissions.value,
           )
         )
       virtualAddr += page_size * count

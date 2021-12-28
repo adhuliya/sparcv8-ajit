@@ -33,22 +33,23 @@ Hardware:
       # SizeInKiloBytes: 4
       Permissions: RW
 
+  # see ./AjitPublicResources/tools/ajit_access_routines_mt/include/device_addresses.h
   Devices:
-    - Name: "Timer"
+    - Name: Timer
       MemoryRegion:
         StartAddr: 0xFFFF3100 # physical address (in MMIO)
         SizeInBytes: 256 # 16x16
         Permissions: RW
       NamedRegisters:
         Control: 0xFFFF3100
-    - Name: "InterruptController"
+    - Name: InterruptController
       MemoryRegion:
         StartAddr: 0xFFFF3000
         SizeInBytes: 32
         Permissions: RW
       NamedRegisters:
         Control: 0xFFFF3000
-    - Name: "Serial"
+    - Name: Serial
       MemoryRegion:
         StartAddr: 0xFFFF3200
         SizeInBytes: 64
@@ -57,9 +58,9 @@ Hardware:
         Control: 0xFFFF3200
         TX: 0xFFFF3204
         RX: 0xFFFF3208
-    - Name: "ScratchArea"
+    - Name: ScratchArea
       MemoryRegion:
-        StartAddr: 0xFFFF2c00
+        StartAddr: 0xFFFF2C00
         SizeInBytes: 1024
         Permissions: RW
 

@@ -32,7 +32,7 @@ class ProgramThread:
     return f"(Program (" \
            f"{consts.YML_PROG_THREAD}: {self.coreThread}" \
            f", {consts.YML_PROG_STACK_SIZE}: {self.stackSizeInBytes})" \
-           f", stackStartAddr: {self.stackRegion.getLastByteAddr(useVirtualAddr=True)})" \
+           f", stackStartAddr: {self.stackRegion.getLastByteAddr(virtualAddr=True)})" \
            f", {consts.YML_PROG_INIT_CALL_SEQ}: {self.initCallSeq})" \
            f", {consts.YML_PROG_LOOP_CALL_SEQ}: {self.loopCallSeq})"
 
@@ -47,7 +47,7 @@ class ProgramThread:
 
   def getStackStartAddr(self):
     """Stack starts from high to low."""
-    return self.stackRegion.getNextToLastByteAddr(useVirtualAddr=True)
+    return self.stackRegion.getNextToLastByteAddr(virtualAddr=True)
 
 
   def getStackSizeInBytes(self):
@@ -103,25 +103,32 @@ class Program:
     # these are set later after the first build of the binary.
     self.textSectionSizeInBytes = consts.DEFAULT_TEXT_SECTION_SIZE_IN_BYTES
     self.dataSectionSizeInBytes = consts.DEFAULT_DATA_SECTION_SIZE_IN_BYTES
+    self.bssSectionSizeInBytes = consts.DEFAULT_BSS_SECTION_SIZE_IN_BYTES
 
     self.textRegion: Opt[common.MemoryRegion] = None
     self.dataRegion: Opt[common.MemoryRegion] = None
+    self.bssRegion: Opt[common.MemoryRegion] = None
 
 
   def computeBinarySize(self, elfFileName: str):
-    textSize, dataSize = elf.getTextAndDataSize(elfFileName)
+    textSize, dataSize, bssSize = elf.getTextDataBssSize(elfFileName)
     self.textSectionSizeInBytes = textSize
     self.dataSectionSizeInBytes = dataSize
+    self.bssSectionSizeInBytes = bssSize
 
 
   def getSizeOfProgram(self):
     """The total size of the program is equal to the total bytes
     till the end of the data region."""
-    return self.dataRegion.getNextToLastByteAddr(useVirtualAddr=True)
+    return self.dataRegion.getNextToLastByteAddr(virtualAddr=True)
 
 
   def getDataRegionStartAddr(self):
-    return self.dataRegion.getFirstByteAddr(useVirtualAddr=True)
+    return self.dataRegion.getFirstByteAddr(virtualAddr=True)
+
+
+  def getBssRegionStartAddr(self):
+    return self.bssRegion.getFirstByteAddr(virtualAddr=True)
 
 
   @staticmethod

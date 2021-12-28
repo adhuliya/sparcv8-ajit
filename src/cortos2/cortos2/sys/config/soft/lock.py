@@ -37,9 +37,8 @@ class Locks:
 
   def setMemoryRegion(self,
        region: common.MemoryRegion,
-       cacheable=False,
   ) -> None:
-    if cacheable:
+    if region.cacheable:
       self.cacheableRegion = region
       self.resLocksStartAddrCacheable = region.getFirstByteAddr()
       self.userLocksStartAddrCacheable = self.resLocksStartAddrCacheable + self.resLocks
@@ -61,7 +60,7 @@ class Locks:
       lastLockAddr = self.queueLocksStartAddr + self.queueLocks - 1
       region = self.nonCacheableRegion
 
-    if lastLockAddr > region.getLastByteAddr(useVirtualAddr=True):
+    if lastLockAddr > region.getLastByteAddr(virtualAddr=True):
       print(f"ERROR: Total locks {self.getSizeInBytes()} exceeds region size {region.sizeInBytes}.")
       exit(1)
 

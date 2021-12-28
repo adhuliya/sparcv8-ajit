@@ -6,7 +6,7 @@
 CORTOS_SETUP_THREADS:
 !!!!!  setting up stacks in each thread....
 
-% for progThread in confObj.program.programThreads:
+% for progThread in confObj.software.program.programThreads:
 
 {{ progThread.coreThread.genLabel(forSetup=True) }}:
 
@@ -22,9 +22,6 @@ CORTOS_SETUP_THREADS:
   set {{ hex(progThread.getStackStartAddr()) }}, %sp  ! set stack address
   clr %fp
 
-  !call __cortos_copy_program_image
-  !nop
-
   call __cortos_init_region_to_zero
   nop
 
@@ -37,15 +34,14 @@ CORTOS_SETUP_THREADS:
   nop
 
   !
-  !  set PT_FLAG = 1.   This indicates that the page table has been written.
+  !  set *PT_FLAG = 1.   This indicates that the page table has been written.
   !
-  set {{ hex(confObj.memoryLayout.memory.startAddr) }}, %l5
   set PT_FLAG, %l6
-  add %l5, %l6, %l6
+  ld [%l6], %l6
   mov 1, %l7
   st %l7, [%l6]
 
-% if confObj.build.enableSerial:
+% if confObj.software.build.enableSerial:
   call __cortos_enable_serial
   nop
 % end

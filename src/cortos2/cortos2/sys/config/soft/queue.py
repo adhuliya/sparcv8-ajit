@@ -44,13 +44,13 @@ class QueueSeq:
       region: common.MemoryRegion,
   ) -> None:
     self.region = region
-    self.headersStartAddr = region.getFirstByteAddr(useVirtualAddr=True)
+    self.headersStartAddr = region.getFirstByteAddr(virtualAddr=True)
     self.msgStartAddr = self.headersStartAddr + self.getTotalQueueHeadersSizeInBytes()
 
 
   def checkInvariants(self):
     assert self.msgStartAddr + self.getTotalQueueSizeInBytes() <= \
-           self.region.getNextToLastByteAddr(useVirtualAddr=True), f"Memory Layout Overflow!"
+           self.region.getNextToLastByteAddr(virtualAddr=True), f"Memory Layout Overflow!"
 
 
   def getTotalQueues(self) -> int:

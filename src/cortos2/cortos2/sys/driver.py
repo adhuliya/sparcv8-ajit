@@ -10,8 +10,8 @@ This is invoked by main.py and the test routines.
 import argparse
 
 from cortos2.common import consts, util
-import cortos2.sys.config as config
-import cortos2.sys.build as build
+from cortos2.sys.config import config
+from cortos2.sys.build import build
 from cortos2.common.util import FileNameT
 from cortos2.common import bottle as btl
 
@@ -38,8 +38,7 @@ def printDetail(args: argparse.Namespace) -> None:
   if objName == "config":
     printConfigFile(configFileName)
   elif objName == "init":
-    #print(build.genInitFile(2, 2))
-    print(build.genInitFileBottle(2, 2))
+    print("TODO_INIT")
   else:
     raise ValueError(f"Unknown object to print: {objName}")
 
@@ -62,9 +61,9 @@ def buildProject(args: argparse.Namespace) -> None:
   which uses the object.
   """
   configFileName = args.configFileName
-  confObj = config.config.readYamlConfig(configFileName)
-  confObj.build.setDebugParameter(args.debug, args.port)
-  confObj.build.setOptLevel(args.O0, args.O1, args.O2)
+  confObj = config.readYamlConfig(configFileName)
+  confObj.software.build.setDebugParameter(args.debug, args.port)
+  confObj.software.build.setOptLevel(args.O0, args.O1, args.O2)
   build.buildProject(confObj)
 
 

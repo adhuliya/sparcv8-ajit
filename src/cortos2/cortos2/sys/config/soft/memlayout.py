@@ -39,14 +39,22 @@ class MemoryLayout:
     # memory layout is basically a sequence of regions
     self.regionSeq: List[common.MemoryRegion] = []
 
+    # memory regions that have to be zero initialized
+    self.zeroRegionSeq: List[common.MemoryRegion] = []
+
 
   def initLayout(self,
       prog: Program,
       queueSeq: QueueSeq,
       locks: Locks,
-      bget: Bget,
+      bgetObj: Bget,
+      dummyLayout: bool = False, # first layout may be dummy
   ) -> None:
-    vAddr = self.memory.ram.physicalStartAddr
+    """Creates a fresh memory layout, based on the given input."""
+    self.regionSeq = []
+    self.zeroRegionSeq = []
+
+    vAddr = self.memory.ram.virtualStartAddr
     pAddr = self.memory.ram.physicalStartAddr
 
     region = common.MemoryRegion(
@@ -62,91 +70,112 @@ class MemoryLayout:
 
     region = common.MemoryRegion(
       name="DataSection",
-      oneLineDescription="All the .data/.bss sections of the code.",
+      oneLineDescription="All the .data sections of the code.",
       sizeInBytes=prog.dataSectionSizeInBytes,
-      virtualStartAddr=region.getNextToLastByteAddr(useVirtualAddr=True),
-      physicalStartAddr=region.getNextToLastByteAddr(useVirtualAddr=False),
+      virtualStartAddr=region.getNextToLastByteAddr(virtualAddr=True),
+      physicalStartAddr=region.getNextToLastByteAddr(virtualAddr=False),
       permissions=MemoryPermissions.S_RWX_U_RWX,
     )
     self.regionSeq.append(region)
     prog.dataRegion = region
 
     region = common.MemoryRegion(
-      name="ReservedSpace",
-      oneLineDescription="Some reserved space.",
-      sizeInBytes=consts.RESERVED_REGION_SIZE_IN_BYTES,
-      virtualStartAddr=region.getNextToLastByteAddr(useVirtualAddr=True),
-      physicalStartAddr=region.getNextToLastByteAddr(useVirtualAddr=False),
+      name="BssSection",
+      oneLineDescription=".bss section of the code.",
+      sizeInBytes=prog.bssSectionSizeInBytes,
+      virtualStartAddr=region.getNextToLastByteAddr(virtualAddr=True),
+      physicalStartAddr=region.getNextToLastByteAddr(virtualAddr=False),
       permissions=MemoryPermissions.S_RWX_U_RWX,
     )
     self.regionSeq.append(region)
+    self.zeroRegionSeq.append(region)
+    prog.bssRegion = region
+
+    region = common.MemoryRegion(
+      name="ReservedSpace",
+      oneLineDescription="Some reserved space.",
+      sizeInBytes=consts.RESERVED_REGION_SIZE_IN_BYTES,
+      virtualStartAddr=region.getNextToLastByteAddr(virtualAddr=True),
+      physicalStartAddr=region.getNextToLastByteAddr(virtualAddr=False),
+      permissions=MemoryPermissions.S_RWX_U_RWX,
+      initToZero=True,
+    )
+    self.regionSeq.append(region)
+    self.zeroRegionSeq.append(region)
     self.reserved = region
-    self.initToZeroStartAddr = region.getFirstByteAddr()
 
     region = common.MemoryRegion(
       name="ScratchPadRegion",
       oneLineDescription="A small shared data area that any thread can access.",
       sizeInBytes=consts.SCRATCHPAD_MEMORY_REGION_SIZE_IN_BYTES,
-      virtualStartAddr=region.getNextToLastByteAddr(useVirtualAddr=True),
-      physicalStartAddr=region.getNextToLastByteAddr(useVirtualAddr=False),
+      virtualStartAddr=region.getNextToLastByteAddr(virtualAddr=True),
+      physicalStartAddr=region.getNextToLastByteAddr(virtualAddr=False),
       permissions=consts.MemoryPermissions.S_RWX_U_RWX,
+      initToZero=True,
     )
     self.regionSeq.append(region)
+    self.zeroRegionSeq.append(region)
     self.scratchPad = region
 
     region = common.MemoryRegion(
       name="CacheableLocks",
       oneLineDescription="An exclusive area to store cacheable locks.",
       sizeInBytes=consts.CACHED_LOCKS_REGION_SIZE_IN_BYTES,
-      virtualStartAddr=region.getNextToLastByteAddr(useVirtualAddr=True),
-      physicalStartAddr=region.getNextToLastByteAddr(useVirtualAddr=False),
+      virtualStartAddr=region.getNextToLastByteAddr(virtualAddr=True),
+      physicalStartAddr=region.getNextToLastByteAddr(virtualAddr=False),
       permissions=consts.MemoryPermissions.S_RWX_U_RWX,
+      cacheable=True,
+      initToZero=True,
     )
     self.regionSeq.append(region)
-    locks.setMemoryRegion(region, cacheable=True)
+    self.zeroRegionSeq.append(region)
+    locks.setMemoryRegion(region)
 
     region = common.MemoryRegion(
       name="NonCacheableLocks",
       oneLineDescription="An exclusive area to store non-cacheable locks.",
       sizeInBytes=consts.NON_CACHED_LOCKS_REGION_SIZE_IN_BYTES,
-      virtualStartAddr=region.getNextToLastByteAddr(useVirtualAddr=True),
-      physicalStartAddr=region.getNextToLastByteAddr(useVirtualAddr=False),
+      virtualStartAddr=region.getNextToLastByteAddr(virtualAddr=True),
+      physicalStartAddr=region.getNextToLastByteAddr(virtualAddr=False),
       cacheable=False,
       permissions=consts.MemoryPermissions.S_RWX_U_RWX,
+      initToZero=True,
     )
     self.regionSeq.append(region)
-    locks.setMemoryRegion(region, cacheable=False)
+    self.zeroRegionSeq.append(region)
+    locks.setMemoryRegion(region)
 
     region = common.MemoryRegion(
       name="MessageQueues",
       oneLineDescription="All queues reside here.",
       sizeInBytes=consts.DEFAULT_QUEUE_REGION_SIZE_IN_BYTES,
-      virtualStartAddr=region.getNextToLastByteAddr(useVirtualAddr=True),
-      physicalStartAddr=region.getNextToLastByteAddr(useVirtualAddr=False),
+      virtualStartAddr=region.getNextToLastByteAddr(virtualAddr=True),
+      physicalStartAddr=region.getNextToLastByteAddr(virtualAddr=False),
       permissions=consts.MemoryPermissions.S_RWX_U_RWX,
+      initToZero=True,
     )
     self.regionSeq.append(region)
+    self.zeroRegionSeq.append(region)
     queueSeq.setMemoryRegion(region)
-    self.initToZeroNextToEndAddr = region.getNextToLastByteAddr(useVirtualAddr=True)
 
     region = common.MemoryRegion(
       name="MemoryAllocArea",
       oneLineDescription="Dynamic memory is allocated from here.",
-      sizeInBytes=bget.sizeInBytes,
-      virtualStartAddr=region.getNextToLastByteAddr(useVirtualAddr=True),
-      physicalStartAddr=region.getNextToLastByteAddr(useVirtualAddr=False),
+      sizeInBytes=bgetObj.sizeInBytes,
+      virtualStartAddr=region.getNextToLastByteAddr(virtualAddr=True),
+      physicalStartAddr=region.getNextToLastByteAddr(virtualAddr=False),
       permissions=consts.MemoryPermissions.S_RWX_U_RWX,
     )
     self.regionSeq.append(region)
-    bget.setMemoryRegion(region)
+    bgetObj.setMemoryRegion(region)
 
     # create space for program stacks
     region = common.MemoryRegion(
       name="StackGuard",
       oneLineDescription="A guard page to check against stack underflow/overflow.",
       sizeInBytes=2 ** 12,  # 4KB
-      virtualStartAddr=region.getNextToLastByteAddr(useVirtualAddr=True),
-      physicalStartAddr=region.getNextToLastByteAddr(useVirtualAddr=False),
+      virtualStartAddr=region.getNextToLastByteAddr(virtualAddr=True),
+      physicalStartAddr=region.getNextToLastByteAddr(virtualAddr=False),
       permissions=consts.MemoryPermissions.S_X_U_X,
     )
     self.regionSeq.append(region)
@@ -156,8 +185,8 @@ class MemoryLayout:
         name=f"ProgramStack_{i}",
         oneLineDescription="Program Stack Area.",
         sizeInBytes=progThread.stackSizeInBytes,
-        virtualStartAddr=region.getNextToLastByteAddr(useVirtualAddr=True),
-        physicalStartAddr=region.getNextToLastByteAddr(useVirtualAddr=False),
+        virtualStartAddr=region.getNextToLastByteAddr(virtualAddr=True),
+        physicalStartAddr=region.getNextToLastByteAddr(virtualAddr=False),
         permissions=consts.MemoryPermissions.S_RWX_U_RWX,
       )
       self.regionSeq.append(region)
@@ -167,8 +196,8 @@ class MemoryLayout:
         name=f"StackGuard_{i}",
         oneLineDescription="A guard page to check against stack underflow/overflow.",
         sizeInBytes=2 ** 12,  # 4KB
-        virtualStartAddr=region.getNextToLastByteAddr(useVirtualAddr=True),
-        physicalStartAddr=region.getNextToLastByteAddr(useVirtualAddr=False),
+        virtualStartAddr=region.getNextToLastByteAddr(virtualAddr=True),
+        physicalStartAddr=region.getNextToLastByteAddr(virtualAddr=False),
         permissions=consts.MemoryPermissions.S_X_U_X,
       )
       self.regionSeq.append(region)

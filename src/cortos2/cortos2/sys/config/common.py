@@ -19,6 +19,7 @@ class MemoryRegion(util.PrettyStr):
       cacheable: bool = True,
       permissions: MemoryPermissions = 0x1,  # read,write for data
       regionType: str = consts.SOFT,
+      initToZero: bool = False,
   ):
     self.name = name
     self.oneLineDescription = oneLineDescription
@@ -31,6 +32,7 @@ class MemoryRegion(util.PrettyStr):
     self.cacheable = cacheable
     self.permissions = permissions
     self.regionType = regionType
+    self.initToZero = initToZero
 
 
   @staticmethod
@@ -89,12 +91,12 @@ class MemoryRegion(util.PrettyStr):
       self.pageTableLevels.append((consts.PageTableLevel.LEVEL3, 1))
 
 
-  def getFirstByteAddr(self, useVirtualAddr: bool = True) -> int:
-    return self.virtualStartAddr if useVirtualAddr else self.physicalStartAddr
+  def getFirstByteAddr(self, virtualAddr: bool = True) -> int:
+    return self.virtualStartAddr if virtualAddr else self.physicalStartAddr
 
 
-  def getLastByteAddr(self, useVirtualAddr: bool = True):
-    return self.getNextToLastByteAddr(useVirtualAddr=useVirtualAddr) - 1
+  def getLastByteAddr(self, virtualAddr: bool = True):
+    return self.getNextToLastByteAddr(virtualAddr=virtualAddr) - 1
 
 
   def getSizeInBytes(self):
@@ -119,10 +121,10 @@ class MemoryRegion(util.PrettyStr):
 
 
   def getNextToLastByteAddr(self,
-      useVirtualAddr: bool = True,  # set False to use physical address
+      virtualAddr: bool = True,  # set False to use physical address
   ) -> int:
     """Returns the address of the first byte just after the allocated space."""
-    baseAddr = self.virtualStartAddr if useVirtualAddr else self.physicalStartAddr
+    baseAddr = self.virtualStartAddr if virtualAddr else self.physicalStartAddr
     nextToLastByteAddr = baseAddr + self.pagedSizeInBytes()
     return nextToLastByteAddr
 

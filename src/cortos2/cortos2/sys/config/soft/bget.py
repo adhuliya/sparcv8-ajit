@@ -19,7 +19,7 @@ class Bget:
 
 
   def getStartAddr(self):
-    return self.region.getFirstByteAddr(useVirtualAddr=True)
+    return self.region.getFirstByteAddr(virtualAddr=True)
 
 
   def getSizeInBytes(self):
@@ -27,7 +27,7 @@ class Bget:
 
 
   def getEndAddr(self):
-    return self.region.getLastByteAddr(useVirtualAddr=True)
+    return self.region.getLastByteAddr(virtualAddr=True)
 
 
   @staticmethod

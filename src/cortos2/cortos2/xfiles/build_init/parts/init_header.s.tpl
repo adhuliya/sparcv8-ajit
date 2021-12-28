@@ -5,11 +5,9 @@
 
 .section .bss
 .align 8
-  MEM_START_ADDR: .word {{ hex(confObj.memoryLayout.memory.startAddr) }}
-  PT_FLAG: .word 0x0
-  IMAGE_COPIED: .word 0x0
-  INIT_TO_ZERO_DONE: .word 0x0
-
+  MEM_START_ADDR: .word {{ hex(confObj.hardware.memory.ram.physicalStartAddr) }}
+  PT_FLAG: .word {{ hex(confObj.hardware.devices["ScratchArea"].memoryRegion.physicalStartAddr) }}
+  INIT_TO_ZERO_DONE: .word {{ hex(confObj.hardware.devices["ScratchArea"].memoryRegion.physicalStartAddr + 4) }}
 
 !
 ! Ajit startup initialization code.
@@ -18,21 +16,6 @@
 
 .global _start;
 _start:
-
-  ! initialize flags to zero first.
-  set {{ hex(confObj.memoryLayout.memory.startAddr) }}, %g1
-
-  set PT_FLAG, %g2
-  add %g1, %g2, %g2
-  st %g0, [%g2]  ! initialize to zero
-
-  set IMAGE_COPIED, %g2
-  add %g1, %g2, %g2
-  st %g0, [%g2]  ! initialize to zero
-
-  set INIT_TO_ZERO_DONE, %g2
-  add %g1, %g2, %g2
-  st %g0, [%g2]  ! initialize to zero
 
   ! enable traps, set current window=0
   set 0x10E0, %l0

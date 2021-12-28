@@ -22,5 +22,8 @@ SECTIONS
 
   . = {{ hex(confObj.software.program.getDataRegionStartAddr()) }};
   .rodata ALIGN(4) : { * (.rodata) * (.rodata.*) }
-  .data   ALIGN(4) : { * (.data) * (.data.*) *(.bss)}
+  .data   ALIGN(4) : { * (.data) * (.data.*)}
+
+  . = {{ hex(confObj.software.program.getBssRegionStartAddr()) }};
+  .bss   ALIGN(4) : { *(.bss) }
 }

@@ -91,7 +91,7 @@ def getPtLoadSectionsSize(elfFile: str):
   return totalSize
 
 
-def getTextAndDataSize(elfFileName: str) -> Tuple[int, int]:
+def getTextDataBssSize(elfFileName: str) -> Tuple[int, int, int]:
   """Returns number of bytes in text and data section of the elf.
   This function uses the `size` command.
   Example output of the size command.
@@ -105,8 +105,8 @@ def getTextAndDataSize(elfFileName: str) -> Tuple[int, int]:
 
   words = secondLine.split()
   #                        text      ,    data       +     bss
-  textSize, dataSize = int(words[0]), int(words[1]) + int(words[2])
-  return textSize, dataSize # in bytes
+  textSize, dataSize, bssSize = int(words[0]), int(words[1]),  int(words[2])
+  return textSize, dataSize, bssSize # in bytes
 
 
 # def getPtLoadSectionsSize(elfFile: str):

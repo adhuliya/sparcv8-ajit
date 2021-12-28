@@ -46,8 +46,8 @@ def prepareBuildDir(
   The text and data size of the binary is unknown here.
   """
   # STEP 1: create the build directory
-  util.createDir(confObj.projectFiles.buildDir)
-  util.createDir(confObj.projectFiles.cortosSrcDir)
+  util.createDir(confObj.software.projectFiles.buildDir)
+  util.createDir(confObj.software.projectFiles.cortosSrcDir)
 
   # STEP 2: copy necessary xfiles
   copyBuildFiles(confObj)
@@ -60,7 +60,7 @@ def copyBuildFiles(
 
   # STEP 1: cd into the build directory
   cwd = os.getcwd()
-  os.chdir(confObj.projectFiles.buildDir)
+  os.chdir(confObj.software.projectFiles.buildDir)
 
   # STEP 2: Copy xfiles that the user may need to change or look at.
   cpy.copyProjectFiles(confObj)
@@ -73,7 +73,7 @@ def copyBuildFiles(
   cpy.copyCleanshFile(confObj)
 
   # STEP 3: Copy xfiles that the user might not need to look into.
-  os.chdir(confObj.projectFiles.cortosSrcDir)
+  os.chdir(confObj.software.projectFiles.cortosSrcDir)
 
   cpy.copyPageTableFile(confObj)
   cpy.copyVmapFile(confObj)
@@ -86,7 +86,7 @@ def copyBuildFiles(
   cpy.copyCortosPrintfFile(confObj)
   cpy.copyCortosQueueFiles(confObj)
   cpy.copyLockFiles(confObj)
-  if confObj.bget.enable:
+  if confObj.software.bget.enable:
     cpy.copyCortosBgetFiles(confObj)
 
   # STEP 3: return back to the previous directory
@@ -97,7 +97,7 @@ def runBuildScript(confObj: config.SystemConfig) -> None:
   """Run the `build.sh` script in the build dir."""
   # STEP 1: cd into the build directory
   cwd = os.getcwd()
-  os.chdir(confObj.projectFiles.buildDir)
+  os.chdir(confObj.software.projectFiles.buildDir)
   print("CoRTOS: CWD:", os.getcwd())
 
   # STEP 2: execute the `build.sh` script
@@ -108,8 +108,8 @@ def runBuildScript(confObj: config.SystemConfig) -> None:
 
 
 def computeElfSize(confObj: config.SystemConfig):
-  confObj.program.computeBinarySize(confObj.projectFiles.elfFileName)
-  confObj.redoMemoryLayout()
+  confObj.software.program.computeBinarySize(confObj.software.projectFiles.elfFileName)
+  confObj.initMemoryLayout()
 
 
 # def computeProgramSize(

@@ -14,6 +14,7 @@ import cortos2.common.util as util
 from cortos2.sys.config.hard.hardware import Hardware
 from cortos2.sys.config.soft import bget, build, lock, queue, projectfiles, program
 from cortos2.sys.config.hard import memory, processor
+from cortos2.sys.config.soft.memlayout import MemoryLayout
 from cortos2.sys.config.soft.software import Software
 
 
@@ -29,32 +30,21 @@ class SystemConfig:
       prevKeySeq=[],
     )
 
-    self.memoryLayout: Opt[memory.MemoryLayout] = None
+    self.memoryLayout: MemoryLayout = MemoryLayout(self.hardware.memory)
 
-    self.initialize()
+    # First layout is a dummy layout, second one is a real layout.
+    self.initMemoryLayout(dummyLayout=True)
     print("CoRTOS: Initialized user configuration details.")
 
 
-  def initialize(self):
-    # STEP 1: Initialize the CPU parameters (cores, threads per core, etc.).
-
-    self.memoryLayout = memory.initConfig(
-      userProvidedConfig=self.userProvidedConfig,
+  def initMemoryLayout(self, dummyLayout: bool = False):
+    """Call this method to compute (or recompute) the memory layout."""
+    self.memoryLayout.initLayout(
       prog=self.software.program,
       queueSeq=self.software.queueSeq,
       locks=self.software.locks,
       bgetObj=self.software.bget,
-    )
-
-
-  def redoMemoryLayout(self):
-    """Call this method after any object has been modified to compute the memory layout."""
-    self.memoryLayout = memory.initConfig(
-      userProvidedConfig=self.userProvidedConfig,
-      prog=self.software.program,
-      queueSeq=self.software.queueSeq,
-      locks=self.software.locks,
-      bgetObj=self.software.bget,
+      dummyLayout=dummyLayout,
     )
 
 

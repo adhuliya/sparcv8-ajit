@@ -1,8 +1,8 @@
 // Main function to manage bget library.
 // It provides a msg queue based communication to the bget library.
 
-% startAddr = confObj.bget.getStartAddr()
-% memSizeInBytes = confObj.bget.getSizeInBytes()
+% startAddr = confObj.software.bget.getStartAddr()
+% memSizeInBytes = confObj.software.bget.getSizeInBytes()
 
 #include "__bget.h"
 #include "__cortos.h"

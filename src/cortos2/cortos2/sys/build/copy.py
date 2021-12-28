@@ -7,7 +7,6 @@ Routines to copy various xfiles.
 
 All the routines assume that the current working directory is the destination.
 """
-import os
 import os.path as osp
 
 from cortos2.sys.config import config
@@ -121,18 +120,17 @@ def copyProjectFiles(
     confObj: config.SystemConfig,
 ) -> None:
   # copy all .c xfiles
-  util.runCommand(f"cp {confObj.projectFiles.rootDir}/*.c .")
+  util.runCommand(f"cp {confObj.software.build.projectFiles.rootDir}/*.c .")
   # copy all .h xfiles
-  util.runCommand(f"cp {confObj.projectFiles.rootDir}/*.h .", suppressError=True)
+  util.runCommand(f"cp {confObj.software.build.projectFiles.rootDir}/*.h .", suppressError=True)
   # copy results file
-  if confObj.projectFiles.resultsFile:
-    util.runCommand(f"cp {confObj.projectFiles.rootDir}/{confObj.projectFiles.resultsFile} .")
+  if confObj.software.build.projectFiles.resultsFile:
+    util.runCommand(f"cp {confObj.software.build.projectFiles.rootDir}/{confObj.software.build.projectFiles.resultsFile} .")
 
 
 def copyInitFile(
     confObj: config.SystemConfig,
 ) -> None:
-  print(f"CoRTOS: AllocRegionSize: {confObj.memoryLayout.memory.sizeInBytes} bytes.")
   with open(consts.INIT_00_FILE_NAME, "w") as f:
     f.write(btl.template(f"build_init/{consts.INIT_00_FILE_NAME}",
                          confObj=confObj))
@@ -163,7 +161,7 @@ def copyRunCModelFile(confObj: config.SystemConfig) -> None:
 def copyResultsFile(confObj: config.SystemConfig) -> None:
   # Get user defined results
   userResults = ""
-  resFilePath = osp.join(confObj.projectFiles.rootDir, confObj.projectFiles.resultsFile)
+  resFilePath = osp.join(confObj.software.build.projectFiles.rootDir, confObj.software.build.projectFiles.resultsFile)
   if osp.exists(resFilePath):
     userResults = f"{util.readFromFile(resFilePath).strip()}\n"
 

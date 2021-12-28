@@ -12,7 +12,7 @@
 // is provided by CORTOS or not.
 #define CORTOS
 
-#define CORTOS_THREADS {{len(confObj.program.programThreads)}}
+#define CORTOS_THREADS {{len(confObj.software.program.programThreads)}}
 
 ////////////////////////////////////////////////////////////////////////////////
 // BLOCK START: cortos_memory_layout
@@ -34,42 +34,42 @@
 // #define TOTAL_SCRATCH_SPACE_IN_BYTES
 
 // Details of the cortos reserved lock vars (not available to the user)
-#define RES_LOCK_VARS_START_ADDR {{ confObj.locks.resLocksStartAddr }}
-#define RES_LOCK_VARS_END_ADDR {{ confObj.locks.resLocksStartAddr + confObj.locks.resLocks - 1 }}
-#define MAX_RES_LOCK_VARS {{ confObj.locks.resLocks }}
+#define RES_LOCK_VARS_START_ADDR {{ confObj.software.locks.resLocksStartAddr }}
+#define RES_LOCK_VARS_END_ADDR {{ confObj.software.locks.resLocksStartAddr + confObj.software.locks.resLocks - 1 }}
+#define MAX_RES_LOCK_VARS {{ confObj.software.locks.resLocks }}
 
 // Details of the lock vars available to the user.
-#define LOCK_VARS_START_ADDR {{ confObj.locks.userLocksStartAddr }}
-#define LOCK_VARS_END_ADDR {{ confObj.locks.userLocksStartAddr + confObj.locks.userLocks - 1 }}
-#define MAX_LOCK_VARS {{ confObj.locks.userLocks }}
+#define LOCK_VARS_START_ADDR {{ confObj.software.locks.userLocksStartAddr }}
+#define LOCK_VARS_END_ADDR {{ confObj.software.locks.userLocksStartAddr + confObj.locks.userLocks - 1 }}
+#define MAX_LOCK_VARS {{ confObj.software.locks.userLocks }}
 
 // Details of the lock vars available to the user.
-#define Q_LOCK_VARS_START_ADDR {{ confObj.locks.queueLocksStartAddr }}
-#define Q_LOCK_VARS_END_ADDR {{ confObj.locks.queueLocksStartAddr + confObj.locks.queueLocks - 1 }}
-#define MAX_Q_LOCK_VARS {{ confObj.locks.queueLocks }}
+#define Q_LOCK_VARS_START_ADDR {{ confObj.software.locks.queueLocksStartAddr }}
+#define Q_LOCK_VARS_END_ADDR {{ confObj.software.locks.queueLocksStartAddr + confObj.software.locks.queueLocks - 1 }}
+#define MAX_Q_LOCK_VARS {{ confObj.software.locks.queueLocks }}
 
 // Details of the queue header array (one queue header per queue).
-#define Q_HEADERS_START_ADDR {{ confObj.queueSeq.headersStartAddr }}
-#define Q_HEADERS_END_ADDR {{ confObj.queueSeq.getHeadersEndAddr() }}
-#define MAX_Q_HEADERS {{ confObj.queueSeq.getTotalQueues() }}
+#define Q_HEADERS_START_ADDR {{ confObj.software.queueSeq.headersStartAddr }}
+#define Q_HEADERS_END_ADDR {{ confObj.software.queueSeq.getHeadersEndAddr() }}
+#define MAX_Q_HEADERS {{ confObj.software.queueSeq.getTotalQueues() }}
 
 // Queues available to the user (all the queues sit here).
-#define QUEUE_START_ADDR {{ confObj.queueSeq.msgStartAddr }}
-#define QUEUE_END_ADDR {{ confObj.queueSeq.getMsgEndAddr() }}
-#define MAX_QUEUES {{ confObj.queueSeq.getTotalQueues() }}
-#define QUEUE_MSG_SIZE_IN_BYTES {{ confObj.queueSeq.queueMsgSizeInBytes }}
-#define MAX_ELEMENTS_PER_QUEUE {{ confObj.queueSeq.elementsPerQueue }}
-#define MAX_QUEUE_SIZE_IN_BYTES {{ confObj.queueSeq.getTotalQueueSizeInBytes() }}
+#define QUEUE_START_ADDR {{ confObj.software.queueSeq.msgStartAddr }}
+#define QUEUE_END_ADDR {{ confObj.software.queueSeq.getMsgEndAddr() }}
+#define MAX_QUEUES {{ confObj.software.queueSeq.getTotalQueues() }}
+#define QUEUE_MSG_SIZE_IN_BYTES {{ confObj.software.queueSeq.queueMsgSizeInBytes }}
+#define MAX_ELEMENTS_PER_QUEUE {{ confObj.software.queueSeq.elementsPerQueue }}
+#define MAX_QUEUE_SIZE_IN_BYTES {{ confObj.software.queueSeq.getTotalQueueSizeInBytes() }}
 
 // Total heap space available in bytes.
 % if confObj.bget.enable:
-#define HEAP_START_ADDR {{ confObj.bget.getStartAddr() }}
-#define HEAP_END_ADDR {{ confObj.bget.getEndAddr() }}
+#define HEAP_START_ADDR {{ confObj.software.bget.getStartAddr() }}
+#define HEAP_END_ADDR {{ confObj.software.bget.getEndAddr() }}
 #define TOTAL_HEAP_SIZE_IN_BYTES {{ confObj.bget.sizeInBytes }}
 % end
 
 // All program stacks sit here.
-% for i, progThread in enumerate(confObj.program.programThreads):
+% for i, progThread in enumerate(confObj.software.program.programThreads):
 #define PROG_{{i}}_STACK_START_ADDR {{ progThread.getStackStartAddr() }}
 #define PROG_{{i}}_STACK_SIZE {{ progThread.getStackSizeInBytes() }}
 % end
@@ -251,11 +251,11 @@ int cortos_printf(const char *fmt, ...);
 #define LOG_LEVEL_CRITICAL  60
 #define LOG_LEVEL_NONE      100
 
-#define CORTOS_LOG_LEVEL {{confObj.build.logLevel.value}}
-#define CORTOS_LOG_LEVEL_NAME "{{ confObj.build.logLevel.name }}"
+#define CORTOS_LOG_LEVEL {{confObj.software.build.logLevel.value}}
+#define CORTOS_LOG_LEVEL_NAME "{{ confObj.software.build.logLevel.name }}"
 
 % for level in consts.LEVEL_ORDER:
-% if level.value >= confObj.build.logLevel.value:
+% if level.value >= confObj.software.build.logLevel.value:
 #define CORTOS_{{ level.name }}(...) \
 __cortos_log_printf("{{ level.name }}", __FILE__, __func__, __LINE__, __VA_ARGS__);
 

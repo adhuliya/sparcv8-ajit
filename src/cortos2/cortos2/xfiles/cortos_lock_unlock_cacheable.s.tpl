@@ -1,6 +1,6 @@
 ! see the reference file `cortos/res/lock_unlock.s`
 
-% userLocksStartAddr = confObj.locks.userLocksStartAddrCacheable
+% userLocksStartAddr = confObj.software.locks.userLocksStartAddrCacheable
 
 ! Usage Note:
 ! cortos_lock_acquire_buzy_cacheable(<index: an-integer-index>);

@@ -1,6 +1,6 @@
 ! see the reference file `cortos/res/lock_unlock.s`
 
-% qLockStartAddr = confObj.locks.queueLocksStartAddr
+% qLockStartAddr = confObj.software.locks.queueLocksStartAddr
 
 ! Usage Note:
 ! __cortos_q_lock_acquire_buzy(<index: an-integer-index>);

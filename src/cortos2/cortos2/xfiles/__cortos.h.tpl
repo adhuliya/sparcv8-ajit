@@ -27,42 +27,42 @@
 // #define __TOTAL_SCRATCH_SPACE_IN_BYTES
 
 // Details of the cortos reserved lock vars (not available to the user)
-#define __RES_LOCK_VARS_START_ADDR {{ confObj.locks.resLocksStartAddr }}
-#define __RES_LOCK_VARS_END_ADDR {{ confObj.locks.resLocksStartAddr + confObj.locks.resLocks - 1 }}
-#define __MAX_RES_LOCK_VARS {{ confObj.locks.resLocks }}
+#define __RES_LOCK_VARS_START_ADDR {{ confObj.software.locks.resLocksStartAddr }}
+#define __RES_LOCK_VARS_END_ADDR {{ confObj.software.locks.resLocksStartAddr + confObj.locks.resLocks - 1 }}
+#define __MAX_RES_LOCK_VARS {{ confObj.software.locks.resLocks }}
 
 // Details of the lock vars available to the user.
-#define __LOCK_VARS_START_ADDR {{ confObj.locks.userLocksStartAddr }}
-#define __LOCK_VARS_END_ADDR {{ confObj.locks.userLocksStartAddr + confObj.locks.userLocks - 1 }}
-#define __MAX_LOCK_VARS {{ confObj.locks.userLocks }}
+#define __LOCK_VARS_START_ADDR {{ confObj.software.locks.userLocksStartAddr }}
+#define __LOCK_VARS_END_ADDR {{ confObj.software.locks.userLocksStartAddr + confObj.locks.userLocks - 1 }}
+#define __MAX_LOCK_VARS {{ confObj.software.locks.userLocks }}
 
 // Details of the lock vars available to the user.
-#define __Q_LOCK_VARS_START_ADDR {{ confObj.locks.queueLocksStartAddr }}
-#define __Q_LOCK_VARS_END_ADDR {{ confObj.locks.queueLocksStartAddr + confObj.locks.queueLocks - 1 }}
-#define __MAX_Q_LOCK_VARS {{ confObj.locks.queueLocks }}
+#define __Q_LOCK_VARS_START_ADDR {{ confObj.software.locks.queueLocksStartAddr }}
+#define __Q_LOCK_VARS_END_ADDR {{ confObj.software.locks.queueLocksStartAddr + confObj.locks.queueLocks - 1 }}
+#define __MAX_Q_LOCK_VARS {{ confObj.software.locks.queueLocks }}
 
 // Details of the queue header array (one queue header per queue).
-#define __Q_HEADERS_START_ADDR {{ confObj.queueSeq.headersStartAddr }}
-#define __Q_HEADERS_END_ADDR {{ confObj.queueSeq.getHeadersEndAddr() }}
-#define __MAX_Q_HEADERS {{ confObj.queueSeq.getTotalQueues() }}
+#define __Q_HEADERS_START_ADDR {{ confObj.software.queueSeq.headersStartAddr }}
+#define __Q_HEADERS_END_ADDR {{ confObj.software.queueSeq.getHeadersEndAddr() }}
+#define __MAX_Q_HEADERS {{ confObj.software.queueSeq.getTotalQueues() }}
 
 // Queues available to the user (all the queues sit here).
-#define __QUEUE_START_ADDR {{ confObj.queueSeq.msgStartAddr }}
-#define __QUEUE_END_ADDR {{ confObj.queueSeq.getMsgEndAddr() }}
-#define __MAX_QUEUES {{ confObj.queueSeq.getTotalQueues() }}
-#define __QUEUE_MSG_SIZE_IN_BYTES {{ confObj.queueSeq.queueMsgSizeInBytes }}
-#define __MAX_ELEMENTS_PER_QUEUE {{ confObj.queueSeq.elementsPerQueue }}
-#define __MAX_QUEUE_SIZE_IN_BYTES {{ confObj.queueSeq.getTotalQueueSizeInBytes() }}
+#define __QUEUE_START_ADDR {{ confObj.software.queueSeq.msgStartAddr }}
+#define __QUEUE_END_ADDR {{ confObj.software.queueSeq.getMsgEndAddr() }}
+#define __MAX_QUEUES {{ confObj.software.queueSeq.getTotalQueues() }}
+#define __QUEUE_MSG_SIZE_IN_BYTES {{ confObj.software.queueSeq.queueMsgSizeInBytes }}
+#define __MAX_ELEMENTS_PER_QUEUE {{ confObj.software.queueSeq.elementsPerQueue }}
+#define __MAX_QUEUE_SIZE_IN_BYTES {{ confObj.software.queueSeq.getTotalQueueSizeInBytes() }}
 
 // Total heap space available in bytes.
 % if confObj.bget.enable:
-#define __HEAP_START_ADDR {{ confObj.bget.getStartAddr() }}
-#define __HEAP_END_ADDR {{ confObj.bget.getEndAddr() }}
-#define __TOTAL_HEAP_SIZE_IN_BYTES {{ confObj.bget.sizeInBytes }}
+#define __HEAP_START_ADDR {{ confObj.software.bget.getStartAddr() }}
+#define __HEAP_END_ADDR {{ confObj.software.bget.getEndAddr() }}
+#define __TOTAL_HEAP_SIZE_IN_BYTES {{ confObj.software.bget.sizeInBytes }}
 % end
 
 // All program stacks sit here.
-% for i, progThread in enumerate(confObj.program.programThreads):
+% for i, progThread in enumerate(confObj.software.program.programThreads):
 #define __PROG_{{i}}_STACK_START_ADDR {{ progThread.getStackStartAddr() }}
 #define __PROG_{{i}}_STACK_SIZE {{ progThread.getStackSizeInBytes() }}
 % end
@@ -108,26 +108,26 @@ typedef struct _CortosQueueHeader {
 } __CortosQueueHeader;
 
 // Details of the queue header array (one queue header per queue).
-#define __Q_HEADERS_START_ADDR {{ confObj.queueSeq.headersStartAddr }}
-#define __Q_HEADERS_END_ADDR {{ confObj.queueSeq.getHeadersEndAddr() }}
-#define __MAX_Q_HEADERS {{ confObj.queueSeq.getTotalQueues() }}
+#define __Q_HEADERS_START_ADDR {{ confObj.software.queueSeq.headersStartAddr }}
+#define __Q_HEADERS_END_ADDR {{ confObj.software.queueSeq.getHeadersEndAddr() }}
+#define __MAX_Q_HEADERS {{ confObj.software.queueSeq.getTotalQueues() }}
 
 // Queues available to the user (all the queues sit here).
-#define __QUEUE_START_ADDR {{ confObj.queueSeq.msgStartAddr }}
-#define __QUEUE_END_ADDR {{ confObj.queueSeq.getMsgEndAddr() }}
-#define __MAX_QUEUES {{ confObj.queueSeq.getTotalQueues() }}
-#define __QUEUE_MSG_SIZE_IN_BYTES {{ confObj.queueSeq.queueMsgSizeInBytes }}
-#define __MAX_ELEMENTS_PER_QUEUE {{ confObj.queueSeq.elementsPerQueue }}
-#define __MAX_QUEUE_SIZE_IN_BYTES {{ confObj.queueSeq.getTotalQueueSizeInBytes() }}
+#define __QUEUE_START_ADDR {{ confObj.software.queueSeq.msgStartAddr }}
+#define __QUEUE_END_ADDR {{ confObj.software.queueSeq.getMsgEndAddr() }}
+#define __MAX_QUEUES {{ confObj.software.queueSeq.getTotalQueues() }}
+#define __QUEUE_MSG_SIZE_IN_BYTES {{ confObj.software.queueSeq.queueMsgSizeInBytes }}
+#define __MAX_ELEMENTS_PER_QUEUE {{ confObj.software.queueSeq.elementsPerQueue }}
+#define __MAX_QUEUE_SIZE_IN_BYTES {{ confObj.software.queueSeq.getTotalQueueSizeInBytes() }}
 
 
 #define __Q_START_INDEX 0
-#define __AJIT_Q_BASE {{ confObj.queueSeq.msgStartAddr }}
-#define __AJIT_Q_LEN {{ confObj.queueSeq.elementsPerQueue }}
-#define __AJIT_Q_MSG_SIZE {{ confObj.queueSeq.queueMsgSizeInBytes }}
+#define __AJIT_Q_BASE {{ confObj.software.queueSeq.msgStartAddr }}
+#define __AJIT_Q_LEN {{ confObj.software.queueSeq.elementsPerQueue }}
+#define __AJIT_Q_MSG_SIZE {{ confObj.software.queueSeq.queueMsgSizeInBytes }}
 
-#define __AJIT_Q_HEADER_BASE {{ confObj.queueSeq.headersStartAddr }}
-#define __AJIT_Q_HEADER_SIZE {{ confObj.queueSeq.queueHeaderSizeInBytes }}
+#define __AJIT_Q_HEADER_BASE {{ confObj.software.queueSeq.headersStartAddr }}
+#define __AJIT_Q_HEADER_SIZE {{ confObj.software.queueSeq.queueHeaderSizeInBytes }}
 
 #define __GET_MSG_ADDR(_BASE, _INDEX) \
 ((_BASE) + ((_INDEX) * (__AJIT_Q_MSG_SIZE)))

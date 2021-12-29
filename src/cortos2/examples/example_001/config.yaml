@@ -19,7 +19,7 @@ Hardware:
       SizeInMegaBytes: 16
       Permissions: RXC  # (Read,Write,eXecute,Cacheable)
     RAM:
-      StartAddr:   0x4FFFFFFF  # physical address
+      StartAddr:   0x50000000   #0x4FFFFFFF  # physical address
       # EndAddr: ...
       # SizeInBytes: ...
       # SizeInKiloBytes: ...
@@ -76,7 +76,7 @@ Software:
 
   # Required: Which functions execute on each ajit thread.
   ProgramThreads:
-    - CortosInitCalls:
+    - CortosInitCalls: #00
         - main
   # One can also specify an infinite loop on the function:
   #   CortosLoopCalls:
@@ -104,6 +104,7 @@ Software:
 #       MessageSizeInBytes: 8
 #       TotalMessageCapacity: 256 # num. of messages
 #
+# # 15 interrupt levels
 #   InterruptHandler:
 #     - TypeCode: 0x4
 #       Function: functionName4

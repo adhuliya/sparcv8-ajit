@@ -10,7 +10,7 @@ ENTRY(_start)
 __DYNAMIC = 0;
 SECTIONS
 {
-  . = {{ hex(confObj.software.program.getTextRegionStartAddr() }};
+  . = {{ hex(confObj.software.program.getTextRegionStartAddr()) }};
   .text ALIGN(4) : {
     KEEP(*(.text.ajitstart))  /* NOTE: in file `init_00.s` */
     *(.text)
@@ -25,5 +25,5 @@ SECTIONS
   .data   ALIGN(4) : { * (.data) * (.data.*)}
 
   . = {{ hex(confObj.software.program.getBssRegionStartAddr()) }};
-  .bss   ALIGN(4) : { *(.bss) }
+  .bss   ALIGN(4) : { * (.bss) }
 }

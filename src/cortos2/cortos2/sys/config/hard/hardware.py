@@ -71,7 +71,7 @@ class Hardware:
           prevKeySeq=prevKeySeq,
         )
         data[device.name] = device
-        prevKeySeq.pop(index)
+        prevKeySeq.pop()
 
     prevKeySeq.pop()
     return data

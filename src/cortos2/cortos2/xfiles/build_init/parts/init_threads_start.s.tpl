@@ -5,17 +5,17 @@
 
 CORTOS_START_THREADS:
 
-% for progThread in confObj.program.programThreads:
+% for progThread in confObj.software.program.programThreads:
 
 {{progThread.coreThread.genLabel(forSetup=False)}}:
 
   ! (0,0)=0x50520000, (0,1)=0x50520001, (1,1)=0x50520101, ...
   set {{progThread.coreThread.genIdHex()}}, %l2
   subcc %l1, %l2, %g0
-  bnz {{confObj.cpu.genNextThreadLabel(progThread.coreThread, forSetup=False)}}
+  bnz {{confObj.hardware.cpu.genNextThreadLabel(progThread.coreThread, forSetup=False)}}
   nop
 
-% if progThread.isThread00() and confObj.bget.enable:
+% if progThread.isThread00() and confObj.software.bget.enable:
   ! acquire memory for bget just once
   call __cortos_bpool
   nop

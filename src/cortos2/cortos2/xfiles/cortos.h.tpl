@@ -40,7 +40,7 @@
 
 // Details of the lock vars available to the user.
 #define LOCK_VARS_START_ADDR {{ confObj.software.locks.userLocksStartAddr }}
-#define LOCK_VARS_END_ADDR {{ confObj.software.locks.userLocksStartAddr + confObj.locks.userLocks - 1 }}
+#define LOCK_VARS_END_ADDR {{ confObj.software.locks.userLocksStartAddr + confObj.software.locks.userLocks - 1 }}
 #define MAX_LOCK_VARS {{ confObj.software.locks.userLocks }}
 
 // Details of the lock vars available to the user.
@@ -62,10 +62,10 @@
 #define MAX_QUEUE_SIZE_IN_BYTES {{ confObj.software.queueSeq.getTotalQueueSizeInBytes() }}
 
 // Total heap space available in bytes.
-% if confObj.bget.enable:
+% if confObj.software.bget.enable:
 #define HEAP_START_ADDR {{ confObj.software.bget.getStartAddr() }}
 #define HEAP_END_ADDR {{ confObj.software.bget.getEndAddr() }}
-#define TOTAL_HEAP_SIZE_IN_BYTES {{ confObj.bget.sizeInBytes }}
+#define TOTAL_HEAP_SIZE_IN_BYTES {{ confObj.software.bget.sizeInBytes }}
 % end
 
 // All program stacks sit here.

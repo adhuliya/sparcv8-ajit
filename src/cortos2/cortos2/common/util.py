@@ -337,16 +337,18 @@ def getSizeInBytes(
     if isinstance(endAddr, int):
       sizeInBytes = endAddr - startAddr + 1
 
-  if not sizeInBytes:
-    sizeInBytes = getConfigurationParameter(data, ["SizeInBytes"])
+  if sizeInBytes is None:
+    sizeInBytes = getConfigurationParameter(data, ["SizeInBytes"], default=None)
 
-  if not sizeInBytes:
-    sizeInKiloBytes = getConfigurationParameter(data, ["SizeInKiloBytes"])
-    sizeInBytes = sizeInKiloBytes * 1024
+  if sizeInBytes is None:
+    sizeInKiloBytes = getConfigurationParameter(data, ["SizeInKiloBytes"], default=None)
+    sizeInBytes = None if sizeInKiloBytes is None else sizeInKiloBytes * 1024
 
-  if not sizeInBytes:
-    sizeInMegaBytes = getConfigurationParameter(data, ["SizeInMegaBytes"])
-    sizeInBytes = sizeInMegaBytes * 1024 * 1024
+  if sizeInBytes is None:
+    sizeInMegaBytes = getConfigurationParameter(data, ["SizeInMegaBytes"], default=None)
+    sizeInBytes = None if sizeInMegaBytes is None else sizeInMegaBytes * 1024 * 1024
+
+  assert sizeInBytes is not None
 
   return sizeInBytes
 

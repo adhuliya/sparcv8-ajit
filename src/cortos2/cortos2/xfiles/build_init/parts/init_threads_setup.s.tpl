@@ -13,7 +13,7 @@ CORTOS_SETUP_THREADS:
   ! (0,0)=0x50520000, (0,1)=0x50520001, (1,0)=0x50520100, (1,1)=0x50520101, ...
   set {{ progThread.coreThread.genIdHex() }}, %l2
   subcc %l1, %l2, %g0
-  bnz {{ confObj.cpu.genNextThreadLabel(progThread.coreThread, forSetup=True) }}
+  bnz {{ confObj.hardware.cpu.genNextThreadLabel(progThread.coreThread, forSetup=True) }}
   nop
 
 % if progThread.isThread00():

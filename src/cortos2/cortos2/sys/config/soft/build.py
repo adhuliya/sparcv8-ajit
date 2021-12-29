@@ -83,12 +83,12 @@ class Build:
   ) -> bool:
     keyName = "Debug"
 
-    debugStr: str = util.getConfigurationParameter(
+    debugFlag: bool = util.getConfigurationParameter(
       data=userProvidedConfig,
       keySeq=[keyName],
-      default="YES" if consts.DEFAULT_DEBUG_BUILD else "NO",
+      default=consts.DEFAULT_DEBUG_BUILD,
     )
-    debug = True if debugStr.upper() == "YES" else False
+    debug = debugFlag
 
     return debug
 
@@ -139,12 +139,12 @@ class Build:
   ) -> bool:
     keyName = "EnableSerial"
 
-    enableSerial: str = util.getConfigurationParameter(
+    enableSerial: bool = util.getConfigurationParameter(
       data=userProvidedConfig,
       keySeq=[keyName],
-      default= "YES" if consts.DEFAULT_ENABLE_SERIAL_DEVICE else "NO"
+      default= consts.DEFAULT_ENABLE_SERIAL_DEVICE
     )
-    enableSerialBool = True if enableSerial.upper() == "YES" else False
+    enableSerialBool = enableSerial
 
     return enableSerialBool
 

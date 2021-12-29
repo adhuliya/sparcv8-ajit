@@ -49,7 +49,7 @@ class Locks:
       self.userLocksStartAddr = self.resLocksStartAddr + self.resLocks
       self.queueLocksStartAddr = self.userLocksStartAddr + self.userLocks
 
-    self.checkInvariants(cacheable=cacheable) # IMPORTANT
+    self.checkInvariants(cacheable=region.cacheable) # IMPORTANT
 
 
   def checkInvariants(self, cacheable=False) -> None:

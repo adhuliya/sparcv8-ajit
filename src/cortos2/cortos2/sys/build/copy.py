@@ -120,12 +120,12 @@ def copyProjectFiles(
     confObj: config.SystemConfig,
 ) -> None:
   # copy all .c xfiles
-  util.runCommand(f"cp {confObj.software.build.projectFiles.rootDir}/*.c .")
+  util.runCommand(f"cp {confObj.software.projectFiles.rootDir}/*.c .")
   # copy all .h xfiles
-  util.runCommand(f"cp {confObj.software.build.projectFiles.rootDir}/*.h .", suppressError=True)
+  util.runCommand(f"cp {confObj.software.projectFiles.rootDir}/*.h .", suppressError=True)
   # copy results file
-  if confObj.software.build.projectFiles.resultsFile:
-    util.runCommand(f"cp {confObj.software.build.projectFiles.rootDir}/{confObj.software.build.projectFiles.resultsFile} .")
+  if confObj.software.projectFiles.resultsFile:
+    util.runCommand(f"cp {confObj.software.projectFiles.rootDir}/{confObj.software.projectFiles.resultsFile} .")
 
 
 def copyInitFile(
@@ -161,7 +161,7 @@ def copyRunCModelFile(confObj: config.SystemConfig) -> None:
 def copyResultsFile(confObj: config.SystemConfig) -> None:
   # Get user defined results
   userResults = ""
-  resFilePath = osp.join(confObj.software.build.projectFiles.rootDir, confObj.software.build.projectFiles.resultsFile)
+  resFilePath = osp.join(confObj.software.projectFiles.rootDir, confObj.software.projectFiles.resultsFile)
   if osp.exists(resFilePath):
     userResults = f"{util.readFromFile(resFilePath).strip()}\n"
 

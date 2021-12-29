@@ -25,7 +25,6 @@ class MemoryRegion(util.PrettyStr):
     self.oneLineDescription = oneLineDescription
     self.sizeInBytes = sizeInBytes
     self.pageTableLevels: List[Tuple[consts.PageTableLevel, int]] = []
-    self.initPageTableLevels()
     self.context = context
     self.virtualStartAddr = virtualStartAddr
     self.physicalStartAddr = physicalStartAddr
@@ -33,6 +32,8 @@ class MemoryRegion(util.PrettyStr):
     self.permissions = permissions
     self.regionType = regionType
     self.initToZero = initToZero
+
+    self.initPageTableLevels()
 
 
   @staticmethod
@@ -76,11 +77,14 @@ class MemoryRegion(util.PrettyStr):
     page table entries.
     """
     self.pageTableLevels = []
+    firstPageSizeInBytes = None
 
     sizeInBytes = self.sizeInBytes
     for level in sorted((x for x in consts.PageTableLevel), key=lambda x: x.value):
       pageSizeInBytes = consts.PAGE_TABLE_LEVELS_TO_PAGE_SIZE[level]
-      numOfPages = self.sizeInBytes // pageSizeInBytes
+      numOfPages = sizeInBytes // pageSizeInBytes
+      if firstPageSizeInBytes is None:
+        firstPageSizeInBytes = pageSizeInBytes if numOfPages else None
       self.pageTableLevels.append((level, numOfPages))
       sizeInBytes -= numOfPages * pageSizeInBytes
 
@@ -88,7 +92,14 @@ class MemoryRegion(util.PrettyStr):
     if sizeInBytes > 0:
       assert sizeInBytes < consts.PAGE_TABLE_LEVELS_TO_PAGE_SIZE[consts.PageTableLevel.LEVEL3], \
         f"{sizeInBytes} should be lower than 4KB."
+      if firstPageSizeInBytes is None:
+        firstPageSizeInBytes = \
+          consts.PAGE_TABLE_LEVELS_TO_PAGE_SIZE[consts.PageTableLevel.LEVEL3]
       self.pageTableLevels.append((consts.PageTableLevel.LEVEL3, 1))
+
+    assert firstPageSizeInBytes is not None, f"{self.name}, {self.sizeInBytes}"
+    self.virtualStartAddr = util.alignAddress(self.virtualStartAddr, firstPageSizeInBytes)
+    self.physicalStartAddr = util.alignAddress(self.physicalStartAddr, firstPageSizeInBytes)
 
 
   def getFirstByteAddr(self, virtualAddr: bool = True) -> int:
@@ -153,18 +164,23 @@ class MemoryRegion(util.PrettyStr):
     for level, count in self.pageTableLevels:
       page_size = consts.PAGE_TABLE_LEVELS_TO_PAGE_SIZE[level]
       for i in range(count):
-        entryLines.append(
-          self.getVmapFileEntryLine(
-            context=self.context,
-            virtualAddr=virtualAddr + page_size * i,
-            physicalAddr=physicalAddr + page_size * i,
-            pageTableLevel=level.value,
-            cacheable=self.cacheable,
-            permissions=self.permissions.value,
-          )
+        entryLine = self.getVmapFileEntryLine(
+          context=self.context,
+          virtualAddr=virtualAddr + page_size * i,
+          physicalAddr=physicalAddr + page_size * i,
+          pageTableLevel=level.value,
+          cacheable=self.cacheable,
+          permissions=self.permissions.value,
         )
+        entryLines.append(entryLine)
+        if self.name == "TextSection": #delit
+          print(f"EntryLine: {entryLine}") #delit
+
       virtualAddr += page_size * count
       physicalAddr += page_size * count
+
+    # if self.name == "TextSection":  #delit
+    #   exit() #delit
     return entryLines
 
 

@@ -80,7 +80,7 @@ class ProgramThread:
     loopCallSeq = util.getConfigurationParameter(
       data=userProvidedConfig,
       keySeq=["CortosLoopCalls"],
-      default=None,
+      default=[],
     )
 
     progThread = ProgramThread(
@@ -121,6 +121,10 @@ class Program:
     """The total size of the program is equal to the total bytes
     till the end of the data region."""
     return self.dataRegion.getNextToLastByteAddr(virtualAddr=True)
+
+
+  def getTextRegionStartAddr(self):
+    return self.textRegion.getFirstByteAddr(virtualAddr=True)
 
 
   def getDataRegionStartAddr(self):

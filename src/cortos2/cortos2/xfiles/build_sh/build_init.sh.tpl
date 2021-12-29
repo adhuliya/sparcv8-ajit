@@ -25,7 +25,7 @@ _PT="$AJIT_MINIMAL_PRINTF_TIMER";
 _AAR_MT="$AJIT_PROJECT_HOME/tools/ajit_access_routines_mt";
 _AAR="$AJIT_ACCESS_ROUTINES";
 
-% if confObj.bget.enable:
+% if confObj.software.bget.enable:
 _CORTOS_BGET="$_CORTOS_SRC_DIR/cortos_bget.c";
 _BGET="$_CORTOS_SRC_DIR/__bget.c";
 % end
@@ -36,10 +36,10 @@ _BGET="$_CORTOS_SRC_DIR/__bget.c";
 
 # NOTE: the use of `-U` to enable uclibc
 compileToSparcUclibc.py \
-% if confObj.build.debug:
+% if confObj.software.build.debug:
   -g \
 % end
-  -o {{ 0 if confObj.build.debug else confObj.build.optLevel }} \
+  -o {{ 0 if confObj.software.build.debug else confObj.software.build.optLevel }} \
   -V ${_CORTOS_VMAP} \
   -I ${AJIT_UCLIBC_HEADERS_DIR} \
   -I ${AJIT_LIBGCC_INSTALL_DIR}/include \
@@ -54,7 +54,7 @@ compileToSparcUclibc.py \
   -s ${_CORTOS_LOCK_UNLOCK_CACHEABLE} \
   -s ${_CORTOS_RES_LOCK_UNLOCK} \
   -s ${_CORTOS_Q_LOCK_UNLOCK} \
-% for fileName in confObj.projectFiles.cFileNames:
+% for fileName in confObj.software.projectFiles.cFileNames:
   -c {{fileName}} \
 % end
   -c ${_CORTOS_MSG_QUEUE} \
@@ -65,7 +65,7 @@ compileToSparcUclibc.py \
 % if False: # removed the original ee_printf
   -C ${_PT}/src \
 % end
-% if confObj.bget.enable:
+% if confObj.software.bget.enable:
   -c ${_CORTOS_BGET} \
   -c ${_BGET} \
 % end

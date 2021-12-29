@@ -8,10 +8,13 @@ from cortos2.sys.config import common
 class Bget:
   def __init__(self,
       sizeInBytes: int = consts.DEFAULT_BGET_MEM_SIZE_IN_KB * 1024,
+      enable: bool = True,
   ):
     self.sizeInBytes = sizeInBytes
 
     self.region: Opt[common.MemoryRegion] = None
+
+    self.enable = enable
 
 
   def setMemoryRegion(self, region: common.MemoryRegion):
@@ -43,26 +46,17 @@ class Bget:
       keySeq=[keyName],
       default=None,
     )
+    enable = config is not None
+
     sizeInBytes = util.getSizeInBytes(
       config,
       default=consts.DEFAULT_BGET_MEM_SIZE_IN_KB * 1024
     )
 
-    bget = Bget(sizeInBytes=sizeInBytes)
+    bget = Bget(
+      sizeInBytes=sizeInBytes,
+      enable=enable,
+    )
     return bget
 
 
-def initConfig(userProvidedConfig: Dict) -> Bget:
-  enableBget = (True
-                if consts.YML_BGET_MEM_SIZE_IN_KB in userProvidedConfig
-                else consts.DEFAULT_BGET_ENABLE)
-  memSizeInKb = (userProvidedConfig[consts.YML_BGET_MEM_SIZE_IN_KB]
-                 if consts.YML_BGET_MEM_SIZE_IN_KB in userProvidedConfig
-                 else consts.DEFAULT_BGET_MEM_SIZE_IN_KB)
-  memSizeInBytes = memSizeInKb * 1024
-
-  bget = Bget(
-    sizeInBytes=memSizeInBytes,
-  )
-
-  return bget

@@ -28,17 +28,17 @@
 
 // Details of the cortos reserved lock vars (not available to the user)
 #define __RES_LOCK_VARS_START_ADDR {{ confObj.software.locks.resLocksStartAddr }}
-#define __RES_LOCK_VARS_END_ADDR {{ confObj.software.locks.resLocksStartAddr + confObj.locks.resLocks - 1 }}
+#define __RES_LOCK_VARS_END_ADDR {{ confObj.software.locks.resLocksStartAddr + confObj.software.locks.resLocks - 1 }}
 #define __MAX_RES_LOCK_VARS {{ confObj.software.locks.resLocks }}
 
 // Details of the lock vars available to the user.
 #define __LOCK_VARS_START_ADDR {{ confObj.software.locks.userLocksStartAddr }}
-#define __LOCK_VARS_END_ADDR {{ confObj.software.locks.userLocksStartAddr + confObj.locks.userLocks - 1 }}
+#define __LOCK_VARS_END_ADDR {{ confObj.software.locks.userLocksStartAddr + confObj.software.locks.userLocks - 1 }}
 #define __MAX_LOCK_VARS {{ confObj.software.locks.userLocks }}
 
 // Details of the lock vars available to the user.
 #define __Q_LOCK_VARS_START_ADDR {{ confObj.software.locks.queueLocksStartAddr }}
-#define __Q_LOCK_VARS_END_ADDR {{ confObj.software.locks.queueLocksStartAddr + confObj.locks.queueLocks - 1 }}
+#define __Q_LOCK_VARS_END_ADDR {{ confObj.software.locks.queueLocksStartAddr + confObj.software.locks.queueLocks - 1 }}
 #define __MAX_Q_LOCK_VARS {{ confObj.software.locks.queueLocks }}
 
 // Details of the queue header array (one queue header per queue).
@@ -55,7 +55,7 @@
 #define __MAX_QUEUE_SIZE_IN_BYTES {{ confObj.software.queueSeq.getTotalQueueSizeInBytes() }}
 
 // Total heap space available in bytes.
-% if confObj.bget.enable:
+% if confObj.software.bget.enable:
 #define __HEAP_START_ADDR {{ confObj.software.bget.getStartAddr() }}
 #define __HEAP_END_ADDR {{ confObj.software.bget.getEndAddr() }}
 #define __TOTAL_HEAP_SIZE_IN_BYTES {{ confObj.software.bget.sizeInBytes }}

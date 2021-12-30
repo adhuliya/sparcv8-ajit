@@ -115,6 +115,10 @@ int cortos_reserveLockVar();
 // Free a lock variable for reuse by cortos.
 void cortos_freeLockVar(int lockId);
 
+// Similar to the above two API's but for cacheable locks.
+int cortos_reserveLockVar_cacheable();
+void cortos_freeLockVar_cacheable(int lockId);
+
 ////////////////////////////////////////////////////////////////////////////////
 // BLOCK END  : cortos_locking_declarations
 ////////////////////////////////////////////////////////////////////////////////

@@ -138,7 +138,7 @@ typedef union _CortosMessage32Bytes {
   struct {
     int a_code;
     void *a_ptr; // pointer to a location
-    int *a_size; // in bytes
+    int a_size; // in bytes
     int a_intArr[5];
   };
 

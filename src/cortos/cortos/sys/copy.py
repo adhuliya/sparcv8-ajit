@@ -34,7 +34,9 @@ def copyVmapFile(
     confObj: config.UserConfig,
 ) -> None:
   with open(consts.VMAP_FILE_NAME, "w") as f:
-    f.write(btl.template(f"{consts.VMAP_FILE_NAME}"))
+    f.write(btl.template(f"{consts.VMAP_FILE_NAME}",
+      confObj=confObj,
+    ))
 
 
 def copyCortosHeaderFile(
@@ -107,7 +109,9 @@ def copyLinkerScriptFile(
     confObj: config.UserConfig,
 ) -> None:
   with open(consts.LINKER_SCRIPT_FILE_NAME, "w") as f:
-    f.write(btl.template(f"linker_scripts/{consts.LINKER_SCRIPT_00_FILE_NAME}"))
+    f.write(btl.template(f"linker_scripts/{consts.LINKER_SCRIPT_00_FILE_NAME}",
+            confObj=confObj,
+    ))
 
 
 def copyProjectFiles(

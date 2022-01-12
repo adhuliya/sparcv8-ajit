@@ -120,14 +120,18 @@ def runBuildScript(confObj: config.UserConfig) -> None:
 
 def computeStackAddr(confObj: config.UserConfig) -> None:
   """Compute the stack starting address of each program."""
-  lastFreeAddr = confObj.leastValidStackAddr
+  # lastFreeAddr = confObj.leastValidStackAddr
+  highAddr = (confObj.ramStartAddr
+              + confObj.memSizeInKB * 1024 # + memory size
+              - 8
+             )
 
   for prog in confObj.programs:
     stackSize = prog.stackSizeInBytes if prog.stackSizeInBytes\
       else consts.DEFAULT_STACK_SIZE
-    lastFreeAddr += stackSize
-    lastFreeAddr = util.alignAddress(lastFreeAddr, align=4096)
-    prog.stackStartAddr = lastFreeAddr
+    highAddr = util.alignAddress(highAddr, align=8)
+    prog.stackStartAddr = highAddr
+    highAddr -= stackSize
 
 
 # def patchCortosCalls(confObj: config.UserConfig):

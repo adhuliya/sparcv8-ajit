@@ -86,6 +86,11 @@ class CortosThread:
     return (self.cid <= other.cid
             or (self.cid == other.cid and self.tid <= other.tid))
 
+  def __eq__(self, other):
+    if not isinstance(other, CortosThread):
+      raise ValueError(f"{other}")
+
+    return self.cid == other.cid and self.tid == other.tid
 
   def __str__(self):
     return f"(Thread (cid={self.cid}, tid={self.tid}))"
@@ -93,7 +98,10 @@ class CortosThread:
 
 class UserConfig:
   """Configuration specified by the user (like a yaml file)."""
-  def __init__(self, data):
+  def __init__(self,
+      data,
+      ramStartAddr = 0x0,
+  ):
     self.data = data
 
     self.rootDir = os.getcwd()
@@ -130,6 +138,8 @@ class UserConfig:
     # the starting debug port sequence (one for each thread)
     self.startingDebugPort: int = consts.DEFAULT_FIRST_DEBUG_PORT
 
+    self.ramStartAddr = ramStartAddr # start address of the ram
+
     self.initialize()
     print("CoRTOS: Initialized user configuration details.")
     self.verify()
@@ -150,7 +160,10 @@ class UserConfig:
         exit(1)
       self.programs.append(ProgramThread(progData, thread))
       thread = self.getNextThread(thread)
-    self.programs = sorted(self.programs, key=lambda x: x.thread)
+    print("PROGRAMS_THREADS (before sort): ", [p.thread for p in self.programs])
+    #print("PROGRAMS: ", len(self.programs), f"{self.programs[0].thread < self.programs[1].thread}")
+    self.programs = list(sorted(self.programs, key=lambda x: (x.thread.cid, x.thread.tid)))
+    print("PROGRAMS_THREADS (after sort): ", [p.thread for p in self.programs])
 
     self.memSizeInKB = (self.data[YML_MEM_SIZE_IN_KB]
                         if YML_MEM_SIZE_IN_KB in self.data
@@ -365,9 +378,13 @@ class DataMemoryRegions:
     NOTE: All sizes must be a multiple of 8.
     """
     self.sizeInBytes = 0
+    startAddr = util.alignAddress(
+      compute.computeInitHeaderSizeInBytes() + confObj.ramStartAddr,
+      8,
+    )
 
     self.cortosReserved = MemoryRegion(
-      util.alignAddress(compute.computeInitHeaderSizeInBytes(), 8),
+      startAddr,
       consts.RESERVED_REGION_SIZE_IN_BYTES
     )
     self.sizeInBytes += self.cortosReserved.sizeInBytes
@@ -411,11 +428,12 @@ class DataMemoryRegions:
 
 def readYamlConfig(
     yamlFileName: util.FileNameT,
+    ramStartAddr: int,
     cmdLineLogLevel: consts.LogLevel = consts.LogLevel.NONE,
 ) -> UserConfig:
   """Reads the given yaml configuration file."""
   with open(yamlFileName) as f:
     conf = yaml.load(f)
-    return UserConfig(conf)
+    return UserConfig(conf, ramStartAddr)
 
 

@@ -19,14 +19,7 @@ def copyTrapFile(
     confObj: config.SystemConfig,
 ) -> None:
   with open(consts.TRAP_FILE_NAME, "w") as f:
-    f.write(btl.template(f"build_asms/{consts.TRAP_FILE_NAME}"))
-
-
-def copyPageTableFile(
-    confObj: config.SystemConfig,
-) -> None:
-  with open(consts.PAGE_TABLE_FILE_NAME, "w") as f:
-    f.write(btl.template(f"build_asms/{consts.PAGE_TABLE_FILE_NAME}"))
+    f.write(btl.template(f"traps/{consts.TRAP_FILE_NAME}"))
 
 
 def copyVmapFile(
@@ -72,7 +65,7 @@ def copyCortosAsmFile(
     confObj: config.SystemConfig,
 ) -> None:
   with open(consts.CORTOS_ASM_FILE_NAME, "w") as f:
-    f.write(btl.template(f"build_asms/{consts.CORTOS_ASM_FILE_NAME}",
+    f.write(btl.template(f"utils/{consts.CORTOS_ASM_FILE_NAME}",
                          confObj=confObj))
 
 
@@ -88,11 +81,11 @@ def copyCortosPrintfFile(
     confObj: config.SystemConfig,
 ) -> None:
   with open(consts.CORTOS_PRINTF_FILE_NAME, "w") as f:
-    f.write(btl.template(f"{consts.CORTOS_PRINTF_FILE_NAME}",
+    f.write(btl.template(f"utils/{consts.CORTOS_PRINTF_FILE_NAME}",
                          confObj=confObj))
 
   with open(consts.CORTOS_PRINTF_CVT_FILE_NAME, "w") as f:
-    f.write(btl.template(f"{consts.CORTOS_PRINTF_CVT_FILE_NAME}",
+    f.write(btl.template(f"utils/{consts.CORTOS_PRINTF_CVT_FILE_NAME}",
                          confObj=confObj))
 
 
@@ -100,13 +93,13 @@ def copyLockFiles(
     confObj: config.SystemConfig,
 ) -> None:
   with open(consts.LOCK_FILE_NAME, "w") as f:
-    f.write(btl.template(f"{consts.LOCK_FILE_NAME}", confObj=confObj))
+    f.write(btl.template(f"locks/{consts.LOCK_FILE_NAME}", confObj=confObj))
 
   with open(consts.CACHEABLE_LOCK_FILE_NAME, "w") as f:
-    f.write(btl.template(f"{consts.CACHEABLE_LOCK_FILE_NAME}", confObj=confObj))
+    f.write(btl.template(f"locks/{consts.CACHEABLE_LOCK_FILE_NAME}", confObj=confObj))
 
   with open(consts.RES_LOCK_FILE_NAME, "w") as f:
-    f.write(btl.template(f"{consts.RES_LOCK_FILE_NAME}", confObj=confObj))
+    f.write(btl.template(f"locks/{consts.RES_LOCK_FILE_NAME}", confObj=confObj))
 
 
 def copyLinkerScriptFile(
@@ -123,6 +116,8 @@ def copyProjectFiles(
   util.runCommand(f"cp {confObj.software.projectFiles.rootDir}/*.c .")
   # copy all .h xfiles
   util.runCommand(f"cp {confObj.software.projectFiles.rootDir}/*.h .", suppressError=True)
+  # copy all .s xfiles
+  util.runCommand(f"cp {confObj.software.projectFiles.rootDir}/*.s .", suppressError=True)
   # copy results file
   if confObj.software.projectFiles.resultsFile:
     util.runCommand(f"cp {confObj.software.projectFiles.rootDir}/{confObj.software.projectFiles.resultsFile} .")
@@ -131,8 +126,8 @@ def copyProjectFiles(
 def copyInitFile(
     confObj: config.SystemConfig,
 ) -> None:
-  with open(consts.INIT_00_FILE_NAME, "w") as f:
-    f.write(btl.template(f"build_init/{consts.INIT_00_FILE_NAME}",
+  with open(consts.INIT_FILE_NAME, "w") as f:
+    f.write(btl.template(f"init/{consts.INIT_FILE_NAME}",
                          confObj=confObj))
 
 

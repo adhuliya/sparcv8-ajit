@@ -130,8 +130,8 @@ def copyInitFile(
     confObj: config.UserConfig,
 ) -> None:
   print(f"CoRTOS: AllocRegionSize: {confObj.reservedMem.sizeInBytes} bytes.")
-  with open(consts.INIT_00_FILE_NAME, "w") as f:
-    f.write(btl.template(f"build_init/{consts.INIT_00_FILE_NAME}",
+  with open(consts.INIT_FILE_NAME, "w") as f:
+    f.write(btl.template(f"build_init/{consts.INIT_FILE_NAME}",
                          confObj=confObj))
 
 

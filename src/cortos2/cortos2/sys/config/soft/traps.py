@@ -1,27 +1,27 @@
 """
-User defined interrupts.
+User and system defined traps/interrupts.
 """
 from typing import Dict, List, Optional as Opt
 
 from cortos2.common import util
 
 
-class InterruptHandler:
+class TrapHandler:
   def __init__(self,
-      typeCode: int,
-      funcName: str,
+      trapCode: int,
+      handlerFunc: str,
   ):
-    self.typeCode = typeCode
-    self.funcName = funcName
+    self.trapCode = trapCode
+    self.handlerFunc = handlerFunc
 
   @staticmethod
   def generateObject(
       userProvidedConfig: Dict,
       prevKeySeq: Opt[List] = None,
-  ) -> 'InterruptHandler':
-    typeCode = util.getConfigurationParameter(
+  ) -> 'TrapHandler':
+    trapCode = util.getConfigurationParameter(
       data=userProvidedConfig,
-      keySeq=["TypeCode"],
+      keySeq=["TrapCode"],
       default=None,
     )
 
@@ -31,9 +31,9 @@ class InterruptHandler:
       default=None,
     )
 
-    intHandler = InterruptHandler(
-      typeCode=typeCode,
-      funcName=funcName,
+    trapHandler = TrapHandler(
+      trapCode=trapCode,
+      handlerFunc=funcName,
     )
-    return intHandler
+    return trapHandler
 

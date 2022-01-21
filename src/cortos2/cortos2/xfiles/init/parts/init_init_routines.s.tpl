@@ -6,6 +6,34 @@
 ! This routine initializes a pre-determined region(s) of memory to zero.
 ! This routine works before the MMU is set.
 
+!
+! A utility which initializes all stack pointers to 0.
+!
+.global __cortos_clear_stack_pointers
+__cortos_clear_stack_pointers:
+	mov %g0, %wim
+
+	mov %g0, %sp
+ 	save
+	mov %g0, %sp
+ 	save
+	mov %g0, %sp
+ 	save
+	mov %g0, %sp
+ 	save
+	mov %g0, %sp
+ 	save
+	mov %g0, %sp
+ 	save
+	mov %g0, %sp
+ 	save
+	mov %g0, %sp
+	save
+
+	retl
+	nop
+
+
 .global __cortos_init_region_to_zero
 
 ! initialize the region above to zeros

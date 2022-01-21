@@ -131,7 +131,6 @@ def computeStackAddr(confObj: config.UserConfig) -> None:
       else consts.DEFAULT_STACK_SIZE
     highAddr = util.alignAddress(highAddr, align=8)
     prog.stackStartAddr = highAddr
-    highAddr -= stackSize
 
 
 # def patchCortosCalls(confObj: config.UserConfig):

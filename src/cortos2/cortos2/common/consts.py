@@ -114,7 +114,7 @@ LINKER_SCRIPT_FILE_NAME: str = "LinkerScript.txt"
 LINKER_SCRIPT_00_FILE_NAME: str = "LinkerScript00.txt"
 LINKER_SCRIPT_XX_FILE_NAME: str = "LinkerScriptXX.txt"
 
-INIT_00_FILE_NAME: str = "init_00.s"
+INIT_FILE_NAME: str = "init.s"
 
 # # unused
 # AJIT_ENTRY_FUNC_REGEX: str = r"void\s+(?P<ajit_entry>ajit_entry_func_\w+)"

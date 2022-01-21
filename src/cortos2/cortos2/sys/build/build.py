@@ -75,7 +75,6 @@ def copyBuildFiles(
   # STEP 3: Copy xfiles that the user might not need to look into.
   os.chdir(confObj.software.projectFiles.cortosSrcDir)
 
-  cpy.copyPageTableFile(confObj)
   cpy.copyVmapFile(confObj)
   cpy.copyLinkerScriptFile(confObj)
   cpy.copyCortosInternalHeaderFile(confObj)

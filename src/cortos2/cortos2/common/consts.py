@@ -102,6 +102,7 @@ MMAP_FILE_NAME: str = "main.mmap"
 REMMAP_FILE_NAME: str = "main.mmap.remapped"
 
 TRAP_FILE_NAME: str = "trap_handlers.s"
+TRAP_RTOS_FILE_NAME: str = "trap_handlers_for_rtos.s"
 PAGE_TABLE_FILE_NAME: str = "setup_page_tables.s"
 VMAP_FILE_NAME: str = "vmap.txt"
 CORTOS_HEADER_FILE_NAME: str = "cortos.h"
@@ -111,8 +112,6 @@ CACHEABLE_LOCK_FILE_NAME: str = "cortos_lock_unlock_cacheable.s"
 RES_LOCK_FILE_NAME: str = "__cortos_lock_unlock.s"
 
 LINKER_SCRIPT_FILE_NAME: str = "LinkerScript.txt"
-LINKER_SCRIPT_00_FILE_NAME: str = "LinkerScript00.txt"
-LINKER_SCRIPT_XX_FILE_NAME: str = "LinkerScriptXX.txt"
 
 INIT_FILE_NAME: str = "init.s"
 
@@ -122,7 +121,7 @@ INIT_FILE_NAME: str = "init.s"
 # GREP_COMMAND: str = "grep -R 'ajit_entry_func_'"
 
 INIT_BUILD_SH_FILE_NAME: str = "build_init.sh"
-FINAL_BUILD_SH_FILE_NAME: str = "build.sh"
+BUILD_SH_FILE_NAME: str = "build.sh"
 CLEAN_SH_FILE_NAME: str = "clean.sh"
 
 RUN_CMODEL_FILE_NAME: str = "run_cmodel.sh"
@@ -141,6 +140,7 @@ QUEUE_C_FILE: str = "cortos_q.c"
 QUEUE_LOCK_FILE: str = "__cortos_q_lock_unlock.s"
 
 CORTOS_BGET_C_FILE: str = "cortos_bget.c"
+CORTOS_BGET_H_FILE: str = "cortos_bget.h"
 BGET_C_FILE: str = "__bget.c"
 BGET_H_FILE: str = "__bget.h"
 

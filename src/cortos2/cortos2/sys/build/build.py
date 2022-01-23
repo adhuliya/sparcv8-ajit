@@ -63,9 +63,7 @@ def copyBuildFiles(
   os.chdir(confObj.software.projectFiles.buildDir)
 
   # STEP 2: Copy xfiles that the user may need to change or look at.
-  cpy.copyProjectFiles(confObj)
-  cpy.copyInitFile(confObj)
-  cpy.copyTrapFile(confObj)
+  # cpy.copyProjectFiles(confObj)
   cpy.copyCortosHeaderFile(confObj)
   cpy.copyResultsFile(confObj)
   cpy.copyBuildshFile(confObj)
@@ -75,9 +73,11 @@ def copyBuildFiles(
   # STEP 3: Copy xfiles that the user might not need to look into.
   os.chdir(confObj.software.projectFiles.cortosSrcDir)
 
+  cpy.copyInitFile(confObj)
   cpy.copyVmapFile(confObj)
   cpy.copyLinkerScriptFile(confObj)
   cpy.copyCortosInternalHeaderFile(confObj)
+  cpy.copyTrapFile(confObj)
 
   # copy cortos library support
   cpy.copyCortosAsmFile(confObj)
@@ -100,7 +100,7 @@ def runBuildScript(confObj: config.SystemConfig) -> None:
   print("CoRTOS: CWD:", os.getcwd())
 
   # STEP 2: execute the `build.sh` script
-  util.runCommand(f"bash {consts.FINAL_BUILD_SH_FILE_NAME}")
+  util.runCommand(f"bash {consts.BUILD_SH_FILE_NAME}")
 
   # STEP 3: return back to the previous directory
   os.chdir(cwd)

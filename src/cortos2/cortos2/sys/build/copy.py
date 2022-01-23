@@ -106,21 +106,21 @@ def copyLinkerScriptFile(
     confObj: config.SystemConfig,
 ) -> None:
   with open(consts.LINKER_SCRIPT_FILE_NAME, "w") as f:
-    f.write(btl.template(f"linker_scripts/{consts.LINKER_SCRIPT_XX_FILE_NAME}", confObj=confObj))
+    f.write(btl.template(f"linker/{consts.LINKER_SCRIPT_FILE_NAME}", confObj=confObj))
 
 
-def copyProjectFiles(
-    confObj: config.SystemConfig,
-) -> None:
-  # copy all .c xfiles
-  util.runCommand(f"cp {confObj.software.projectFiles.rootDir}/*.c .")
-  # copy all .h xfiles
-  util.runCommand(f"cp {confObj.software.projectFiles.rootDir}/*.h .", suppressError=True)
-  # copy all .s xfiles
-  util.runCommand(f"cp {confObj.software.projectFiles.rootDir}/*.s .", suppressError=True)
-  # copy results file
-  if confObj.software.projectFiles.resultsFile:
-    util.runCommand(f"cp {confObj.software.projectFiles.rootDir}/{confObj.software.projectFiles.resultsFile} .")
+# def copyProjectFiles(
+#     confObj: config.SystemConfig,
+# ) -> None:
+#   # copy all .c xfiles
+#   util.runCommand(f"cp {confObj.software.projectFiles.rootDir}/*.c .")
+#   # copy all .h xfiles
+#   util.runCommand(f"cp {confObj.software.projectFiles.rootDir}/*.h .", suppressError=True)
+#   # copy all .s xfiles
+#   util.runCommand(f"cp {confObj.software.projectFiles.rootDir}/*.s .", suppressError=True)
+#   # copy results file
+#   if confObj.software.projectFiles.resultsFile:
+#     util.runCommand(f"cp {confObj.software.projectFiles.rootDir}/{confObj.software.projectFiles.resultsFile} .")
 
 
 def copyInitFile(
@@ -134,9 +134,10 @@ def copyInitFile(
 def copyBuildshFile(
     confObj: config.SystemConfig,
 ) -> None:
-  with open(consts.FINAL_BUILD_SH_FILE_NAME, "w") as f:
-    f.write(btl.template(f"build_sh/{consts.FINAL_BUILD_SH_FILE_NAME}",
+  with open(consts.BUILD_SH_FILE_NAME, "w") as f:
+    f.write(btl.template(f"build_sh/{consts.BUILD_SH_FILE_NAME}",
                            confObj=confObj))
+  util.runCommand(f"chmod +x {consts.BUILD_SH_FILE_NAME}")
 
 
 def copyCleanshFile(
@@ -145,11 +146,12 @@ def copyCleanshFile(
   with open(consts.CLEAN_SH_FILE_NAME, "w") as f:
     f.write(btl.template(f"build_sh/{consts.CLEAN_SH_FILE_NAME}",
                          confObj=confObj))
+  util.runCommand(f"chmod +x {consts.CLEAN_SH_FILE_NAME}")
 
 
 def copyRunCModelFile(confObj: config.SystemConfig) -> None:
   with open(consts.RUN_CMODEL_FILE_NAME, "w") as f:
-    f.write(btl.template(f"{consts.RUN_CMODEL_FILE_NAME}", confObj=confObj))
+    f.write(btl.template(f"run_sh/{consts.RUN_CMODEL_FILE_NAME}", confObj=confObj))
   util.runCommand(f"chmod +x {consts.RUN_CMODEL_FILE_NAME}")
 
 
@@ -182,6 +184,10 @@ def copyCortosBgetFiles(confObj: config.SystemConfig) -> None:
     f.write(btl.template(f"bget/{consts.CORTOS_BGET_C_FILE}",
                          confObj=confObj,
                          bgetLockIndex=consts.BGET_RES_LOCK_INDEX))
+
+  with open(consts.CORTOS_BGET_H_FILE, "w") as f:
+    f.write(btl.template(f"bget/{consts.CORTOS_BGET_H_FILE}",
+      confObj=confObj))
 
   with open(consts.BGET_C_FILE, "w") as f:
     f.write(btl.template(f"bget/{consts.BGET_C_FILE}", confObj=confObj))

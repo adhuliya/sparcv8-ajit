@@ -1,8 +1,6 @@
-/* linker script for a program (except (0,0)) (= a process) */
-
 /*========================================================*/
 /*                                                        */
-/* Sample Linker script for Sparc simulator 	          */
+/* Linker script for Ajit Sparc      	                  */
 /*                                                        */
 /*========================================================*/
 

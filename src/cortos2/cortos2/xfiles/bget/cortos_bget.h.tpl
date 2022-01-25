@@ -7,10 +7,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 % if confObj.software.bget.enable:
 
-#define CORTOS_HEAP_START_ADDR {{ confObj.software.bget.getStartAddr() }}
-#define CORTOS_HEAP_END_ADDR {{ confObj.software.bget.getEndAddr() }}
-#define CORTOS_TOTAL_HEAP_SIZE_IN_BYTES {{ confObj.software.bget.sizeInBytes }}
-
 typedef long cortos_bufsize;
 
 // get/allocate a memory of `size` bytes

@@ -76,15 +76,14 @@ def copyBuildFiles(
   cpy.copyInitFile(confObj)
   cpy.copyVmapFile(confObj)
   cpy.copyLinkerScriptFile(confObj)
-  cpy.copyCortosInternalHeaderFile(confObj)
   cpy.copyTrapFile(confObj)
 
   # copy cortos library support
-  cpy.copyCortosAsmFile(confObj)
-  cpy.copyCortosCFile(confObj)
-  cpy.copyCortosPrintfFile(confObj)
+  cpy.copyCortosUtilFiles(confObj)
   cpy.copyCortosQueueFiles(confObj)
   cpy.copyLockFiles(confObj)
+  cpy.copyCortosDeviceFiles(confObj)
+  cpy.copyCortosLoggingFiles(confObj)
   if confObj.software.bget.enable:
     cpy.copyCortosBgetFiles(confObj)
 

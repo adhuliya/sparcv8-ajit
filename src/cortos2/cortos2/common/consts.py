@@ -110,6 +110,8 @@ CORTOS_INTERNAL_HEADER_FILE_NAME: str = "__cortos.h"
 LOCK_FILE_NAME: str = "cortos_lock_unlock.s"
 CACHEABLE_LOCK_FILE_NAME: str = "cortos_lock_unlock_cacheable.s"
 RES_LOCK_FILE_NAME: str = "__cortos_lock_unlock.s"
+LOCKS_HEADER_FILE: str = "cortos_locks.h"
+LOCKS_C_FILE: str = "cortos_locks.c"
 
 LINKER_SCRIPT_FILE_NAME: str = "LinkerScript.txt"
 
@@ -135,8 +137,14 @@ MMAP_LINE_REGEX_COMPILED = re.compile(MMAP_LINE_REGEX)
 LOWER_STACK_BOUNDARY_ADDR_4MB: int = 0x300000
 LOWER_STACK_BOUNDARY_ADDR: int = LOWER_STACK_BOUNDARY_ADDR_4MB
 
+CORTOS_LOGGING_C_FILE: str = "cortos_logging.c"
+CORTOS_LOGGING_H_FILE: str = "cortos_logging.h"
 
-QUEUE_C_FILE: str = "cortos_q.c"
+CORTOS_DEVICE_C_FILE: str = "cortos_devices.c"
+CORTOS_DEVICE_H_FILE: str = "cortos_devices.h"
+
+QUEUE_C_FILE: str = "cortos_queues.c"
+QUEUE_H_FILE: str = "cortos_queues.h"
 QUEUE_LOCK_FILE: str = "__cortos_q_lock_unlock.s"
 
 CORTOS_BGET_C_FILE: str = "cortos_bget.c"
@@ -144,10 +152,11 @@ CORTOS_BGET_H_FILE: str = "cortos_bget.h"
 BGET_C_FILE: str = "__bget.c"
 BGET_H_FILE: str = "__bget.h"
 
-CORTOS_ASM_FILE_NAME: str = "cortos_asm.s"
-CORTOS_C_FILE_NAME: str = "cortos.c"
-CORTOS_PRINTF_FILE_NAME: str = "__cortos_ee_printf.c"
-CORTOS_PRINTF_CVT_FILE_NAME: str = "__cvt.c"
+CORTOS_UTILS_ASM_FILE_NAME: str = "cortos_utils.s"
+CORTOS_UTILS_C_FILE_NAME: str = "cortos_utils.c"
+CORTOS_UTILS_H_FILE_NAME: str = "cortos_utils.c"
+CORTOS_PRINTF_FILE_NAME: str = "cortos_ee_printf.c"
+CORTOS_PRINTF_CVT_FILE_NAME: str = "cortos_cvt.c"
 
 
 DEFAULT_BGET_ENABLE: bool = False

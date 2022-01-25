@@ -37,7 +37,7 @@ def copyCortosHeaderFile(
     confObj: config.SystemConfig,
 ) -> None:
   with open(consts.CORTOS_HEADER_FILE_NAME, "w") as f:
-    f.write(btl.template(f"{consts.CORTOS_HEADER_FILE_NAME}",
+    f.write(btl.template(f"api/{consts.CORTOS_HEADER_FILE_NAME}",
                          confObj=confObj,
                          consts=consts,
                          LogLevel=consts.LogLevel,
@@ -47,39 +47,21 @@ def copyCortosHeaderFile(
                          ))
 
 
-def copyCortosInternalHeaderFile(
+def copyCortosUtilFiles(
     confObj: config.SystemConfig,
 ) -> None:
-  with open(consts.CORTOS_INTERNAL_HEADER_FILE_NAME, "w") as f:
-    f.write(btl.template(f"{consts.CORTOS_INTERNAL_HEADER_FILE_NAME}",
-                         confObj=confObj,
-                         consts=consts,
-                         LogLevel=consts.LogLevel,
-                         cortosQueueLength=consts.DEFAULT_QUEUE_LEN,
-                         cortosQueueMsgSize=consts.DEFAULT_QUEUE_MSG_SIZE_IN_BYTES,
-                         cortosQueueHeaderSize=consts.QUEUE_HEADER_SIZE_IN_BYTES,
-                         ))
+  with open(consts.CORTOS_UTILS_H_FILE_NAME, "w") as f:
+    f.write(btl.template(f"utils/{consts.CORTOS_UTILS_H_FILE_NAME}",
+      confObj=confObj))
 
+  with open(consts.CORTOS_UTILS_C_FILE_NAME, "w") as f:
+    f.write(btl.template(f"utils/{consts.CORTOS_UTILS_C_FILE_NAME}",
+      confObj=confObj))
 
-def copyCortosAsmFile(
-    confObj: config.SystemConfig,
-) -> None:
-  with open(consts.CORTOS_ASM_FILE_NAME, "w") as f:
-    f.write(btl.template(f"utils/{consts.CORTOS_ASM_FILE_NAME}",
-                         confObj=confObj))
+  with open(consts.CORTOS_UTILS_ASM_FILE_NAME, "w") as f:
+    f.write(btl.template(f"utils/{consts.CORTOS_UTILS_ASM_FILE_NAME}",
+      confObj=confObj))
 
-
-def copyCortosCFile(
-    confObj: config.SystemConfig,
-) -> None:
-  with open(consts.CORTOS_C_FILE_NAME, "w") as f:
-    f.write(btl.template(f"{consts.CORTOS_C_FILE_NAME}",
-                         confObj=confObj))
-
-
-def copyCortosPrintfFile(
-    confObj: config.SystemConfig,
-) -> None:
   with open(consts.CORTOS_PRINTF_FILE_NAME, "w") as f:
     f.write(btl.template(f"utils/{consts.CORTOS_PRINTF_FILE_NAME}",
                          confObj=confObj))
@@ -100,6 +82,12 @@ def copyLockFiles(
 
   with open(consts.RES_LOCK_FILE_NAME, "w") as f:
     f.write(btl.template(f"locks/{consts.RES_LOCK_FILE_NAME}", confObj=confObj))
+
+  with open(consts.LOCKS_C_FILE, "w") as f:
+    f.write(btl.template(f"locks/{consts.LOCKS_C_FILE}", confObj=confObj))
+
+  with open(consts.LOCKS_HEADER_FILE, "w") as f:
+    f.write(btl.template(f"locks/{consts.LOCKS_HEADER_FILE}", confObj=confObj))
 
 
 def copyLinkerScriptFile(
@@ -172,6 +160,9 @@ def copyResultsFile(confObj: config.SystemConfig) -> None:
 
 
 def copyCortosQueueFiles(confObj: config.SystemConfig) -> None:
+  with open(consts.QUEUE_H_FILE, "w") as f:
+    f.write(btl.template(f"queue/{consts.QUEUE_H_FILE}", confObj=confObj))
+
   with open(consts.QUEUE_C_FILE, "w") as f:
     f.write(btl.template(f"queue/{consts.QUEUE_C_FILE}", confObj=confObj))
 
@@ -195,3 +186,22 @@ def copyCortosBgetFiles(confObj: config.SystemConfig) -> None:
   with open(consts.BGET_H_FILE, "w") as f:
     f.write(btl.template(f"bget/{consts.BGET_H_FILE}", confObj=confObj))
 
+
+def copyCortosDeviceFiles(confObj: config.SystemConfig) -> None:
+  with open(consts.CORTOS_DEVICE_C_FILE, "w") as f:
+    f.write(btl.template(f"devices/{consts.CORTOS_DEVICE_C_FILE}",
+      confObj=confObj))
+
+  with open(consts.CORTOS_DEVICE_H_FILE, "w") as f:
+    f.write(btl.template(f"devices/{consts.CORTOS_DEVICE_H_FILE}",
+      confObj=confObj))
+
+
+def copyCortosLoggingFiles(confObj: config.SystemConfig) -> None:
+  with open(consts.CORTOS_LOGGING_C_FILE, "w") as f:
+    f.write(btl.template(f"logging/{consts.CORTOS_LOGGING_C_FILE}",
+      confObj=confObj))
+
+  with open(consts.CORTOS_LOGGING_H_FILE, "w") as f:
+    f.write(btl.template(f"logging/{consts.CORTOS_LOGGING_H_FILE}",
+      confObj=confObj))

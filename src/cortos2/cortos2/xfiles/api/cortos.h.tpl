@@ -11,34 +11,28 @@
 // is provided by CORTOS or not.
 #define CORTOS_ENV
 
-#define CORTOS_TOTAL_THREADS {{len(confObj.software.program.programThreads)}}
+// Total hardware and software threads available in the system.
+#define CORTOS_TOTAL_HW_THREADS {{confObj.hardware.processor.totalThreads()}}
+#define CORTOS_TOTAL_SW_THREADS {{len(confObj.software.program.programThreads)}}
 
-#include <cortos_locks.h>
-#include <cortos_printf.h>
-#include <cortos_logging.h>
-#include <cortos_bget.h>
-#include <cortos_utils.h>
-#include <cortos_traps.h>
-#include <cortos_queues.h>
+// For more information on the APIs read the respective headers.
+#include <cortos_locks.h>       // API for locks
+#include <cortos_printf.h>      // API for printf
+#include <cortos_logging.h>     // API for logging (CORTOS_DEBUG(),...)
+#include <cortos_bget.h>        // API for heap memory
+#include <cortos_utils.h>       // API for cortos misc utility functions
+#include <cortos_traps.h>       // API for traps
+#include <cortos_queues.h>      // API for message passing queues
 
 ////////////////////////////////////////////////////////////////////////////////
 // BLOCK START: cortos_memory_layout
 ////////////////////////////////////////////////////////////////////////////////
 
-// All these memory layout macros (without the leading '__')
-// are also defined in the cortos.h header file.
-
-// First Address 0x0:
-// Few instruction to start the bootup initializtion.
+// Initial part is occupied by the program text.
 
 // Memory region reserved for cortos' misc internal use.
 #define RESERVED_MEM_START_ADDR {{ confObj.memoryLayout.reserved.getFirstByteAddr() }}
 #define RESERVED_MEM_END_ADDR {{ confObj.memoryLayout.reserved.getLastByteAddr() }}
-
-// // Details related to the user scratch space.
-// #define SCRATCH_SPACE_START_ADDR
-// #define SCRATCH_SPACE_END_ADDR
-// #define TOTAL_SCRATCH_SPACE_IN_BYTES
 
 // Details of the cortos reserved lock vars (not available to the user)
 #define RES_LOCK_VARS_START_ADDR {{ confObj.software.locks.resLocksStartAddr }}

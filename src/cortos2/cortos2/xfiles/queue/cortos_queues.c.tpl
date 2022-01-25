@@ -1,8 +1,8 @@
 
 // needs linking with cortos_q_lock_unlock.s
 
-#include "cortos.h"
-#include "__cortos.h"
+#include "cortos_locks.h"
+#include "cortos_queues.h"
 
 char queueIdArray[__MAX_QUEUES];
 

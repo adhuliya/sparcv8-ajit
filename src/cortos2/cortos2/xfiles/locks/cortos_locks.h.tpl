@@ -21,6 +21,8 @@
 
 // NOTE: Use the same index to synchronize two or more threads.
 
+#define __MAX_LOCK_VARS {{ confObj.software.locks.userLocks }}
+
 // For Non-Cacheable Locks
 // Reserve an unused lock variable id from cortos.
 //   It returns the lock variable id of the lock reserved.

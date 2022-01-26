@@ -102,6 +102,7 @@ MMAP_FILE_NAME: str = "main.mmap"
 REMMAP_FILE_NAME: str = "main.mmap.remapped"
 
 TRAP_FILE_NAME: str = "trap_handlers.s"
+TRAP_H_FILE_NAME: str = "cortos_traps.h"
 TRAP_RTOS_FILE_NAME: str = "trap_handlers_for_rtos.s"
 PAGE_TABLE_FILE_NAME: str = "setup_page_tables.s"
 VMAP_FILE_NAME: str = "vmap.txt"
@@ -109,7 +110,7 @@ CORTOS_HEADER_FILE_NAME: str = "cortos.h"
 CORTOS_INTERNAL_HEADER_FILE_NAME: str = "__cortos.h"
 LOCK_FILE_NAME: str = "cortos_lock_unlock.s"
 CACHEABLE_LOCK_FILE_NAME: str = "cortos_lock_unlock_cacheable.s"
-RES_LOCK_FILE_NAME: str = "__cortos_lock_unlock.s"
+RES_LOCK_FILE_NAME: str = "cortos_lock_unlock_res.s"
 LOCKS_HEADER_FILE: str = "cortos_locks.h"
 LOCKS_C_FILE: str = "cortos_locks.c"
 
@@ -145,18 +146,18 @@ CORTOS_DEVICE_H_FILE: str = "cortos_devices.h"
 
 QUEUE_C_FILE: str = "cortos_queues.c"
 QUEUE_H_FILE: str = "cortos_queues.h"
-QUEUE_LOCK_FILE: str = "__cortos_q_lock_unlock.s"
+QUEUE_LOCK_FILE: str = "cortos_queues_lock_unlock.s"
 
 CORTOS_BGET_C_FILE: str = "cortos_bget.c"
 CORTOS_BGET_H_FILE: str = "cortos_bget.h"
 BGET_C_FILE: str = "__bget.c"
 BGET_H_FILE: str = "__bget.h"
 
-CORTOS_UTILS_ASM_FILE_NAME: str = "cortos_utils.s"
+CORTOS_UTILS_ASM_FILE_NAME: str = "cortos_utils_asm.s"
 CORTOS_UTILS_C_FILE_NAME: str = "cortos_utils.c"
-CORTOS_UTILS_H_FILE_NAME: str = "cortos_utils.c"
-CORTOS_PRINTF_FILE_NAME: str = "cortos_ee_printf.c"
-CORTOS_PRINTF_CVT_FILE_NAME: str = "cortos_cvt.c"
+CORTOS_UTILS_H_FILE_NAME: str = "cortos_utils.h"
+CORTOS_PRINTF_FILE_NAME: str = "cortos_util_ee_printf.c"
+CORTOS_PRINTF_CVT_FILE_NAME: str = "cortos_util_cvt.c"
 
 
 DEFAULT_BGET_ENABLE: bool = False

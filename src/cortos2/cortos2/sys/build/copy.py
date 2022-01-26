@@ -15,11 +15,14 @@ from cortos2.common import bottle as btl
 from cortos2.common import consts, util
 
 
-def copyTrapFile(
+def copyTrapFiles(
     confObj: config.SystemConfig,
 ) -> None:
   with open(consts.TRAP_FILE_NAME, "w") as f:
     f.write(btl.template(f"traps/{consts.TRAP_FILE_NAME}"))
+
+  with open(consts.TRAP_H_FILE_NAME, "w") as f:
+    f.write(btl.template(f"traps/{consts.TRAP_H_FILE_NAME}"))
 
 
 def copyVmapFile(
@@ -204,4 +207,4 @@ def copyCortosLoggingFiles(confObj: config.SystemConfig) -> None:
 
   with open(consts.CORTOS_LOGGING_H_FILE, "w") as f:
     f.write(btl.template(f"logging/{consts.CORTOS_LOGGING_H_FILE}",
-      confObj=confObj))
+      confObj=confObj, consts=consts))

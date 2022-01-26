@@ -2,6 +2,7 @@
 #include "stdarg.h"
 
 #include <cortos_utils.h>
+#include <cortos_locks.h>
 #include "ajit_access_routines.h"
 #include "core_portme.h"
 

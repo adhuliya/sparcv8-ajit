@@ -12,12 +12,11 @@
 #define CORTOS_ENV
 
 // Total hardware and software threads available in the system.
-#define CORTOS_TOTAL_HW_THREADS {{confObj.hardware.processor.totalThreads()}}
+#define CORTOS_TOTAL_HW_THREADS {{confObj.hardware.cpu.totalThreads()}}
 #define CORTOS_TOTAL_SW_THREADS {{len(confObj.software.program.programThreads)}}
 
 // For more information on the APIs read the respective headers.
 #include <cortos_locks.h>       // API for locks
-#include <cortos_printf.h>      // API for printf
 #include <cortos_logging.h>     // API for logging (CORTOS_DEBUG(),...)
 #include <cortos_bget.h>        // API for heap memory
 #include <cortos_utils.h>       // API for cortos misc utility functions

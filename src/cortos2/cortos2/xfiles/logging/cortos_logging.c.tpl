@@ -1,4 +1,5 @@
 
+#include <stdarg.h>
 #include <cortos_locks.h>
 #include <cortos_utils.h>
 

@@ -76,7 +76,7 @@ def copyBuildFiles(
   cpy.copyInitFile(confObj)
   cpy.copyVmapFile(confObj)
   cpy.copyLinkerScriptFile(confObj)
-  cpy.copyTrapFile(confObj)
+  cpy.copyTrapFiles(confObj)
 
   # copy cortos library support
   cpy.copyCortosUtilFiles(confObj)

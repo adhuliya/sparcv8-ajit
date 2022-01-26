@@ -1,4 +1,5 @@
 
+#include <stdint.h>
 #include "ajit_access_routines.h"
 #include "core_portme.h"
 #include "cortos_devices.h"

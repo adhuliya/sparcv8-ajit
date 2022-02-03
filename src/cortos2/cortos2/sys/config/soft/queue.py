@@ -12,10 +12,12 @@ class Queue:
       qid: int, # A unique id of the queue
       length: int = consts.DEFAULT_QUEUE_LEN,
       msgSizeInBytes: int = consts.DEFAULT_QUEUE_MSG_SIZE_IN_BYTES,
+      name: str = "",
   ) -> None:
     self.qid = qid
     self.length = length
     self.msgSizeInBytes = msgSizeInBytes
+    self.name = name if name else str(self.qid)
 
 
   def getSizeInBytes(self) -> int:

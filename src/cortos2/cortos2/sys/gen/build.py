@@ -13,7 +13,7 @@ import os
 from cortos2.common import consts
 from cortos2.common import util
 from cortos2.sys.config import config
-import cortos2.sys.build.copy as cpy
+import cortos2.sys.gen.copy as cpy
 
 
 def buildProject(confObj: config.SystemConfig) -> None:

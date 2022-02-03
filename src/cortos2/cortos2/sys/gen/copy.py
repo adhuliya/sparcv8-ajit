@@ -18,8 +18,8 @@ from cortos2.common import consts, util
 def copyTrapFiles(
     confObj: config.SystemConfig,
 ) -> None:
-  with open(consts.TRAP_FILE_NAME, "w") as f:
-    f.write(btl.template(f"traps/{consts.TRAP_FILE_NAME}"))
+  # with open(consts.TRAP_FILE_NAME, "w") as f:
+  #   f.write(btl.template(f"traps/{consts.TRAP_FILE_NAME}"))
 
   with open(consts.TRAP_H_FILE_NAME, "w") as f:
     f.write(btl.template(f"traps/{consts.TRAP_H_FILE_NAME}"))

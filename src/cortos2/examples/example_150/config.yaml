@@ -94,6 +94,10 @@ Software:
     # SizeInMegaBytes: ...
 
   Queues:
-    - Name: A
+    - Name: BOB
       MsgSizeInBytes: 4
-      Length: 1000
+      Length: 1024
+    - Name: NIRAL
+      MsgSizeInBytes: 4
+      Length: 4096
+

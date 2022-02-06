@@ -1,6 +1,6 @@
 
 #include <cortos_locks.h>
-#include <cortos_queue.h>
+#include <cortos_queues.h>
 
 
 CortosQueueHeader cortosQueueHeaders[{{len(confObj.software.queueSeq)}}];
@@ -12,14 +12,14 @@ uint8_t cortosQueue{{queue.qid}}[{{queue.length}}][{{queue.msgSizeInBytes}}];
 
 // initialize the queue headers
 void cortos_init_queue_headers() {
-  % for i, queue in enumerate(queues):
+  % for i, queue in enumerate(confObj.software.queueSeq.queueSeq):
   // CORTOS_QUEUE_{{queue.name}}, seq = {{i}}, queue.qid = {{queue.qid}}
-  queueHeaders[i].totalMsgs   = 0;
-  queueHeaders[i].readIndex   = 0;
-  queueHeaders[i].writeIndex  = 0;
-  queueHeaders[i].msgSizeInBytes = {{queue.msgSizeInBytes}};
-  queueHeaders[i].queuePtr       = (uint8_t*) cortosQueue{{queue.qid}};
-  queueHeaders[i].length         = {{queue.length}};
+  cortosQueueHeaders[{{i}}].totalMsgs   = 0;
+  cortosQueueHeaders[{{i}}].readIndex   = 0;
+  cortosQueueHeaders[{{i}}].writeIndex  = 0;
+  cortosQueueHeaders[{{i}}].msgSizeInBytes = {{queue.msgSizeInBytes}};
+  cortosQueueHeaders[{{i}}].queuePtr       = (uint8_t*) cortosQueue{{queue.qid}};
+  cortosQueueHeaders[{{i}}].length         = {{queue.length}};
 
   % end
 }
@@ -70,7 +70,7 @@ uint32_t cortos_readMessages(uint32_t queueId, uint8_t *msgs, uint32_t count) {
   uint32_t msgSizeInBytes = hdr->msgSizeInBytes;
   uint8_t* queuePtr       = hdr->queuePtr;
 
-  while ((process > 0) && (totalMsgs < hdr->length)) {
+  while ((process > 0) && (totalMsgs > 0)) {
     dest = msgs + (msgSizeInBytes * (count - process));
     src  = queuePtr + (msgSizeInBytes * readIndex);
     for (i = 0; i < msgSizeInBytes; ++i) {
@@ -81,8 +81,9 @@ uint32_t cortos_readMessages(uint32_t queueId, uint8_t *msgs, uint32_t count) {
   }
 
   hdr->totalMsgs  = totalMsgs;
-  hdr->writeIndex = writeIndex;
+  hdr->readIndex  = readIndex;
 
   __cortos_q_lock_release(queueId);
   return (count - process);
 }
+

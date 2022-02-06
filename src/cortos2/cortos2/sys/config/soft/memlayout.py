@@ -174,5 +174,3 @@ class MemoryLayout:
     )
     self.regionSeq.append(region)
 
-
-

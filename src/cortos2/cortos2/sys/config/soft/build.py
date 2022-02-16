@@ -13,12 +13,14 @@ class Build:
       optLevel: int = consts.DEFAULT_OPT_LEVEL,
       logLevel: consts.LogLevel = consts.DEFAULT_LOG_LEVEL,
       enableSerial: bool = consts.DEFAULT_ENABLE_SERIAL_DEVICE,
+      buildArgs: str = "",
   ) -> None:
     self.debug = debug
     self.firstDebugPort = firstDebugPort
     self.optLevel = optLevel
     self.logLevel = logLevel
     self.enableSerial = enableSerial
+    self.buildArgs = buildArgs
 
 
   def setDebugParameter(self,
@@ -58,6 +60,7 @@ class Build:
       data=userProvidedConfig,
       keySeq=[keyName],
       default=None,
+      prevKeySeq=prevKeySeq[:-1],
     )
 
     debug = Build.generateDebugParam(config, prevKeySeq)
@@ -65,6 +68,7 @@ class Build:
     optLevel = Build.generateOptLevelParam(config, prevKeySeq)
     logLevel = Build.generateLogLevelParam(config, prevKeySeq)
     enableSerial = Build.generateEnableSerialParam(config, prevKeySeq)
+    buildArgs = Build.generateBuildArgsParam(config, prevKeySeq)
 
     prevKeySeq.pop()
     build = Build(
@@ -73,6 +77,7 @@ class Build:
       optLevel=optLevel,
       logLevel=logLevel,
       enableSerial=enableSerial,
+      buildArgs=buildArgs,
     )
     return build
 
@@ -87,6 +92,7 @@ class Build:
       data=userProvidedConfig,
       keySeq=[keyName],
       default=consts.DEFAULT_DEBUG_BUILD,
+      prevKeySeq=prevKeySeq,
     )
     debug = debugFlag
 
@@ -103,6 +109,7 @@ class Build:
       data=userProvidedConfig,
       keySeq=[keyName],
       default=consts.DEFAULT_OPT_LEVEL,
+      prevKeySeq=prevKeySeq,
     )
     if not 0 <= optLevel <= 2:
       optLevel = consts.DEFAULT_OPT_LEVEL
@@ -121,6 +128,7 @@ class Build:
       data=userProvidedConfig,
       keySeq=[keyName],
       default=consts.DEFAULT_LOG_LEVEL.name,
+      prevKeySeq=prevKeySeq,
     )
 
     return Build.getLogLevel(logLevelStr)
@@ -142,7 +150,8 @@ class Build:
     enableSerial: bool = util.getConfigurationParameter(
       data=userProvidedConfig,
       keySeq=[keyName],
-      default= consts.DEFAULT_ENABLE_SERIAL_DEVICE
+      default= consts.DEFAULT_ENABLE_SERIAL_DEVICE,
+      prevKeySeq=prevKeySeq,
     )
     enableSerialBool = enableSerial
 
@@ -160,9 +169,27 @@ class Build:
       data=userProvidedConfig,
       keySeq=[keyName],
       default=consts.DEFAULT_FIRST_DEBUG_PORT,
+      prevKeySeq=prevKeySeq,
     )
 
     return int(firstDebugPort)
+
+
+  @staticmethod
+  def generateBuildArgsParam(
+      userProvidedConfig: Dict,
+      prevKeySeq: Opt[List] = None,
+  ) -> str:
+    keyName = "BuildArgs"
+
+    buildArgs: str = util.getConfigurationParameter(
+      data=userProvidedConfig,
+      keySeq=[keyName],
+      default="",
+      prevKeySeq=prevKeySeq,
+    )
+
+    return buildArgs
 
 
 def initConfig(

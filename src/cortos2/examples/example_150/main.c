@@ -12,15 +12,23 @@ The reader collects the values and sums them up.
 void main() {} // important, but kept empty.
 
 void cortos_entry_func_001() {
-  uint32_t i, sum = 0;
+  uint32_t sentCount, i, totalSent = 0;
+  uint32_t msgs[TOTAL_MESSAGES];
 
+  CORTOS_TRACE("Hello from Sender!");
   for (i = 0; i < TOTAL_MESSAGES; ++i) {
-    CORTOS_TRACE("Sending Message %d.", i);
-    cortos_writeMessages(CORTOS_QUEUE_BOB, (uint8_t*)&i, 1);
-    sum += i;
+    msgs[i] = i;
   }
 
-  cortos_exit(sum);
+  while (totalSent < TOTAL_MESSAGES) {
+    sentCount = cortos_writeMessages(CORTOS_QUEUE_BOB,
+      (uint8_t*)(msgs+totalSent), TOTAL_MESSAGES);
+    CORTOS_DEBUG("Sending %d messages: sent %d.",
+      TOTAL_MESSAGES-totalSent, sentCount);
+    totalSent += sentCount;
+  }
+
+  cortos_exit(totalSent);
 }
 
 void cortos_entry_func_010() {
@@ -30,15 +38,20 @@ void cortos_entry_func_010() {
 
 void cortos_entry_func_101() {
   uint32_t sum = 0;
-  uint32_t i = 0, value, status;
+  uint32_t i = 0, count;
+  uint32_t msgs[TOTAL_MESSAGES];
 
+  CORTOS_TRACE("Hello from Receiver!");
   while(i < TOTAL_MESSAGES) {
-    status = cortos_readMessages(CORTOS_QUEUE_BOB, (uint8_t*)&value, 1);
-    if (status) {
-      CORTOS_TRACE("Received Message %d: value %d.", i, value);
-      sum += value;
-      ++i;
+    count = cortos_readMessages(CORTOS_QUEUE_BOB, (uint8_t*)(msgs+i), TOTAL_MESSAGES-i);
+    i += count;
+    if (count) {
+      CORTOS_DEBUG("Received %d messages. Need %d more.", count, TOTAL_MESSAGES-i);
     }
+  }
+
+  for (i = 0; i < TOTAL_MESSAGES; ++i) {
+    sum += msgs[i];
   }
 
   cortos_exit(sum);

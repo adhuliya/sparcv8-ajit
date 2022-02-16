@@ -292,3 +292,7 @@ def runCommandGetOutput(cmd: str) -> str:
         f" command return code {status}")
   return output
 
+
+def exitProgram(message: str, status: int = 1):
+  print(f"CoRTOS: error: {message}")
+  exit(status)

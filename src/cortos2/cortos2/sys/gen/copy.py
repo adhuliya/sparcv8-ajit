@@ -191,6 +191,12 @@ def copyCortosBgetFiles(confObj: config.SystemConfig) -> None:
   with open(consts.BGET_H_FILE, "w") as f:
     f.write(btl.template(f"bget/{consts.BGET_H_FILE}", confObj=confObj))
 
+  with open(consts.BGET_C_FILE_NCRAM, "w") as f:
+    f.write(btl.template(f"bget/{consts.BGET_C_FILE_NCRAM}", confObj=confObj))
+
+  with open(consts.BGET_H_FILE_NCRAM, "w") as f:
+    f.write(btl.template(f"bget/{consts.BGET_H_FILE_NCRAM}", confObj=confObj))
+
 
 def copyCortosDeviceFiles(confObj: config.SystemConfig) -> None:
   with open(consts.CORTOS_DEVICE_C_FILE, "w") as f:

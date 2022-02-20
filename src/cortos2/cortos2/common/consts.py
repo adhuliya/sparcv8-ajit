@@ -153,6 +153,8 @@ CORTOS_BGET_C_FILE: str = "cortos_bget.c"
 CORTOS_BGET_H_FILE: str = "cortos_bget.h"
 BGET_C_FILE: str = "__bget.c"
 BGET_H_FILE: str = "__bget.h"
+BGET_C_FILE_NCRAM: str = "__bget_ncram.c"
+BGET_H_FILE_NCRAM: str = "__bget_ncram.h"
 
 CORTOS_UTILS_ASM_FILE_NAME: str = "cortos_utils_asm.s"
 CORTOS_UTILS_C_FILE_NAME: str = "cortos_utils.c"

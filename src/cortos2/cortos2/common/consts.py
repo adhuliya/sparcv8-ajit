@@ -101,9 +101,11 @@ ELF_FILE_NAME: str = "main.elf"
 MMAP_FILE_NAME: str = "main.mmap"
 REMMAP_FILE_NAME: str = "main.mmap.remapped"
 
-TRAP_FILE_NAME: str = "trap_handlers.s"
+TRAP_C_FILE_NAME: str = "cortos_traps_init.c"
+TRAP_ASM_FILE_NAME: str = "cortos_traps_asm.s"
 TRAP_H_FILE_NAME: str = "cortos_traps.h"
 TRAP_RTOS_FILE_NAME: str = "trap_handlers_for_rtos.s"
+
 PAGE_TABLE_FILE_NAME: str = "setup_page_tables.s"
 VMAP_FILE_NAME: str = "vmap.txt"
 CORTOS_HEADER_FILE_NAME: str = "cortos.h"
@@ -165,6 +167,7 @@ DEFAULT_BGET_MEM_SIZE_IN_KB: int = 100   # KB
 BGET_RES_LOCK_INDEX: int = 0
 
 DEFAULT_ENABLE_SERIAL_DEVICE: bool = True
+DEFAULT_ENABLE_SERIAL_INTERRUPT: bool = False
 
 # ALL < TRACE < DEBUG < INFO < ERROR < CRITICAL < NONE
 class LogLevel(Enum):

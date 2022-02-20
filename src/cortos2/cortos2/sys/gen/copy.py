@@ -18,9 +18,14 @@ from cortos2.common import consts, util
 def copyTrapFiles(
     confObj: config.SystemConfig,
 ) -> None:
-  # with open(consts.TRAP_FILE_NAME, "w") as f:
-  #   f.write(btl.template(f"traps/{consts.TRAP_FILE_NAME}"))
-
+  with open(consts.TRAP_H_FILE_NAME, "w") as f:
+    f.write(btl.template(f"traps/{consts.TRAP_H_FILE_NAME}"))
+  with open(consts.TRAP_C_FILE_NAME, "w") as f:
+    f.write(btl.template(f"traps/{consts.TRAP_C_FILE_NAME}",
+      confObj=confObj,
+    ))
+  with open(consts.TRAP_ASM_FILE_NAME, "w") as f:
+    f.write(btl.template(f"traps/{consts.TRAP_ASM_FILE_NAME}"))
   with open(consts.TRAP_H_FILE_NAME, "w") as f:
     f.write(btl.template(f"traps/{consts.TRAP_H_FILE_NAME}"))
 
@@ -205,3 +210,4 @@ def copyCortosLoggingFiles(confObj: config.SystemConfig) -> None:
   with open(consts.CORTOS_LOGGING_H_FILE, "w") as f:
     f.write(btl.template(f"logging/{consts.CORTOS_LOGGING_H_FILE}",
       confObj=confObj, consts=consts))
+

@@ -22,15 +22,13 @@ cortos_lock_acquire_buzy:
   ! i0 contains an index to the correct locking variable
   save  %sp, -96, %sp       ! func prefix
 
-  set {{ userLocksStartAddr }}, %l0
-  ! sll %i0, 0x2, %i0                   ! * 4 (jump 4 bytes at a time)
 try_to_lock:
-  ldstub [%l0+%i0], %l1
+  ldstub [%i0], %l1
   tst %l1
   be out
   nop
 wait_for_lock:
-  ldub [%l0+%i0], %l1
+  ldub [%i0], %l1
   tst %l1
   bne wait_for_lock
   nop
@@ -50,12 +48,8 @@ cortos_lock_acquire:
   ! i0 contains an index to the correct locking variable
   save  %sp, -96, %sp       ! func prefix
 
-  set {{ userLocksStartAddr }}, %l0
-  ! sll %i0, 0x2, %i0                   ! * 4 (jump 4 bytes at a time)
-
-
 try_to_lock_once:
-  ldstub [%l0+%i0], %l1
+  ldstub [%i0], %l1
   tst %l1
   be lock_acquired
   nop
@@ -80,11 +74,8 @@ cortos_lock_release:
   ! i0 contains an index to the correct locking variable
   save  %sp, -96, %sp       ! func prefix
 
-  set {{ userLocksStartAddr }}, %l0
-  ! sll %i0, 0x2, %i0                   ! * 4 (jump 4 bytes at a time)
-
   stbar
-  stub %g0, [%l0+%i0]
+  stub %g0, [%i0]
 
   restore                   ! func suffix
   jmp %o7+8                 ! func suffix

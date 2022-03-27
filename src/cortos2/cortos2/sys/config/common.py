@@ -34,7 +34,7 @@ class MemoryRegion(util.PrettyStr):
     self.regionType = regionType
     self.initToZero = initToZero
 
-    if initPageTableLevels:
+    if initPageTableLevels and self.sizeInBytes > 0:
       self.initPageTableLevels()
 
 

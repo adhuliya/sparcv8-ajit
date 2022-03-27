@@ -118,16 +118,17 @@ class MemoryLayout:
     self.zeroRegionSeq.append(region)
     locks.setMemoryRegion(region)
 
-    region = common.MemoryRegion(
-      name="MemoryAllocArea",
-      oneLineDescription="Dynamic memory is allocated from here.",
-      sizeInBytes=bgetObj.sizeInBytes,
-      virtualStartAddr=region.getNextToLastByteAddr(virtualAddr=True),
-      physicalStartAddr=region.getNextToLastByteAddr(virtualAddr=False),
-      permissions=consts.MemoryPermissions.S_RWX_U_RWX,
-    )
-    self.regionSeq.append(region)
-    bgetObj.setMemoryRegion(region)
+    if bgetObj.enable:
+      region = common.MemoryRegion(
+        name="MemoryAllocArea",
+        oneLineDescription="Dynamic memory is allocated from here.",
+        sizeInBytes=bgetObj.sizeInBytes,
+        virtualStartAddr=region.getNextToLastByteAddr(virtualAddr=True),
+        physicalStartAddr=region.getNextToLastByteAddr(virtualAddr=False),
+        permissions=consts.MemoryPermissions.S_RWX_U_RWX,
+      )
+      self.regionSeq.append(region)
+      bgetObj.setMemoryRegion(region)
 
     # create space for program stacks
     region = common.MemoryRegion(

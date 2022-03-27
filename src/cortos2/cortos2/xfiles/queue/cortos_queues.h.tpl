@@ -17,6 +17,7 @@ typedef struct _CortosQueueHeader {
   uint8_t *lock;
 } CortosQueueHeader;
 
+% if confObj.software.bget.enable:
 /* Reserve a cortos queue.
   msgSizeInBytes - size of each message in bytes
   length - the number of messages the queue can hold
@@ -30,6 +31,8 @@ cortos_reserveQueue(uint32_t msgSizeInBytes, uint32_t length, uint8_t nc);
 
 /* Free a reserved queue. */
 void cortos_freeQueue(CortosQueueHeader *hdr);
+
+% end
 
 /* Write one or more messages.
   - Returns the number of messages written from *msgs.

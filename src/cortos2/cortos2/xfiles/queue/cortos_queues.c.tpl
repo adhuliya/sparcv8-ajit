@@ -1,8 +1,11 @@
 
 #include <cortos_locks.h>
 #include <cortos_queues.h>
+% if confObj.software.bget.enable:
 #include <cortos_bget.h>
+% end
 
+% if confObj.software.bget.enable:
 CortosQueueHeader*
 cortos_reserveQueue(uint32_t msgSizeInBytes, uint32_t length, uint8_t nc) {
   uint8_t* queue = 0;
@@ -35,6 +38,7 @@ void cortos_freeQueue(CortosQueueHeader *hdr) {
     cortos_brel((void*)hdr);
   }
 }
+% end
 
 
 uint32_t cortos_writeMessages(CortosQueueHeader *hdr, uint8_t *msgs, uint32_t count) {

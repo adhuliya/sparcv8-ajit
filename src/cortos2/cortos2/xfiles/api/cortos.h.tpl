@@ -21,7 +21,9 @@
 // For more information on the APIs please read the respective headers.
 #include <cortos_locks.h>       // API for locks
 #include <cortos_logging.h>     // API for logging (CORTOS_DEBUG(),...)
+% if confObj.software.bget.enable:
 #include <cortos_bget.h>        // API for heap memory
+% end
 #include <cortos_utils.h>       // API for cortos misc utility functions
 #include <cortos_traps.h>       // API for traps
 #include <cortos_queues.h>      // API for message passing queues

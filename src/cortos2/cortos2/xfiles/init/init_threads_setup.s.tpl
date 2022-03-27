@@ -22,6 +22,17 @@ CORTOS_SETUP_THREADS:
   set {{ hex(progThread.getStackStartAddr()) }}, %sp  ! set stack address
   clr %fp
 
+  ! zero initialization of memory regions and flags
+  set INIT_BY_00_DONE, %g2
+  ld [%g2], %g2
+  mov 0x0, %g3
+  st %g3, [%g2]  ! set to zero
+
+  set PT_FLAG, %g2
+  ld [%g2], %g2
+  mov 0x0, %g3
+  st %g3, [%g2]  ! set to zero
+
   call __cortos_init_region_to_zero
   nop
 
@@ -49,7 +60,7 @@ CORTOS_SETUP_THREADS:
   call __cortos_bpool
   nop
 % end
-% if confObj.hardware.memory.ncram.sizeInBytes > 0:
+% if confObj.hardware.memory.ncram.sizeInBytes:
   ! acquire memory for bget ncram just once
   call __cortos_bpool_ncram
   nop

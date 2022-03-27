@@ -3,8 +3,8 @@
 
 uint8_t* lockStartAddr   = {{ hex(confObj.software.locks.locksStartAddrCacheable) }};
 uint8_t* lockStartAddrNc = {{ hex(confObj.software.locks.locksStartAddr) }}; // non-cacheable
-uint8_t allocatedLocks[CORTOS_MAX_LOCKS];
-uint8_t allocatedLocksNc[CORTOS_MAX_LOCKS]; // non-cacheable
+volatile uint8_t allocatedLocks[CORTOS_MAX_LOCKS];
+volatile uint8_t allocatedLocksNc[CORTOS_MAX_LOCKS]; // non-cacheable
 uint8_t* cortos_reservedLockAddr;
 
 #define LOGGING_LOCK_INDEX 0

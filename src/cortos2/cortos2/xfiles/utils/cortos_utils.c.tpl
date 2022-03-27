@@ -44,6 +44,14 @@ char cortos_get_thread_id() {
   return (((asrValue & 0xFF00) >> 8) * 2) + (asrValue & 0xFF);
 }
 
+uint8_t cortos_IsNcRamAddr(void* addr) {
+% ncram = confObj.hardware.memory.ncram
+% if ncram.sizeInBytes:
+  return (addr >= {{ncram.virtualStartAddr}} && addr <= {{ncram.getLastByteAddr()}});
+% else:
+  return 0;
+% end
+}
 
 // defined in cortos_ee_printf.c
 int ee_vsprintf(char *buf, const char *fmt, va_list args);

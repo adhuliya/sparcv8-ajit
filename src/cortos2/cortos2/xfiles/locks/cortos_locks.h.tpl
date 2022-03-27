@@ -10,24 +10,24 @@
 
 #define CORTOS_MAX_LOCKS {{ confObj.software.locks.totalLocks }}
 
-extern uint8_t allocatedLocks[CORTOS_MAX_LOCKS];
-extern uint8_t allocatedLocksNc[CORTOS_MAX_LOCKS]; // non-cacheable
+extern volatile uint8_t allocatedLocks[CORTOS_MAX_LOCKS];
+extern volatile uint8_t allocatedLocksNc[CORTOS_MAX_LOCKS]; // non-cacheable
 
 ////////////////////////////////////////////////////////////////////////////////
 // Usage Note:
-// lock = cortos_reserveLockVar(1); // non-cacheable lock
+// lock = cortos_reserveLock(1); // non-cacheable lock
 // cortos_lock_acquire_buzy(lock);
 //   CRITICAL_SECTION_CODE...
 // cortos_lock_release(lock);
-// cortos_freeLockVar(lock);
+// cortos_freeLock(lock);
 // ----or-------or--------
-// lock = cortos_reserveLockVar(1); // non-cacheable lock
+// lock = cortos_reserveLock(1); // non-cacheable lock
 // status = cortos_lock_acquire(<lock pointer>);
 // if (status == 1) {
 //   CRITICAL_SECTION_CODE...
 //   cortos_lock_release(<lock pointer>);
 // }
-// cortos_freeLockVar(lock);
+// cortos_freeLock(lock);
 ////////////////////////////////////////////////////////////////////////////////
 
 #define CORTOS_MAX_LOCK_VARS {{ confObj.software.locks.totalLocks }}
@@ -38,11 +38,11 @@ extern uint8_t allocatedLocksNc[CORTOS_MAX_LOCKS]; // non-cacheable
 //   If no lock is available it returns -1.
 // Once a lock is reserved it is assumed to be held by the caller,
 // until it is freed.
-uint8_t* cortos_reserveLockVar(uint32_t nc);
+uint8_t* cortos_reserveLock(uint32_t nc);
 
 // For Cacheable/Non-Cacheable Locks
 // Free a lock variable for reuse by cortos.
-void cortos_freeLockVar(uint8_t* lock);
+void cortos_freeLock(uint8_t* lock);
 
 // For Cacheable or Non-Cacheable Locks
 int cortos_lock_acquire_buzy(uint8_t *lock);

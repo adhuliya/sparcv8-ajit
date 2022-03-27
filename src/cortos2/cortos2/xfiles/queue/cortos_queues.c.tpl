@@ -1,6 +1,7 @@
 
 #include <cortos_locks.h>
 #include <cortos_queues.h>
+#include <cortos_utils.h>
 % if confObj.software.bget.enable:
 #include <cortos_bget.h>
 % end
@@ -15,7 +16,7 @@ cortos_reserveQueue(uint32_t msgSizeInBytes, uint32_t length, uint8_t nc) {
   } else {
     queue = (uint8_t*)cortos_bget(size);
   }
-  if (queue == 0) return queue;
+  if (queue == 0) return 0;
 
   // initialize the queue header
   CortosQueueHeader *hdr;
@@ -32,7 +33,7 @@ cortos_reserveQueue(uint32_t msgSizeInBytes, uint32_t length, uint8_t nc) {
 
 void cortos_freeQueue(CortosQueueHeader *hdr) {
   cortos_freeLock(hdr->lock);
-  if (cortos_IsNcramAddr((void*)hdr)) {
+  if (cortos_IsNcRamAddr((void*)hdr)) {
     cortos_brel_ncram((void*)hdr);
   } else {
     cortos_brel((void*)hdr);

@@ -30,7 +30,6 @@ class MemoryLayout:
 
     # special regions created
     self.reserved: Opt[common.MemoryRegion] = None
-    self.scratchPad: Opt[common.MemoryRegion] = None
 
     # area to be initilized to zero
     self.initToZeroStartAddr = 0
@@ -39,7 +38,7 @@ class MemoryLayout:
     # memory layout is basically a sequence of regions
     self.regionSeq: List[common.MemoryRegion] = []
 
-    # memory regions that have to be zero initialized
+    # memory regions that have to be initialized to zero
     self.zeroRegionSeq: List[common.MemoryRegion] = []
 
 
@@ -94,7 +93,7 @@ class MemoryLayout:
     region = common.MemoryRegion(
       name="CacheableLocks",
       oneLineDescription="An exclusive area to store cacheable locks.",
-      sizeInBytes=consts.CACHED_LOCKS_REGION_SIZE_IN_BYTES,
+      sizeInBytes=locks.totalLocks,
       virtualStartAddr=region.getNextToLastByteAddr(virtualAddr=True),
       physicalStartAddr=region.getNextToLastByteAddr(virtualAddr=False),
       permissions=consts.MemoryPermissions.S_RWX_U_RWX,
@@ -108,7 +107,7 @@ class MemoryLayout:
     region = common.MemoryRegion(
       name="NonCacheableLocks",
       oneLineDescription="An exclusive area to store non-cacheable locks.",
-      sizeInBytes=consts.NON_CACHED_LOCKS_REGION_SIZE_IN_BYTES,
+      sizeInBytes=locks.totalLocks,
       virtualStartAddr=region.getNextToLastByteAddr(virtualAddr=True),
       physicalStartAddr=region.getNextToLastByteAddr(virtualAddr=False),
       cacheable=False,

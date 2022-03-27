@@ -1,7 +1,5 @@
 ! see the reference file `cortos/res/lock_unlock.s`
 
-% userLocksStartAddr = confObj.software.locks.userLocksStartAddr
-
 ! Usage Note:
 ! cortos_lock_acquire_buzy(<index: an-integer-index>);
 !   CRITICAL_SECTION_CODE...

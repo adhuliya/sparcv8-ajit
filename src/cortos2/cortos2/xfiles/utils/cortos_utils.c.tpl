@@ -6,6 +6,15 @@
 #include "ajit_access_routines.h"
 #include "core_portme.h"
 
+#define PRINTING_LOCK_INDEX 5
+uint8_t* printingLockAddr = 0;
+
+void cortos_init_printing() {
+  // allocate lock
+  uint8_t* lockStartAddrNc = (uint8_t*){{ confObj.software.locks.locksStartAddr }}; // non-cacheable
+  allocatedLocksNc[PRINTING_LOCK_INDEX] = 1;
+  printingLockAddr = lockStartAddrNc + PRINTING_LOCK_INDEX;
+}
 
 inline uint64_t cortos_get_clock_time() {
   return __ajit_get_clock_time();
@@ -47,7 +56,7 @@ int cortos_printf(const char *fmt, ...) {
   va_list args;
   int n=0;
 
-  __cortos_lock_acquire_buzy(__RES_LOCK_INDEX_PRINTF);
+  cortos_lock_acquire_buzy(printingLockAddr);
 
   va_start(args, fmt);
   ee_vsprintf(buf, fmt, args);
@@ -59,7 +68,7 @@ int cortos_printf(const char *fmt, ...) {
     p++;
   }
 
-  __cortos_lock_release(__RES_LOCK_INDEX_PRINTF);
+  cortos_lock_release(printingLockAddr);
 
   return n;
 }

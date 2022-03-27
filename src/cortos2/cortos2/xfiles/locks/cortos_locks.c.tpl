@@ -1,21 +1,26 @@
 
 #include <cortos_locks.h>
 
-uint8_t* lockStartAddr   = {{ confObj.software. }};
-uint8_t* lockStartAddrNc = {{ confObj.software. }}; // non-cacheable
-char allocatedLocks[CORTOS_MAX_LOCKS];
-char allocatedLocksNc[CORTOS_MAX_LOCKS]; // non-cacheable
+uint8_t* lockStartAddr   = {{ hex(confObj.software.locks.locksStartAddrCacheable) }};
+uint8_t* lockStartAddrNc = {{ hex(confObj.software.locks.locksStartAddr) }}; // non-cacheable
+uint8_t allocatedLocks[CORTOS_MAX_LOCKS];
+uint8_t allocatedLocksNc[CORTOS_MAX_LOCKS]; // non-cacheable
 uint8_t* cortos_reservedLockAddr;
 
-void cortos_initLocks() {
-  allocatedLocksNc[0] = 1;
-  cortos_reservedLockAddr = lockStartAddrNc;
+#define LOGGING_LOCK_INDEX 0
+
+void cortos_init_locks() {
+  // lock for reserving locks
+  uint8_t* lockStartAddr   = (uint8_t*){{ hex(confObj.software.locks.locksStartAddrCacheable) }};
+  uint8_t* lockStartAddrNc = (uint8_t*){{ hex(confObj.software.locks.locksStartAddr) }}; // non-cacheable
+  allocatedLocksNc[LOGGING_LOCK_INDEX] = 1;
+  cortos_reservedLockAddr = lockStartAddrNc + LOGGING_LOCK_INDEX;
 }
 
 uint8_t* cortos_reserveLock(uint32_t nc) {
   int i = 0;
   char* resArr = nc ? allocatedLocksNc : allocatedLocks;
-  unit8_t* lockAddr = nc ? lockStartAddrNc : lockStartAddr;
+  uint8_t* lockAddr = nc ? lockStartAddrNc : lockStartAddr;
 
   cortos_lock_acquire_buzy(cortos_reservedLockAddr);
 
@@ -27,7 +32,7 @@ uint8_t* cortos_reserveLock(uint32_t nc) {
   }
 
   cortos_lock_release(cortos_reservedLockAddr);
-  return lockAddr + i;
+  return (lockAddr + i);
 }
 
 void cortos_freeLock(uint8_t *lock) {

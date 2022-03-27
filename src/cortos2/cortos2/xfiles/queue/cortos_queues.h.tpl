@@ -7,9 +7,23 @@
 // BLOCK START: cortos_message_queues_declarations
 ////////////////////////////////////////////////////////////////////////////////
 
+// 24 byte queue header (for internal use)
+typedef struct _CortosQueueHeader {
+  uint32_t totalMsgs; // current total messages
+  uint32_t readIndex;
+  uint32_t writeIndex;
+  uint32_t length;
+  uint32_t msgSizeInBytes;
+  uint8_t *lock;
+} CortosQueueHeader;
+
 /* Reserve a cortos queue.
-  - returns the pointer to the header of the queue.
-  The queue starts just after the header.
+  msgSizeInBytes - size of each message in bytes
+  length - the number of messages the queue can hold
+  nc - if 1, allocates the queue in the non-cacheable memory region
+       else uses the cacheable region
+  It returns the pointer to the header of the queue.
+  The queue starts immediately after the header.
 */
 CortosQueueHeader*
 cortos_reserveQueue(uint32_t msgSizeInBytes, uint32_t length, uint8_t nc);
@@ -27,24 +41,6 @@ uint32_t cortos_writeMessages(CortosQueueHeader *hdr, uint8_t *msgs, uint32_t co
 */
 uint32_t cortos_readMessages(CortosQueueHeader *hdr, uint8_t *msgs, uint32_t count);
 
-
-////////////////////////////////////////////////////////////////////////////////
-// BLOCK END  : cortos_message_queues_declarations
-////////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////////////////////////
-// BLOCK START: cortos_message_queues_declarations_internal
-////////////////////////////////////////////////////////////////////////////////
-
-// 24 byte queue header (for internal use)
-typedef struct _CortosQueueHeader {
-  uint32_t totalMsgs; // current total messages
-  uint32_t readIndex;
-  uint32_t writeIndex;
-  uint32_t length;
-  uint32_t msgSizeInBytes;
-  uint8_t *lock;
-} CortosQueueHeader;
 
 ////////////////////////////////////////////////////////////////////////////////
 // BLOCK END  : cortos_message_queues_declarations

@@ -96,8 +96,6 @@ PAGE_TABLE_FILE_NAME: str = "setup_page_tables.s"
 VMAP_FILE_NAME: str = "vmap.txt"
 CORTOS_HEADER_FILE_NAME: str = "cortos.h"
 LOCK_FILE_NAME: str = "cortos_lock_unlock.s"
-CACHEABLE_LOCK_FILE_NAME: str = "cortos_lock_unlock_cacheable.s"
-RES_LOCK_FILE_NAME: str = "cortos_lock_unlock_res.s"
 LOCKS_HEADER_FILE: str = "cortos_locks.h"
 LOCKS_C_FILE: str = "cortos_locks.c"
 

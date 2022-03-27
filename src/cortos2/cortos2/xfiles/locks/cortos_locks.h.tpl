@@ -2,10 +2,18 @@
 #ifndef CORTOS_LOCKS_H
 #define CORTOS_LOCKS_H
 
+#include <stdint.h>
+
 ////////////////////////////////////////////////////////////////////////////////
 // BLOCK START: cortos_locking_declarations
 ////////////////////////////////////////////////////////////////////////////////
 
+#define CORTOS_MAX_LOCKS {{ confObj.software.locks.totalLocks }}
+
+extern uint8_t allocatedLocks[CORTOS_MAX_LOCKS];
+extern uint8_t allocatedLocksNc[CORTOS_MAX_LOCKS]; // non-cacheable
+
+////////////////////////////////////////////////////////////////////////////////
 // Usage Note:
 // lock = cortos_reserveLockVar(1); // non-cacheable lock
 // cortos_lock_acquire_buzy(lock);
@@ -19,10 +27,10 @@
 //   CRITICAL_SECTION_CODE...
 //   cortos_lock_release(<lock pointer>);
 // }
+// cortos_freeLockVar(lock);
+////////////////////////////////////////////////////////////////////////////////
 
-// NOTE: Use the same index to synchronize two or more threads.
-
-#define CORTOS_MAX_LOCK_VARS {{ confObj.software.locks.userLocks }}
+#define CORTOS_MAX_LOCK_VARS {{ confObj.software.locks.totalLocks }}
 
 // For Cacheable/Non-Cacheable Locks
 // Reserve an unused lock variable id from cortos.
@@ -45,4 +53,4 @@ void cortos_lock_release(uint8_t *lock);
 // BLOCK END  : cortos_locking_declarations
 ////////////////////////////////////////////////////////////////////////////////
 
-#endif CORTOS_LOCKS_H
+#endif // CORTOS_LOCKS_H

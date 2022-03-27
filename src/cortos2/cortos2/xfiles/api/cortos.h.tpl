@@ -18,7 +18,7 @@
 #define CORTOS_TOTAL_HW_THREADS {{confObj.hardware.cpu.totalThreads()}}
 #define CORTOS_TOTAL_SW_THREADS {{len(confObj.software.program.programThreads)}}
 
-// For more information on the APIs read the respective headers.
+// For more information on the APIs please read the respective headers.
 #include <cortos_locks.h>       // API for locks
 #include <cortos_logging.h>     // API for logging (CORTOS_DEBUG(),...)
 #include <cortos_bget.h>        // API for heap memory
@@ -31,24 +31,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 // Initial part is occupied by the program text.
-
-// Details of the cortos reserved lock vars (not available to the user)
-#define RES_LOCK_VARS_START_ADDR {{ confObj.software.locks.resLocksStartAddr }}
-#define RES_LOCK_VARS_END_ADDR {{ confObj.software.locks.resLocksStartAddr + confObj.software.locks.resLocks - 1 }}
-#define MAX_RES_LOCK_VARS {{ confObj.software.locks.resLocks }}
-
-// Details of the lock vars available to the user.
-#define LOCK_VARS_START_ADDR {{ confObj.software.locks.userLocksStartAddr }}
-#define LOCK_VARS_END_ADDR {{ confObj.software.locks.userLocksStartAddr + confObj.software.locks.userLocks - 1 }}
-#define MAX_LOCK_VARS {{ confObj.software.locks.userLocks }}
-
-// Details the lock vars for user queues
-#define Q_LOCK_VARS_START_ADDR {{ confObj.software.locks.queueLocksStartAddr }}
-#define Q_LOCK_VARS_END_ADDR {{ confObj.software.locks.queueLocksStartAddr + confObj.software.locks.queueLocks - 1 }}
-#define MAX_Q_LOCK_VARS {{ confObj.software.locks.queueLocks }}
-
-// Details CoRTOS Queues
-#define TOTAL_CORTOS_QUEUES {{ len(confObj.software.queueSeq) }}
 
 % if confObj.software.bget.enable:
 #define CORTOS_HEAP_START_ADDR {{ confObj.software.bget.getStartAddr() }}

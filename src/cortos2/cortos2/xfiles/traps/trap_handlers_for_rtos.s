@@ -136,39 +136,24 @@ HW_trap_0x0e: ta 0x0e; nop; nop; nop;
 HW_trap_0x0f: ta 0x0f; nop; nop; nop;
 HW_trap_0x10: ta 0x10; nop; nop; nop;
 # interrupt handlers start here.
-HW_trap_0x11: 
-	rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop; 
-HW_trap_0x12: 
-	rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop; 
-HW_trap_0x13: 
-	rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop; 
-HW_trap_0x14: 
-	rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop; 
-HW_trap_0x15: 
-	rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop; 
-HW_trap_0x16: 
-	rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop; 
-HW_trap_0x17: 
-	rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop; 
-HW_trap_0x18: 
-	rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop; 
-HW_trap_0x19: 
-	rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop; 
+HW_trap_0x11: rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop;
+HW_trap_0x12: rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop;
+HW_trap_0x13: rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop;
+HW_trap_0x14: rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop;
+HW_trap_0x15: rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop;
+HW_trap_0x16: rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop;
+HW_trap_0x17: rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop;
+HW_trap_0x18: rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop;
+HW_trap_0x19: rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop;
 # timer.
-HW_trap_0x1a: 
-	rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop; 
-HW_trap_0x1b: 
-	rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop; 
+HW_trap_0x1a: rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop;
+HW_trap_0x1b: rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop;
 # serial
-HW_trap_0x1c: 
-	rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop; 
+HW_trap_0x1c: rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop;
 # external
-HW_trap_0x1d: 
-	rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop; 
-HW_trap_0x1e: 
-	rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop; 
-HW_trap_0x1f: 
-	rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop; 
+HW_trap_0x1d: rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop;
+HW_trap_0x1e: rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop;
+HW_trap_0x1f: rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop;
 # unhandled traps..
 HW_trap_0x20: ta 0x20; nop; nop; nop;
 HW_trap_0x21: ta 0x21; nop; nop; nop;

@@ -7,16 +7,13 @@
 ! Symbol         N   T   W
 ! From Window W we wanted to move to window T.  T
 ! was invalid... Trap!  Trap-handler puts us in  window T.
-! 
+!
 ! We will save window N, N becomes the new trap window
 ! and T becomes available to reexecute the save.
-!  
+!
 .section .text.traphandlers
 window_overflow_trap_handler:
-
-
 	! when we enter the trap handler, we are in window T
-	! Note that T may not have a stack...
 
         /* rotate WIM one bit right, we have 8 windows */
         mov %wim,%l3
@@ -51,12 +48,12 @@ window_overflow_trap_handler:
         restore
 
         /* set new value of window invalid mask       */
-	/* new value of WIM.  N is marked invalid     */
+	/* new value of WIM.  (W+1) is marked invalid */
         mov %l3,%wim
         nop; nop; nop
 
         /* trap handler done, reexecute the save which trapped.  This time
-	/* window T is available.. no trap.   */
+	/* window W is available.. no trap.   */
         jmp %l1
 
 	/* Note rett does a restore, puts us back in W */
@@ -70,10 +67,7 @@ window_overflow_trap_handler:
 !
 window_underflow_trap_handler:
 
-	! current window = W-2
-
-        /* rotate WIM on bit LEFT, we have 8 windows */ 
-	/* This marks window W+1 as unavailable      */
+        /* rotate WIM on bit LEFT, we have 8 windows */
         mov %wim,%l3
         srl %l3,7,%l4
         sll %l3,1,%l3
@@ -85,8 +79,8 @@ window_underflow_trap_handler:
         nop; nop; nop
 
         /* get to correct window, ie window W */
-        restore 	! move to window W-1
-        restore		! move to window W
+        restore
+        restore
 
         /* recovers locals and ins of W   */
         ldd [%sp +  0], %l0
@@ -98,11 +92,11 @@ window_underflow_trap_handler:
         ldd [%sp + 48], %i4
         ldd [%sp + 56], %i6
 
-        /* go to window W-2 ...*/
-        save		! move to W-1
-        save		! move to W-2
+        /* go to window W-2 */
+        save
+        save
 
-        /* set new value of wim (W+1 is marked invalid) */
+        /* set new value of window */
         mov %l3,%wim
         nop; nop; nop
 
@@ -111,9 +105,11 @@ window_underflow_trap_handler:
 	/* back in W-1, retry with W valid.*/
         rett %l2
 
-.section .text.traptablebase
 	.align 4096
+
+.section .text.traptablebase
 .global trap_table_base;
+
 trap_table_base:
 hardware_trap_table_base:
 HW_trap_0x00: ta 0; nop; nop; nop;
@@ -135,41 +131,21 @@ HW_trap_0x0d: ta 0; nop; nop; nop;
 HW_trap_0x0e: ta 0; nop; nop; nop;
 HW_trap_0x0f: ta 0; nop; nop; nop;
 HW_trap_0x10: ta 0; nop; nop; nop;
-# interrupt handlers start here.
-HW_trap_0x11: 
-	rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop; 
-HW_trap_0x12: 
-	rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop; 
-HW_trap_0x13: 
-	rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop; 
-HW_trap_0x14: 
-	rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop; 
-HW_trap_0x15: 
-	rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop; 
-HW_trap_0x16: 
-	rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop; 
-HW_trap_0x17: 
-	rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop; 
-HW_trap_0x18: 
-	rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop; 
-HW_trap_0x19: 
-	rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop; 
-# timer.
-HW_trap_0x1a: 
-	rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop; 
-HW_trap_0x1b: 
-	rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop; 
-# serial
-HW_trap_0x1c: 
-	rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop; 
-# external
-HW_trap_0x1d: 
-	rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop; 
-HW_trap_0x1e: 
-	rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop; 
-HW_trap_0x1f: 
-	rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_isr; nop; 
-# unhandled traps..
+HW_trap_0x11: ta 0; nop; nop; nop;
+HW_trap_0x12: ta 0; nop; nop; nop;
+HW_trap_0x13: ta 0; nop; nop; nop;
+HW_trap_0x14: ta 0; nop; nop; nop;
+HW_trap_0x15: ta 0; nop; nop; nop;
+HW_trap_0x16: ta 0; nop; nop; nop;
+HW_trap_0x17: ta 0; nop; nop; nop;
+HW_trap_0x18: ta 0; nop; nop; nop;
+HW_trap_0x19: ta 0; nop; nop; nop;
+HW_trap_0x1a: ta 0; nop; nop; nop;
+HW_trap_0x1b: ta 0; nop; nop; nop;
+HW_trap_0x1c: ta 0; nop; nop; nop;
+HW_trap_0x1d: ta 0; nop; nop; nop;
+HW_trap_0x1e: ta 0; nop; nop; nop;
+HW_trap_0x1f: ta 0; nop; nop; nop;
 HW_trap_0x20: ta 0; nop; nop; nop;
 HW_trap_0x21: ta 0; nop; nop; nop;
 HW_trap_0x22: ta 0; nop; nop; nop;
@@ -268,27 +244,24 @@ HW_trap_0x7e: ta 0; nop; nop; nop;
 HW_trap_0x7f: ta 0; nop; nop; nop;
 
 software_trap_table_base:
-# ta 0 is reserved for halt.
+
 SW_trap_0x80: ta 0; nop; nop; nop;
-# ta 1 to 15 for user traps.
-# For the moment, we will allow users to use software traps 1-15. 
-SW_trap_0x81: rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_sw_trap; nop; 
-SW_trap_0x82: rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_sw_trap; nop; 
-SW_trap_0x83: rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_sw_trap; nop; 
-SW_trap_0x84: rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_sw_trap; nop; 
-SW_trap_0x85: rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_sw_trap; nop; 
-SW_trap_0x86: rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_sw_trap; nop; 
-SW_trap_0x87: rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_sw_trap; nop; 
-SW_trap_0x88: rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_sw_trap; nop; 
-SW_trap_0x89: rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_sw_trap; nop; 
-SW_trap_0x8a: rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_sw_trap; nop; 
-SW_trap_0x8b: rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_sw_trap; nop; 
-SW_trap_0x8c: rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_sw_trap; nop; 
-SW_trap_0x8d: rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_sw_trap; nop; 
-SW_trap_0x8e: rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_sw_trap; nop; 
-SW_trap_0x8f: rd %psr, %l0; rd %tbr, %l3; ba generic_vectored_sw_trap; nop; 
-# ta 16 for privilege iu register reads.
-SW_trap_0x90: rd %psr, %l0; rd %tbr, %l3; ba generic_read_asr; nop;
+SW_trap_0x81: ta 0; nop; nop; nop;
+SW_trap_0x82: ta 0; nop; nop; nop;
+SW_trap_0x83: ta 0; nop; nop; nop;
+SW_trap_0x84: ta 0; nop; nop; nop;
+SW_trap_0x85: ta 0; nop; nop; nop;
+SW_trap_0x86: ta 0; nop; nop; nop;
+SW_trap_0x87: ta 0; nop; nop; nop;
+SW_trap_0x88: ta 0; nop; nop; nop;
+SW_trap_0x89: ta 0; nop; nop; nop;
+SW_trap_0x8a: ta 0; nop; nop; nop;
+SW_trap_0x8b: ta 0; nop; nop; nop;
+SW_trap_0x8c: ta 0; nop; nop; nop;
+SW_trap_0x8d: ta 0; nop; nop; nop;
+SW_trap_0x8e: ta 0; nop; nop; nop;
+SW_trap_0x8f: ta 0; nop; nop; nop;
+SW_trap_0x90: ta 0; nop; nop; nop;
 SW_trap_0x91: ta 0; nop; nop; nop;
 SW_trap_0x92: ta 0; nop; nop; nop;
 SW_trap_0x93: ta 0; nop; nop; nop;
@@ -402,4 +375,3 @@ SW_trap_0xfe: ta 0; nop; nop; nop;
 
 nop
 nop
-

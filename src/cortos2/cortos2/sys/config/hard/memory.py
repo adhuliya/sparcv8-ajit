@@ -1,5 +1,6 @@
 """The configuration and layout of the system memory."""
 from typing import List, Optional as Opt, Dict
+import os
 
 from cortos2.common import util, consts
 from cortos2.sys.config import common
@@ -12,8 +13,8 @@ class Memory:
   def __init__(self,
       flash: MemoryRegion,
       ram: MemoryRegion,
-      ncram: MemoryRegion,
-      mmio: MemoryRegion, # memory mapped io
+      ncram: List[MemoryRegion],
+      mmio: List[MemoryRegion], # memory mapped io
       maxPhysicalAddrBitWidth: int = 36,
    ) -> None:
     self.flash = flash
@@ -46,12 +47,43 @@ class Memory:
 
     flash = Memory.generateFlashRegion(config, prevKeySeq)
     ram = Memory.generateRamRegion(config, prevKeySeq)
-    ncram = Memory.generateNcRamRegion(config, prevKeySeq)
-    mmio = Memory.generateMmioRegion(config, prevKeySeq)
+    ncram = Memory.generateNcRamRegions(config, prevKeySeq)
+    mmio = Memory.generateMmioRegions(config, prevKeySeq)
+
+    regionSeq: List[MemoryRegion] = []
+    regionSeq.append(flash)
+    regionSeq.append(ram)
+    regionSeq.extend(ncram)
+    regionSeq.extend(mmio)
+    Memory.checkMemoryLayout(regionSeq)
 
     prevKeySeq.pop()
     memory = Memory(flash, ram, ncram, mmio, physicalAddrWidth)
     return memory
+
+
+  @staticmethod
+  def checkMemoryLayout(regionSeq: List[MemoryRegion]):
+    regionSeq.sort(key=lambda x: x.physicalStartAddr)
+
+    overlap = False
+    prev = None
+    for region in regionSeq:
+      if prev is None:
+        prev = region
+        continue
+      if prev.sizeInBytes == 0 or region.sizeInBytes == 0:
+        continue
+      if prev.getLastByteAddr(False) >= region.getFirstByteAddr(False):
+        util.printError(
+        f"Region '{prev.name}' overlaps region '{region.name}'{os.linesep}"
+        f"        {prev.name}: address range {prev.getRangeStr(False)}{os.linesep}"
+        f"        {region.name}: address range {region.getRangeStr(False)}")
+        overlap = True
+      prev = region
+
+    if overlap:
+      util.exitWithError(f"Overlaps in hardware memory regions. See the prints above.")
 
 
   @staticmethod
@@ -82,10 +114,10 @@ class Memory:
 
 
   @staticmethod
-  def generateNcRamRegion(
+  def generateNcRamRegions(
       userProvidedConfig: Dict,
       prevKeySeq: Opt[List] = None,
-  ) -> MemoryRegion:
+  ) -> List[MemoryRegion]:
     keyName = "NCRAM"
     prevKeySeq.append(keyName)
 
@@ -96,20 +128,49 @@ class Memory:
       fail=False,
     )
 
-    if ncramConfig:
-      ncram = MemoryRegion.generateObject(ncramConfig, prevKeySeq)
+    regions = Memory.readMemRegionSequence(ncramConfig, prevKeySeq,
+      name="NCRAM",
+      oneLineDescription = "Non-Cacheable Random Access Memory",
+    )
+    return regions
+
+
+  @staticmethod
+  def readMemRegionSequence(
+      userProvidedConfig,  # a list or dict input
+      prevKeySeq: Opt[List] = None,
+      name : str = "",
+      oneLineDescription : str = "",
+  ) -> List[MemoryRegion]:
+    regions : List[MemoryRegion] = []
+    if userProvidedConfig:
+      if isinstance(userProvidedConfig, List):
+        total = len(userProvidedConfig)
+        for i, ncr in enumerate(userProvidedConfig):
+          prevKeySeq.append(i)
+          reg = MemoryRegion.generateObject(ncr, prevKeySeq)
+          reg.name = f"{name} ({i+1}/{total})"
+          reg.oneLineDescription = oneLineDescription
+          regions.append(reg)
+          prevKeySeq.pop()
+      else:
+        assert isinstance(userProvidedConfig, Dict)
+        reg = MemoryRegion.generateObject(userProvidedConfig, prevKeySeq)
+        reg.name = name
+        reg.oneLineDescription = oneLineDescription
+        regions.append(reg)
     else:
-      ncram = MemoryRegion(
+      regions = [MemoryRegion(
+        name=name,
+        oneLineDescription=oneLineDescription,
         virtualStartAddr=0x0,
         physicalStartAddr=0x0,
         sizeInBytes=0,
         cacheable=False,
-      )
-    ncram.name = "NCRAM"
-    ncram.oneLineDescription = "Non-Cacheable Random Access Memory"
+      )]
 
     prevKeySeq.pop()
-    return ncram
+    return regions
 
 
   @staticmethod
@@ -143,10 +204,10 @@ class Memory:
 
 
   @staticmethod
-  def generateMmioRegion(
+  def generateMmioRegions(
       userProvidedConfig: Dict,
       prevKeySeq: Opt[List] = None,
-  ) -> MemoryRegion:
+  ) -> List[MemoryRegion]:
     keyName = "MMIO"
     prevKeySeq.append(keyName)
 
@@ -155,18 +216,29 @@ class Memory:
       keySeq=[keyName],
     )
 
-    if mmioConfig:
-      io = MemoryRegion.generateObject(mmioConfig, prevKeySeq)
-    else:
-      io = MemoryRegion(
+    regions = Memory.readMemRegionSequence(mmioConfig, prevKeySeq,
+      name = "MMIO",
+      oneLineDescription = "Memory Mapped IO",
+    )
+
+    if len(regions) == 1 and regions[0].sizeInBytes == 0:
+      regions[0] = MemoryRegion(
         name="MMIO",
         oneLineDescription="Memory Mapped IO.",
-        virtualStartAddr=0xFFFF0000,
-        physicalStartAddr=0xFFFF0000,
-        sizeInBytes=2**16,
+        virtualStartAddr=0,
+        physicalStartAddr=0,
+        sizeInBytes=0,
       )
 
-    prevKeySeq.pop()
-    return io
+    # if len(regions) == 1 and regions[0].sizeInBytes == 0:
+    #   regions[0] = MemoryRegion(
+    #     name="MMIO",
+    #     oneLineDescription="Memory Mapped IO.",
+    #     virtualStartAddr=0xFFFF0000,
+    #     physicalStartAddr=0xFFFF0000,
+    #     sizeInBytes=2 ** 16,
+    #   )
 
+    prevKeySeq.pop()
+    return regions
 
